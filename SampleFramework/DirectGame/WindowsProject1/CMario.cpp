@@ -38,6 +38,7 @@ void CMario::Start()
 
 	canHighJump = false;
 	pMeter = 0.0f;
+	runningRestriction = false;
 }
 
 void CMario::Update()
@@ -53,7 +54,7 @@ void CMario::Update()
 	if (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))
 	{
 		// Accelerate velocity based on moving states
-		if (input->GetKeyDown(marioKeySet.Attack))
+		if (input->GetKeyDown(marioKeySet.Attack) && runningRestriction == false)
 		{
 			physicState.movement = MovingStates::Run;
 
@@ -251,7 +252,7 @@ void CMario::OnKeyUp(int keyCode)
 	if (keyCode == marioKeySet.Jump)
 	{
 		canHighJump = false;
-		DebugOut(L"Can high jump: %d\n", canHighJump ? 1 : 0);
+		// DebugOut(L"Can high jump: %d\n", canHighJump ? 1 : 0);
 	}
 }
 

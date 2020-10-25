@@ -6,14 +6,14 @@
 #include "IState.h"
 
 const float MARIO_GRAVITY				= 0.00093f;
-const float MARIO_WALK_SPEED			= 0.12f;
+const float MARIO_WALK_SPEED			= 0.15f;
 const float MARIO_RUN_SPEED				= 0.40f;
 const float MARIO_JUMP_FORCE			= 0.25f;
 const float MARIO_HIGH_JUMP_FORCE		= 0.53f;
 const float MARIO_SUPER_JUMP_FORCE		= 0.63f;
 const float MARIO_PUSH_FORCE			= 0.00093f;
 const int	PMETER_MAX					= 7;
-const float PMETER_STEP					= 0.1f;
+const float PMETER_STEP					= 0.001f;
 // const float MARIO_ACCELERATION = 0.0276;
 const float MARIO_WALK_ACCELERATION		= 0.000376f;
 const float MARIO_RUN_ACCELERATION		= 0.000288f;
@@ -92,6 +92,7 @@ protected:
 	bool onGround;
 	float pMeter;
 	bool maxRun;
+	bool runningRestriction; // If this flag is turned on, run state will be restricted
 
 private:
 	void SkidDetection(Vector2 velocity);
