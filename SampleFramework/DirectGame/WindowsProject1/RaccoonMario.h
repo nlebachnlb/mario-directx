@@ -3,6 +3,7 @@
 
 const int RACCOON_FLOAT_TIME = 400; // miliseconds
 const int RACCOON_FLY_TIME = 4000; // miliseconds = 4 seconds
+const float RACCOON_FLY_VELOCITY = -0.1f;
 
 class RaccoonMario : public CMario
 {
@@ -18,7 +19,8 @@ protected:
 	void LateUpdate() override;
 private:
 	bool attacking;
-	bool floating, flying;
-	int lastFloatingTime;
+	bool floating, pushing;
+	int flying;
+	int lastFloatingTime, lastFlyingTime, lastPushingTime;
 };
 

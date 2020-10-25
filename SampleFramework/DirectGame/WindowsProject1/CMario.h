@@ -90,6 +90,8 @@ protected:
 	MarioKeySet marioKeySet;
 	MarioStateSet prevPhysicState, physicState;
 	bool onGround;
+	float pMeter;
+	bool maxRun;
 
 private:
 	void SkidDetection(Vector2 velocity);
@@ -97,10 +99,9 @@ private:
 	bool IsStateTransition(MovingStates srcState, MovingStates dstState);
 
 	bool skid, canSkid;
-	bool run, maxRun;
+	bool run;
 	bool highJump, canHighJump;
 	float prevTargetVelocityX, targetVelocityX;
 	int facing;
 	Vector2 previousVelocity;
-	float pMeter;
 };

@@ -13,6 +13,8 @@ void RaccoonMario::Start()
 
 	attacking = false;
 	floating = false;
+	flying = 0;
+	pushing = false;
 }
 
 void RaccoonMario::OnAnimationEnd()
@@ -37,13 +39,37 @@ void RaccoonMario::OnKeyDown(int keyCode)
 		attacking = true;
 	}
 
+	if (keyCode == marioKeySet.Jump)
+	{
+		if (pMeter >= PMETER_MAX && flying == 0)
+		{
+			DebugOut(L"[fly] start\n");
+			flying = 1;
+			lastFlyingTime = GetTickCount();
+		}
+	}
+
 	// Mario uses his tail to keep him floating on the air
 	if (keyCode == marioKeySet.Jump && onGround == false)
 	{
+		if (flying == 1 && (physicState.jump == JumpingStates::High))
+		{
+			pushing = true;
+			lastPushingTime = GetTickCount();
+		}
+
 		if (physicState.jump == JumpingStates::Fall)
 		{
-			floating = true;
-			lastFloatingTime = GetTickCount();
+			if (flying == 1)
+			{
+				pushing = true;
+				lastPushingTime = GetTickCount();
+			}
+			else
+			{
+				floating = true;
+				lastFloatingTime = GetTickCount();
+			}
 		}
 	}
 }
@@ -81,14 +107,18 @@ void RaccoonMario::MovementAnimation()
 
 void RaccoonMario::JumpingAnimation()
 {
-	if (floating)
+	if (flying == 1)
 	{
-		if (currentState.compare("Float") != 0) SetState("Float");
-		// DebugOut(L"[FLOAT] floating\n");
+		if (currentState.compare("FullFly") != 0) SetState("FullFly");
 		return;
 	}
 
-	DebugOut(L"[JUMP] jump\n");
+	if (floating)
+	{
+		if (currentState.compare("Float") != 0) SetState("Float");
+		return;
+	}
+
 	CMario::JumpingAnimation();
 }
 
@@ -106,5 +136,38 @@ void RaccoonMario::LateUpdate()
 		{
 			this->rigidbody->SetGravity(MARIO_GRAVITY * 0.01f);
 		}
+	}
+
+
+	if (flying == 1 && GetTickCount() - lastFlyingTime > RACCOON_FLY_TIME)
+	{
+		flying = 2;
+		pMeter = 0;
+		rigidbody->SetGravity(MARIO_GRAVITY);
+		DebugOut(L"[fly] done\n");
+	}
+
+	if (flying == 1)
+	{
+		pMeter = PMETER_MAX;
+
+		if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
+		{
+			if (pushing && !(GetTickCount() - lastPushingTime > RACCOON_FLOAT_TIME))
+			{
+				rigidbody->SetGravity(0.0f);
+				rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x * 0.95f, RACCOON_FLY_VELOCITY));
+			}
+			else
+			{
+				this->rigidbody->SetGravity(MARIO_GRAVITY);
+				pushing = false;
+			}
+		}
+	}
+	else if (flying == 2)
+	{
+		if (onGround) flying = 0;
+		else pMeter = 0;
 	}
 }
