@@ -121,7 +121,7 @@ void CMario::Update()
 	rigidbody->SetVelocity(&velocity);
 
 	// If Mario runs at max speed, the P Meter starts increasing
-	if (maxRun && pMeter < PMETER_MAX + 1)
+	if (maxRun && pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand)
 		pMeter = Mathf::Clamp(pMeter + PMETER_STEP * Game::DeltaTime(), 0.0f, PMETER_MAX + 1);
 	else if (pMeter > 0)
 		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * Game::DeltaTime(), 0.0, PMETER_MAX);
