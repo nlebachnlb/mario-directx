@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{e9cdadd4-d659-433c-9c99-d532f1c2364c}</ProjectGuid>
+    <RootNamespace>WindowsProject1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SampleFramework</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <CallingConvention>StdCall</CallingConvention>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d9.lib;d3dx9.lib;zlib.lib;dxguid.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d9.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationDatabase.h" />
+    <ClInclude Include="AnimationFrame.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CMario.h" />
+    <ClInclude Include="Collider2D.h" />
+    <ClInclude Include="Effector2D.h" />
+    <ClInclude Include="FireMario.h" />
+    <ClInclude Include="GhostPlatform.h" />
+    <ClInclude Include="IState.h" />
+    <ClInclude Include="Layer.h" />
+    <ClInclude Include="MapData.h" />
+    <ClInclude Include="Mathf.h" />
+    <ClInclude Include="ObjectGroup.h" />
+    <ClInclude Include="ObjectTags.h" />
+    <ClInclude Include="PhysicMaterial.h" />
+    <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="RaccoonMario.h" />
+    <ClInclude Include="Rigidbody2D.h" />
+    <ClInclude Include="SmallMario.h" />
+    <ClInclude Include="SolidBox.h" />
+    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="ExampleScene.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameMap.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="TilesetInfo.h" />
+    <ClInclude Include="tinystr.h" />
+    <ClInclude Include="tinyxml.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Service.h" />
+    <ClInclude Include="ServiceLocator.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Consts.h" />
+    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationDatabase.cpp" />
+    <ClCompile Include="AnimationFrame.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CMario.cpp" />
+    <ClCompile Include="Collider2D.cpp" />
+    <ClCompile Include="FireMario.cpp" />
+    <ClCompile Include="GhostPlatform.cpp" />
+    <ClCompile Include="IState.cpp" />
+    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="MapData.cpp" />
+    <ClCompile Include="Mathf.cpp" />
+    <ClCompile Include="ObjectGroup.cpp" />
+    <ClCompile Include="ObjectTags.cpp" />
+    <ClCompile Include="PhysicMaterial.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="RaccoonMario.cpp" />
+    <ClCompile Include="Rigidbody2D.cpp" />
+    <ClCompile Include="SmallMario.cpp" />
+    <ClCompile Include="SolidBox.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="ExampleScene.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="KeyEventHandler.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Service.cpp" />
+    <ClCompile Include="ServiceLocator.cpp" />
+    <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TilesetInfo.cpp" />
+    <ClCompile Include="tinystr.cpp" />
+    <ClCompile Include="tinyxml.cpp" />
+    <ClCompile Include="tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxmlparser.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WindowsProject1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Maps\world-1-1.png" />
+    <Image Include="Assets\Sprites\enemy.png" />
+    <Image Include="Assets\Sprites\intro.png" />
+    <Image Include="Assets\Sprites\items.png" />
+    <Image Include="Assets\Sprites\mario.png" />
+    <Image Include="Assets\Sprites\ui.png" />
+    <Image Include="small.ico" />
+    <Image Include="WindowsProject1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Maps\world-1-1-map.tmx" />
+    <None Include="Assets\root.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Animations\EnemyAnim.xml" />
+    <Xml Include="Assets\Animations\IntroAnim.xml" />
+    <Xml Include="Assets\Animations\MarioAnim.xml" />
+    <Xml Include="Assets\Animations\MiscAnim.xml" />
+    <Xml Include="Assets\Animations\UiAnim.xml" />
+    <Xml Include="Assets\config.xml" />
+    <Xml Include="Assets\Scenes\World1-1.xml" />
+    <Xml Include="Assets\Sprites\SpriteDatabases\EnemyDB.xml" />
+    <Xml Include="Assets\Sprites\SpriteDatabases\IntroDB.xml" />
+    <Xml Include="Assets\Sprites\SpriteDatabases\MarioDB.xml" />
+    <Xml Include="Assets\Sprites\SpriteDatabases\MiscDB.xml" />
+    <Xml Include="Assets\Sprites\SpriteDatabases\UiDB.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

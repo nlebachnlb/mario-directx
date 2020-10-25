@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Textures>
+	<!--	Texture Misc  	-->
+	<Textures gameObjectId=0 textureId=0>
+
+		<!-- COIN -->
+		<Animation aniId="ani-coin" frameTime="100">
+			<Sprite id="spr-coin-0" left="294" top="101"  width="8" height="14"/>
+			<Sprite id="spr-coin-1" left="311" top="101"  width="1" height="14"/>
+			<Sprite id="spr-coin-2" left="321" top="101"  width="4" height="14"/>
+			<Sprite id="spr-coin-3" left="334" top="100"  width="14" height="16"/>
+			<Sprite id="spr-coin-4" left="357" top="100"  width="6" height="16"/>
+			<Sprite id="spr-coin-5" left="372" top="100"  width="10" height="16"/>
+		</Animation>
+
+		<!-- SUPER MUSHROOM -->
+		<Animation aniId="ani-super-mushroom" frameTime="100">
+			<Sprite id="spr-super-mushroom-0" left="156" top="121"  width="16" height="16"/>
+		</Animation>
+		<Animation aniId="ani-1-up-mushroom" frameTime="100">
+			<Sprite id="spr-1-up-mushroom-0" left="286" top="121"  width="16" height="16"/>
+		</Animation>
+
+		<!-- SUPER LEAF -->
+		<Animation aniId="ani-super-leaf-red" frameTime="100">
+			<Sprite id="spr-super-leaf-red-0" left="180" top="123"  width="16" height="14"/>
+		</Animation>
+		<Animation aniId="ani-super-leaf-green" frameTime="100">
+			<Sprite id="spr-super-leaf-green-0" left="266" top="121"  width="15" height="16"/>
+		</Animation>
+		
+		<!-- STARMAN -->
+		<Animation aniId="ani-star-man" frameTime="100">
+			<Sprite id="spr-star-man-0" left="201" top="121"  width="16" height="16"/>
+			<Sprite id="spr-star-man-1" left="222" top="121"  width="16" height="16"/>
+			<Sprite id="spr-star-man-2" left="245" top="121"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- FIRE FLOWER -->
+		<Animation aniId="ani-fire-flower" frameTime="100">
+			<Sprite id="spr-fire-flower-0" left="286" top="121"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- MAGIC WING -->
+		<Animation aniId="ani-magic-wing" frameTime="100">
+			<Sprite id="spr-magic-wing-0" left="330" top="121"  width="14" height="16"/>
+		</Animation>
+		
+		<!-- HAMMER -->
+		<Animation aniId="ani-hammer" frameTime="100">
+			<Sprite id="spr-hammer-0" left="350" top="121"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- SWITCH BLOCK -->
+		<!-- Switch block blue -->
+		<Animation aniId="ani-switch-block-blue" frameTime="100">
+			<Sprite id="spr-switch-block-blue-0" left="156" top="144"  width="16" height="16"/>
+			<Sprite id="spr-switch-block-blue-1" left="200" top="153"  width="16" height="7"/>
+		</Animation>
+		
+		<!-- Switch block green -->
+		<Animation aniId="ani-switch-block-green" frameTime="100">
+			<Sprite id="spr-switch-block-green-0" left="178" top="144"  width="16" height="16"/>
+			<Sprite id="spr-switch-block-green-1" left="200" top="153"  width="16" height="7"/>
+		</Animation>
+		
+		<!-- MAGIC BALL -->
+		<Animation aniId="ani-magic-ball" frameTime="100">
+			<Sprite id="spr-magic-ball-0" left="223" top="144"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- TREASURE CHEST -->
+		<Animation aniId="ani-treasure-chest" frameTime="100">
+			<Sprite id="spr-treasure-chest-0" left="247" top="144"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- FROG SUIT -->
+		<Animation aniId="ani-frog-suit" frameTime="100">
+			<Sprite id="spr-frog-suit-0" left="268" top="144"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- TANOOKI SUIT -->
+		<Animation aniId="ani-tanooki-suit" frameTime="100">
+			<Sprite id="spr-tanooki-suit-0" left="288" top="144"  width="16" height="16"/>
+		</Animation>
+
+		<!-- JUGEM CLOUD -->
+		<Animation aniId="ani-jugem-cloud" frameTime="100">
+			<Sprite id="spr-jugem-cloud-0" left="309" top="144"  width="16" height="16"/>
+		</Animation>
+
+		<!-- MAGIC WHISTLE -->
+		<Animation aniId="ani-magic-whistle" frameTime="100">
+			<Sprite id="spr-magic-whistle-0" left="336" top="144"  width="6" height="16"/>
+		</Animation>
+		
+		<!-- MUSIC BOX -->
+		<Animation aniId="ani-music-box" frameTime="100">
+			<Sprite id="spr-music-box-0" left="349" top="144"  width="16" height="16"/>
+		</Animation>
+
+
+		<!-- BLOCK -->
+		<!-- Question Block -->
+		<Animation aniId="ani-question-block" frameTime="100">
+			<Sprite id="spr-question-block-0" left="157" top="188"  width="16" height="16"/>
+			<Sprite id="spr-question-block-1" left="176" top="188"  width="16" height="16"/>
+			<Sprite id="spr-question-block-2" left="196" top="188"  width="16" height="16"/>
+			<Sprite id="spr-question-block-3" left="215" top="188"  width="16" height="16"/>
+		</Animation>
+
+		<!-- Empty Block -->
+		<Animation aniId="ani-empty-block" frameTime="100">
+			<Sprite id="spr-empty-block-0" left="235" top="188"  width="16" height="16"/>
+		</Animation>
+
+		<!-- WOOD BLOCK -->
+		<Animation aniId="ani-wood-block" frameTime="100">
+			<Sprite id="spr-wood-block-0" left="254" top="188"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- BRICK -->
+		<Animation aniId="ani-brick" frameTime="100">
+			<Sprite id="spr-brick-0" left="274" top="188"  width="16" height="16"/>
+			<Sprite id="spr-brick-1" left="293" top="188"  width="16" height="16"/>
+			<Sprite id="spr-brick-2" left="312" top="188"  width="16" height="16"/>
+			<Sprite id="spr-brick-3" left="331" top="188"  width="16" height="16"/>
+		</Animation>
+
+		<!-- PLATFORM -->
+		<Animation aniId="ani-platform" frameTime="100">
+			<Sprite id="spr-platform-0" left="352" top="167"  width="48" height="16"/>
+		</Animation>
+
+		<!-- MUSIC NOTE BLOCK -->
+		<!-- White -->
+		<Animation aniId="ani-music-note-block" frameTime="100">
+			<Sprite id="spr-music-note-block-0" left="352" top="188"  width="16" height="16"/>
+			<Sprite id="spr-music-note-block-1" left="371" top="188"  width="16" height="16"/>
+			<Sprite id="spr-music-note-block-2" left="390" top="188"  width="16" height="16"/>
+		</Animation>
+		
+		<!-- Red -->
+		<Animation aniId="ani-red-music-note-block" frameTime="100">
+			<Sprite id="spr-red-music-note-block-0" left="409" top="188"  width="16" height="16"/>
+		</Animation>
+	</Textures>
+</Textures>

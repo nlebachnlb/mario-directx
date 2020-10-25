@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config>
+    <Config name="frame-rate" value="120"/>
+    <Config name="resolution" width="640" height="640"/>
+    <Config name="default-scene" value="world-1-1"/>
+</Config>

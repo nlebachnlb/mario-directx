@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <Root name="Textures">
+    <Texture id="tex-mario" source="Assets/Sprites/mario.png"/>
+    <Texture id="tex-enemy" source="Assets/Sprites/enemy.png"/>
+  </Root>
+  <Root name="Sprites">
+    <Sprite id="spr-mario" source="Assets/Sprites/SpriteDatabases/MarioDB.xml"/>
+    <Sprite id="spr-enemy" source="Assets/Sprites/SpriteDatabases/EnemyDB.xml"/>
+  </Root>
+  <Root name="Animations">
+    <Animation id="ani-mario" source="Assets/Animations/MarioAnim.xml"/>
+    <Animation id="ani-enemy" source="Assets/Animations/EnemyAnim.xml"/>
+  </Root>
+  <Root name="Scenes">
+    <Scene id="world-1-1" source="Assets/Scenes/World1-1.xml"/> 
+  </Root>
+  <Root name="Config">
+    <Config id="global-config" source="Assets/config.xml"/> 
+  </Root>
+</Root>
