@@ -134,7 +134,7 @@ void RaccoonMario::LateUpdate()
 		}
 		else
 		{
-			this->rigidbody->SetGravity(MARIO_GRAVITY * 0.01f);
+			this->rigidbody->SetGravity(MARIO_GRAVITY * 0.0f);
 		}
 	}
 
@@ -167,7 +167,14 @@ void RaccoonMario::LateUpdate()
 	}
 	else if (flying == 2)
 	{
-		if (onGround) flying = 0;
-		else pMeter = 0;
+		if (onGround)
+		{
+			flying = 0;
+			pMeter = 0;
+		}
+		else 
+			pMeter = 0;
 	}
+
+	runningRestriction = flying != 0;
 }
