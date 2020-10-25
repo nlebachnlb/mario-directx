@@ -3,7 +3,7 @@
 #include "tinyxml.h"
 #include "Consts.h"
 
-CSprite::CSprite(string id, int left, int top, int width, int height, Texture2D texture)
+CSprite::CSprite(string id, int left, int top, int width, int height, Texture2D texture, int xPivot, int yPivot)
 {
 	this->id = id;
 	this->left = left;
@@ -11,14 +11,19 @@ CSprite::CSprite(string id, int left, int top, int width, int height, Texture2D 
 	this->width = width;
 	this->height = height;
 	this->texture = texture;
+	this->xPivot = xPivot;
+	this->yPivot = yPivot;
 }
 
 void CSprite::Draw(float x, float y, Vector2 scale, float rotation)
 {
 	int right = left + width;
 	int bottom = top + height;
+	
+	int px = xPivot < 0 ? width / 2 : xPivot;
+	int py = yPivot < 0 ? height / 2 : yPivot;
 
-	Game::GetInstance().DrawTexture(x, y, width / 2, height / 2, texture, left, top, right, bottom, scale, rotation);
+	Game::GetInstance().DrawTexture(x, y, px, py, texture, left, top, right, bottom, scale, rotation);
 }
 
 void CSprite::SetSourceRect(int left, int top, int width, int height)
@@ -67,14 +72,25 @@ bool SpriteManager::LoadSpriteFile(std::string path)
 		node->QueryIntAttribute("top", &top);
 		node->QueryIntAttribute("width", &width);
 		node->QueryIntAttribute("height", &height);
+
+		int px, py;
+		if (node->QueryIntAttribute("xPivot", &px) != TIXML_SUCCESS)
+			px = -1;
+		else
+			px *= 3;
+		if (node->QueryIntAttribute("yPivot", &py) != TIXML_SUCCESS)
+			py = -1;
+		else
+			py *= 3;
+
 		// OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
-		Add(spriteID, 3 * left, 3 * top, 3 * width, 3 * height, tex);
+		Add(spriteID, 3 * left, 3 * top, 3 * width, 3 * height, tex, px, py);
 	}
 }
 
-Sprite SpriteManager::Add(string id, int left, int top, int width, int height, Texture2D texture)
+Sprite SpriteManager::Add(string id, int left, int top, int width, int height, Texture2D texture, int xPivot, int yPivot)
 {
-	Sprite spr = new CSprite(id, left, top, width, height, texture);
+	Sprite spr = new CSprite(id, left, top, width, height, texture, xPivot, yPivot);
 	sprites.insert(make_pair(id, spr));
 	return spr;
 }
