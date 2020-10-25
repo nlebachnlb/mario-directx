@@ -45,9 +45,9 @@ bool AnimationDatabase::LoadAnimationFile(string path)
 			Sprite sprite = Game::GetInstance().GetService<SpriteManager>()->Get(id);
 			float detailFrameTime;
 			sprNode->QueryFloatAttribute("frameTime", &detailFrameTime);
-			animation->AddFrame(sprite, VectorZero(), detailFrameTime * 0.75f);
+			animation->AddFrame(sprite, VectorZero(), detailFrameTime * 0.5f);
 
-			OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime * 0.75f) + '\n'));
+			OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime * 0.5f) + '\n'));
 		}
 
 		Add(aniId, animation);
