@@ -5,7 +5,7 @@
 
 		<!--Small Mario-->
 	 	<!-- Animation IDLE FRONT-->
-		 <Animation aniId="ani-small-mario-idle-front" frameTime="100" name="IDLE-FRONT">
+		 <Animation aniId="ani-small-mario-idle-front" frameTime="50" name="IDLE-FRONT">
 			<Sprite id="spr-small-mario-idle-front-0" left="397" top="8"  width="16" height="16" frameTime="100"/>
 		</Animation>
 		<!-- Animation IDLE-->
