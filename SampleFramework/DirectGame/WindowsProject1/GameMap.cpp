@@ -25,15 +25,15 @@ void GameMap::Load(std::string filePath, bool manual)
         {
             auto tileset = x.second;
             auto texManager = Game::GetInstance().GetService<TextureManager>();
-            auto tilesetTexture = texManager->LoadTexture(ToLPCWSTR(tileset.GetSource()));
+            auto tilesetTexture = texManager->LoadTexture(ToLPCWSTR(tileset->GetSource()));
 
             Tile tile = new CTile(
                 "map-tileset",
                 0, 0,
-                tileset.GetImageWidth(), tileset.GetImageHeight(),
+                tileset->GetImageWidth(), tileset->GetImageHeight(),
                 tilesetTexture);
 
-            this->tilesets.insert(make_pair(tileset.GetID(), tile));
+            this->tilesets.insert(make_pair(tileset->GetID(), tile));
         }
 
         auto objectGroups = mapData->GetObjectGroups();

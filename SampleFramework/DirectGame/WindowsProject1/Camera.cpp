@@ -63,8 +63,8 @@ void Camera::Render()
             int tileWidth = mapData->GetTileWidth();
             int tileHeight = mapData->GetTileHeight();
 
-            int tilesetWidth = tileset.GetImageWidth() / tileWidth;
-            int tilesetHeight = tileset.GetImageHeight() / tileHeight;
+            int tilesetWidth = tileset->GetImageWidth() / tileWidth;
+            int tilesetHeight = tileset->GetImageHeight() / tileHeight;
 
             int width = (int)(viewportSize.x / tileWidth);
             int height = (int)(viewportSize.y / tileHeight);

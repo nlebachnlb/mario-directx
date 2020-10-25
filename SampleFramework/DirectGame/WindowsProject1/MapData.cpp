@@ -4,13 +4,15 @@
 
 MapData::MapData()
 {
-    this->tilesets = new std::map<int, TilesetInfo>();
+    this->tilesets = new std::map<int, TilesetInfo*>();
     this->layers = new std::map<int, Layer*>();
     this->objectGroups = new std::map<int, ObjectGroup*>();
 }
 
 MapData::~MapData()
 {
+    for (auto it = tilesets->begin(); it != tilesets->end(); it++)
+        delete it->second;
     delete tilesets;
 
     for (auto it = layers->begin(); it != layers->end(); it++)
@@ -38,8 +40,8 @@ MapData* MapData::FromTMX(std::string path)
         // Get Tilesets
         for (auto node = root->FirstChildElement("tileset"); node != nullptr; node = node->NextSiblingElement("tileset"))
         {
-            TilesetInfo tileset = TilesetInfo::FromXMLData(node);
-            mapData->tilesets->insert(std::make_pair(tileset.GetID(), tileset));
+            TilesetInfo* tileset = TilesetInfo::FromXMLData(node);
+            mapData->tilesets->insert(std::make_pair(tileset->GetID(), tileset));
         }
 
         // Get Layers
@@ -102,7 +104,7 @@ int MapData::GetTileHeight()
     return this->tileHeight;
 }
 
-std::map<int, TilesetInfo>* MapData::GetTilesets()
+std::map<int, TilesetInfo*>* MapData::GetTilesets()
 {
     return this->tilesets;
 }

@@ -11,17 +11,17 @@ TilesetInfo::TilesetInfo(int id, int tileCount, std::string source)
 	this->source = source;
 }
 
-TilesetInfo TilesetInfo::FromXMLData(TiXmlElement* data)
+TilesetInfo* TilesetInfo::FromXMLData(TiXmlElement* data)
 {
-	TilesetInfo tileset;
+	TilesetInfo* tileset = new TilesetInfo();
 	
-	data->QueryIntAttribute("firstgid", &tileset.id);
-	data->QueryIntAttribute("tilecount", &tileset.tileCount);
+	data->QueryIntAttribute("firstgid", &tileset->id);
+	data->QueryIntAttribute("tilecount", &tileset->tileCount);
 	
 	auto image = data->FirstChildElement("image");
-	tileset.source = image->Attribute("source");
-	image->QueryIntAttribute("width", &tileset.imgWidth);
-	image->QueryIntAttribute("height", &tileset.imgHeight);
+	tileset->source = image->Attribute("source");
+	image->QueryIntAttribute("width", &tileset->imgWidth);
+	image->QueryIntAttribute("height", &tileset->imgHeight);
 
 	return tileset;
 }

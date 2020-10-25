@@ -24,13 +24,13 @@ public:
 
 	int GetTileWidth();
 	int GetTileHeight();
-	std::map<int, TilesetInfo>* GetTilesets();
+	std::map<int, TilesetInfo*>* GetTilesets();
 	std::map<int, Layer*>* GetLayers();
 	std::map<int, ObjectGroup*>* GetObjectGroups();
 private:
 	int width, height;
 	int tileWidth, tileHeight;
-	std::map<int, TilesetInfo>* tilesets;
+	std::map<int, TilesetInfo*>* tilesets;
 	std::map<int, Layer*>* layers;
 	std::map<int, ObjectGroup*>* objectGroups;
 };

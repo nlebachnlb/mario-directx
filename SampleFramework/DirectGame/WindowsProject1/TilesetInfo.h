@@ -8,7 +8,7 @@ public:
 	TilesetInfo();
 	TilesetInfo(int id, int tileCount, std::string source);
 
-	static TilesetInfo FromXMLData(TiXmlElement* data);
+	static TilesetInfo* FromXMLData(TiXmlElement* data);
 
 	std::string GetSource();
 	int GetID();
