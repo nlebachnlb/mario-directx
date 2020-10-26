@@ -4,6 +4,7 @@
 const int RACCOON_FLOAT_TIME = 400; // miliseconds
 const int RACCOON_FLY_TIME = 4000; // miliseconds = 4 seconds
 const float RACCOON_FLY_VELOCITY = -0.2f;
+const int RACCOON_FEVER_TIME = 100;
 
 class RaccoonMario : public CMario
 {

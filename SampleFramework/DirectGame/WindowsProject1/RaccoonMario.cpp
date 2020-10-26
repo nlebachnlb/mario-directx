@@ -15,6 +15,8 @@ void RaccoonMario::Start()
 	floating = false;
 	flying = 0;
 	pushing = false;
+	feverState = 0;
+	feverTime = RACCOON_FEVER_TIME;
 }
 
 void RaccoonMario::OnAnimationEnd()
@@ -41,7 +43,7 @@ void RaccoonMario::OnKeyDown(int keyCode)
 
 	if (keyCode == marioKeySet.Jump)
 	{
-		if (pMeter >= PMETER_MAX && flying == 0)
+		if (feverState == 2 && flying == 0)
 		{
 			DebugOut(L"[fly] start\n");
 			flying = 1;

@@ -39,6 +39,10 @@ void CMario::Start()
 	canHighJump = false;
 	pMeter = 0.0f;
 	runningRestriction = false;
+
+	feverState = 0;
+	feverTime = MARIO_FEVER_TIME;
+	lastFeverTime = 0;
 }
 
 void CMario::Update()
@@ -121,10 +125,38 @@ void CMario::Update()
 	rigidbody->SetVelocity(&velocity);
 
 	// If Mario runs at max speed, the P Meter starts increasing
-	if (maxRun && pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand)
+	if (physicState.movement == MovingStates::Run && Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.15f &&
+		pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand && 
+		feverState != 2)
+	{
 		pMeter = Mathf::Clamp(pMeter + PMETER_STEP * Game::DeltaTime(), 0.0f, PMETER_MAX + 1);
-	else if (pMeter > 0)
-		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * Game::DeltaTime(), 0.0, PMETER_MAX);
+		if (feverState != -1) feverState = 1;
+		DebugOut(L"[Fever] --power: %f\n", pMeter);
+	}
+	else if (feverState != 2 && feverState != -1)
+		feverState = 0;
+
+	// Fever mode processing
+	if (pMeter >= PMETER_MAX && feverState == 1)
+	{
+		feverState = 2;
+		lastFeverTime = GetTickCount();
+		DebugOut(L"[Fever] start\n");
+	}
+	else if (pMeter > 0 && feverState <= 0)
+	{
+		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 2.0f * Game::DeltaTime(), 0.0, PMETER_MAX);
+	}
+
+	if (feverState == 2)
+	{
+		pMeter = PMETER_MAX;
+		if (GetTickCount() - lastFeverTime > feverTime)
+		{
+			feverState = 0;
+			DebugOut(L"[Fever] done\n");
+		}
+	}
 
 	// Keep Mario inside Camera bounds
 	auto mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
@@ -147,7 +179,7 @@ void CMario::Update()
 		if (input->GetKeyDown(marioKeySet.Jump) && canHighJump && onAir)
 		{
 			jumpForce = MARIO_HIGH_JUMP_FORCE;
-			if (maxRun && pMeter >= PMETER_MAX)
+			if (feverState == 2)
 				jumpForce = MARIO_SUPER_JUMP_FORCE;
 			highJump = true;
 		}
@@ -337,7 +369,7 @@ void CMario::JumpingAnimation()
 		)
 		return;
 
-	if (pMeter >= PMETER_MAX)
+	if (feverState == 2)
 	{
 		SetState("Fly");
 		return;
