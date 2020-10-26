@@ -43,6 +43,8 @@ void SpriteManager::Initialization()
 {
 	// Load mario sprites
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_MARIO));
+	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_ENEMY));
+	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_MISC));
 }
 
 bool SpriteManager::LoadSpriteFile(std::string path)
@@ -56,35 +58,37 @@ bool SpriteManager::LoadSpriteFile(std::string path)
 	}
 
 	TiXmlElement* root = document.RootElement();
-	TiXmlElement* texture = root->FirstChildElement();
 
-	string textureID = texture->Attribute("id");
-	Texture2D tex = Game::GetInstance().GetService<TextureManager>()->GetTexture(textureID);
-
-	if (tex != nullptr)
-		OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
-
-	for (TiXmlElement* node = texture->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
+	for (TiXmlElement* texture = root->FirstChildElement("Textures"); texture != nullptr; texture = texture->NextSiblingElement("Textures"))
 	{
-		string spriteID = node->Attribute("id");
-		int left, top, width, height;
-		node->QueryIntAttribute("left", &left);
-		node->QueryIntAttribute("top", &top);
-		node->QueryIntAttribute("width", &width);
-		node->QueryIntAttribute("height", &height);
+		string textureID = texture->Attribute("textureId");
+		Texture2D tex = Game::GetInstance().GetService<TextureManager>()->GetTexture(textureID);
 
-		int px, py;
-		if (node->QueryIntAttribute("xPivot", &px) != TIXML_SUCCESS)
-			px = -1;
-		else
-			px *= 3;
-		if (node->QueryIntAttribute("yPivot", &py) != TIXML_SUCCESS)
-			py = -1;
-		else
-			py *= 3;
+		if (tex != nullptr)
+			OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
 
-		// OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
-		Add(spriteID, 3 * left, 3 * top, 3 * width, 3 * height, tex, px, py);
+		for (TiXmlElement* node = texture->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
+		{
+			string spriteID = node->Attribute("id");
+			int left, top, width, height;
+			node->QueryIntAttribute("left", &left);
+			node->QueryIntAttribute("top", &top);
+			node->QueryIntAttribute("width", &width);
+			node->QueryIntAttribute("height", &height);
+
+			int px, py;
+			if (node->QueryIntAttribute("xPivot", &px) != TIXML_SUCCESS)
+				px = -1;
+			else
+				px *= 3;
+			if (node->QueryIntAttribute("yPivot", &py) != TIXML_SUCCESS)
+				py = -1;
+			else
+				py *= 3;
+
+			// OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
+			Add(spriteID, 3 * left, 3 * top, 3 * width, 3 * height, tex, px, py);
+		}
 	}
 }
 

@@ -292,6 +292,9 @@
     <Image Include="Assets\Sprites\ui.png">
       <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
+    <Image Include="Assets\Sprites\fire-ball.png">
+      <Filter>GameSource\Assets\Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

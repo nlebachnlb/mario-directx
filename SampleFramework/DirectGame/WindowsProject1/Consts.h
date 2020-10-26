@@ -13,12 +13,19 @@
 
 #define TEXTURE_MARIO "tex-mario"
 #define TEXTURE_ENEMY "tex-enemy"
+#define TEXTURE_MISC "tex-misc"
+#define TEXTURE_FIREBALL "tex-fire-ball"
+
+#define FIREBALL_TRANS_COLOR D3DCOLOR_XRGB(0, 0, 0)
+#define DEFAULT_TRANS_COLOR D3DCOLOR_XRGB(255, 255, 255)
 
 #define DB_SPRITE_MARIO "spr-mario"
 #define DB_SPRITE_ENEMY "spr-enemy"
+#define DB_SPRITE_MISC "spr-misc"
 
 #define DB_ANIMATION_MARIO "ani-mario"
 #define DB_ANIMATION_ENEMY "ani-enemy"
+#define DB_ANIMATION_MISC "ani-misc"
 
 #define SC_WOLRD_1_1 "world-1-1"
 

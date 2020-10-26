@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
-	<Textures gameObjectId=0 textureId=0>
+	<Textures gameObjectId="0" textureId="0">
 		<Animation aniId="ani-full-curtain-" frameTime="100">
 			<Sprite id="spr-full-curtain-0" left="15" top="19"  width="240" height="194"/>
 		</Animation>

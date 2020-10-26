@@ -295,13 +295,14 @@
 			<Sprite id="spr-fire-mario-throw-0" left="280" top="109"  width="14" height="27" frameTime="50"/>
 			<Sprite id="spr-fire-mario-throw-1" left="297" top="109"  width="14" height="27" frameTime="50"/>
 		</Animation>
-		<!-- Animation FIRE BALL-->
+		<!-- Animation FIRE BALL
 		<Animation aniId="ani-fire-ball" frameTime="50" name="THROW">
 			<Sprite id="spr-fire-ball-0" left="162" top="124"  width="8" height="8" frameTime="50" transcolor="0"/>
 			<Sprite id="spr-fire-ball-1" left="173" top="123"  width="8" height="9" frameTime="50" transcolor="0"/>
 			<Sprite id="spr-fire-ball-2" left="184" top="124"  width="8" height="8" frameTime="50" transcolor="0"/>
 			<Sprite id="spr-fire-ball-3" left="195" top="123"  width="8" height="9" frameTime="50" transcolor="0"/>
 		</Animation>
+    -->
 		<!-- Animation RUN -->
 		<Animation aniId="ani-fire-mario-run" frameTime="100" name="RUN">
 			<Sprite id="spr-fire-mario-walk-0" left="206" top="109"  width="14" height="27" frameTime="100"/>

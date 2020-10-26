@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
 	<!--	Texture UI  	-->
-	<Textures gameObjectId=0 textureId=0>
+	<Textures gameObjectId="0" textureId="0">
 
 		<!-- FONT -->
 		<Animation aniId="ani-font" frameTime="100">
