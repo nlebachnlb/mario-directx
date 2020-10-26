@@ -7,6 +7,8 @@ void AnimationDatabase::Initialization()
 {
 	auto root = Game::GetInstance();
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_MARIO));
+	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_ENEMY));
+	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_MISC));
 }
 
 bool AnimationDatabase::LoadAnimationFile(string path)
@@ -20,37 +22,40 @@ bool AnimationDatabase::LoadAnimationFile(string path)
 	} 
 
 	TiXmlElement* root = document.RootElement();
-	TiXmlElement* info = root->FirstChildElement();
-	
-	string gameObjectID = info->Attribute("gameObjectId");
-	string textureID = info->Attribute("textureId");
-
-	OutputDebugStringW(ToLPCWSTR("Gameobject id: " + gameObjectID + '\n'));
-	OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
-
-	for (TiXmlElement* node = info->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
+	for (TiXmlElement* info = root->FirstChildElement("Textures"); info != nullptr; info = info->NextSiblingElement("Textures"))
 	{
-		string aniId = node->Attribute("aniId");
-		float frameTime;
-		node->QueryFloatAttribute("frameTime", &frameTime);
-		string name = node->Attribute("name");
+		string gameObjectID = info->Attribute("gameObjectId");
+		string textureID = info->Attribute("textureId");
 
-		OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
-		Animation* animation = new Animation(aniId, frameTime);
+		OutputDebugStringW(ToLPCWSTR("Gameobject id: " + gameObjectID + '\n'));
+		OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
 
-		// Sprite ref
-		for (TiXmlElement* sprNode = node->FirstChildElement(); sprNode != nullptr; sprNode = sprNode->NextSiblingElement())
+		for (TiXmlElement* node = info->FirstChildElement("Animation"); node != nullptr; node = node->NextSiblingElement("Animation"))
 		{
-			string id = sprNode->Attribute("id");
-			Sprite sprite = Game::GetInstance().GetService<SpriteManager>()->Get(id);
-			float detailFrameTime;
-			sprNode->QueryFloatAttribute("frameTime", &detailFrameTime);
-			animation->AddFrame(sprite, VectorZero(), detailFrameTime * 0.5f);
+			string aniId = node->Attribute("aniId");
+			float frameTime;
+			node->QueryFloatAttribute("frameTime", &frameTime);
+			// string name = node->Attribute("name");
+			string name = "";
 
-			OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime * 0.5f) + '\n'));
+			OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
+			Animation* animation = new Animation(aniId, frameTime);
+
+			// Sprite ref
+			for (TiXmlElement* sprNode = node->FirstChildElement("Sprite"); sprNode != nullptr; sprNode = sprNode->NextSiblingElement("Sprite"))
+			{
+				string id = sprNode->Attribute("id");
+				Sprite sprite = Game::GetInstance().GetService<SpriteManager>()->Get(id);
+				float detailFrameTime;
+				if (sprNode->QueryFloatAttribute("frameTime", &detailFrameTime) != TIXML_SUCCESS)
+					detailFrameTime = frameTime;
+				animation->AddFrame(sprite, VectorZero(), detailFrameTime * 0.5f);
+
+				OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime * 0.5f) + '\n'));
+			}
+
+			Add(aniId, animation);
 		}
-
-		Add(aniId, animation);
 	}
 }
 

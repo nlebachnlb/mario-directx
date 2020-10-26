@@ -251,6 +251,7 @@
   <ItemGroup>
     <Image Include="Assets\Maps\world-1-1.png" />
     <Image Include="Assets\Sprites\enemy.png" />
+    <Image Include="Assets\Sprites\fire-ball.png" />
     <Image Include="Assets\Sprites\intro.png" />
     <Image Include="Assets\Sprites\items.png" />
     <Image Include="Assets\Sprites\mario.png" />

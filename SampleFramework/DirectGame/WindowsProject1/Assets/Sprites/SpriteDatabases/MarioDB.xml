@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
-	<Textures id="tex-mario">
+	<Textures textureId="tex-mario">
 		<Sprite id="spr-small-mario-walk-0" left="254" top="9"  width="12" height="15" frameTime="100"/>
 		<Sprite id="spr-small-mario-walk-1" left="269" top="8"  width="15" height="16" frameTime="100"/>
 		<Sprite id="spr-small-mario-skid-0" left="287" top="8"  width="14" height="16" frameTime="100"/>

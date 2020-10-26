@@ -3,14 +3,18 @@
   <Root name="Textures">
     <Texture id="tex-mario" source="Assets/Sprites/mario.png"/>
     <Texture id="tex-enemy" source="Assets/Sprites/enemy.png"/>
+    <Texture id="tex-misc" source="Assets/Sprites/items.png"/>
+    <Texture id="tex-fire-ball" source="Assets/Sprites/fire-ball.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Assets/Sprites/SpriteDatabases/MarioDB.xml"/>
     <Sprite id="spr-enemy" source="Assets/Sprites/SpriteDatabases/EnemyDB.xml"/>
+    <Sprite id="spr-misc" source="Assets/Sprites/SpriteDatabases/MiscDB.xml"/>
   </Root>
   <Root name="Animations">
     <Animation id="ani-mario" source="Assets/Animations/MarioAnim.xml"/>
     <Animation id="ani-enemy" source="Assets/Animations/EnemyAnim.xml"/>
+    <Animation id="ani-misc" source="Assets/Animations/MiscAnim.xml"/>
   </Root>
   <Root name="Scenes">
     <Scene id="world-1-1" source="Assets/Scenes/World1-1.xml"/> 
