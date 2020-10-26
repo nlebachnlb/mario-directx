@@ -131,7 +131,7 @@ void CMario::Update()
 	{
 		pMeter = Mathf::Clamp(pMeter + PMETER_STEP * Game::DeltaTime(), 0.0f, PMETER_MAX + 1);
 		if (feverState != -1) feverState = 1;
-		DebugOut(L"[Fever] --power: %f\n", pMeter);
+		// DebugOut(L"[Fever] --power: %f\n", pMeter);
 	}
 	else if (feverState != 2 && feverState != -1)
 		feverState = 0;
@@ -141,7 +141,7 @@ void CMario::Update()
 	{
 		feverState = 2;
 		lastFeverTime = GetTickCount();
-		DebugOut(L"[Fever] start\n");
+		// DebugOut(L"[Fever] start\n");
 	}
 	else if (pMeter > 0 && feverState <= 0)
 	{
@@ -154,7 +154,7 @@ void CMario::Update()
 		if (GetTickCount() - lastFeverTime > feverTime)
 		{
 			feverState = 0;
-			DebugOut(L"[Fever] done\n");
+			// DebugOut(L"[Fever] done\n");
 		}
 	}
 

@@ -97,6 +97,7 @@ protected:
 	int feverTime; // The duration of PMeter keeping maximum value
 	int feverState; // -1: disable fever mode (for raccoon, he has his own flying mechanic)
 	int lastFeverTime;
+	int facing;
 
 private:
 	void SkidDetection(Vector2 velocity);
@@ -107,6 +108,5 @@ private:
 	bool run;
 	bool highJump, canHighJump;
 	float prevTargetVelocityX, targetVelocityX;
-	int facing;
 	Vector2 previousVelocity;
 };

@@ -26,9 +26,7 @@ void Animation::Render(Vector2 translation)
 				if (currentFrame == frames.size() - 1 && loop == false)
 				{
 					gameObject->OnAnimationEnd();
-					
 					playing = false;
-
 				}
 				else if (playing)
 				{

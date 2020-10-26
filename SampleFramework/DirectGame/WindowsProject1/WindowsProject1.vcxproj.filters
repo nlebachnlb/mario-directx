@@ -109,6 +109,9 @@
     <Filter Include="Framework\TinyXML">
       <UniqueIdentifier>{9a7025ec-1610-4b9d-a519-47c78f1647aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\MarioProjectiles">
+      <UniqueIdentifier>{7e9f208c-0784-4856-8152-3bf8a7d92d0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -254,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="tinyxml.h">
       <Filter>Framework\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioFireball.h">
+      <Filter>GameSource\GameObjects\MarioProjectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -422,6 +428,9 @@
     </ClCompile>
     <ClCompile Include="tinyxmlparser.cpp">
       <Filter>Framework\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioFireball.cpp">
+      <Filter>GameSource\GameObjects\MarioProjectiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

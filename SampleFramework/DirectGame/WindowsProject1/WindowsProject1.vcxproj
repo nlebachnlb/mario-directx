@@ -160,6 +160,7 @@
     <ClInclude Include="IState.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MapData.h" />
+    <ClInclude Include="MarioFireball.h" />
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="MapData.cpp" />
+    <ClCompile Include="MarioFireball.cpp" />
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
     <ClCompile Include="ObjectPool.cpp" />

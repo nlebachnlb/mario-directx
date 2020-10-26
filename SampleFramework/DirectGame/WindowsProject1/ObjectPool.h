@@ -1,6 +1,7 @@
 #pragma once
-#include <queue>
+#include <vector>
 #include "GameObject.h"
+#include "Scene.h"
 
 class ObjectPool
 {
@@ -9,6 +10,7 @@ public:
 	GameObject Instantiate();
 	void Revoke(GameObject obj);
 	bool IsEmpty();
+	void RegisterPoolToScene(Scene* scene);
 private:
-	std::queue<GameObject> pool;
+	std::vector<GameObject> pool;
 };

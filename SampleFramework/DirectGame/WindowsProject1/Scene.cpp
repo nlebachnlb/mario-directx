@@ -136,8 +136,8 @@ void Scene::Render()
 void Scene::AddObject(GameObject gameObject)
 {
 	objects->push_back(gameObject);
-	DebugOut(L"objects' length: %d", objects->size());
-	push_heap(objects->begin(), objects->end(), Comparator());
+	// DebugOut(L"objects' length: %d", objects->size());
+	// push_heap(objects->begin(), objects->end(), Comparator());
 }
 
 void Scene::RemoveObject(GameObject gameObject)

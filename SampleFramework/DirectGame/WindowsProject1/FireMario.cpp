@@ -1,4 +1,5 @@
 #include "FireMario.h"
+#include "MarioFireball.h"
 #include "AnimationDatabase.h"
 #include "Game.h"
 
@@ -7,6 +8,9 @@ void FireMario::Awake()
 	CMario::Awake();
 
 	SetTag(ObjectTags::PowerupMario);
+
+	fireballs.Add(Instantiate<MarioFireball>());
+	fireballs.Add(Instantiate<MarioFireball>());
 }
 
 void FireMario::Start()
@@ -24,6 +28,12 @@ void FireMario::OnKeyDown(int keyCode)
 	if (keyCode == marioKeySet.Attack && attacking == false)
 	{
 		attacking = true;
+		auto fireball = fireballs.Instantiate();
+		if (fireball != nullptr)
+		{
+			fireball->SetPosition(transform.Position + Vector2(MARIO_BBOX.x / 2 * facing, 0));
+			DebugOut(L"Fireball created: %f, %f, %d\n", fireball->GetTransform().Position.x, fireball->GetTransform().Position.y, fireball->IsEnabled() ? 1 : 0);
+		}
 	}
 }
 
@@ -65,4 +75,9 @@ void FireMario::OnAnimationEnd()
 			lastState = "Idle";
 		SetState(lastState);
 	}
+}
+
+ObjectPool FireMario::GetFireballs()
+{
+	return this->fireballs;
 }

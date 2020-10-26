@@ -250,7 +250,7 @@ LPDIRECT3DTEXTURE9 Game::LoadTexture(LPCWSTR texPath)
 	result = D3DXCreateTextureFromFileEx(
 		d3ddev, texPath, info.Width, info.Height,
 		1, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT,
-		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
+		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 0, 255),
 		&info, NULL, &texture
 	);
 

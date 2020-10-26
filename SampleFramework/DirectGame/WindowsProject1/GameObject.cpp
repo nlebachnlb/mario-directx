@@ -5,8 +5,9 @@ using namespace std;
 
 CGameObject::CGameObject()
 {
-	DebugOut(L"Base constructor");
-
+	// DebugOut(L"Base constructor");
+	transform.Scale = NormalizedVector();
+	transform.Rotation = 0.0f;
 	// Step 1: Call event: Awake
 	this->Awake();
 
@@ -132,6 +133,7 @@ void CGameObject::Initialize()
 	rigidbody = new Rigidbody2D();
 	colliders = new vector<Collider2D*>();
 	effector = Effector2D::Full;
+	visualRelativePosition = VectorZero();
 
 	// Step 1: Call event: Awake
 	this->Awake();
@@ -182,7 +184,9 @@ void CGameObject::SetState(string state)
 		lastState = currentState;
 		currentState = state;
 		animations.at(state)->Play(false);
+		return;
 	}
+	DebugOut(L"Couldnt find animation[]\n");
 }
 
 Animation* CGameObject::GetState(std::string state)
