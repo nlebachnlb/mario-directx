@@ -352,8 +352,8 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 		if (isTrigger == false)
 		{
 			// DebugOut(L"**ColEv: %f, %f, %f, %f\n", min_tx, min_ty, nx, ny);
-			pos.x += min_tx * dvx + nx * 0.2f;
-			pos.y += min_ty * dvy + ny * 0.2f;
+			pos.x += min_tx * dvx + nx * 0.1f;
+			pos.y += min_ty * dvy + ny * 0.1f;
 
 			if (ny != 0)
 			{

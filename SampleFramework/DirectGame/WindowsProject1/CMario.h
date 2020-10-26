@@ -21,7 +21,7 @@ const float MARIO_WALK_DRAG_FORCE		= 0.0002506f;
 const float MARIO_RUN_DRAG_FORCE		= 0.0006266f;
 const float MARIO_SKID_ACCELERATION		= 0.001104f;
 
-const Vector2 MARIO_BBOX(14 * 3, 27 * 3);
+const Vector2 MARIO_BBOX(14 * 3, 26 * 3);
 const Vector2 MARIO_SMALL_BBOX(14 * 3, 14 * 3);
 
 struct MarioKeySet

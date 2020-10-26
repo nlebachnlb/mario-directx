@@ -384,7 +384,7 @@ void CMario::CrouchDetection(InputHandler* input)
 	if (input->GetKeyDown(marioKeySet.Crouch) && exitConditions == false)
 	{
 		colliders->at(0)->SetBoxSize(MARIO_SMALL_BBOX);
-		Vector2 delta = MARIO_BBOX - MARIO_SMALL_BBOX;
+		Vector2 delta = Vector2(0, MARIO_BBOX.y - MARIO_SMALL_BBOX.y);
 		colliders->at(0)->SetLocalPosition(delta * 0.5f);
 		physicState.movement = MovingStates::Crouch;
 	}
