@@ -19,13 +19,18 @@ void MarioFireball::Awake()
 	this->colliders->push_back(box);
 
 	this->rigidbody->SetDynamic(true);
-	this->rigidbody->SetMaterial(FIREBALL_MATERIAL);
+	auto material = FIREBALL_MATERIAL;
+	material.AddBypassTag(ObjectTags::FriendlyProjectiles);
+	material.AddBypassTag(ObjectTags::HostileProjectiles);
+	material.AddBypassTag(ObjectTags::PowerupMario);
+	this->rigidbody->SetMaterial(material);
 }
 
 void MarioFireball::Start()
 {
 	SetState("Default");
 	rigidbody->SetGravity(FIREBALL_GRAVITY);
+	mainCamera = nullptr;
 }
 
 void MarioFireball::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
@@ -39,6 +44,20 @@ void MarioFireball::OnCollisionEnter(Collider2D* selfCollider, std::vector<Colli
 		{
 			pool->Revoke(this);
 		}
+	}
+}
+
+void MarioFireball::LateUpdate()
+{
+	if (mainCamera == nullptr)
+	{
+		auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+		mainCamera = scene->GetMainCamera();
+	}
+
+	if (Mathf::InRange(transform.Position.x, mainCamera->GetPosition().x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x) == false)
+	{
+		pool->Revoke(this);
 	}
 }
 

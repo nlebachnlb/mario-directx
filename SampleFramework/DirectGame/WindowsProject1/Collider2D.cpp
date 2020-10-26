@@ -260,6 +260,13 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 			}
 			break;
 		}
+
+		auto otherBypassTags = coEvents[min_ix]->collider->GetGameObject()->GetRigidbody()->GetMaterial().bypass;
+		if (otherBypassTags.empty() == false && otherBypassTags.find(gameObject->GetTag()) != otherBypassTags.end())
+		{
+			min_tx = 1.0f;
+			nx = 0;
+		}
 	}
 	if (min_iy >= 0)
 	{
@@ -305,6 +312,13 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 				min_ty = 1.0f;
 			}
 			break;
+		}
+
+		auto otherBypassTags = coEvents[min_iy]->collider->GetGameObject()->GetRigidbody()->GetMaterial().bypass;
+		if (otherBypassTags.empty() == false && otherBypassTags.find(gameObject->GetTag()) != otherBypassTags.end())
+		{
+			min_ty = 1.0f;
+			ny = 0;
 		}
 	}
 }

@@ -1,8 +1,12 @@
 #pragma once
+#include <unordered_set>
+#include "ObjectTags.h"
+
 struct PhysicMaterial
 {
 	float bounciness;
 	float friction;
+	std::unordered_set<ObjectTags> bypass;
 
 	static PhysicMaterial Empty()
 	{
@@ -18,6 +22,11 @@ struct PhysicMaterial
 	{
 		this->bounciness = bounciness;
 		this->friction = friction;
+	}
+
+	void AddBypassTag(ObjectTags tag)
+	{
+		bypass.insert(tag);
 	}
 };
 
