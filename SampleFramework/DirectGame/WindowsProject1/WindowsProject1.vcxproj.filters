@@ -76,24 +76,6 @@
     <Filter Include="GameSource\GameObjects\EnvironmentalColliders">
       <UniqueIdentifier>{43f5686f-e80e-4eaa-9820-aa6b808891e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets">
-      <UniqueIdentifier>{c4ce03fa-921f-4041-84f2-42eeff3cb431}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Animations">
-      <UniqueIdentifier>{86fd5a3e-f91e-4561-a48f-74c995449751}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Maps">
-      <UniqueIdentifier>{8041dd6b-fc26-4601-b936-e0fb87f1562c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Sprites">
-      <UniqueIdentifier>{8a14085f-3ba1-4af1-83c4-6ac7d95bf9e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Scenes">
-      <UniqueIdentifier>{5bc09247-cbb2-4bed-a027-93513f8d4bcb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Sprites\SpriteDatabases">
-      <UniqueIdentifier>{9437b2e3-ff45-4b52-b844-c2491f853e9e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameSource\GameObjects\MarioStates">
       <UniqueIdentifier>{4003c20f-cd30-41b5-b708-89ed71900ed0}</UniqueIdentifier>
     </Filter>
@@ -102,6 +84,30 @@
     </Filter>
     <Filter Include="Framework\Game\Map\MapLoader">
       <UniqueIdentifier>{68f9d2b9-0a35-4b64-ab8d-3e6ae01e9e0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Patterns\ObjectPool">
+      <UniqueIdentifier>{bda6414b-85e9-4dcd-bf71-21e05988405f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets">
+      <UniqueIdentifier>{c4ce03fa-921f-4041-84f2-42eeff3cb431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Animations">
+      <UniqueIdentifier>{86fd5a3e-f91e-4561-a48f-74c995449751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Maps">
+      <UniqueIdentifier>{8041dd6b-fc26-4601-b936-e0fb87f1562c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Sprites">
+      <UniqueIdentifier>{8a14085f-3ba1-4af1-83c4-6ac7d95bf9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Sprites\SpriteDatabases">
+      <UniqueIdentifier>{9437b2e3-ff45-4b52-b844-c2491f853e9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Scenes">
+      <UniqueIdentifier>{5bc09247-cbb2-4bed-a027-93513f8d4bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\TinyXML">
+      <UniqueIdentifier>{9a7025ec-1610-4b9d-a519-47c78f1647aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -158,12 +164,6 @@
     </ClInclude>
     <ClInclude Include="ExampleScene.h">
       <Filter>GameSource\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="tinystr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AnimationDatabase.h">
       <Filter>Framework\Game\Animation</Filter>
@@ -243,6 +243,18 @@
     <ClInclude Include="RaccoonMario.h">
       <Filter>GameSource\GameObjects\MarioStates</Filter>
     </ClInclude>
+    <ClInclude Include="IPooled.h">
+      <Filter>Framework\Patterns\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Framework\Patterns\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>Framework\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>Framework\TinyXML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -257,22 +269,22 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Maps\world-1-1.png">
-      <Filter>Assets\Maps</Filter>
+      <Filter>GameSource\Assets\Maps</Filter>
     </Image>
     <Image Include="Assets\Sprites\enemy.png">
-      <Filter>Assets\Sprites</Filter>
+      <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
     <Image Include="Assets\Sprites\intro.png">
-      <Filter>Assets\Sprites</Filter>
+      <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
     <Image Include="Assets\Sprites\items.png">
-      <Filter>Assets\Sprites</Filter>
+      <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
     <Image Include="Assets\Sprites\mario.png">
-      <Filter>Assets\Sprites</Filter>
+      <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
     <Image Include="Assets\Sprites\ui.png">
-      <Filter>Assets\Sprites</Filter>
+      <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -320,18 +332,6 @@
     </ClCompile>
     <ClCompile Include="ExampleScene.cpp">
       <Filter>GameSource\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AnimationDatabase.cpp">
       <Filter>Framework\Game\Animation</Filter>
@@ -405,51 +405,69 @@
     <ClCompile Include="RaccoonMario.cpp">
       <Filter>GameSource\GameObjects\MarioStates</Filter>
     </ClCompile>
+    <ClCompile Include="IPooled.cpp">
+      <Filter>Framework\Patterns\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Framework\Patterns\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>Framework\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>Framework\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>Framework\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>Framework\TinyXML</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\root.xml">
-      <Filter>Assets</Filter>
+      <Filter>GameSource\Assets</Filter>
     </None>
     <None Include="Assets\Maps\world-1-1-map.tmx">
-      <Filter>Assets\Maps</Filter>
+      <Filter>GameSource\Assets\Maps</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Scenes\World1-1.xml">
-      <Filter>Assets\Scenes</Filter>
+      <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
     <Xml Include="Assets\Animations\EnemyAnim.xml">
-      <Filter>Assets\Animations</Filter>
+      <Filter>GameSource\Assets\Animations</Filter>
     </Xml>
     <Xml Include="Assets\Animations\IntroAnim.xml">
-      <Filter>Assets\Animations</Filter>
+      <Filter>GameSource\Assets\Animations</Filter>
     </Xml>
     <Xml Include="Assets\Animations\MarioAnim.xml">
-      <Filter>Assets\Animations</Filter>
+      <Filter>GameSource\Assets\Animations</Filter>
     </Xml>
     <Xml Include="Assets\Animations\MiscAnim.xml">
-      <Filter>Assets\Animations</Filter>
+      <Filter>GameSource\Assets\Animations</Filter>
     </Xml>
     <Xml Include="Assets\Animations\UiAnim.xml">
-      <Filter>Assets\Animations</Filter>
+      <Filter>GameSource\Assets\Animations</Filter>
     </Xml>
     <Xml Include="Assets\Sprites\SpriteDatabases\EnemyDB.xml">
-      <Filter>Assets\Sprites\SpriteDatabases</Filter>
+      <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
     <Xml Include="Assets\Sprites\SpriteDatabases\IntroDB.xml">
-      <Filter>Assets\Sprites\SpriteDatabases</Filter>
+      <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
     <Xml Include="Assets\Sprites\SpriteDatabases\MarioDB.xml">
-      <Filter>Assets\Sprites\SpriteDatabases</Filter>
+      <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
     <Xml Include="Assets\Sprites\SpriteDatabases\MiscDB.xml">
-      <Filter>Assets\Sprites\SpriteDatabases</Filter>
+      <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
     <Xml Include="Assets\Sprites\SpriteDatabases\UiDB.xml">
-      <Filter>Assets\Sprites\SpriteDatabases</Filter>
+      <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
     <Xml Include="Assets\config.xml">
-      <Filter>Assets</Filter>
+      <Filter>GameSource\Assets</Filter>
     </Xml>
   </ItemGroup>
 </Project>

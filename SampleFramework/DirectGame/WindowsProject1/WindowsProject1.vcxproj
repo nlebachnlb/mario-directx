@@ -156,11 +156,13 @@
     <ClInclude Include="Effector2D.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="GhostPlatform.h" />
+    <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MapData.h" />
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="ObjectGroup.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectTags.h" />
     <ClInclude Include="PhysicMaterial.h" />
     <ClInclude Include="PlayerController.h" />
@@ -203,11 +205,13 @@
     <ClCompile Include="Collider2D.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
+    <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="MapData.cpp" />
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectTags.cpp" />
     <ClCompile Include="PhysicMaterial.cpp" />
     <ClCompile Include="PlayerController.cpp" />
