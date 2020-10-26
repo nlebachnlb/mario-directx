@@ -8,6 +8,7 @@ Rigidbody2D::Rigidbody2D()
 	this->acceleration = 0.0f;
 	this->drag = VectorZero();
 	this->mass = 1.0f;
+	this->material = PhysicMaterial::Empty();
 }
 
 void Rigidbody2D::Update()

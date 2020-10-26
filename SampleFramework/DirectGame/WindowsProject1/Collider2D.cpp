@@ -8,6 +8,7 @@ Collider2D::Collider2D()
     boxSize = Vector2(1.0f, 1.0f);
     isTrigger = false;
 	this->name = "";
+	this->pushCoefficient = 0.1f;
 }
 
 void Collider2D::Update()
@@ -352,8 +353,8 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 		if (isTrigger == false)
 		{
 			// DebugOut(L"**ColEv: %f, %f, %f, %f\n", min_tx, min_ty, nx, ny);
-			pos.x += min_tx * dvx + nx * 0.1f;
-			pos.y += min_ty * dvy + ny * 0.1f;
+			pos.x += min_tx * dvx + nx * pushCoefficient;
+			pos.y += min_ty * dvy + ny * pushCoefficient;
 
 			if (ny != 0)
 			{
@@ -368,9 +369,11 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 					if (nx == 0)
 					{
 						// DebugOut(L"DEBUG\n");
-						velocity.y = 0;
-						dvy = 0;
-						rigidbody->SetVelocity(&velocity);
+						{
+							velocity.y = -rigidbody->GetMaterial().bounciness;
+							dvy = -rigidbody->GetMaterial().bounciness * Game::DeltaTime();
+							rigidbody->SetVelocity(&velocity);
+						}
 					}
 				}
 			}
@@ -462,4 +465,9 @@ RectF Collider2D::GetBoundingBox()
     RectF.bottom = pos.y + boxSize.y * 0.5f;
 	
     return RectF;
+}
+
+void Collider2D::SetPushCoefficient(float value)
+{
+	this->pushCoefficient = value;
 }

@@ -9,8 +9,13 @@ void FireMario::Awake()
 
 	SetTag(ObjectTags::PowerupMario);
 
-	fireballs.Add(Instantiate<MarioFireball>());
-	fireballs.Add(Instantiate<MarioFireball>());
+	MarioFireball* fireball = Instantiate<MarioFireball>();
+	fireball->LinkToPool(&fireballs);
+	fireballs.Add(fireball);
+
+	fireball = Instantiate<MarioFireball>();
+	fireball->LinkToPool(&fireballs);
+	fireballs.Add(fireball);
 }
 
 void FireMario::Start()
@@ -32,6 +37,7 @@ void FireMario::OnKeyDown(int keyCode)
 		if (fireball != nullptr)
 		{
 			fireball->SetPosition(transform.Position + Vector2(MARIO_BBOX.x / 2 * facing, 0));
+			fireball->GetRigidbody()->SetVelocity(&Vector2(FIREBALL_VELOCITY * facing, 0));
 			DebugOut(L"Fireball created: %f, %f, %d\n", fireball->GetTransform().Position.x, fireball->GetTransform().Position.y, fireball->IsEnabled() ? 1 : 0);
 		}
 	}

@@ -73,12 +73,15 @@ public:
 
 	RectF GetBoundingBox();
 
+	void SetPushCoefficient(float value);
+
 protected:
 	GameObject gameObject;
 	Vector2 localPosition;
 	Vector2 boxSize;
 	bool isTrigger;
 	std::string name;
+	float pushCoefficient;
 
 private:
 	float dvx, dvy;
