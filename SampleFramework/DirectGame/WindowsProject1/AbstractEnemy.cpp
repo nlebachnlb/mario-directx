@@ -18,3 +18,8 @@ void AbstractEnemy::Update()
 {
 	Movement();
 }
+
+void AbstractEnemy::SetPool(ObjectPool* pool)
+{
+	this->linkedPool = pool;
+}

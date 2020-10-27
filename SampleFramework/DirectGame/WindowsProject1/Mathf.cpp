@@ -1,4 +1,6 @@
 #include "Mathf.h"
+#include <cstdlib>
+#include <ctime>
 
 float Mathf::Lerp(float a, float b, float t)
 {
@@ -33,4 +35,18 @@ bool Mathf::InRange(float target, float inf, float sup)
 float Mathf::Abs(float x)
 {
     return x > 0 ? x : -x;
+}
+
+bool Random::initialized = false;
+
+// Random an integer in [inf, sup] (bounds included)
+int Random::Range(int inf, int sup)
+{
+    if (initialized == false)
+    {
+        srand(time(NULL));
+        initialized = true;
+    }
+
+    return (rand() % sup) + inf;
 }
