@@ -79,6 +79,7 @@ public:
 	void Disable();
 
 protected:
+	void CollisionProcess(Rigidbody2D* rigidbody, Vector2& velocity, int mintx, int minty, int nx, int ny);
 	GameObject gameObject;
 	Vector2 localPosition;
 	Vector2 boxSize;

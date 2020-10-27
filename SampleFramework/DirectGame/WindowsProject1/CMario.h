@@ -16,11 +16,11 @@ const int	PMETER_MAX					= 7;
 const float PMETER_STEP					= 0.005f;
 // const float MARIO_ACCELERATION = 0.0276;
 const float MARIO_WALK_ACCELERATION		= 0.000376f;
-const float MARIO_RUN_ACCELERATION		= 0.000288f;
+const float MARIO_RUN_ACCELERATION		= 0.000188f;
 const float MARIO_WALK_DRAG_FORCE		= 0.0002506f;
 const float MARIO_RUN_DRAG_FORCE		= 0.0006266f;
 const float MARIO_SKID_ACCELERATION		= 0.001104f;
-const int	MARIO_FEVER_TIME			= 2000; // (miliseconds)
+const int	MARIO_FEVER_TIME			= 1000; // (miliseconds)
 
 const Vector2 MARIO_BBOX(14 * 3, 26 * 3);
 const Vector2 MARIO_SMALL_BBOX(14 * 3, 14 * 3);

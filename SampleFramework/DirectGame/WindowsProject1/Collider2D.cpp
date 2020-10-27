@@ -367,34 +367,7 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 			pos.x += min_tx * dvx + nx * pushCoefficient;
 			pos.y += min_ty * dvy + ny * pushCoefficient;
 
-			if (ny != 0)
-			{
-				if (rigidbody->GetGravity() == 0)
-				{
-					velocity.y = 0;
-					dvy = 0;
-					rigidbody->SetVelocity(&velocity);
-				}
-				else
-				{
-					if (nx == 0)
-					{
-						// DebugOut(L"DEBUG\n");
-						{
-							velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-							dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
-							rigidbody->SetVelocity(&velocity);
-						}
-					}
-				}
-			}
-
-			if (nx != 0)
-			{
-				velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
-				dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
-				rigidbody->SetVelocity(&velocity);
-			}
+			CollisionProcess(rigidbody, velocity, min_tx, min_ty, nx, ny);
 		}
 
 		if (nx != 0 || ny != 0)
@@ -405,11 +378,38 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 
 		gameObject->SetPosition(pos);
 		rigidbody->SetVelocity(&velocity);
-
-		// DebugOut(L"HIT\n");
 	}
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
+void Collider2D::CollisionProcess(Rigidbody2D* rigidbody, Vector2& velocity, int mintx, int minty, int nx, int ny)
+{
+	if (ny != 0)
+	{
+		if (rigidbody->GetGravity() == 0)
+		{
+			velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
+			dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+			rigidbody->SetVelocity(&velocity);
+		}
+		else
+		{
+			if (nx == 0)
+			{
+				velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
+				dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+				rigidbody->SetVelocity(&velocity);
+			}
+		}
+	}
+
+	if (nx != 0)
+	{
+		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
+		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
+		rigidbody->SetVelocity(&velocity);
+	}
 }
 
 void Collider2D::AttachToEntity(GameObject gameObject)
