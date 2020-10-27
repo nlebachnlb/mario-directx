@@ -29,6 +29,9 @@ void CMario::Start()
 	this->rigidbody->SetAcceleration(MARIO_WALK_ACCELERATION);
 	this->rigidbody->SetDrag(Vector2(MARIO_WALK_DRAG_FORCE, 0.0f));
 	rigidbody->GetMaterial().AddBypassTag(ObjectTags::FriendlyProjectiles);
+	rigidbody->GetMaterial().AddBypassTag(ObjectTags::BigMario);
+	rigidbody->GetMaterial().AddBypassTag(ObjectTags::PowerupMario);
+	rigidbody->GetMaterial().AddBypassTag(ObjectTags::SmallMario);
 
 	physicState = { MovingStates::Idle, JumpingStates::Stand };
 	facing = 1;

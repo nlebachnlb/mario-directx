@@ -1,12 +1,12 @@
 #pragma once
-#include <unordered_set>
+#include <vector>
 #include "ObjectTags.h"
 
 struct PhysicMaterial
 {
 	float bounciness;
 	float friction;
-	std::unordered_set<ObjectTags> bypass;
+	std::vector<ObjectTags> bypass;
 
 	static PhysicMaterial Empty()
 	{
@@ -26,7 +26,7 @@ struct PhysicMaterial
 
 	void AddBypassTag(ObjectTags tag)
 	{
-		bypass.insert(tag);
+		bypass.push_back(tag);
 	}
 };
 

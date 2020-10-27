@@ -168,10 +168,17 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 	{
 		if (coObjects->at(i) == this) continue;
 
-		auto bypassTags = gameObject->GetRigidbody()->GetMaterial().bypass;
+		/*auto bypassTags = gameObject->GetRigidbody()->GetMaterial().bypass;
 		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
-		if (bypassTags.empty() == false && bypassTags.find(otherTag) != bypassTags.end())
-			continue;  
+		bool bypass = false;
+		for (auto tag : bypassTags)
+			bypass = bypass || tag == otherTag;
+		if (bypass) continue;*/
+		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
+		auto selfTag = gameObject->GetTag();
+		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 
+			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)))
+			continue;
 
 		CollisionEvent* e = SweptAABBEx(coObjects->at(i)); 
 

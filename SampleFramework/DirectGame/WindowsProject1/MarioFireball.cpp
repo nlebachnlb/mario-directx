@@ -21,11 +21,16 @@ void MarioFireball::Awake()
 	this->rigidbody->SetDynamic(true);
 	auto material = FIREBALL_MATERIAL;
 
-	material.AddBypassTag(ObjectTags::FriendlyProjectiles);
-	material.AddBypassTag(ObjectTags::HostileProjectiles);
-	material.AddBypassTag(ObjectTags::PowerupMario);
-	material.AddBypassTag(ObjectTags::BigMario);
-	material.AddBypassTag(ObjectTags::SmallMario);
+	//material.AddBypassTag(ObjectTags::FriendlyProjectiles);
+	////material.AddBypassTag(ObjectTags::HostileProjectiles);
+	//material.AddBypassTag(ObjectTags::PowerupMario);
+	////material.AddBypassTag(ObjectTags::BigMario);
+	////material.AddBypassTag(ObjectTags::SmallMario);
+
+	rigidbody->GetMaterial().AddBypassTag(ObjectTags::FriendlyProjectiles);
+	rigidbody->GetMaterial().AddBypassTag(ObjectTags::BigMario);
+	rigidbody->GetMaterial().AddBypassTag(ObjectTags::PowerupMario);
+	rigidbody->GetMaterial().AddBypassTag(ObjectTags::SmallMario);
 
 	this->rigidbody->SetMaterial(material);
 }
