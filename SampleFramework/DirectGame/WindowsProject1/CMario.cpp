@@ -3,6 +3,7 @@
 #include "AnimationDatabase.h"
 #include "Consts.h"
 #include "Mathf.h"
+#include "MarioCollider.h"
 
 void CMario::Awake()
 {
@@ -11,7 +12,7 @@ void CMario::Awake()
 
 	InitAnimations();
 
-	Collider2D* collider = new Collider2D();
+	MarioCollider* collider = new MarioCollider();
 	collider->SetBoxSize(MARIO_BBOX);
 	collider->AttachToEntity(this);
 	collider->SetName("Normal");

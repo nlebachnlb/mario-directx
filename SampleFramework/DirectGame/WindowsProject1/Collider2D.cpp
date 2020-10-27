@@ -367,7 +367,7 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 			pos.x += min_tx * dvx + nx * pushCoefficient;
 			pos.y += min_ty * dvy + ny * pushCoefficient;
 
-			CollisionProcess(rigidbody, velocity, min_tx, min_ty, nx, ny);
+			CollisionProcess(coEventsResult, rigidbody, velocity, min_tx, min_ty, nx, ny);
 		}
 
 		if (nx != 0 || ny != 0)
@@ -383,7 +383,7 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void Collider2D::CollisionProcess(Rigidbody2D* rigidbody, Vector2& velocity, int mintx, int minty, int nx, int ny)
+void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigidbody2D* rigidbody, Vector2& velocity, int mintx, int minty, int nx, int ny)
 {
 	if (ny != 0)
 	{

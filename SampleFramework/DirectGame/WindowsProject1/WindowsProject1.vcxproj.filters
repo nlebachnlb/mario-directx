@@ -294,6 +294,9 @@
     <ClInclude Include="Goomba.h">
       <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClInclude>
+    <ClInclude Include="MarioCollider.h">
+      <Filter>GameSource\GameObjects\Mario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -473,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="Goomba.cpp">
       <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioCollider.cpp">
+      <Filter>GameSource\GameObjects\Mario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
