@@ -470,7 +470,7 @@ std::string Collider2D::GetName()
 
 RectF Collider2D::GetBoundingBox()
 {
-	if (gameObject->IsEnabled() == false)
+	if (gameObject->IsEnabled() == false || enabled == false)
 		return RectF{ 0, 0, 0, 0 };
 
     auto pos = GetWorldPosition();
@@ -486,4 +486,14 @@ RectF Collider2D::GetBoundingBox()
 void Collider2D::SetPushCoefficient(float value)
 {
 	this->pushCoefficient = value;
+}
+
+void Collider2D::Enable()
+{
+	this->enabled = true;
+}
+
+void Collider2D::Disable()
+{
+	this->enabled = false;
 }
