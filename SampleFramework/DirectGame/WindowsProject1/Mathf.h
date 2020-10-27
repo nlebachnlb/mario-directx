@@ -11,3 +11,12 @@ public:
 	static float Abs(float x);
 };
 
+class Random
+{
+public:
+	static int Range(int inf, int sup);
+
+private:
+	static bool initialized;
+};
+

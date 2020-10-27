@@ -74,6 +74,9 @@ public:
 	RectF GetBoundingBox();
 
 	void SetPushCoefficient(float value);
+	
+	void Enable();
+	void Disable();
 
 protected:
 	GameObject gameObject;
@@ -82,6 +85,7 @@ protected:
 	bool isTrigger;
 	std::string name;
 	float pushCoefficient;
+	bool enabled;
 
 private:
 	float dvx, dvy;

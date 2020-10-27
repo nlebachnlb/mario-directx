@@ -1,5 +1,6 @@
 #include "Collider2D.h"
 #include "Game.h"
+#include "Mathf.h"
 
 Collider2D::Collider2D()
 {
@@ -9,6 +10,7 @@ Collider2D::Collider2D()
     isTrigger = false;
 	this->name = "";
 	this->pushCoefficient = 0.1f;
+	Enable();
 }
 
 void Collider2D::Update()
@@ -356,12 +358,6 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 		pos = gameObject->GetTransform().Position;
-		
-		if (nx != 0 || ny != 0)
-		{
-			if (isTrigger) gameObject->OnTriggerEnter(this, coEventsResult);
-			else gameObject->OnCollisionEnter(this, coEventsResult);
-		}
 
 		if (isTrigger == false)
 		{
@@ -383,8 +379,8 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 					{
 						// DebugOut(L"DEBUG\n");
 						{
-							velocity.y = -rigidbody->GetMaterial().bounciness;
-							dvy = -rigidbody->GetMaterial().bounciness * Game::DeltaTime();
+							velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
+							dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
 							rigidbody->SetVelocity(&velocity);
 						}
 					}
@@ -397,6 +393,12 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 				dvx = 0;
 				rigidbody->SetVelocity(&velocity);
 			}
+		}
+
+		if (nx != 0 || ny != 0)
+		{
+			if (isTrigger) gameObject->OnTriggerEnter(this, coEventsResult);
+			else gameObject->OnCollisionEnter(this, coEventsResult);
 		}
 
 		gameObject->SetPosition(pos);
@@ -470,7 +472,7 @@ std::string Collider2D::GetName()
 
 RectF Collider2D::GetBoundingBox()
 {
-	if (gameObject->IsEnabled() == false)
+	if (gameObject->IsEnabled() == false || enabled == false)
 		return RectF{ 0, 0, 0, 0 };
 
     auto pos = GetWorldPosition();
@@ -486,4 +488,14 @@ RectF Collider2D::GetBoundingBox()
 void Collider2D::SetPushCoefficient(float value)
 {
 	this->pushCoefficient = value;
+}
+
+void Collider2D::Enable()
+{
+	this->enabled = true;
+}
+
+void Collider2D::Disable()
+{
+	this->enabled = false;
 }
