@@ -17,5 +17,6 @@ class TagUtils
 {
 public:
 	static bool MarioTag(ObjectTags tag);
+	static bool EnemyTag(ObjectTags tag);
 	static bool ProjectilesTag(ObjectTags tag);
 };

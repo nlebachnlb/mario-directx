@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "SolidBox.h"
 #include "GhostPlatform.h"
+#include "Goomba.h"
 
 GameMap::GameMap()
 {
@@ -77,6 +78,22 @@ void GameMap::Load(std::string filePath, bool manual)
 
                     auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
                     // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+                }
+            }
+
+            if (groupName.compare("Goomba") == 0)
+            {
+                for (int i = 0; i < objects->size(); ++i)
+                {
+                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                    auto type = objects->at(i)->type;
+
+                    if (type.compare("basic") == 0)
+                    {
+                        auto goomba = Instantiate<Goomba>();
+                        goomba->SetPosition(position);
+                        this->gameObjects.push_back(goomba);
+                    }
                 }
             }
         }

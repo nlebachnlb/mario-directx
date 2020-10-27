@@ -7,6 +7,7 @@ struct Object
 {
 	int id;
 	int x, y, width, height;
+	std::string type;
 };
 
 class ObjectGroup

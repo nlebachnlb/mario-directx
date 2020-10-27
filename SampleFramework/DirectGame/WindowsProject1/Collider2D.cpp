@@ -179,7 +179,9 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
 		auto selfTag = gameObject->GetTag();
 		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 
-			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)))
+			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)) ||
+			(TagUtils::EnemyTag(selfTag) && TagUtils::MarioTag(otherTag))
+			)
 			continue;
 
 		CollisionEvent* e = SweptAABBEx(coObjects->at(i)); 
@@ -389,8 +391,8 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 
 			if (nx != 0)
 			{
-				velocity.x = 0;
-				dvx = 0;
+				velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
+				dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
 				rigidbody->SetVelocity(&velocity);
 			}
 		}

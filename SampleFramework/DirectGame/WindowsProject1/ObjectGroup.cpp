@@ -24,8 +24,13 @@ ObjectGroup* ObjectGroup::FromXMLData(TiXmlElement* data)
         node->QueryIntAttribute("id", &object->id);
         node->QueryIntAttribute("x", &object->x);
         node->QueryIntAttribute("y", &object->y);
-        node->QueryIntAttribute("width",  &object->width);
-        node->QueryIntAttribute("height", &object->height);
+        if (node->QueryIntAttribute("width",  &object->width) != TIXML_SUCCESS) object->width = 0;
+        if (node->QueryIntAttribute("height", &object->height) != TIXML_SUCCESS) object->height = 0;
+
+        auto type = node->Attribute("type");
+        if (type != NULL) object->type = type;
+        else object->type = "";
+
         objectGroup->objects->push_back(object);
     }
 
