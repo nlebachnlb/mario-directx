@@ -1,16 +1,17 @@
 #pragma once
 #include <vector>
 #include "ObjectTags.h"
+#include "Transform.h"
 
 struct PhysicMaterial
 {
-	float bounciness;
+	Vector2 bounciness;
 	float friction;
 	std::vector<ObjectTags> bypass;
 
 	static PhysicMaterial Empty()
 	{
-		return PhysicMaterial(0, 1);
+		return PhysicMaterial(VectorZero(), 1);
 	}
 
 	PhysicMaterial()
@@ -18,7 +19,7 @@ struct PhysicMaterial
 		(*this) = Empty();
 	}
 
-	PhysicMaterial(float bounciness, float friction)
+	PhysicMaterial(Vector2 bounciness, float friction)
 	{
 		this->bounciness = bounciness;
 		this->friction = friction;
