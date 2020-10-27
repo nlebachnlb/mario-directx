@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="42">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="16" nextobjectid="44">
  <editorsettings>
   <export target="../../../../../Resource/Xml/NewMap/BigMap/world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -447,5 +447,9 @@
   <object id="39" x="3745.09" y="1152.82" width="333.545" height="46.9245"/>
   <object id="40" x="3841.47" y="1056.44" width="334.813" height="48.1928"/>
   <object id="41" x="3936.59" y="960.051" width="333.545" height="46.9245"/>
+ </objectgroup>
+ <objectgroup id="15" name="Goomba">
+  <object id="42" type="basic" x="1608" y="1224"/>
+  <object id="43" type="basic" x="696" y="1224"/>
  </objectgroup>
 </map>
