@@ -76,9 +76,6 @@
     <Filter Include="GameSource\GameObjects\EnvironmentalColliders">
       <UniqueIdentifier>{43f5686f-e80e-4eaa-9820-aa6b808891e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\GameObjects\MarioStates">
-      <UniqueIdentifier>{4003c20f-cd30-41b5-b708-89ed71900ed0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Game\Physics">
       <UniqueIdentifier>{da3078ff-d09d-41f9-b355-0d38893f350c}</UniqueIdentifier>
     </Filter>
@@ -109,8 +106,38 @@
     <Filter Include="Framework\TinyXML">
       <UniqueIdentifier>{9a7025ec-1610-4b9d-a519-47c78f1647aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\GameObjects\MarioProjectiles">
+    <Filter Include="GameSource\GameObjects\Enemies">
+      <UniqueIdentifier>{89b98fcc-a4c7-4870-928c-9e074cd0ac36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Projectiles">
+      <UniqueIdentifier>{f61e4292-a529-4155-8e23-2151f34213e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Projectiles\MarioProjectiles">
       <UniqueIdentifier>{7e9f208c-0784-4856-8152-3bf8a7d92d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario">
+      <UniqueIdentifier>{e01434ba-1023-4800-b351-1c793bbb13d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Mario\MarioStates">
+      <UniqueIdentifier>{4003c20f-cd30-41b5-b708-89ed71900ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Goombas">
+      <UniqueIdentifier>{02bd93dd-5ed7-4b9f-8bcb-b8b250af49c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Koopas">
+      <UniqueIdentifier>{0eff909a-c8b9-41cb-a55f-b298f390525b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items">
+      <UniqueIdentifier>{21a82b04-d269-4755-84b2-baf398025016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items\Powerups">
+      <UniqueIdentifier>{e8982273-5f0e-41d7-b258-f500c1567c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Items\Misc">
+      <UniqueIdentifier>{08abf338-0c23-4d5e-9bd3-7f0707c254fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Blocks">
+      <UniqueIdentifier>{91f8724d-b351-43a8-ba64-2143aa60a6bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +232,7 @@
       <Filter>Framework\Game\Utils</Filter>
     </ClInclude>
     <ClInclude Include="CMario.h">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClInclude>
     <ClInclude Include="IState.h">
       <Filter>Framework\Patterns\StateMachine</Filter>
@@ -217,10 +244,10 @@
       <Filter>GameSource\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="SmallMario.h">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClInclude>
     <ClInclude Include="FireMario.h">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClInclude>
     <ClInclude Include="PhysicMaterial.h">
       <Filter>Framework\Game\Physics</Filter>
@@ -244,7 +271,7 @@
       <Filter>Framework\Game\Map\MapLoader</Filter>
     </ClInclude>
     <ClInclude Include="RaccoonMario.h">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClInclude>
     <ClInclude Include="IPooled.h">
       <Filter>Framework\Patterns\ObjectPool</Filter>
@@ -259,7 +286,13 @@
       <Filter>Framework\TinyXML</Filter>
     </ClInclude>
     <ClInclude Include="MarioFireball.h">
-      <Filter>GameSource\GameObjects\MarioProjectiles</Filter>
+      <Filter>GameSource\GameObjects\Projectiles\MarioProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractEnemy.h">
+      <Filter>GameSource\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -376,7 +409,7 @@
       <Filter>Framework\Game\Utils</Filter>
     </ClCompile>
     <ClCompile Include="CMario.cpp">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClCompile>
     <ClCompile Include="IState.cpp">
       <Filter>Framework\Patterns\StateMachine</Filter>
@@ -388,10 +421,10 @@
       <Filter>GameSource\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="SmallMario.cpp">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClCompile>
     <ClCompile Include="FireMario.cpp">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClCompile>
     <ClCompile Include="PhysicMaterial.cpp">
       <Filter>Framework\Game\Physics</Filter>
@@ -412,7 +445,7 @@
       <Filter>Framework\Game\Map\MapLoader</Filter>
     </ClCompile>
     <ClCompile Include="RaccoonMario.cpp">
-      <Filter>GameSource\GameObjects\MarioStates</Filter>
+      <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClCompile>
     <ClCompile Include="IPooled.cpp">
       <Filter>Framework\Patterns\ObjectPool</Filter>
@@ -433,7 +466,13 @@
       <Filter>Framework\TinyXML</Filter>
     </ClCompile>
     <ClCompile Include="MarioFireball.cpp">
-      <Filter>GameSource\GameObjects\MarioProjectiles</Filter>
+      <Filter>GameSource\GameObjects\Projectiles\MarioProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractEnemy.cpp">
+      <Filter>GameSource\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
