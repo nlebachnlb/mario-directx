@@ -167,7 +167,13 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		if (coObjects->at(i) == this) continue;
-		CollisionEvent* e = SweptAABBEx(coObjects->at(i));
+
+		auto bypassTags = gameObject->GetRigidbody()->GetMaterial().bypass;
+		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
+		if (bypassTags.empty() == false && bypassTags.find(otherTag) != bypassTags.end())
+			continue;  
+
+		CollisionEvent* e = SweptAABBEx(coObjects->at(i)); 
 
 		if (e->time > 0 && e->time <= 1.0f)
 			coEvents.push_back(e);
@@ -260,13 +266,6 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 			}
 			break;
 		}
-
-		auto otherBypassTags = coEvents[min_ix]->collider->GetGameObject()->GetRigidbody()->GetMaterial().bypass;
-		if (otherBypassTags.empty() == false && otherBypassTags.find(gameObject->GetTag()) != otherBypassTags.end())
-		{
-			min_tx = 1.0f;
-			nx = 0;
-		}
 	}
 	if (min_iy >= 0)
 	{
@@ -312,13 +311,6 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 				min_ty = 1.0f;
 			}
 			break;
-		}
-
-		auto otherBypassTags = coEvents[min_iy]->collider->GetGameObject()->GetRigidbody()->GetMaterial().bypass;
-		if (otherBypassTags.empty() == false && otherBypassTags.find(gameObject->GetTag()) != otherBypassTags.end())
-		{
-			min_ty = 1.0f;
-			ny = 0;
 		}
 	}
 }
@@ -471,6 +463,9 @@ std::string Collider2D::GetName()
 
 RectF Collider2D::GetBoundingBox()
 {
+	if (gameObject->IsEnabled() == false)
+		return RectF{ 0, 0, 0, 0 };
+
     auto pos = GetWorldPosition();
     RectF RectF;
     RectF.left   = pos.x - boxSize.x * 0.5f;
