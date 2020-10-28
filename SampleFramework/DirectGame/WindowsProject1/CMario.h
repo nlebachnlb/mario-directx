@@ -20,7 +20,7 @@ const float MARIO_RUN_ACCELERATION		= 0.000188f;
 const float MARIO_WALK_DRAG_FORCE		= 0.0002506f;
 const float MARIO_RUN_DRAG_FORCE		= 0.0006266f;
 const float MARIO_SKID_ACCELERATION		= 0.001104f;
-const int	MARIO_FEVER_TIME			= 1000; // (miliseconds)
+const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
 
 const Vector2 MARIO_BBOX(14 * 3, 26 * 3);
 const Vector2 MARIO_SMALL_BBOX(14 * 3, 14 * 3);
@@ -83,6 +83,8 @@ public:
 	int GetFacing();
 	int SetFacing(int facing);
 
+	void Jump(float force = MARIO_JUMP_FORCE, bool deflect = false);
+
 protected:
 	virtual void InitAnimations();
 	virtual void MovementAnimation();
@@ -106,7 +108,7 @@ private:
 
 	bool skid, canSkid;
 	bool run;
-	bool highJump, canHighJump;
+	bool highJump, canHighJump, deflect;
 	float prevTargetVelocityX, targetVelocityX;
 	Vector2 previousVelocity;
 };

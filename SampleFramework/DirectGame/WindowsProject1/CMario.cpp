@@ -42,6 +42,8 @@ void CMario::Start()
 	canSkid = true;
 
 	canHighJump = false;
+	deflect = false;
+
 	pMeter = 0.0f;
 	runningRestriction = false;
 
@@ -177,14 +179,16 @@ void CMario::Update()
 		auto onAir = Mathf::InRange
 		(
 			velocity.y,
-			-(maxRun && pMeter >= PMETER_MAX ? MARIO_SUPER_JUMP_FORCE : MARIO_HIGH_JUMP_FORCE),
+			-(feverState == 2 ? MARIO_SUPER_JUMP_FORCE : MARIO_HIGH_JUMP_FORCE),
 			-0.5f * MARIO_JUMP_FORCE
 		);
+
+		onAir = onAir || deflect;
 
 		if (input->GetKeyDown(marioKeySet.Jump) && canHighJump && onAir)
 		{
 			jumpForce = MARIO_HIGH_JUMP_FORCE;
-			if (feverState == 2)
+			if ((feverState == 2 && run) || deflect)
 				jumpForce = MARIO_SUPER_JUMP_FORCE;
 			highJump = true;
 		}
@@ -272,15 +276,23 @@ int CMario::SetFacing(int facing)
 	return this->facing = facing;
 }
 
+void CMario::Jump(float force, bool deflect)
+{
+	rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, -force));
+	physicState.jump = JumpingStates::Jump;
+
+	onGround = false;
+	canHighJump = true;
+	this->deflect = deflect;
+
+	DebugOut(L"Can high jump: %d, %f\n", canHighJump ? 1 : 0, rigidbody->GetVelocity().y);
+}
+
 void CMario::OnKeyDown(int keyCode)
 {
 	if (keyCode == marioKeySet.Jump && onGround && physicState.jump == JumpingStates::Stand)
 	{
-		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, -MARIO_JUMP_FORCE));
-		physicState.jump = JumpingStates::Jump;
-
-		onGround = false;
-		canHighJump = true;
+		Jump();
 	}
 }
 
@@ -299,7 +311,8 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 	{
 		auto collider = collision->collider;
 		if (collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
-			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform)
+			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform
+			)
 		{
 			// DebugOut(L"Hit Solid: %f\n", collision->collisionDirection.y);
 			if (collision->collisionDirection.y < 0 &&
