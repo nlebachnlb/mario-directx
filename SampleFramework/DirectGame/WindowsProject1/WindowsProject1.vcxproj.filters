@@ -139,6 +139,9 @@
     <Filter Include="GameSource\GameObjects\Blocks">
       <UniqueIdentifier>{91f8724d-b351-43a8-ba64-2143aa60a6bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Spawners">
+      <UniqueIdentifier>{eccb3aec-e124-486c-9d07-cf885823c4d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -296,6 +299,12 @@
     </ClInclude>
     <ClInclude Include="MarioCollider.h">
       <Filter>GameSource\GameObjects\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnerManager.h">
+      <Filter>GameSource\GameObjects\Spawners</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractSpawner.h">
+      <Filter>GameSource\GameObjects\Spawners</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -479,6 +488,12 @@
     </ClCompile>
     <ClCompile Include="MarioCollider.cpp">
       <Filter>GameSource\GameObjects\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnerManager.cpp">
+      <Filter>GameSource\GameObjects\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractSpawner.cpp">
+      <Filter>GameSource\GameObjects\Spawners</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

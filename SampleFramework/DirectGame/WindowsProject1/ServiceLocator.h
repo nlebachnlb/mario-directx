@@ -14,7 +14,6 @@ public:
 
 private:
 	vector<Service*> services;
-
 };
 
 template<typename T>
