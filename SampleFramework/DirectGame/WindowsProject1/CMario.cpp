@@ -285,7 +285,7 @@ void CMario::Jump(float force, bool deflect)
 	canHighJump = true;
 	this->deflect = deflect;
 
-	DebugOut(L"Can high jump: %d, %f\n", canHighJump ? 1 : 0, rigidbody->GetVelocity().y);
+	// DebugOut(L"Can high jump: %d, %f\n", canHighJump ? 1 : 0, rigidbody->GetVelocity().y);
 }
 
 void CMario::OnKeyDown(int keyCode)

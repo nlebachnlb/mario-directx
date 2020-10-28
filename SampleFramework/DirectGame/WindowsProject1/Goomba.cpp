@@ -23,11 +23,15 @@ void Goomba::InitAnimations()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Walk", animations->Clone("ani-goomba-walk"));
+	AddAnimation("Die", animations->Clone("ani-goomba-die"));
 }
 
 void Goomba::OnDead()
 {
-	
+	rigidbody->SetDynamic(false);
+	colliders->at(0)->Disable();
+	SetVisualRelativePosition(Vector2(0, 7 * 1.5f));
+	SetState("Die");
 }
 
 void Goomba::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
