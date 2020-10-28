@@ -85,6 +85,7 @@ void PlayerController::RegisterToScene(Scene* scene)
 	for (auto x : stateGameObjects)
 		scene->AddObject(x.second);
 	dynamic_cast<FireMario*>(stateGameObjects.at("FireMario"))->GetFireballs().RegisterPoolToScene(scene);
+	dynamic_cast<RaccoonMario*>(stateGameObjects.at("RaccoonMario"))->RegisterToScene(scene);
 }
 
 void PlayerController::SwitchToState(std::string state)

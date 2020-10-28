@@ -7,6 +7,7 @@ enum class ObjectTags
 	BigMario,
 	PowerupMario,
 	FriendlyProjectiles,
+	MarioAttack,
 	HostileProjectiles,
 	Solid,
 	GhostPlatform,

@@ -172,6 +172,7 @@
     <ClInclude Include="ObjectTags.h" />
     <ClInclude Include="PhysicMaterial.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="RaccoonAttackBox.h" />
     <ClInclude Include="RaccoonMario.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="SmallMario.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="ObjectTags.cpp" />
     <ClCompile Include="PhysicMaterial.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="RaccoonAttackBox.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="SmallMario.cpp" />

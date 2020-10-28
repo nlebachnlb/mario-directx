@@ -37,7 +37,7 @@ void FireMario::OnKeyDown(int keyCode)
 		{
 			attacking = true;
 			fireball->SetPosition(transform.Position + Vector2(MARIO_BBOX.x / 2 * facing, 0));
-			fireball->GetRigidbody()->SetVelocity(&Vector2(FIREBALL_VELOCITY * facing, 0));
+			fireball->GetRigidbody()->SetVelocity(&Vector2(FIREBALL_VELOCITY * facing, FIREBALL_GRAVITY * Game::DeltaTime()));
 			// DebugOut(L"Fireball created: %f, %f, %d\n", fireball->GetTransform().Position.x, fireball->GetTransform().Position.y, fireball->IsEnabled() ? 1 : 0);
 		}
 	}

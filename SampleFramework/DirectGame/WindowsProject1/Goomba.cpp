@@ -69,15 +69,14 @@ void Goomba::LateUpdate()
 
 void Goomba::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
 {
-	/*for (auto collision : collisions)
+	for (auto collision : collisions)
 	{
-		if (collision->collisionDirection.x != 0)
+		if (collision->collider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 		{
-			rigidbody->SetVelocity(&Vector2(Mathf::Sign(collision->collisionDirection.x) * GOOMBA_MOVING_SPEED, rigidbody->GetVelocity().y));
-			DebugOut(L"Goomba vel: %f\n", rigidbody->GetVelocity().x);
-			return;
+			DebugOut(L"Goomba die\n");
+			this->OnDead(true);
 		}
-	}*/
+	}
 }
 
 Vector2 Goomba::GetBoxSize()

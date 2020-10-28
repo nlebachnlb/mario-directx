@@ -312,6 +312,9 @@
     <ClInclude Include="GoombaSpawner.h">
       <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
     </ClInclude>
+    <ClInclude Include="RaccoonAttackBox.h">
+      <Filter>GameSource\GameObjects\Projectiles\MarioProjectiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -503,6 +506,9 @@
     </ClCompile>
     <ClCompile Include="GoombaSpawner.cpp">
       <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
+    </ClCompile>
+    <ClCompile Include="RaccoonAttackBox.cpp">
+      <Filter>GameSource\GameObjects\Projectiles\MarioProjectiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

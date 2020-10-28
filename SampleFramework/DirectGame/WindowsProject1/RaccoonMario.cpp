@@ -1,10 +1,12 @@
 #include "RaccoonMario.h"
 #include "Game.h"
 #include "AnimationDatabase.h"
+#include "AbstractEnemy.h"
 
 void RaccoonMario::Awake()
 {
 	CMario::Awake();
+	attackBox = Instantiate<RaccoonAttackBox>();
 }
 
 void RaccoonMario::Start()
@@ -17,6 +19,8 @@ void RaccoonMario::Start()
 	pushing = false;
 	feverState = 0;
 	feverTime = RACCOON_FEVER_TIME;
+	physicalAttacking = false;
+	attackBox->GetColliders()->at(0)->Disable();
 }
 
 void RaccoonMario::OnAnimationEnd()
@@ -36,8 +40,12 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	CMario::OnKeyDown(keyCode);
 
 	// Process attack key
-	if (keyCode == marioKeySet.Attack && attacking == false)
+	if (keyCode == marioKeySet.Attack && attacking == false && physicalAttacking == false)
 	{
+		physicalAttacking = true;
+		attackBox->SetActive(true);
+		attackBox->GetColliders()->at(0)->Enable();
+		lastAttackingTime = GetTickCount();
 		attacking = true;
 	}
 
@@ -74,6 +82,11 @@ void RaccoonMario::OnKeyDown(int keyCode)
 			}
 		}
 	}
+}
+
+void RaccoonMario::RegisterToScene(Scene* scene)
+{
+	scene->AddObject(attackBox);
 }
 
 void RaccoonMario::InitAnimations()
@@ -179,4 +192,42 @@ void RaccoonMario::LateUpdate()
 	}
 
 	runningRestriction = flying != 0;
+
+	if (physicalAttacking)
+	{
+		if (GetTickCount() - lastAttackingTime > RACCOON_ATTACK_TIME)
+		{
+			physicalAttacking = false;
+			attackBox->SetActive(false);
+			attackBox->GetColliders()->at(0)->Disable();
+		}
+	}
+
+	// attackBox->GetRigidbody()->SetVelocity(&rigidbody->GetVelocity());
+	attackBox->SetPosition(transform.Position + 
+		Vector2((MARIO_BBOX.x) * 0.5f * facing, 0));
+}
+
+void RaccoonMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)
+{
+	CMario::OnCollisionEnter(selfCollider, collisions);
+
+	//for (auto collision : collisions)
+	//{
+	//	if (TagUtils::EnemyTag(collision->collider->GetGameObject()->GetTag()))
+	//	{
+	//		// Attack and face to the enemy, beat it
+	//		if (collision->collisionDirection.x * facing > 0 && physicalAttacking)
+	//		{
+	//			auto enemy = (AbstractEnemy*)collision->collider->GetGameObject();
+	//			if (enemy != nullptr)
+	//				enemy->OnDead(true);
+	//		}
+	//		// Otherwise, Mario gets damage
+	//		else
+	//		{
+
+	//		}
+	//	}
+	//}
 }
