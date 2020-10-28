@@ -108,8 +108,8 @@ void Scene::Update()
 			if ((*obj)->IsEnabled() == false) continue;
 
 			// for (int i = 0; i < 1; ++i)
-			(*obj)->Update();
 			(*obj)->PhysicsUpdate(objects);
+			(*obj)->Update();
 			(*obj)->LateUpdate();
 		}
 	}

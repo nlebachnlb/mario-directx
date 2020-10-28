@@ -18,8 +18,9 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 			TagUtils::EnemyTag(collision->collider->GetGameObject()->GetTag()))
 		{
 			mario->Jump(MARIO_JUMP_FORCE, true);
-			auto enemy = dynamic_cast<AbstractEnemy*>(collision->collider->GetGameObject());
-			if (enemy != nullptr)
+			// auto enemy = dynamic_cast<AbstractEnemy*>(collision->collider->GetGameObject());
+			auto enemy = (AbstractEnemy*)(collision->collider->GetGameObject());
+			if (enemy != nullptr) 
 				enemy->OnDead();
 		}
 	}
