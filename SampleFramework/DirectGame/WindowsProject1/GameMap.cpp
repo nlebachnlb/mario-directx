@@ -4,10 +4,12 @@
 #include "SolidBox.h"
 #include "GhostPlatform.h"
 #include "Goomba.h"
+#include "GoombaSpawner.h"
 
 GameMap::GameMap()
 {
     mapData = nullptr;
+    spawnerManager = nullptr;
 }
 
 GameMap::GameMap(std::string filePath)
@@ -20,6 +22,9 @@ void GameMap::Load(std::string filePath, bool manual)
     if (manual)
     {
         mapData = MapData::FromTMX(filePath);
+
+        if (spawnerManager == nullptr) spawnerManager = new SpawnerManager();
+        spawnerManager->ClearServices();
 
         auto tilesets = mapData->GetTilesets();
         for (auto x : *tilesets)
@@ -83,6 +88,10 @@ void GameMap::Load(std::string filePath, bool manual)
 
             if (groupName.compare("Goomba") == 0)
             {
+                auto goombaSpawner = new GoombaSpawner();
+                goombaSpawner->Initialization();
+                spawnerManager->AddService(goombaSpawner);
+
                 for (int i = 0; i < objects->size(); ++i)
                 {
                     Vector2 position(objects->at(i)->x, objects->at(i)->y);
@@ -90,8 +99,11 @@ void GameMap::Load(std::string filePath, bool manual)
 
                     if (type.compare("basic") == 0)
                     {
+                        auto oid = objects->at(i)->id;
                         auto goomba = Instantiate<Goomba>();
                         goomba->SetPosition(position);
+                        goomba->SetPool(goombaSpawner->GetPool());
+                        goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
                         this->gameObjects.push_back(goomba);
                     }
                 }
@@ -142,4 +154,6 @@ void GameMap::Render()
 GameMap::~GameMap()
 {
     if (mapData != nullptr) delete mapData;
+    spawnerManager->ClearServices();
+    delete spawnerManager;
 }

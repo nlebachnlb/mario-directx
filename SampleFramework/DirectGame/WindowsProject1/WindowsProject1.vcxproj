@@ -159,6 +159,7 @@
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="AbstractEnemy.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="GoombaSpawner.h" />
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="Layer.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="AbstractEnemy.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="GoombaSpawner.cpp" />
     <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="Layer.cpp" />

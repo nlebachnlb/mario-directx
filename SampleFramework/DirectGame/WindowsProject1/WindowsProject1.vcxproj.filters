@@ -142,6 +142,9 @@
     <Filter Include="GameSource\GameObjects\Spawners">
       <UniqueIdentifier>{eccb3aec-e124-486c-9d07-cf885823c4d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Spawners\GoombaSpawners">
+      <UniqueIdentifier>{5260e21a-ef56-4935-9783-c2bfae963083}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -305,6 +308,9 @@
     </ClInclude>
     <ClInclude Include="AbstractSpawner.h">
       <Filter>GameSource\GameObjects\Spawners</Filter>
+    </ClInclude>
+    <ClInclude Include="GoombaSpawner.h">
+      <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -494,6 +500,9 @@
     </ClCompile>
     <ClCompile Include="AbstractSpawner.cpp">
       <Filter>GameSource\GameObjects\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="GoombaSpawner.cpp">
+      <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

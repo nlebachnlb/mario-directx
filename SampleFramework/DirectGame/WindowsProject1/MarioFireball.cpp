@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "AnimationDatabase.h"
 #include "Mathf.h"
+#include "AbstractEnemy.h"
 
 void MarioFireball::Awake()
 {
@@ -51,6 +52,13 @@ void MarioFireball::OnCollisionEnter(Collider2D* selfCollider, std::vector<Colli
 			(col->collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
 			col->collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform))
 		{
+			pool->Revoke(this);
+		}
+		else if (TagUtils::EnemyTag(col->collider->GetGameObject()->GetTag()))
+		{
+			auto enemy = (AbstractEnemy*)col->collider->GetGameObject();
+			if (enemy != nullptr)
+				enemy->OnDead(true);
 			pool->Revoke(this);
 		}
 	}

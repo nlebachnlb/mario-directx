@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "GameObject.h"
 #include "MapData.h"
+#include "SpawnerManager.h"
 
 class GameMap : public Service
 {
@@ -32,5 +33,6 @@ private:
 	MapData* mapData;
 	std::unordered_map<int, Tile> tilesets;
 	std::vector<GameObject> gameObjects;
+	SpawnerManager* spawnerManager;
 };
 #endif

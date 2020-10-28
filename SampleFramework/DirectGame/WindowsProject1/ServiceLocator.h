@@ -12,6 +12,8 @@ public:
 	template <typename T> T* GetService();
 	void AddService(Service* service);
 
+	void ClearServices();
+
 private:
 	vector<Service*> services;
 };
