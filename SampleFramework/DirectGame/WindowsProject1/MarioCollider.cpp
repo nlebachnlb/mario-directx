@@ -21,7 +21,7 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 			// auto enemy = dynamic_cast<AbstractEnemy*>(collision->collider->GetGameObject());
 			auto enemy = (AbstractEnemy*)(collision->collider->GetGameObject());
 			if (enemy != nullptr) 
-				enemy->OnDead();
+				enemy->OnDead(false);
 		}
 	}
 }

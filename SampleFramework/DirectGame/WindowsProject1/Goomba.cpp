@@ -12,6 +12,9 @@ void Goomba::Start()
 
 	SetState("Walk");
 	rigidbody->SetMaterial(GOOMBA_PHYSIC_MATERIAL);
+
+	dead = false;
+	time = 0;
 }
 
 void Goomba::Movement()
@@ -22,16 +25,46 @@ void Goomba::Movement()
 void Goomba::InitAnimations()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
+	AddAnimation("Idle", animations->Clone("ani-goomba-idle"));
 	AddAnimation("Walk", animations->Clone("ani-goomba-walk"));
 	AddAnimation("Die", animations->Clone("ani-goomba-die"));
 }
 
-void Goomba::OnDead()
+void Goomba::OnDead(bool oneHit)
 {
-	rigidbody->SetDynamic(false);
-	colliders->at(0)->Disable();
-	SetVisualRelativePosition(Vector2(0, 7 * 1.5f));
-	SetState("Die");
+	if (oneHit)
+	{
+		time = GOOMBA_DEAD_TIME * 2;
+		colliders->at(0)->Disable();
+		transform.Scale.y = -1;
+		rigidbody->SetVelocity(&Vector2(0, GOOMBA_DEFLECTION_ON_SHOT));
+		SetState("Idle");
+		dead = true;
+	}
+	else
+	{
+		time = GOOMBA_DEAD_TIME;
+		rigidbody->SetDynamic(false);
+		colliders->at(0)->Disable();
+		SetVisualRelativePosition(Vector2(0, 7 * 1.5f));
+		SetState("Die");
+		dead = true;
+	}
+}
+
+void Goomba::LateUpdate()
+{
+	if (dead)
+	{
+		if (time > 0)
+			time -= Game::DeltaTime();
+		else 
+		{
+			time = 0;
+			dead = false;
+			linkedPool->Revoke(this);
+		}
+	}
 }
 
 void Goomba::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)

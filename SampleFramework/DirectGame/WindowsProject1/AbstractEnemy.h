@@ -11,7 +11,7 @@ public:
 
 	virtual void Movement() = 0;
 	virtual void InitAnimations() = 0;
-	virtual void OnDead() = 0;
+	virtual void OnDead(bool oneHit) = 0;
 
 	void SetPool(ObjectPool* pool);
 
