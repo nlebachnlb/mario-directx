@@ -8,6 +8,8 @@ ObjectGroup::ObjectGroup()
 
 ObjectGroup::~ObjectGroup()
 {
+    for (auto object : *objects)
+        delete object;
     delete objects;
 }
 

@@ -106,8 +106,6 @@ void Scene::Update()
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
 			if ((*obj)->IsEnabled() == false) continue;
-
-			// for (int i = 0; i < 1; ++i)
 			(*obj)->PhysicsUpdate(objects);
 			(*obj)->Update();
 			(*obj)->LateUpdate();
