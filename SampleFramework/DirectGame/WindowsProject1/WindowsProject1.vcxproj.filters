@@ -315,6 +315,12 @@
     <ClInclude Include="RaccoonAttackBox.h">
       <Filter>GameSource\GameObjects\Projectiles\MarioProjectiles</Filter>
     </ClInclude>
+    <ClInclude Include="KoopasShell.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopasShell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -509,6 +515,12 @@
     </ClCompile>
     <ClCompile Include="RaccoonAttackBox.cpp">
       <Filter>GameSource\GameObjects\Projectiles\MarioProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopasShell.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopasShell.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

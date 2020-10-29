@@ -29,6 +29,10 @@ ObjectGroup* ObjectGroup::FromXMLData(TiXmlElement* data)
         if (node->QueryIntAttribute("width",  &object->width) != TIXML_SUCCESS) object->width = 0;
         if (node->QueryIntAttribute("height", &object->height) != TIXML_SUCCESS) object->height = 0;
 
+        auto name = node->Attribute("name");
+        if (name != NULL) object->name = name;
+        else object->name = "";
+
         auto type = node->Attribute("type");
         if (type != NULL) object->type = type;
         else object->type = "";

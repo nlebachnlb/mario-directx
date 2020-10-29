@@ -15,15 +15,10 @@ public:
 	void Movement()			override;
 	void InitAnimations()	override;
 	void OnDead(bool oneHit)override;
-	void LateUpdate()		override;
 
 	void OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions) override;
 
 protected:
 	Vector2 GetBoxSize()	override;
-
-private:
-	bool dead;
-	float time;
 };
 

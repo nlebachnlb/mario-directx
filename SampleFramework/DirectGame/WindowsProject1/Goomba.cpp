@@ -52,21 +52,6 @@ void Goomba::OnDead(bool oneHit)
 	}
 }
 
-void Goomba::LateUpdate()
-{
-	if (dead)
-	{
-		if (time > 0)
-			time -= Game::DeltaTime();
-		else 
-		{
-			time = 0;
-			dead = false;
-			linkedPool->Revoke(this);
-		}
-	}
-}
-
 void Goomba::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
 {
 	for (auto collision : collisions)

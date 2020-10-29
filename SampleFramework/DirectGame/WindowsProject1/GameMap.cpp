@@ -5,6 +5,7 @@
 #include "GhostPlatform.h"
 #include "Goomba.h"
 #include "GoombaSpawner.h"
+#include "RedKoopasShell.h"
 
 GameMap::GameMap()
 {
@@ -86,25 +87,48 @@ void GameMap::Load(std::string filePath, bool manual)
                 }
             }
 
-            if (groupName.compare("Goomba") == 0)
+            if (groupName.compare("Enemies") == 0)
             {
-                auto goombaSpawner = new GoombaSpawner();
-                goombaSpawner->Initialization();
-                spawnerManager->AddService(goombaSpawner);
-
                 for (int i = 0; i < objects->size(); ++i)
                 {
+                    auto name = objects->at(i)->name;
                     Vector2 position(objects->at(i)->x, objects->at(i)->y);
                     auto type = objects->at(i)->type;
 
-                    if (type.compare("basic") == 0)
+                    if (name.compare("goomba") == 0)
+                    {
+                        auto goombaSpawner = spawnerManager->GetService<GoombaSpawner>();
+                        if (goombaSpawner == nullptr)
+                        {
+                            goombaSpawner = new GoombaSpawner();
+                            spawnerManager->AddService(goombaSpawner);
+                        }
+
+                        if (type.compare("basic") == 0)
+                        {
+                            auto oid = objects->at(i)->id;
+                            auto goomba = Instantiate<Goomba>();
+                            goomba->SetPosition(position);
+                            goomba->SetPool(goombaSpawner->GetPool());
+                            goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
+                            this->gameObjects.push_back(goomba);
+                        }
+                    }
+                    else if (name.compare("koopa-shell") == 0)
                     {
                         auto oid = objects->at(i)->id;
-                        auto goomba = Instantiate<Goomba>();
-                        goomba->SetPosition(position);
-                        goomba->SetPool(goombaSpawner->GetPool());
-                        goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
-                        this->gameObjects.push_back(goomba);
+
+                        KoopasShell* shell = nullptr;
+                        if (type.compare("red") == 0)
+                            shell = Instantiate<RedKoopasShell>();
+
+                        if (shell != nullptr)
+                        {
+                            shell->SetPosition(position);
+                            // goomba->SetPool(goombaSpawner->GetPool());
+                            // goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
+                            this->gameObjects.push_back(shell);
+                        }
                     }
                 }
             }

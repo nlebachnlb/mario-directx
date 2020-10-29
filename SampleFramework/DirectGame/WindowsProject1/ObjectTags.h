@@ -8,10 +8,14 @@ enum class ObjectTags
 	PowerupMario,
 	FriendlyProjectiles,
 	MarioAttack,
+
 	HostileProjectiles,
 	Solid,
 	GhostPlatform,
-	Enemy
+	Enemy,
+	KoopasShell,
+	Goomba,
+	Koopa
 };
 
 class TagUtils
