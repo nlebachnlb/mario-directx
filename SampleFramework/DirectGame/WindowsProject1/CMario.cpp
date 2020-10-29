@@ -19,6 +19,7 @@ void CMario::Awake()
 	this->colliders->push_back(collider); 
 
 	canCrouch = true;
+	input = nullptr;
 }
 
 void CMario::Start()
@@ -50,11 +51,16 @@ void CMario::Start()
 	feverState = 0;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
+
+	hold = false;
+	heldInHandsObject = nullptr;
 }
 
 void CMario::Update()
 {
-	auto input = Game::GetInstance().GetService<InputHandler>();
+	if (input == nullptr)
+		input = Game::GetInstance().GetService<InputHandler>();
+
 	auto velocity = rigidbody->GetVelocity();
 	previousVelocity = velocity;
 	prevPhysicState = physicState;
@@ -239,6 +245,7 @@ void CMario::Update()
 	}
 
 	if (canCrouch) CrouchDetection(input);
+	HoldProcess();
 }
 
 void CMario::PreRender()
@@ -291,6 +298,13 @@ void CMario::Jump(float force, bool deflect)
 bool CMario::IsReadyToRun()
 {
 	return physicState.movement == MovingStates::Run;
+}
+
+void CMario::HoldObject(Holdable* holdableObj)
+{
+	hold = true;
+	this->heldInHandsObject = holdableObj;
+	holdableObj->PassToHolder(this);
 }
 
 void CMario::OnKeyDown(int keyCode)
@@ -351,6 +365,10 @@ void CMario::InitAnimations()
 	AddAnimation("Idle",	animations->Get("ani-big-mario-idle"));
 	AddAnimation("Skid",	animations->Get("ani-big-mario-skid"));
 	AddAnimation("Crouch",	animations->Get("ani-big-mario-crouch"));
+
+	AddAnimation("HoldIdle",	animations->Get("ani-big-mario-hold-idle"));
+	AddAnimation("HoldMove",	animations->Get("ani-big-mario-hold"));
+	AddAnimation("Kick",		animations->Get("ani-big-mario-kick"));
 }
 
 void CMario::MovementAnimation()
@@ -447,6 +465,26 @@ void CMario::CrouchDetection(InputHandler* input)
 	{
 		colliders->at(0)->SetBoxSize(MARIO_BBOX);
 		colliders->at(0)->SetLocalPosition(VectorZero());
+	}
+}
+
+void CMario::HoldProcess()
+{
+	if (heldInHandsObject == nullptr) return;
+
+	if (hold)
+	{
+		if (input->GetKeyDown(marioKeySet.Attack))
+		{
+			auto delta = 0.3f * (heldInHandsObject->GetColliderBox() + MARIO_BBOX);
+			heldInHandsObject->SetHoldablePosition(Vector2(transform.Position.x + Mathf::Abs(delta.x) * facing, transform.Position.y));
+			heldInHandsObject->SetHoldableFacing(facing);
+		}
+		else
+		{
+			hold = false;
+			heldInHandsObject->Release();
+		}
 	}
 }
 

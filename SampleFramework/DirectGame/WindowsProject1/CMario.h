@@ -4,6 +4,7 @@
 #include <dinput.h>
 #include "InputHandler.h"
 #include "IState.h"
+#include "Holdable.h"
 
 const float MARIO_GRAVITY				= 0.00093f;
 const float MARIO_WALK_SPEED			= 0.15f;
@@ -86,6 +87,8 @@ public:
 	void Jump(float force = MARIO_JUMP_FORCE, bool deflect = false);
 	bool IsReadyToRun();
 
+	void HoldObject(Holdable* holdableObj);
+
 protected:
 	virtual void InitAnimations();
 	virtual void MovementAnimation();
@@ -101,15 +104,18 @@ protected:
 	int feverState; // -1: disable fever mode (for raccoon, he has his own flying mechanic)
 	int lastFeverTime;
 	int facing;
+	InputHandler* input;
 
 private:
 	void SkidDetection(Vector2 velocity);
 	void CrouchDetection(InputHandler* input);
+	void HoldProcess();
 	bool IsStateTransition(MovingStates srcState, MovingStates dstState);
 
-	bool skid, canSkid;
-	bool run;
+	bool skid, canSkid; 
+	bool run, hold;
 	bool highJump, canHighJump, deflect;
 	float prevTargetVelocityX, targetVelocityX;
 	Vector2 previousVelocity;
+	Holdable* heldInHandsObject;
 };

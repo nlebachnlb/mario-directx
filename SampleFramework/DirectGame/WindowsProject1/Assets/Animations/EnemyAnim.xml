@@ -119,7 +119,7 @@
 
     <!--Red Koopa Shell-->
     <!-- Animation RUN-->
-    <Animation aniId="ani-red-koopa-troopa-shell-run" frameTime="70">
+    <Animation aniId="ani-red-koopa-troopa-shell-run" frameTime="50">
       <Sprite id="spr-red-koopa-troopa-shell-run-0" left="29" top="97"  width="16" height="16"/>
       <Sprite id="spr-red-koopa-troopa-shell-run-1" left="50" top="96"  width="16" height="16"/>
       <Sprite id="spr-red-koopa-troopa-shell-run-2" left="71" top="96"  width="16" height="16"/>
@@ -142,7 +142,7 @@
 
     <!--Green Koopa Shell-->
     <!-- Animation RUN-->
-    <Animation aniId="ani-green-koopa-troopa-shell-run" frameTime="70">
+    <Animation aniId="ani-green-koopa-troopa-shell-run" frameTime="50">
       <Sprite id="spr-green-koopa-troopa-shell-run-0" left="32" top="149"  width="16" height="16"/>
       <Sprite id="spr-green-koopa-troopa-shell-run-1" left="53" top="148"  width="16" height="16"/>
       <Sprite id="spr-green-koopa-troopa-shell-run-2" left="74" top="148"  width="16" height="16"/>

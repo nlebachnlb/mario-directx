@@ -4,6 +4,7 @@ void KoopasShell::Awake()
 {
 	AbstractEnemy::Awake();
 	SetTag(ObjectTags::KoopasShell);
+	renderOrder = 10;
 }
 
 void KoopasShell::Start()
@@ -21,6 +22,7 @@ void KoopasShell::Start()
 
 void KoopasShell::Movement()
 {
+	// DebugOut(L"Shell position: %f, %f\n", transform.Position.x, transform.Position.y);
 }
 
 void KoopasShell::OnDead(bool oneHit)
@@ -40,6 +42,23 @@ void KoopasShell::OnDead(bool oneHit)
 	}
 }
 
+Vector2 KoopasShell::GetColliderBox()
+{
+	return colliders->at(0)->GetBoxSize();
+}
+
+void KoopasShell::SetHoldablePosition(Vector2 position)
+{
+	SetPosition(position);
+}
+
+void KoopasShell::OnRelease()
+{
+	SetFacing(holdableFacing);
+	Run();
+	colliders->at(0)->Enable();
+}
+
 void KoopasShell::SetFacing(int facing)
 {
 	this->facing = facing;
@@ -49,7 +68,8 @@ void KoopasShell::Run()
 {
 	if (!running)
 	{
-		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y));
+		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
+		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, 0));
 		SetState("Run");
 		running = true;
 	}

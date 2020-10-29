@@ -145,6 +145,9 @@
     <Filter Include="GameSource\GameObjects\Spawners\GoombaSpawners">
       <UniqueIdentifier>{5260e21a-ef56-4935-9783-c2bfae963083}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Misc">
+      <UniqueIdentifier>{703ad6f4-c690-4794-9b65-30c242595f95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -320,6 +323,9 @@
     </ClInclude>
     <ClInclude Include="RedKoopasShell.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Holdable.h">
+      <Filter>GameSource\GameObjects\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -521,6 +527,9 @@
     </ClCompile>
     <ClCompile Include="RedKoopasShell.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Holdable.cpp">
+      <Filter>GameSource\GameObjects\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 				auto shell = (KoopasShell*)(collision->collider->GetGameObject());
 				if (shell != nullptr)
 				{
-					shell->SetFacing(mario->GetFacing());
+					shell->SetFacing(Mathf::Sign(shell->GetTransform().Position.x - mario->GetTransform().Position.x));
 					if (shell->IsRunning())
 					{
 						shell->StopRunning();
@@ -79,7 +79,10 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 					// And the shell is not running
 					if (shell->IsRunning() == false)
 					{
-
+						mario->HoldObject(shell);
+						shell->GetColliders()->at(0)->Disable();
+						shell->GetRigidbody()->SetGravity(0);
+						shell->PassToHolder(mario);
 					}
 					// Otherwise, he gets damaged
 					else

@@ -89,6 +89,7 @@ void Scene::Load()
 			SetMainCamera(camera);
 		}
 	}
+	std::sort(objects->begin(), objects->end(), Scene::Comparator);
 }
 
 void Scene::Unload()
@@ -135,7 +136,7 @@ void Scene::AddObject(GameObject gameObject)
 {
 	objects->push_back(gameObject);
 	// DebugOut(L"objects' length: %d", objects->size());
-	// push_heap(objects->begin(), objects->end(), Comparator());
+	// push_heap(objects->begin(), objects->end(), Comparator);
 }
 
 void Scene::RemoveObject(GameObject gameObject)
@@ -144,6 +145,7 @@ void Scene::RemoveObject(GameObject gameObject)
 	if (remObj != objects->end())
 	{
 		objects->erase(remObj);
+		// pop_heap(objects->begin(), objects->end(), Comparator);
 	}
 }
 

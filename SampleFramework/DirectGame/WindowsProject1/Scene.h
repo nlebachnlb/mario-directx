@@ -26,10 +26,8 @@ public:
 	Camera* GetMainCamera();
 
 protected:
-	struct Comparator
-	{
-		bool operator()(const GameObject& a, const GameObject& b) { return a->GetRenderOrder() < b->GetRenderOrder(); }
-	};
+	static bool Comparator(GameObject& a, GameObject& b) { return a->GetRenderOrder() < b->GetRenderOrder(); }
+	
 	std::vector<GameObject>* objects;
 	std::string id;
 	std::string filePath;
