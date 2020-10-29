@@ -13,5 +13,7 @@ protected:
 
 private:
 	CMario* mario;
+	void VerticalCollisionProcess(std::vector<CollisionEvent*>& collisions);
+	void HorizontalCollisionProcess(std::vector<CollisionEvent*>& collisions);
 };
 

@@ -84,6 +84,7 @@ public:
 	int SetFacing(int facing);
 
 	void Jump(float force = MARIO_JUMP_FORCE, bool deflect = false);
+	bool IsReadyToRun();
 
 protected:
 	virtual void InitAnimations();

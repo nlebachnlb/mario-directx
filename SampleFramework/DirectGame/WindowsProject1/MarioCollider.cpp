@@ -13,6 +13,12 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 
 	Collider2D::CollisionProcess(collisions, rigidbody, velocity, mintx, minty, nx, ny);
 
+	VerticalCollisionProcess(collisions);
+	HorizontalCollisionProcess(collisions);
+}
+
+void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& collisions)
+{
 	for (auto collision : collisions)
 	{
 		auto tag = collision->collider->GetGameObject()->GetTag();
@@ -45,6 +51,60 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 				auto enemy = (AbstractEnemy*)(collision->collider->GetGameObject());
 				if (enemy != nullptr)
 					enemy->OnDead(false);
+				break;
+			}
+			}
+		}
+	}
+}
+
+void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& collisions)
+{
+	for (auto collision : collisions)
+	{
+		auto tag = collision->collider->GetGameObject()->GetTag();
+		if (collision->collisionDirection.x != 0 &&
+			TagUtils::EnemyTag(tag))
+		{
+			switch (tag)
+			{
+			case ObjectTags::KoopasShell:
+			{
+				auto readyToRun = mario->IsReadyToRun();
+				auto shell = (KoopasShell*)(collision->collider->GetGameObject());
+
+				// If Mario is running, he will hold the shell
+				if (readyToRun)
+				{
+					// And the shell is not running
+					if (shell->IsRunning() == false)
+					{
+
+					}
+					// Otherwise, he gets damaged
+					else
+					{
+
+					}
+				}
+				// Otherwise, he kicks it
+				else
+				{
+					if (shell != nullptr)
+					{
+						shell->SetFacing(mario->GetFacing());
+						if (shell->IsRunning() == false)
+						{
+							shell->Run();
+						}
+					}
+				}
+				break;
+			}
+			default:
+			{
+				// Normally, Mario will get damaged when he collides with enemy horizonatally
+				
 				break;
 			}
 			}

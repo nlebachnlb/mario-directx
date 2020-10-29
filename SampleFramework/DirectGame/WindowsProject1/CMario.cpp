@@ -288,6 +288,11 @@ void CMario::Jump(float force, bool deflect)
 	// DebugOut(L"Can high jump: %d, %f\n", canHighJump ? 1 : 0, rigidbody->GetVelocity().y);
 }
 
+bool CMario::IsReadyToRun()
+{
+	return physicState.movement == MovingStates::Run;
+}
+
 void CMario::OnKeyDown(int keyCode)
 {
 	if (keyCode == marioKeySet.Jump && onGround && physicState.jump == JumpingStates::Stand)
