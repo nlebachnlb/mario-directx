@@ -41,14 +41,14 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					}
 					else
 					{
-						if (readyToRun)
+						/*if (readyToRun)
 						{
 							mario->HoldObject(shell);
 							shell->GetColliders()->at(0)->Disable();
 							shell->GetRigidbody()->SetGravity(0);
 							shell->PassToHolder(mario);
 						}
-						else
+						else*/
 							shell->Run();
 					}
 				}
