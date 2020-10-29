@@ -29,6 +29,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 			{
 			case ObjectTags::KoopasShell:
 			{
+				auto readyToRun = mario->IsReadyToRun();
 				auto shell = (KoopasShell*)(collision->collider->GetGameObject());
 				if (shell != nullptr)
 				{
@@ -40,11 +41,20 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					}
 					else
 					{
-						shell->Run();
+						if (readyToRun)
+						{
+							mario->HoldObject(shell);
+							shell->GetColliders()->at(0)->Disable();
+							shell->GetRigidbody()->SetGravity(0);
+							shell->PassToHolder(mario);
+						}
+						else
+							shell->Run();
 					}
 				}
 				break;
 			}
+
 			default:
 			{
 				mario->Jump(MARIO_JUMP_FORCE, true);
@@ -93,13 +103,10 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 				// Otherwise, he kicks it
 				else
 				{
-					if (shell != nullptr)
+					shell->SetFacing(mario->GetFacing());
+					if (shell->IsRunning() == false)
 					{
-						shell->SetFacing(mario->GetFacing());
-						if (shell->IsRunning() == false)
-						{
-							shell->Run();
-						}
+						shell->Run();
 					}
 				}
 				break;

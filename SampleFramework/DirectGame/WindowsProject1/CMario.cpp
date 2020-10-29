@@ -377,7 +377,10 @@ void CMario::MovementAnimation()
 
 	if (physicState.movement == MovingStates::Idle)
 	{
-		SetState("Idle");
+		if (hold)
+			SetState("HoldIdle");
+		else 
+			SetState("Idle");
 		animation->SetSpeedMultiplier(1.0f);
 	}
 
@@ -386,16 +389,26 @@ void CMario::MovementAnimation()
 		auto speed = Mathf::Abs(rigidbody->GetVelocity().x);
 
 		if (run)
-			SetState("Run");
-		else if (skid)
+		{
+			if (hold)
+				SetState("HoldMove");
+			else 
+				SetState("Run");
+		}
+		else if (skid && !hold)
 			SetState("Skid");
 		else
-			SetState("Walk");
+		{
+			if (hold)
+				SetState("HoldMove");
+			else
+				SetState("Walk");
+		}
 
 		animation->SetSpeedMultiplier(Mathf::Clamp(speed / MARIO_WALK_SPEED, 1.0f, 4.0f));
 	}
 
-	if (physicState.movement == MovingStates::Crouch)
+	if (physicState.movement == MovingStates::Crouch && !hold)
 	{
 		SetState("Crouch");
 	}
@@ -410,7 +423,7 @@ void CMario::JumpingAnimation()
 		)
 		return;
 
-	if (feverState == 2)
+	if (feverState == 2 && !hold)
 	{
 		SetState("Fly");
 		return;
@@ -418,7 +431,10 @@ void CMario::JumpingAnimation()
 
 	if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
 	{
-		SetState("Jump");
+		if (hold)
+			SetState("Fall");
+		else 
+			SetState("Jump");
 	}
 	else if (physicState.jump == JumpingStates::Fall)
 	{
@@ -476,7 +492,7 @@ void CMario::HoldProcess()
 	{
 		if (input->GetKeyDown(marioKeySet.Attack))
 		{
-			auto delta = 0.3f * (heldInHandsObject->GetColliderBox() + MARIO_BBOX);
+			auto delta = 0.4f * (heldInHandsObject->GetColliderBox() + MARIO_BBOX);
 			heldInHandsObject->SetHoldablePosition(Vector2(transform.Position.x + Mathf::Abs(delta.x) * facing, transform.Position.y));
 			heldInHandsObject->SetHoldableFacing(facing);
 		}

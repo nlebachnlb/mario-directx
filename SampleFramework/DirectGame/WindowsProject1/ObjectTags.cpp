@@ -14,3 +14,8 @@ bool TagUtils::ProjectilesTag(ObjectTags tag)
 {
     return tag == ObjectTags::FriendlyProjectiles || tag == ObjectTags::HostileProjectiles;
 }
+
+bool TagUtils::StaticTag(ObjectTags tag)
+{
+    return tag == ObjectTags::Solid;
+}

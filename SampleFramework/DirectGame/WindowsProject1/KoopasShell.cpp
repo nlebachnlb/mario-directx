@@ -38,7 +38,32 @@ void KoopasShell::OnDead(bool oneHit)
 	}
 	else
 	{
-		
+		transform.Scale.y = -1;
+		StopRunning();
+		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
+		SetState("Idle");
+	}
+}
+
+void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)
+{
+	for (auto collision : collisions)
+	{
+		auto otherTag = collision->collider->GetGameObject()->GetTag();
+		if (TagUtils::EnemyTag(otherTag))
+		{
+			auto enemy = static_cast<AbstractEnemy*>(collision->collider->GetGameObject());
+			if (running)
+				enemy->OnDead(true);
+		}
+
+		if (otherTag == ObjectTags::MarioAttack)
+		{
+			this->OnDead(false);
+		}
+
+		if (otherTag == ObjectTags::FriendlyProjectiles)
+			this->OnDead(true);
 	}
 }
 

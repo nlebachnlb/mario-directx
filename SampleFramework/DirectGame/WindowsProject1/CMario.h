@@ -112,6 +112,7 @@ private:
 	void HoldProcess();
 	bool IsStateTransition(MovingStates srcState, MovingStates dstState);
 
+	bool animationKick;
 	bool skid, canSkid; 
 	bool run, hold;
 	bool highJump, canHighJump, deflect;

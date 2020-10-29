@@ -180,7 +180,8 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 		auto selfTag = gameObject->GetTag();
 		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 
 			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)) ||
-			(TagUtils::EnemyTag(selfTag) && TagUtils::MarioTag(otherTag))
+			(TagUtils::EnemyTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
+			(TagUtils::EnemyTag(selfTag) && otherTag == ObjectTags::KoopasShell)
 			)
 			continue;
 
@@ -404,7 +405,7 @@ void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigi
 		}
 	}
 
-	if (nx != 0)
+	if (nx != 0 && collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid)
 	{
 		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
 		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();

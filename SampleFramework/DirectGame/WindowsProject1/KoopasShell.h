@@ -17,6 +17,7 @@ public:
 	virtual void Movement() override;
 	virtual void InitAnimations() = 0;
 	virtual void OnDead(bool oneHit) override;
+	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 
 	// Implement holdable interface methods
 	virtual Vector2 GetColliderBox() override;
