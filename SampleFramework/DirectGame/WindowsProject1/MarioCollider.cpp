@@ -22,7 +22,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 	for (auto collision : collisions)
 	{
 		auto tag = collision->collider->GetGameObject()->GetTag();
-		if (TagUtils::EnemyTag(tag))
+		if (TagUtils::EnemyTag(tag) && Mathf::Abs(collision->collisionDirection.y) > 0.00001f)
 		{
 			switch (tag)
 			{

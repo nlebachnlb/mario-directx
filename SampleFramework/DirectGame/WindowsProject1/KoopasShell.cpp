@@ -80,6 +80,13 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 		otherCollider->GetGameObject()->SetActive(false);
 		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
 	}
+
+	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
+	{
+		auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
+		if (running)
+			enemy->OnDead(true);
+	}
 }
 
 Vector2 KoopasShell::GetColliderBox()
