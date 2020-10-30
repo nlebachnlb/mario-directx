@@ -300,9 +300,6 @@
     <ClInclude Include="AbstractEnemy.h">
       <Filter>GameSource\GameObjects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
-    </ClInclude>
     <ClInclude Include="MarioCollider.h">
       <Filter>GameSource\GameObjects\Mario</Filter>
     </ClInclude>
@@ -321,14 +318,20 @@
     <ClInclude Include="KoopasShell.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
     </ClInclude>
-    <ClInclude Include="RedKoopasShell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Holdable.h">
       <Filter>GameSource\GameObjects\Misc</Filter>
     </ClInclude>
     <ClInclude Include="KoopaSpawner.h">
       <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopasShell.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopa.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -528,14 +531,17 @@
     <ClCompile Include="KoopasShell.cpp">
       <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
     </ClCompile>
-    <ClCompile Include="RedKoopasShell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Holdable.cpp">
       <Filter>GameSource\GameObjects\Misc</Filter>
     </ClCompile>
     <ClCompile Include="KoopaSpawner.cpp">
       <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopasShell.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

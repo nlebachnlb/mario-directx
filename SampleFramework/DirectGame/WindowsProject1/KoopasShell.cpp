@@ -18,6 +18,8 @@ void KoopasShell::Start()
 	dead = false;
 	time = 0;
 	running = false;
+
+	transform.Scale.y = 1;
 }
 
 void KoopasShell::Movement()
@@ -59,16 +61,6 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 			if (running)
 				enemy->OnDead(true);
 		}
-
-		/*if (otherTag == ObjectTags::MarioAttack)
-		{
-			this->OnDead(false);
-			collision->collider->GetGameObject()->SetActive(false);
-			collision->collider->GetGameObject()->GetColliders()->at(0)->Disable();
-		}
-
-		if (otherTag == ObjectTags::FriendlyProjectiles)
-			this->OnDead(true);*/
 	}
 }
 
