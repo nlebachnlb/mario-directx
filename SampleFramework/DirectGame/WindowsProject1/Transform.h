@@ -16,7 +16,7 @@ public:
 struct RectF
 {
 	float left, top, right, bottom;
-	static bool TouchOrIntersect(const RectF& rect1, const RectF& rect2);
+	bool TouchOrIntersect(const RectF& other);
 	bool Contains(const RectF& other);
 };
 

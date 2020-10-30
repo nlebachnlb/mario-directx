@@ -29,10 +29,12 @@ Transform CreateTransform(Vector2 position, Vector2 scale, float rotation)
     return result;
 }
 
-bool RectF::TouchOrIntersect(const RectF& rect1, const RectF& rect2)
+bool RectF::TouchOrIntersect(const RectF& other)
 {
-    return  rect2.left <= rect1.right && rect2.right >= rect1.left &&
-            rect2.top >= rect1.bottom && rect2.bottom <= rect1.top;
+    return  this->left <= other.right &&
+        this->top <= other.bottom &&
+        this->right >= other.left &&
+        this->bottom >= other.top;
 }
 
 bool RectF::Contains(const RectF& other)

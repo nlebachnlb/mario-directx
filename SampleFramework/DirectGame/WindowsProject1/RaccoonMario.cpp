@@ -41,7 +41,9 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	CMario::OnKeyDown(keyCode);
 
 	// Process attack key
-	if (keyCode == marioKeySet.Attack && attacking == false && physicalAttacking == false)
+	if (keyCode == marioKeySet.Attack && 
+		attacking == false && physicalAttacking == false &&
+		flying == 0)
 	{
 		physicalAttacking = true;
 		attackBox->SetActive(true);
@@ -113,12 +115,9 @@ void RaccoonMario::InitAnimations()
 
 void RaccoonMario::MovementAnimation()
 {
-	auto animation = GetState(currentState);
-
 	if (attacking)
 	{
 		if (currentState.compare("Attack") != 0) SetState("Attack");
-		animation->SetSpeedMultiplier(2.0f);
 		return;
 	}
 
@@ -136,6 +135,12 @@ void RaccoonMario::JumpingAnimation()
 	if (floating)
 	{
 		if (currentState.compare("Float") != 0) SetState("Float");
+		return;
+	}
+
+	if (attacking)
+	{
+		if (currentState.compare("Attack") != 0) SetState("Attack");
 		return;
 	}
 
@@ -209,30 +214,12 @@ void RaccoonMario::LateUpdate()
 	}
 
 	// attackBox->GetRigidbody()->SetVelocity(&rigidbody->GetVelocity());
+	// DebugOut(L"Attackbox: %d\n", attackBox->IsEnabled());
 	attackBox->SetPosition(transform.Position + 
-		Vector2((MARIO_BBOX.x) * 0.5f * facing, 0));
+		Vector2((MARIO_BBOX.x + RACCOON_ATTACK_BOX.x) * 0.5f * facing, 0));
 }
 
 void RaccoonMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)
 {
 	CMario::OnCollisionEnter(selfCollider, collisions);
-
-	//for (auto collision : collisions)
-	//{
-	//	if (TagUtils::EnemyTag(collision->collider->GetGameObject()->GetTag()))
-	//	{
-	//		// Attack and face to the enemy, beat it
-	//		if (collision->collisionDirection.x * facing > 0 && physicalAttacking)
-	//		{
-	//			auto enemy = (AbstractEnemy*)collision->collider->GetGameObject();
-	//			if (enemy != nullptr)
-	//				enemy->OnDead(true);
-	//		}
-	//		// Otherwise, Mario gets damage
-	//		else
-	//		{
-
-	//		}
-	//	}
-	//}
 }

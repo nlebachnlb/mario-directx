@@ -32,3 +32,15 @@ void RaccoonAttackBox::OnCollisionEnter(Collider2D* selfCollider, std::vector<Co
 		}
 	}*/
 }
+
+void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
+{
+	//DebugOut(L"Attack box overlap\n");
+	//if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
+	//{
+	//	DebugOut(L"Enemy collision\n");
+	//	/*auto enemy = (AbstractEnemy*)otherCollider->GetGameObject();
+	//	if (enemy != nullptr)
+	//		enemy->OnDead(true);*/
+	//}
+}

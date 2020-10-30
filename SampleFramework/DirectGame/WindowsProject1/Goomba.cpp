@@ -37,7 +37,7 @@ void Goomba::OnDead(bool oneHit)
 		time = GOOMBA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform.Scale.y = -1;
-		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT));
+		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 		dead = true;
 	}
@@ -54,13 +54,16 @@ void Goomba::OnDead(bool oneHit)
 
 void Goomba::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
 {
-	for (auto collision : collisions)
+}
+
+void Goomba::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
+{
+	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 	{
-		if (collision->collider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
-		{
-			DebugOut(L"Goomba die\n");
-			this->OnDead(true);
-		}
+		DebugOut(L"Goomba die\n");
+		this->OnDead(true);
+		otherCollider->GetGameObject()->SetActive(false);
+		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
 	}
 }
 

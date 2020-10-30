@@ -22,8 +22,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 	for (auto collision : collisions)
 	{
 		auto tag = collision->collider->GetGameObject()->GetTag();
-		if (collision->collisionDirection.y < 0 &&
-			TagUtils::EnemyTag(tag))
+		if (TagUtils::EnemyTag(tag))
 		{
 			switch (tag)
 			{
@@ -34,22 +33,14 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 				if (shell != nullptr)
 				{
 					shell->SetFacing(Mathf::Sign(shell->GetTransform().Position.x - mario->GetTransform().Position.x));
-					if (shell->IsRunning())
+					if (shell->IsRunning() && collision->collisionDirection.y < 0)
 					{
 						shell->StopRunning();
 						mario->Jump(MARIO_JUMP_FORCE, true);
 					}
-					else
+					else 
 					{
-						/*if (readyToRun)
-						{
-							mario->HoldObject(shell);
-							shell->GetColliders()->at(0)->Disable();
-							shell->GetRigidbody()->SetGravity(0);
-							shell->PassToHolder(mario);
-						}
-						else*/
-							shell->Run();
+						shell->Run();
 					}
 				}
 				break;
@@ -57,10 +48,17 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 
 			default:
 			{
-				mario->Jump(MARIO_JUMP_FORCE, true);
-				auto enemy = (AbstractEnemy*)(collision->collider->GetGameObject());
-				if (enemy != nullptr)
-					enemy->OnDead(false);
+				if (collision->collisionDirection.y < 0)
+				{
+					mario->Jump(MARIO_JUMP_FORCE, true);
+					auto enemy = (AbstractEnemy*)(collision->collider->GetGameObject());
+					if (enemy != nullptr)
+						enemy->OnDead(false);
+				}
+				else if (collision->collisionDirection.y > 0)
+				{
+					// Get Damaged
+				}
 				break;
 			}
 			}

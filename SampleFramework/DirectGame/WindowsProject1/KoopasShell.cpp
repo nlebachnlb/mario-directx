@@ -43,7 +43,7 @@ void KoopasShell::OnDead(bool oneHit)
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		transform.Scale.y = -1;
 		StopRunning();
-		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
+		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT * 0.5f));
 		SetState("Idle");
 	}
 }
@@ -83,7 +83,7 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 
 	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 	{
-		DebugOut(L"Overlapp atta mario\n");
+		// DebugOut(L"Overlapp atta mario\n");
 		this->OnDead(false);
 		otherCollider->GetGameObject()->SetActive(false);
 		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();

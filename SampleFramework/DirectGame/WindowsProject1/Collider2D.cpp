@@ -179,7 +179,7 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 
 		auto selfBox = GetBoundingBox();
 		auto otherBox = coObjects->at(i)->GetBoundingBox();
-		if (RectF::TouchOrIntersect(selfBox, otherBox) || RectF::TouchOrIntersect(otherBox, selfBox) || 
+		if (selfBox.TouchOrIntersect(otherBox) || otherBox.TouchOrIntersect(selfBox) || 
 			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
 		{
 			this->gameObject->OnOverlapped(this, coObjects->at(i));
@@ -192,7 +192,9 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 
 			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)) ||
 			(TagUtils::EnemyTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
-			(TagUtils::EnemyTag(selfTag) && otherTag == ObjectTags::KoopasShell)
+			(TagUtils::EnemyTag(selfTag) && otherTag == ObjectTags::KoopasShell) ||
+			(selfTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(otherTag)) || 
+			(otherTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(selfTag))
 			)
 			continue;
 
