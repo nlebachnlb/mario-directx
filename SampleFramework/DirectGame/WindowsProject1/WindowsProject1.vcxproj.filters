@@ -327,6 +327,9 @@
     <ClInclude Include="Holdable.h">
       <Filter>GameSource\GameObjects\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="KoopaSpawner.h">
+      <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -530,6 +533,9 @@
     </ClCompile>
     <ClCompile Include="Holdable.cpp">
       <Filter>GameSource\GameObjects\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaSpawner.cpp">
+      <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

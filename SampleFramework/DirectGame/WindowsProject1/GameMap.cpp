@@ -6,6 +6,7 @@
 #include "Goomba.h"
 #include "GoombaSpawner.h"
 #include "RedKoopasShell.h"
+#include "KoopaSpawner.h"
 
 GameMap::GameMap()
 {
@@ -116,17 +117,19 @@ void GameMap::Load(std::string filePath, bool manual)
                     }
                     else if (name.compare("koopa-shell") == 0)
                     {
+                        auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
+                        if (koopaSpawner == nullptr)
+                        {
+                            koopaSpawner = new KoopaSpawner();
+                            spawnerManager->AddService(koopaSpawner);
+                        }
+
                         auto oid = objects->at(i)->id;
 
                         KoopasShell* shell = nullptr;
                         if (type.compare("red") == 0)
-                            shell = Instantiate<RedKoopasShell>();
-
-                        if (shell != nullptr)
                         {
-                            shell->SetPosition(position);
-                            // goomba->SetPool(goombaSpawner->GetPool());
-                            // goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
+                            shell = koopaSpawner->InstantiateShell(position);
                             this->gameObjects.push_back(shell);
                         }
                     }

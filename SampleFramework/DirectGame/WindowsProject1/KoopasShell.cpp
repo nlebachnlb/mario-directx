@@ -22,13 +22,15 @@ void KoopasShell::Start()
 
 void KoopasShell::Movement()
 {
-	// DebugOut(L"Shell position: %f, %f\n", transform.Position.x, transform.Position.y);
+	rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY * (IsHeld() ? 0 : 1));
+	// DebugOut(L"Shell vel: %f\n", rigidbody->GetVelocity().y);
 }
 
 void KoopasShell::OnDead(bool oneHit)
 {
 	if (oneHit)
 	{
+		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		time = KOOPAS_SHELL_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform.Scale.y = -1;
@@ -38,6 +40,7 @@ void KoopasShell::OnDead(bool oneHit)
 	}
 	else
 	{
+		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		transform.Scale.y = -1;
 		StopRunning();
 		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
@@ -57,13 +60,33 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 				enemy->OnDead(true);
 		}
 
-		if (otherTag == ObjectTags::MarioAttack)
+		/*if (otherTag == ObjectTags::MarioAttack)
 		{
 			this->OnDead(false);
+			collision->collider->GetGameObject()->SetActive(false);
+			collision->collider->GetGameObject()->GetColliders()->at(0)->Disable();
 		}
 
 		if (otherTag == ObjectTags::FriendlyProjectiles)
+			this->OnDead(true);*/
+	}
+}
+
+void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
+{
+	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::Solid)
+	{
+		// DebugOut(L"Overlapp solid\n"); 
+		if (running)
 			this->OnDead(true);
+	}
+
+	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
+	{
+		DebugOut(L"Overlapp atta mario\n");
+		this->OnDead(false);
+		otherCollider->GetGameObject()->SetActive(false);
+		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
 	}
 }
 
@@ -79,9 +102,9 @@ void KoopasShell::SetHoldablePosition(Vector2 position)
 
 void KoopasShell::OnRelease()
 {
+	colliders->at(0)->Enable();
 	SetFacing(holdableFacing);
 	Run();
-	colliders->at(0)->Enable();
 }
 
 void KoopasShell::SetFacing(int facing)
@@ -104,6 +127,7 @@ void KoopasShell::StopRunning()
 {
 	if (running)
 	{
+		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		rigidbody->SetVelocity(&Vector2(0, rigidbody->GetVelocity().y));
 		SetState("Idle");
 		running = false;

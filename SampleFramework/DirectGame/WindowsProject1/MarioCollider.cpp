@@ -90,7 +90,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 					if (shell->IsRunning() == false)
 					{
 						mario->HoldObject(shell);
-						shell->GetColliders()->at(0)->Disable();
+						// shell->GetColliders()->at(0)->Disable();
 						shell->GetRigidbody()->SetGravity(0);
 						shell->PassToHolder(mario);
 					}

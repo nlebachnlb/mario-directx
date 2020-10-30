@@ -3,6 +3,7 @@
 AbstractSpawner::AbstractSpawner()
 {
 	pool = new ObjectPool();
+	Initialization();
 }
 
 AbstractSpawner::~AbstractSpawner()

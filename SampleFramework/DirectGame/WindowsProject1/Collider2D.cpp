@@ -168,7 +168,7 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i) == this) continue;
+		if (coObjects->at(i) == this || coObjects->at(i)->GetGameObject()->IsEnabled() == false) continue;
 
 		/*auto bypassTags = gameObject->GetRigidbody()->GetMaterial().bypass;
 		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
@@ -176,6 +176,17 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 		for (auto tag : bypassTags)
 			bypass = bypass || tag == otherTag;
 		if (bypass) continue;*/
+
+		auto selfBox = GetBoundingBox();
+		auto otherBox = coObjects->at(i)->GetBoundingBox();
+		if (RectF::TouchOrIntersect(selfBox, otherBox) || RectF::TouchOrIntersect(otherBox, selfBox) || 
+			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
+		{
+			this->gameObject->OnOverlapped(this, coObjects->at(i));
+			coObjects->at(i)->GetGameObject()->OnOverlapped(coObjects->at(i), this);
+			continue;
+		}
+
 		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
 		auto selfTag = gameObject->GetTag();
 		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 

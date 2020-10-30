@@ -16,6 +16,8 @@ public:
 struct RectF
 {
 	float left, top, right, bottom;
+	static bool TouchOrIntersect(const RectF& rect1, const RectF& rect2);
+	bool Contains(const RectF& other);
 };
 
 Vector2 VectorInfinity();

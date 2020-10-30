@@ -50,9 +50,11 @@ public:
 	// OnKeyUp, OnKeyDown: Response event of Keyboard [OVERRIDE for purposes]
 	virtual void OnKeyUp(int keyCode);
 	virtual void OnKeyDown(int keyCode);
-	// OnCollisionEnter: Call at collision occured in PhysicUpdate
+	// OnCollisionEnter: Called when collision occured in PhysicUpdate
 	virtual void OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions);
 	virtual void OnTriggerEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions);
+	// OnOverlapped: Called when an intersection of selfBox with another box
+	virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
 #pragma endregion
 
 	virtual void Initialize();

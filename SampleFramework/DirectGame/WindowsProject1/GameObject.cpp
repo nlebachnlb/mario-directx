@@ -128,6 +128,10 @@ void CGameObject::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent
 {
 }
 
+void CGameObject::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
+{
+}
+
 void CGameObject::Initialize()
 {
 	rigidbody = new Rigidbody2D();

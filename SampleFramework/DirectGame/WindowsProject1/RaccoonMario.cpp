@@ -21,6 +21,7 @@ void RaccoonMario::Start()
 	feverTime = RACCOON_FEVER_TIME;
 	physicalAttacking = false;
 	attackBox->GetColliders()->at(0)->Disable();
+	attackBox->SetActive(false);
 }
 
 void RaccoonMario::OnAnimationEnd()
