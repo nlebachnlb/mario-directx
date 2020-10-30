@@ -237,7 +237,8 @@ void CMario::Update()
 	else if (physicState.jump == JumpingStates::Stand)
 	{
 		// Fall down from a higher place
-		if (rigidbody->GetVelocity().y > 2 * rigidbody->GetGravity() * Game::DeltaTime())
+		auto distance = rigidbody->GetVelocity().y * Game::DeltaTime();
+		if (distance > MARIO_MIN_VDISTANCE)
 		{
 			onGround = false;
 			physicState.jump = JumpingStates::Fall;
