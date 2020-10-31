@@ -6,7 +6,7 @@
 #include "IState.h"
 #include "Holdable.h"
 
-const int	MARIO_MIN_VDISTANCE			= 4; // pixels
+const int	MARIO_MIN_VDISTANCE			= 8; // pixels
 const float MARIO_GRAVITY				= 0.00093f;
 const float MARIO_WALK_SPEED			= 0.15f;
 const float MARIO_RUN_SPEED				= 0.40f;

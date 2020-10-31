@@ -26,6 +26,8 @@ public:
 	void Update();
 	void Render();
 
+	SpawnerManager* GetSpawnerManager();
+
 	~GameMap();
 
 private:

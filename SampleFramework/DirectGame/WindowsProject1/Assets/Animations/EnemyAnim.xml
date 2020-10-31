@@ -108,7 +108,7 @@
 
     <!--Red Koopa-->
     <!-- Animation MOVE-->
-    <Animation aniId="ani-red-koopa-troopa-move" frameTime="100">
+    <Animation aniId="ani-red-koopa-troopa-move" frameTime="300">
       <Sprite id="spr-red-koopa-troopa-move-0" left="28" top="67"  width="16" height="26"/>
       <Sprite id="spr-red-koopa-troopa-move-1" left="47" top="66"  width="16" height="27"/>
     </Animation>

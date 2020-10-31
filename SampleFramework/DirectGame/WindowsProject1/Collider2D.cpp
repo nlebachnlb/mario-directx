@@ -192,7 +192,7 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 
 			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)) ||
 			(TagUtils::EnemyTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
-			(TagUtils::EnemyTag(selfTag) && otherTag == ObjectTags::KoopasShell) ||
+			// (TagUtils::EnemyTag(selfTag) && otherTag == ObjectTags::KoopasShell) ||
 			(selfTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(otherTag)) || 
 			(otherTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(selfTag))
 			)
@@ -416,7 +416,7 @@ void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigi
 		}
 		else
 		{
-			if (nx == 0)
+			// if (nx == 0)
 			{
 				velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
 				dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
@@ -425,7 +425,9 @@ void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigi
 		}
 	}
 
-	if (nx != 0 && collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid)
+	if (nx != 0 
+		// && collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid
+		)
 	{
 		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
 		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();

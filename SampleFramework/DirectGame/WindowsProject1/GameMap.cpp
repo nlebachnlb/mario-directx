@@ -7,6 +7,7 @@
 #include "GoombaSpawner.h"
 #include "RedKoopasShell.h"
 #include "KoopaSpawner.h"
+#include "RedKoopa.h"
 
 GameMap::GameMap()
 {
@@ -115,7 +116,7 @@ void GameMap::Load(std::string filePath, bool manual)
                             this->gameObjects.push_back(goomba);
                         }
                     }
-                    else if (name.compare("koopa-shell") == 0)
+                    /*else if (name.compare("koopa-shell") == 0)
                     {
                         auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
                         if (koopaSpawner == nullptr)
@@ -131,6 +132,25 @@ void GameMap::Load(std::string filePath, bool manual)
                         {
                             shell = koopaSpawner->InstantiateShell(position);
                             this->gameObjects.push_back(shell);
+                        }
+                    }*/
+                    else if (name.compare("koopa") == 0)
+                    {
+                        auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
+                        if (koopaSpawner == nullptr)
+                        {
+                            koopaSpawner = new KoopaSpawner();
+                            spawnerManager->AddService(koopaSpawner);
+                        }
+
+                        if (type.compare("red") == 0)
+                        {
+                            auto oid = objects->at(i)->id;
+                            auto koopa = Instantiate<RedKoopa>();
+                            koopa->SetPosition(position);
+                            koopa->SetPool(koopaSpawner->GetPool());
+                            koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
+                            this->gameObjects.push_back(koopa);
                         }
                     }
                 }
@@ -176,6 +196,11 @@ void GameMap::Update()
 void GameMap::Render()
 {
     
+}
+
+SpawnerManager* GameMap::GetSpawnerManager()
+{
+    return this->spawnerManager;
 }
 
 GameMap::~GameMap()

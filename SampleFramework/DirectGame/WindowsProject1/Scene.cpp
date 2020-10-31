@@ -135,6 +135,7 @@ void Scene::Render()
 void Scene::AddObject(GameObject gameObject)
 {
 	objects->push_back(gameObject);
+	std::sort(objects->begin(), objects->end(), Scene::Comparator);
 	// DebugOut(L"objects' length: %d", objects->size());
 	// push_heap(objects->begin(), objects->end(), Comparator);
 }

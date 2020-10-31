@@ -16,10 +16,13 @@ void RedKoopa::Start()
 
 	dead = false;
 	time = 0;
+	facing = direction;
 }
 
 void RedKoopa::Movement()
 {
+	facing = Mathf::Sign(rigidbody->GetVelocity().x);
+	SetScale(Vector2(-facing, transform.Scale.y));
 }
 
 void RedKoopa::InitAnimations()
@@ -43,7 +46,8 @@ void RedKoopa::OnDead(bool oneHit)
 	}
 	else
 	{
-		auto koopaSpawner = Game::GetInstance().GetService<KoopaSpawner>();
+		auto gameMap = Game::GetInstance().GetService<GameMap>();
+		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 		koopaSpawner->InstantiateShell(transform.Position);
 		time = -1;
 		dead = true;

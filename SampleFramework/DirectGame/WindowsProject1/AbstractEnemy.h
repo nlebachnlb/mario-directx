@@ -21,5 +21,6 @@ protected:
 	virtual Vector2 GetBoxSize() = 0;
 	float time;
 	bool dead;
+	int facing;
 };
 
