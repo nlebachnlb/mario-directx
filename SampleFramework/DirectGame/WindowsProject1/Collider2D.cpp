@@ -235,8 +235,9 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		CollisionEvent* c = coEvents[i];
+		auto effector = coEvents[i]->collider->GetGameObject()->GetEffector();
 
-		if (c->time < min_tx && c->collisionDirection.x != 0) 
+		if (c->time < min_tx && c->collisionDirection.x != 0 && effector != Effector2D::Top) 
 		{
 			min_tx = c->time; 
 			nx = c->collisionDirection.x; 
@@ -394,14 +395,14 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 			CollisionProcess(coEventsResult, rigidbody, velocity, min_tx, min_ty, nx, ny);
 		}
 
+		/*gameObject->SetPosition(pos);
+		rigidbody->SetVelocity(&velocity);*/
+
 		if (nx != 0 || ny != 0)
 		{
 			if (isTrigger) gameObject->OnTriggerEnter(this, coEventsResult);
 			else gameObject->OnCollisionEnter(this, coEventsResult);
 		}
-
-		// gameObject->SetPosition(pos);
-		// rigidbody->SetVelocity(&velocity);
 	}
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];

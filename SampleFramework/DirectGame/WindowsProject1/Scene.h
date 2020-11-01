@@ -32,5 +32,7 @@ protected:
 	std::string id;
 	std::string filePath;
 	Camera* mainCamera;
+
+	bool loaded;
 };
 

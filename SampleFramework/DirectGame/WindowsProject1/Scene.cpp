@@ -7,11 +7,13 @@
 Scene::Scene()
 {
 	objects = new vector<GameObject>();
+	loaded = false;
 }
 
 Scene::Scene(std::string filePath)
 {
 	this->filePath = filePath;
+	loaded = false;
 }
 
 Scene::~Scene()
@@ -90,10 +92,13 @@ void Scene::Load()
 		}
 	}
 	std::sort(objects->begin(), objects->end(), Scene::Comparator);
+
+	loaded = true;
 }
 
 void Scene::Unload()
 {
+	loaded = false;
 	for (auto object : *objects)
 		delete object;
 	objects->clear();
@@ -102,6 +107,8 @@ void Scene::Unload()
 
 void Scene::Update()
 {
+	if (loaded == false) return;
+
 	if (!(objects == nullptr || objects->size() == 0))
 	{
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
@@ -118,6 +125,8 @@ void Scene::Update()
 
 void Scene::Render()
 {
+	if (loaded == false) return;
+
 	if (mainCamera != nullptr) mainCamera->Render();
 
 	if (!(objects == nullptr || objects->size() == 0))
