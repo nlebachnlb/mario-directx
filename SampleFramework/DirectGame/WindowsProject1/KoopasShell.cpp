@@ -25,6 +25,7 @@ void KoopasShell::Start()
 void KoopasShell::Movement()
 {
 	rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY * (IsHeld() ? 0 : 1));
+	rigidbody->SetVelocity(IsHeld() ? &VectorZero() : &rigidbody->GetVelocity());
 	// DebugOut(L"Shell vel: %f\n", rigidbody->GetVelocity().y);
 }
 
@@ -45,7 +46,7 @@ void KoopasShell::OnDead(bool oneHit)
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		transform.Scale.y = -1;
 		StopRunning();
-		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT * 0.5f));
+		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 	}
 }

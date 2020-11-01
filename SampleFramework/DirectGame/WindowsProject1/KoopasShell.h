@@ -6,7 +6,7 @@ const Vector2 KOOPAS_SHELL_BBOX(16 * 3 - 8, 16 * 3 - 10);
 const float KOOPAS_SHELL_MOVING_SPEED = 0.4f;
 const PhysicMaterial KOOPAS_SHELL_PHYSIC_MATERIAL(Vector2(KOOPAS_SHELL_MOVING_SPEED, 0), 0);
 const float KOOPAS_SHELL_GRAVITY = 0.00093f;
-const int KOOPAS_SHELL_DEAD_TIME = 500; // miliseconds
+const int KOOPAS_SHELL_DEAD_TIME = 1000; // miliseconds
 const float KOOPAS_SHELL_DEFLECTION_ON_SHOT = -0.4f;
 
 class KoopasShell : public AbstractEnemy, public Holdable

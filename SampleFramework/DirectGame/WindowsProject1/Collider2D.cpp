@@ -198,6 +198,8 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 			)
 			continue;
 
+		if (coObjects->at(i)->IsTrigger()) continue;
+
 		if (TagUtils::EnemyTag(selfTag) && TagUtils::EnemyTag(otherTag))
 		{
 			// If two enemies are in same type (e.g: goomba vs goomba), they can pass through eachother
