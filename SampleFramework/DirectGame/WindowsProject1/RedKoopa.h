@@ -16,6 +16,7 @@ public:
 	void InitAnimations()	override;
 	void OnDead(bool oneHit)override;
 
+	void OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions);
 	void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
 
 protected:

@@ -47,6 +47,10 @@
 			<Sprite id="spr-small-mario-hold-0" left="435" top="8"  width="14" height="16" frameTime="100"/>
 			<Sprite id="spr-small-mario-hold-1" left="452" top="8"  width="15" height="16" frameTime="100"/>
 		</Animation>
+
+    <Animation aniId="ani-small-mario-hold-idle" frameTime="100" name="HOLD">
+      <Sprite id="spr-small-mario-hold-0" left="435" top="8"  width="14" height="16" frameTime="100"/>
+    </Animation>
 		<!-- Animation KICK-->
 		<Animation aniId="ani-small-mario-kick" frameTime="100" name="KICK">
 			<Sprite id="spr-small-mario-kick-0" left="470" top="8"  width="16" height="16" frameTime="100"/>

@@ -452,6 +452,6 @@
   <object id="42" name="goomba" type="basic" x="1608" y="1224"/>
   <object id="43" name="goomba" type="basic" x="696" y="1224"/>
   <object id="44" name="koopa-shell" type="red" x="1317.75" y="1208.6"/>
-  <object id="45" name="koopa" type="red" x="1462.47" y="1174.82"/>
+  <object id="45" name="koopa" type="red" x="1315" y="1035"/>
  </objectgroup>
 </map>

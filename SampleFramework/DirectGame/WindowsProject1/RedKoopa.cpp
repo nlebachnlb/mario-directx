@@ -23,6 +23,7 @@ void RedKoopa::Movement()
 {
 	facing = Mathf::Sign(rigidbody->GetVelocity().x);
 	SetScale(Vector2(-facing, transform.Scale.y));
+	// DebugOut(L"VEL: %f\n", rigidbody->GetVelocity().x);
 }
 
 void RedKoopa::InitAnimations()
@@ -51,6 +52,34 @@ void RedKoopa::OnDead(bool oneHit)
 		koopaSpawner->InstantiateShell(transform.Position);
 		time = -1;
 		dead = true;
+	}
+}
+
+void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
+{
+	auto selfBox = selfCollider->GetBoundingBox();
+	
+	for (auto collision : collisions)
+	{
+		if (collision->collisionDirection.y < 0 == false || collision->collisionDirection.x != 0) continue;
+		if (collision->collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
+			collision->collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform)
+		{
+			auto otherBox = collision->collider->GetBoundingBox();
+
+			if (transform.Position.x > otherBox.right)
+			{
+				rigidbody->SetVelocity(&Vector2(-Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
+				SetPosition(Vector2(otherBox.right - 1, transform.Position.y));
+				// DebugOut(L"BACK: %f\n", rigidbody->GetVelocity().x);
+			}
+			else if (transform.Position.x < otherBox.left)
+			{
+				rigidbody->SetVelocity(&Vector2(+Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
+				SetPosition(Vector2(otherBox.left + 1, transform.Position.y));
+				// DebugOut(L"BACK-left: %f\n", rigidbody->GetVelocity().x);
+			}
+		}
 	}
 }
 

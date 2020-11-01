@@ -9,7 +9,7 @@ Collider2D::Collider2D()
     boxSize = Vector2(1.0f, 1.0f);
     isTrigger = false;
 	this->name = "";
-	this->pushCoefficient = 0.2f;
+	this->pushCoefficient = 0.4f;
 	Enable();
 }
 
@@ -401,7 +401,7 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 		}
 
 		// gameObject->SetPosition(pos);
-		rigidbody->SetVelocity(&velocity);
+		// rigidbody->SetVelocity(&velocity);
 	}
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];

@@ -148,6 +148,9 @@
     <Filter Include="GameSource\GameObjects\Misc">
       <UniqueIdentifier>{703ad6f4-c690-4794-9b65-30c242595f95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Koopas\RedKoopa">
+      <UniqueIdentifier>{457a6924-713d-4deb-9229-23f6e5e0628a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -328,10 +331,13 @@
       <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
     </ClInclude>
     <ClInclude Include="RedKoopasShell.h">
-      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
     </ClInclude>
     <ClInclude Include="RedKoopa.h">
-      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionBox.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -537,11 +543,14 @@
     <ClCompile Include="KoopaSpawner.cpp">
       <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
     </ClCompile>
-    <ClCompile Include="RedKoopasShell.cpp">
-      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
-    </ClCompile>
     <ClCompile Include="RedKoopa.cpp">
-      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopasShell.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="VisionBox.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

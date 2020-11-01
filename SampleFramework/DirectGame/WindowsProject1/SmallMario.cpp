@@ -1,6 +1,7 @@
 #include "SmallMario.h"
 #include "Game.h"
 #include "AnimationDatabase.h"
+#include "MarioCollider.h"
 
 void SmallMario::Awake()
 {
@@ -9,7 +10,7 @@ void SmallMario::Awake()
 
 	InitAnimations();
 
-	Collider2D* collider = new Collider2D();
+	MarioCollider* collider = new MarioCollider();
 	collider->SetBoxSize(MARIO_SMALL_BBOX);
 	collider->AttachToEntity(this);
 	collider->SetName("Normal");
@@ -30,4 +31,8 @@ void SmallMario::InitAnimations()
 	AddAnimation("Idle", animations->Get("ani-small-mario-idle"));
 	AddAnimation("Skid", animations->Get("ani-small-mario-skid"));
 	// AddAnimation("Crouch", animations->Get("ani-small-mario-"));
+
+	AddAnimation("HoldIdle", animations->Get("ani-small-mario-hold-idle"));
+	AddAnimation("HoldMove", animations->Get("ani-small-mario-hold"));
+	AddAnimation("Kick", animations->Get("ani-small-mario-kick"));
 }

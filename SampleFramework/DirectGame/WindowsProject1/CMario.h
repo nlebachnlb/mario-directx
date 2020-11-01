@@ -25,7 +25,7 @@ const float MARIO_SKID_ACCELERATION		= 0.001104f;
 const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
 
 const Vector2 MARIO_BBOX(12 * 3, 26 * 3);
-const Vector2 MARIO_SMALL_BBOX(14 * 3, 14 * 3);
+const Vector2 MARIO_SMALL_BBOX(12 * 3, 14 * 3);
 
 struct MarioKeySet
 {
