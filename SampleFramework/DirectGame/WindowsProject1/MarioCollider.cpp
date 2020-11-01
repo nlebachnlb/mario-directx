@@ -11,7 +11,33 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 	if (mario == nullptr) 
 		mario = dynamic_cast<CMario*>(gameObject);
 
-	Collider2D::CollisionProcess(collisions, rigidbody, velocity, mintx, minty, nx, ny);
+	if (ny != 0)
+	{
+		if (rigidbody->GetGravity() == 0)
+		{
+			velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
+			dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+			rigidbody->SetVelocity(&velocity);
+		}
+		else
+		{
+			if (nx == 0)
+			{
+				velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
+				dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+				rigidbody->SetVelocity(&velocity);
+			}
+		}
+	}
+
+	if (nx != 0
+		&& collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid
+		)
+	{
+		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
+		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
+		rigidbody->SetVelocity(&velocity);
+	}
 
 	VerticalCollisionProcess(collisions);
 	HorizontalCollisionProcess(collisions);
@@ -89,6 +115,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 					{
 						mario->HoldObject(shell);
 						shell->GetRigidbody()->SetGravity(0);
+						shell->GetColliders()->at(0)->Disable();
 						shell->PassToHolder(mario);
 					}
 					// Otherwise, he gets damaged

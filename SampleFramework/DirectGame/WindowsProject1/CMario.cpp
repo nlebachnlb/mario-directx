@@ -11,7 +11,7 @@ void CMario::Awake()
 	DebugOut(L"Mario Awake\n");
 
 	InitAnimations();
-
+	 
 	MarioCollider* collider = new MarioCollider();
 	collider->SetBoxSize(MARIO_BBOX);
 	collider->AttachToEntity(this);
@@ -84,6 +84,7 @@ void CMario::Update()
 		}
 		else
 		{
+			if (feverState == 2) feverState = 0;
 			physicState.movement = MovingStates::Walk;
 			rigidbody->SetAcceleration(MARIO_WALK_ACCELERATION);
 			rigidbody->SetDrag(Vector2(MARIO_WALK_DRAG_FORCE, rigidbody->GetDrag().y));
@@ -237,7 +238,8 @@ void CMario::Update()
 	else if (physicState.jump == JumpingStates::Stand)
 	{
 		// Fall down from a higher place
-		auto distance = rigidbody->GetVelocity().y * Game::DeltaTime();
+		// distance = v*t + 0.5at^2
+		auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
 		if (distance > MARIO_MIN_VDISTANCE)
 		{
 			onGround = false;
@@ -245,7 +247,7 @@ void CMario::Update()
 		}
 	}
 
-	if (canCrouch) CrouchDetection(input);
+	if (canCrouch && !hold) CrouchDetection(input);
 	HoldProcess();
 }
 

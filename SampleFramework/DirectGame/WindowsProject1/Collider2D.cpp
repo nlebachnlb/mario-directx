@@ -387,6 +387,7 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 			// DebugOut(L"**ColEv: %f, %f, %f, %f\n", min_tx, min_ty, nx, ny);
 			pos.x += min_tx * dvx + nx * pushCoefficient;
 			pos.y += min_ty * dvy + ny * pushCoefficient;
+			gameObject->SetPosition(pos);
 
 			CollisionProcess(coEventsResult, rigidbody, velocity, min_tx, min_ty, nx, ny);
 		}
@@ -397,7 +398,7 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 			else gameObject->OnCollisionEnter(this, coEventsResult);
 		}
 
-		gameObject->SetPosition(pos);
+		// gameObject->SetPosition(pos);
 		rigidbody->SetVelocity(&velocity);
 	}
 
@@ -416,7 +417,7 @@ void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigi
 		}
 		else
 		{
-			// if (nx == 0)
+			if (nx == 0)
 			{
 				velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
 				dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
