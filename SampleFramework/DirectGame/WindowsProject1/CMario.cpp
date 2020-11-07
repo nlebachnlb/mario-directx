@@ -84,7 +84,6 @@ void CMario::Update()
 		}
 		else
 		{
-			if (feverState == 2) feverState = 0;
 			physicState.movement = MovingStates::Walk;
 			rigidbody->SetAcceleration(MARIO_WALK_ACCELERATION);
 			rigidbody->SetDrag(Vector2(MARIO_WALK_DRAG_FORCE, rigidbody->GetDrag().y));
@@ -165,7 +164,8 @@ void CMario::Update()
 	if (feverState == 2)
 	{
 		pMeter = PMETER_MAX;
-		if (GetTickCount() - lastFeverTime > feverTime)
+		if (GetTickCount() - lastFeverTime > feverTime
+			|| physicState.movement != MovingStates::Run)
 		{
 			feverState = 0;
 			// DebugOut(L"[Fever] done\n");
