@@ -11,32 +11,37 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 	if (mario == nullptr) 
 		mario = dynamic_cast<CMario*>(gameObject);
 
-	if (ny != 0)
+	auto isEnemy = (collisions.size() > 0 && TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()));
+
+	if (isEnemy == false)
 	{
-		if (rigidbody->GetGravity() == 0)
+		if (ny != 0)
 		{
-			velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-			dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
-			rigidbody->SetVelocity(&velocity);
-		}
-		else
-		{
-			if (nx == 0)
+			if (rigidbody->GetGravity() == 0)
 			{
 				velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
 				dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
 				rigidbody->SetVelocity(&velocity);
 			}
+			else
+			{
+				if (nx == 0)
+				{
+					velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
+					dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+					rigidbody->SetVelocity(&velocity);
+				}
+			}
 		}
-	}
 
-	if (nx != 0
-		&& collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid
-		)
-	{
-		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
-		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
-		rigidbody->SetVelocity(&velocity);
+		if (nx != 0
+			&& collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid
+			)
+		{
+			velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
+			dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
+			rigidbody->SetVelocity(&velocity);
+		}
 	}
 
 	VerticalCollisionProcess(collisions);

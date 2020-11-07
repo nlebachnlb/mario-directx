@@ -333,8 +333,7 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 	{
 		auto collider = collision->collider;
 		if (collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
-			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform
-			)
+			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform)
 		{
 			// DebugOut(L"Hit Solid: %f\n", collision->collisionDirection.y);
 			if (collision->collisionDirection.y < 0 &&
@@ -354,6 +353,24 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 
 void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)
 {
+}
+
+void CMario::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
+{
+	auto otherIsSolid = otherCollider->GetGameObject()->GetTag() == ObjectTags::Solid;
+	auto selfBox = selfCollider->GetBoundingBox();
+	auto otherBox = otherCollider->GetBoundingBox();
+
+	if (otherIsSolid)
+	{
+		DebugOut(L"Overlap solid [mario]\n");
+		auto pos = transform.Position;
+		auto vel = rigidbody->GetVelocity();
+		if (otherBox.right > selfBox.left) pos.x += (otherBox.right - selfBox.left) + 1;
+		else if (otherBox.left < selfBox.right) pos.x -= (selfBox.right - otherBox.left) + 1;
+		else if (otherBox.top < selfBox.bottom && vel.y > 0) pos.y -= (selfBox.bottom - otherBox.top) + 1;
+		SetPosition(pos);
+	}
 }
 
 void CMario::InitAnimations()

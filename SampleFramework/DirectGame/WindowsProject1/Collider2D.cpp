@@ -369,10 +369,10 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 	coEventsResult.clear();
 
 	CalcPotentialCollisions(coObjects, coEvents);
-	auto pos = gameObject->GetTransform().Position;
-
+	
 	if (coEvents.size() == 0)
 	{
+		auto pos = gameObject->GetTransform().Position;
 		pos.x += dvx;
 		pos.y += dvy;
 		gameObject->SetPosition(pos);
@@ -380,14 +380,12 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
-
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-		pos = gameObject->GetTransform().Position;
 
 		if (isTrigger == false)
 		{
 			// DebugOut(L"**ColEv: %f, %f, %f, %f\n", min_tx, min_ty, nx, ny);
+			auto pos = gameObject->GetTransform().Position;
 			pos.x += min_tx * dvx + nx * pushCoefficient;
 			pos.y += min_ty * dvy + ny * pushCoefficient;
 			gameObject->SetPosition(pos);
