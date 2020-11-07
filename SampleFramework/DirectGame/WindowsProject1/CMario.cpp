@@ -397,50 +397,31 @@ void CMario::MovementAnimation()
 
 	if (physicState.movement == MovingStates::Idle)
 	{
-		if (hold)
-			SetState("HoldIdle");
-		else 
-			SetState("Idle");
+		SetState(hold ? "HoldIdle" : "Idle");
 		animation->SetSpeedMultiplier(1.0f);
 	}
-
-	if (physicState.movement == MovingStates::Walk || physicState.movement == MovingStates::Run)
+	else if (physicState.movement == MovingStates::Walk || physicState.movement == MovingStates::Run)
 	{
 		auto speed = Mathf::Abs(rigidbody->GetVelocity().x);
 
 		if (run)
-		{
-			if (hold)
-				SetState("HoldMove");
-			else 
-				SetState("Run");
-		}
+			SetState(hold ? "HoldMove" : "Run");
 		else if (skid && !hold)
 			SetState("Skid");
 		else
-		{
-			if (hold)
-				SetState("HoldMove");
-			else
-				SetState("Walk");
-		}
+			SetState(hold ? "HoldMove" : "Walk");
 
 		animation->SetSpeedMultiplier(Mathf::Clamp(speed / MARIO_WALK_SPEED, 1.0f, 4.0f));
 	}
-
-	if (physicState.movement == MovingStates::Crouch && !hold)
-	{
+	else if (physicState.movement == MovingStates::Crouch && !hold)
 		SetState("Crouch");
-	}
 
 	SetVisualRelativePosition(colliders->at(0)->GetLocalPosition());
 }
 
 void CMario::JumpingAnimation()
 {
-	if (currentState.compare("Fly") == 0 
-		//|| currentState.compare("Jump") == 0 || currentState.compare("Fall") == 0
-		)
+	if (currentState.compare("Fly") == 0)
 		return;
 
 	if (feverState == 2 && !hold)
@@ -450,16 +431,9 @@ void CMario::JumpingAnimation()
 	}
 
 	if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
-	{
-		if (hold)
-			SetState("Fall");
-		else 
-			SetState("Jump");
-	}
+		SetState(hold ? "Fall" : "Jump");
 	else if (physicState.jump == JumpingStates::Fall)
-	{
 		SetState("Fall");
-	}
 }
 
 void CMario::SkidDetection(Vector2 velocity)
