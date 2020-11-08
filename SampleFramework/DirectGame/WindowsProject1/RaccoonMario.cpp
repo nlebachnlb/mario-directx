@@ -66,23 +66,14 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	if (keyCode == marioKeySet.Jump && onGround == false)
 	{
 		if (flying == 1 && (physicState.jump == JumpingStates::High))
-		{
-			pushing = true;
-			lastPushingTime = GetTickCount();
-		}
+			pushing = true, lastPushingTime = GetTickCount();
 
 		if (physicState.jump == JumpingStates::Fall)
 		{
 			if (flying == 1)
-			{
-				pushing = true;
-				lastPushingTime = GetTickCount();
-			}
+				pushing = true, lastPushingTime = GetTickCount();
 			else
-			{
-				floating = true;
-				lastFloatingTime = GetTickCount();
-			}
+				floating = true, lastFloatingTime = GetTickCount();
 		}
 	}
 }
@@ -153,16 +144,10 @@ void RaccoonMario::LateUpdate()
 	{
 		auto current = GetTickCount();
 		if (current - lastFloatingTime > RACCOON_FLOAT_TIME)
-		{
-			floating = false;
-			this->rigidbody->SetGravity(MARIO_GRAVITY);
-		}
+			floating = false, this->rigidbody->SetGravity(MARIO_GRAVITY);
 		else
-		{
-			this->rigidbody->SetGravity(MARIO_GRAVITY * 0.0f);
-		}
+			this->rigidbody->SetGravity(0.0f);
 	}
-
 
 	if (flying == 1 && GetTickCount() - lastFlyingTime > RACCOON_FLY_TIME)
 	{
@@ -181,7 +166,7 @@ void RaccoonMario::LateUpdate()
 			if (pushing && !(GetTickCount() - lastPushingTime > RACCOON_FLOAT_TIME))
 			{
 				rigidbody->SetGravity(0.0f);
-				rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x * 0.95f, RACCOON_FLY_VELOCITY));
+				rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, RACCOON_FLY_VELOCITY));
 			}
 			else
 			{
@@ -213,8 +198,6 @@ void RaccoonMario::LateUpdate()
 		}
 	}
 
-	// attackBox->GetRigidbody()->SetVelocity(&rigidbody->GetVelocity());
-	// DebugOut(L"Attackbox: %d\n", attackBox->IsEnabled());
 	attackBox->SetPosition(transform.Position + 
 		Vector2((MARIO_BBOX.x + RACCOON_ATTACK_BOX.x) * 0.5f * facing, 0));
 }
