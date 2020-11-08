@@ -140,7 +140,7 @@ void GameMap::Load(std::string filePath, bool manual)
                         if (koopaSpawner == nullptr)
                         {
                             koopaSpawner = new KoopaSpawner();
-                            spawnerManager->AddService(koopaSpawner);
+                            spawnerManager->AddService(koopaSpawner); 
                         }
 
                         if (type.compare("red") == 0)

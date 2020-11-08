@@ -76,7 +76,7 @@ public:
 	virtual void OnKeyUp(int keyCode);
 	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 	virtual void OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
-	virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
+	// virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
 
 	// State Interface implementation
 	virtual void Entrance()		override;

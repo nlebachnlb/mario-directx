@@ -273,24 +273,6 @@ void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> co
 {
 }
 
-void CMario::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
-{
-	/*auto otherIsSolid = otherCollider->GetGameObject()->GetTag() == ObjectTags::Solid;
-	auto selfBox = selfCollider->GetBoundingBox();
-	auto otherBox = otherCollider->GetBoundingBox();
-
-	if (otherIsSolid)
-	{
-		DebugOut(L"Overlap solid [mario]\n");
-		auto pos = transform.Position;
-		auto vel = rigidbody->GetVelocity();
-		if (otherBox.right > selfBox.left) pos.x += (otherBox.right - selfBox.left) + 1;
-		else if (otherBox.left < selfBox.right) pos.x -= (selfBox.right - otherBox.left) + 1;
-		else if (otherBox.top < selfBox.bottom && vel.y > 0) pos.y -= (selfBox.bottom - otherBox.top) + 1;
-		SetPosition(pos);
-	}*/
-}
-
 #pragma endregion
 
 #pragma region Animation
