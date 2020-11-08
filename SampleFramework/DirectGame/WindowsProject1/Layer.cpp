@@ -22,6 +22,10 @@ Layer* Layer::FromXMLData(TiXmlElement* data)
     data->QueryIntAttribute("width",    &layer->width);
     data->QueryIntAttribute("height",   &layer->height);
 
+    int visible;
+    if (data->QueryIntAttribute("visible", &visible) != TIXML_SUCCESS) layer->visible = true;
+    else layer->visible = visible ? true : false;
+
     std::string dataContent = data->FirstChildElement("data")->GetText();
     std::vector<std::string> tilemap = split(dataContent, ",");
 
@@ -60,4 +64,9 @@ int Layer::GetHeight()
 int Layer::GetTileID(int x, int y)
 {
     return this->data->at(x)->at(y);
+}
+
+bool Layer::IsVisible()
+{
+    return this->visible;
 }
