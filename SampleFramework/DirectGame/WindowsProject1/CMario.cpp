@@ -65,9 +65,10 @@ void CMario::Update()
 	previousVelocity = velocity;
 	prevPhysicState = physicState;
 	prevTargetVelocityX = targetVelocityX;
+
+#pragma region Horizontal Movement
 	auto speed = velocity.x;
 
-	// Horizontal movement
 	if (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))
 	{
 		// Accelerate velocity based on moving states
@@ -105,9 +106,7 @@ void CMario::Update()
 				speed -= rigidbody->GetAcceleration() * Game::DeltaTime();
 		}
 		else
-		{
 			speed = targetVelocityX;
-		}
 
 		// DebugOut(L"moving state: %d, %d\n", prevPhysicState.movement, physicState.movement);
 		velocity.x = speed;
@@ -137,115 +136,31 @@ void CMario::Update()
 	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.85f;
 	rigidbody->SetVelocity(&velocity);
 
-	// If Mario runs at max speed, the P Meter starts increasing
-	if (physicState.movement == MovingStates::Run && Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.15f &&
-		pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand && 
-		feverState != 2)
-	{
-		pMeter = Mathf::Clamp(pMeter + PMETER_STEP * Game::DeltaTime(), 0.0f, PMETER_MAX + 1);
-		if (feverState != -1) feverState = 1;
-		// DebugOut(L"[Fever] --power: %f\n", pMeter);
-	}
-	else if (feverState != 2 && feverState != -1)
-		feverState = 0;
+#pragma endregion
 
-	// Fever mode processing
-	if (pMeter >= PMETER_MAX && feverState == 1)
-	{
-		feverState = 2;
-		lastFeverTime = GetTickCount();
-		// DebugOut(L"[Fever] start\n");
-	}
-	else if (pMeter > 0 && feverState <= 0)
-	{
-		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 2.0f * Game::DeltaTime(), 0.0, PMETER_MAX);
-	}
-
-	if (feverState == 2)
-	{
-		pMeter = PMETER_MAX;
-		if (GetTickCount() - lastFeverTime > feverTime
-			|| physicState.movement != MovingStates::Run)
-		{
-			feverState = 0;
-			// DebugOut(L"[Fever] done\n");
-		}
-	}
+	FeverProcess();
 
 	// Keep Mario inside Camera bounds
 	auto mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
 	transform.Position.x = Mathf::Clamp(transform.Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x - MARIO_BBOX.x);
 
-	// Vertical Movement
-	if (physicState.jump == JumpingStates::Jump)
+#pragma region Vertical Movement
+	switch (physicState.jump)
 	{
-		velocity = rigidbody->GetVelocity();
-		auto jumpForce = MARIO_JUMP_FORCE;
-		highJump = false;
-
-		auto onAir = Mathf::InRange
-		(
-			velocity.y,
-			-(feverState == 2 ? MARIO_SUPER_JUMP_FORCE : MARIO_HIGH_JUMP_FORCE),
-			-0.5f * MARIO_JUMP_FORCE
-		);
-
-		onAir = onAir || deflect;
-
-		if (input->GetKeyDown(marioKeySet.Jump) && canHighJump && onAir)
-		{
-			jumpForce = MARIO_HIGH_JUMP_FORCE;
-			if ((feverState == 2 && run) || deflect)
-				jumpForce = MARIO_SUPER_JUMP_FORCE;
-			highJump = true;
-		}
-		
-		// Provide force to push Mario up
-		if (velocity.y > -jumpForce && velocity.y < 0 && canHighJump)
-		{
-			rigidbody->SetGravity(0.0f);
-			velocity.y -= MARIO_PUSH_FORCE * Game::DeltaTime();
-			rigidbody->SetVelocity(&velocity);
-			// DebugOut(L"VEL_Y: %f, %f\n", velocity.y, -jumpForce);
-		}
-		else
-		{
-			// Reach maximum distance, get ready to fall
-			velocity.y = -1 * jumpForce;
-			rigidbody->SetVelocity(&velocity);
-			physicState.jump = JumpingStates::High;
-			rigidbody->SetGravity(MARIO_GRAVITY);
-			// DebugOut(L"MAXIMUM: %f\n", velocity.y);
-		}
+	case JumpingStates::Jump:
+		JumpState();
+		break;
+	case JumpingStates::High:
+		HighJumpState();
+		break;
+	case JumpingStates::Fall:
+		FallState();
+		break;
+	case JumpingStates::Stand:
+		StandState();
+		break;
 	}
-	else if (physicState.jump == JumpingStates::High)
-	{
-		velocity = rigidbody->GetVelocity();
-		
-		// After reaching the max jump distance, fall down
-		if (velocity.y > 0)
-		{
-			canHighJump = false;
-			physicState.jump = JumpingStates::Fall;
-		}
-	}
-	else if (physicState.jump == JumpingStates::Fall)
-	{
-		// Fall and land on ground, switch to stand
-		if (onGround)
-			physicState.jump = JumpingStates::Stand;
-	}
-	else if (physicState.jump == JumpingStates::Stand)
-	{
-		// Fall down from a higher place
-		// distance = v*t + 0.5at^2
-		auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
-		if (distance > MARIO_MIN_VDISTANCE)
-		{
-			onGround = false;
-			physicState.jump = JumpingStates::Fall;
-		}
-	}
+#pragma endregion
 
 	if (canCrouch && !hold) CrouchDetection(input);
 	HoldProcess();
@@ -310,6 +225,8 @@ void CMario::HoldObject(Holdable* holdableObj)
 	holdableObj->PassToHolder(this);
 }
 
+#pragma region Keyboard
+
 void CMario::OnKeyDown(int keyCode)
 {
 	if (keyCode == marioKeySet.Jump && onGround && physicState.jump == JumpingStates::Stand)
@@ -326,6 +243,10 @@ void CMario::OnKeyUp(int keyCode)
 		// DebugOut(L"Can high jump: %d\n", canHighJump ? 1 : 0);
 	}
 }
+
+#pragma endregion
+
+#pragma region Collision
 
 void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)
 {
@@ -372,6 +293,10 @@ void CMario::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 		SetPosition(pos);
 	}
 }
+
+#pragma endregion
+
+#pragma region Animation
 
 void CMario::InitAnimations()
 {
@@ -436,6 +361,10 @@ void CMario::JumpingAnimation()
 		SetState("Fall");
 }
 
+#pragma endregion
+
+#pragma region Skid-Crouch-Hold
+
 void CMario::SkidDetection(Vector2 velocity)
 {
 	bool movementConstraint = (
@@ -498,7 +427,117 @@ void CMario::HoldProcess()
 	}
 }
 
+#pragma endregion
+
 bool CMario::IsStateTransition(MovingStates srcState, MovingStates dstState)
 {
 	return (prevPhysicState.movement == srcState && physicState.movement == dstState);
 }
+
+#pragma region Jump States Processor
+
+void CMario::JumpState()
+{
+	auto velocity = rigidbody->GetVelocity();
+	auto jumpForce = MARIO_JUMP_FORCE;
+	highJump = false;
+
+	auto onAir = Mathf::InRange
+	(
+		velocity.y,
+		-(feverState == 2 ? MARIO_SUPER_JUMP_FORCE : MARIO_HIGH_JUMP_FORCE),
+		-0.5f * MARIO_JUMP_FORCE
+	);
+
+	onAir = onAir || deflect;
+
+	if (input->GetKeyDown(marioKeySet.Jump) && canHighJump && onAir)
+	{
+		jumpForce = MARIO_HIGH_JUMP_FORCE;
+		if (feverState == 2 && run)
+			jumpForce = MARIO_SUPER_JUMP_FORCE;
+		highJump = true;
+	}
+
+	// Provide force to push Mario up
+	if (velocity.y > -jumpForce && velocity.y < 0 && canHighJump)
+	{
+		rigidbody->SetGravity(0.0f);
+		velocity.y -= MARIO_PUSH_FORCE * Game::DeltaTime();
+		rigidbody->SetVelocity(&velocity);
+	}
+	else
+	{
+		// Reach maximum distance, get ready to fall
+		velocity.y = -1 * jumpForce;
+		rigidbody->SetVelocity(&velocity);
+		physicState.jump = JumpingStates::High;
+		rigidbody->SetGravity(MARIO_GRAVITY);
+	}
+}
+
+void CMario::HighJumpState()
+{
+	auto velocity = rigidbody->GetVelocity();
+
+	// After reaching the max jump distance, fall down
+	if (velocity.y > 0)
+	{
+		canHighJump = false;
+		physicState.jump = JumpingStates::Fall;
+	}
+}
+
+void CMario::FallState()
+{
+	// Fall and land on ground, switch to stand
+	if (onGround)
+		physicState.jump = JumpingStates::Stand;
+}
+
+void CMario::StandState()
+{
+	// Fall down from a higher place
+		// distance = v*t + 0.5at^2
+	auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
+	if (distance > MARIO_MIN_VDISTANCE)
+	{
+		onGround = false;
+		physicState.jump = JumpingStates::Fall;
+	}
+}
+
+void CMario::FeverProcess()
+{
+	auto velocity = rigidbody->GetVelocity();
+	// If Mario runs at max speed, the P Meter starts increasing
+	if (physicState.movement == MovingStates::Run && Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.15f &&
+		pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand &&
+		feverState != 2)
+	{
+		pMeter = Mathf::Clamp(pMeter + PMETER_STEP * Game::DeltaTime(), 0.0f, PMETER_MAX + 1);
+		if (feverState != -1) feverState = 1;
+		// DebugOut(L"[Fever] --power: %f\n", pMeter);
+	}
+	else if (feverState != 2 && feverState != -1)
+		feverState = 0;
+
+	// Fever mode processing
+	if (pMeter >= PMETER_MAX && feverState == 1)
+	{
+		feverState = 2;
+		lastFeverTime = GetTickCount();
+		// DebugOut(L"[Fever] start\n");
+	}
+	else if (pMeter > 0 && feverState <= 0)
+		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 2.0f * Game::DeltaTime(), 0.0, PMETER_MAX);
+
+	if (feverState == 2)
+	{
+		pMeter = PMETER_MAX;
+		if (GetTickCount() - lastFeverTime > feverTime || physicState.movement != MovingStates::Run)
+			feverState = 0;
+	}
+}
+
+#pragma endregion

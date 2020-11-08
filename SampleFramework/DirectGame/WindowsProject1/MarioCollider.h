@@ -10,6 +10,7 @@ protected:
 	virtual void CollisionProcess(std::vector<CollisionEvent*>& collisions, 
 		Rigidbody2D* rigidbody, Vector2& velocity, 
 		int mintx, int minty, int nx, int ny) override;
+	void BlockPosition(vector<CollisionEvent*>& collisions, float& min_tx, float& min_ty, float& nx, float& ny);
 
 private:
 	CMario* mario;

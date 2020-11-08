@@ -114,6 +114,12 @@ private:
 	void HoldProcess();
 	bool IsStateTransition(MovingStates srcState, MovingStates dstState);
 
+	void JumpState();
+	void HighJumpState();
+	void FallState();
+	void StandState();
+	void FeverProcess();
+
 	bool animationKick;
 	bool skid, canSkid; 
 	bool run, hold;

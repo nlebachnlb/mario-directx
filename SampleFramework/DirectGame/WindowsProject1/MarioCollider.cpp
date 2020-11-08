@@ -48,6 +48,22 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 	HorizontalCollisionProcess(collisions);
 }
 
+void MarioCollider::BlockPosition(vector<CollisionEvent*>& collisions, float& min_tx, float& min_ty, float& nx, float& ny)
+{
+	if (collisions.size() > 0 && TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()))
+	{
+		DebugOut(L"Enemy [mario]: %f\n", gameObject->GetRigidbody()->GetVelocity().x);
+		auto pos = gameObject->GetTransform().Position;
+		pos.x += dvx;
+		pos.y += (ny < 0 ? min_ty * dvy + ny * pushCoefficient : dvy);
+		gameObject->SetPosition(pos);
+	}
+	else 
+	{
+		Collider2D::BlockPosition(collisions, min_tx, min_ty, nx, ny);
+	}
+}
+
 void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& collisions)
 {
 	for (auto collision : collisions)
@@ -71,6 +87,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					}
 					else 
 					{
+						mario->Jump(MARIO_JUMP_FORCE, false);
 						shell->Run();
 					}
 				}
@@ -142,7 +159,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 			}
 			default:
 			{
-				// Normally, Mario will get damaged when he collides with enemy horizonatally
+				// Normally, Mario will get damaged when he collides with enemy horizontally
 				
 				break;
 			}

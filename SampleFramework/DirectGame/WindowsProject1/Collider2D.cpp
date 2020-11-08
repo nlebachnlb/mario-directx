@@ -170,13 +170,6 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 	{
 		if (coObjects->at(i) == this || coObjects->at(i)->GetGameObject()->IsEnabled() == false) continue;
 
-		/*auto bypassTags = gameObject->GetRigidbody()->GetMaterial().bypass;
-		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
-		bool bypass = false;
-		for (auto tag : bypassTags)
-			bypass = bypass || tag == otherTag;
-		if (bypass) continue;*/
-
 		auto selfBox = GetBoundingBox();
 		auto otherBox = coObjects->at(i)->GetBoundingBox();
 		if (selfBox.TouchOrIntersect(otherBox) || otherBox.TouchOrIntersect(selfBox) || 
@@ -384,17 +377,9 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 
 		if (isTrigger == false)
 		{
-			// DebugOut(L"**ColEv: %f, %f, %f, %f\n", min_tx, min_ty, nx, ny);
-			auto pos = gameObject->GetTransform().Position;
-			pos.x += min_tx * dvx + nx * pushCoefficient;
-			pos.y += min_ty * dvy + ny * pushCoefficient;
-			gameObject->SetPosition(pos);
-
+			BlockPosition(coEventsResult, min_tx, min_ty, nx, ny);
 			CollisionProcess(coEventsResult, rigidbody, velocity, min_tx, min_ty, nx, ny);
 		}
-
-		/*gameObject->SetPosition(pos);
-		rigidbody->SetVelocity(&velocity);*/
 
 		if (nx != 0 || ny != 0)
 		{
@@ -406,30 +391,24 @@ void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
+void Collider2D::BlockPosition(vector<CollisionEvent*>& collisions, float& min_tx, float& min_ty, float& nx, float& ny)
+{
+	auto pos = gameObject->GetTransform().Position;
+	pos.x += min_tx * dvx + nx * pushCoefficient;
+	pos.y += min_ty * dvy + ny * pushCoefficient;
+	gameObject->SetPosition(pos);
+}
+
 void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigidbody2D* rigidbody, Vector2& velocity, int mintx, int minty, int nx, int ny)
 {
 	if (ny != 0)
 	{
-		if (rigidbody->GetGravity() == 0)
-		{
-			velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-			dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
-			rigidbody->SetVelocity(&velocity);
-		}
-		else
-		{
-			if (nx == 0)
-			{
-				velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-				dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
-				rigidbody->SetVelocity(&velocity);
-			}
-		}
+		velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
+		dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+		rigidbody->SetVelocity(&velocity);
 	}
 
-	if (nx != 0 
-		// && collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid
-		)
+	if (nx != 0)
 	{
 		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
 		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();

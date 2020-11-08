@@ -80,6 +80,8 @@ public:
 
 protected:
 	virtual void CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigidbody2D* rigidbody, Vector2& velocity, int mintx, int minty, int nx, int ny);
+	virtual void BlockPosition(vector<CollisionEvent*>& collisions, float& min_tx, float& min_ty, float& nx, float& ny);
+	
 	GameObject gameObject;
 	Vector2 localPosition;
 	Vector2 boxSize;
