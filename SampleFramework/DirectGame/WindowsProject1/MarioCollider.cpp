@@ -87,7 +87,8 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					}
 					else 
 					{
-						mario->Jump(MARIO_JUMP_FORCE, false);
+						if (collision->collisionDirection.y < 0)
+							mario->Jump(MARIO_JUMP_FORCE, false);
 						shell->Run();
 					}
 				}

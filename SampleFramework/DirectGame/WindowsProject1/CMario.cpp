@@ -39,9 +39,6 @@ void CMario::Start()
 	facing = 1;
 	skid = false;
 
-	// Not used yet
-	canSkid = true;
-
 	canHighJump = false;
 	deflect = false;
 
@@ -278,7 +275,7 @@ void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> co
 
 void CMario::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
-	auto otherIsSolid = otherCollider->GetGameObject()->GetTag() == ObjectTags::Solid;
+	/*auto otherIsSolid = otherCollider->GetGameObject()->GetTag() == ObjectTags::Solid;
 	auto selfBox = selfCollider->GetBoundingBox();
 	auto otherBox = otherCollider->GetBoundingBox();
 
@@ -291,7 +288,7 @@ void CMario::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 		else if (otherBox.left < selfBox.right) pos.x -= (selfBox.right - otherBox.left) + 1;
 		else if (otherBox.top < selfBox.bottom && vel.y > 0) pos.y -= (selfBox.bottom - otherBox.top) + 1;
 		SetPosition(pos);
-	}
+	}*/
 }
 
 #pragma endregion
@@ -440,7 +437,6 @@ void CMario::JumpState()
 {
 	auto velocity = rigidbody->GetVelocity();
 	auto jumpForce = MARIO_JUMP_FORCE;
-	highJump = false;
 
 	auto onAir = Mathf::InRange
 	(
@@ -456,7 +452,6 @@ void CMario::JumpState()
 		jumpForce = MARIO_HIGH_JUMP_FORCE;
 		if (feverState == 2 && run)
 			jumpForce = MARIO_SUPER_JUMP_FORCE;
-		highJump = true;
 	}
 
 	// Provide force to push Mario up

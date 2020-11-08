@@ -121,9 +121,9 @@ private:
 	void FeverProcess();
 
 	bool animationKick;
-	bool skid, canSkid; 
-	bool run, hold;
-	bool highJump, canHighJump, deflect;
+	bool skid, run, hold;
+	bool canHighJump, deflect;
+
 	float prevTargetVelocityX, targetVelocityX;
 	Vector2 previousVelocity;
 	Holdable* heldInHandsObject;
