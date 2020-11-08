@@ -49,7 +49,8 @@ void RedKoopa::OnDead(bool oneHit)
 	{
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
 		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
-		koopaSpawner->InstantiateShell(transform.Position);
+		auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
+		koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f);
 		time = -1;
 		dead = true;
 	}
