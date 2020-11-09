@@ -8,6 +8,7 @@
 #include "RedKoopasShell.h"
 #include "KoopaSpawner.h"
 #include "RedKoopa.h"
+#include "QuestionBlock.h"
 
 GameMap::GameMap()
 {
@@ -86,6 +87,17 @@ void GameMap::Load(std::string filePath, bool manual)
 
                     auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
                     // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+                }
+            }
+
+            if (groupName.compare("QuestionBlocks") == 0)
+            {
+                for (int i = 0; i < objects->size(); ++i)
+                {
+                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                    QuestionBlock* solid = Instantiate<QuestionBlock>();
+                    solid->SetPosition(position);
+                    this->gameObjects.push_back(solid);
                 }
             }
 

@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractBlock.h" />
     <ClInclude Include="AbstractSpawner.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationDatabase.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="ObjectTags.h" />
     <ClInclude Include="PhysicMaterial.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RaccoonAttackBox.h" />
     <ClInclude Include="RaccoonMario.h" />
     <ClInclude Include="RedKoopa.h" />
@@ -211,6 +213,7 @@
     <ClInclude Include="VisionBox.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractBlock.cpp" />
     <ClCompile Include="AbstractSpawner.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationDatabase.cpp" />
@@ -238,6 +241,7 @@
     <ClCompile Include="ObjectTags.cpp" />
     <ClCompile Include="PhysicMaterial.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonAttackBox.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />
     <ClCompile Include="RedKoopa.cpp" />

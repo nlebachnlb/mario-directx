@@ -339,6 +339,12 @@
     <ClInclude Include="Goomba.h">
       <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractBlock.h">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -551,6 +557,12 @@
     </ClCompile>
     <ClCompile Include="VisionBox.cpp">
       <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractBlock.cpp">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
