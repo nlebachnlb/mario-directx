@@ -3,7 +3,7 @@
   <Root name="Textures">
     <Texture id="tex-mario" source="Assets/Sprites/mario.png"/>
     <Texture id="tex-enemy" source="Assets/Sprites/enemy_white.png"/>
-    <Texture id="tex-misc" source="Assets/Sprites/items.png"/>
+    <Texture id="tex-misc" source="Assets/Sprites/misc_x3.png"/>
     <Texture id="tex-fire-ball" source="Assets/Sprites/fire-ball-white.png"/>
   </Root>
   <Root name="Sprites">
