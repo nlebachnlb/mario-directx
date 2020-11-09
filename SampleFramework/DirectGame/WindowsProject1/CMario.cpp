@@ -441,12 +441,14 @@ void CMario::JumpState()
 	{
 		rigidbody->SetGravity(0.0f);
 		velocity.y -= MARIO_PUSH_FORCE * Game::DeltaTime();
+		//velocity.y = -jumpForce;
 		rigidbody->SetVelocity(&velocity);
 	}
 	else
 	{
 		// Reach maximum distance, get ready to fall
-		velocity.y = -1 * jumpForce;
+		 velocity.y = -jumpForce;
+		// velocity.y = 0;
 		rigidbody->SetVelocity(&velocity);
 		physicState.jump = JumpingStates::High;
 		rigidbody->SetGravity(MARIO_GRAVITY);
