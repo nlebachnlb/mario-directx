@@ -59,9 +59,7 @@ void MarioCollider::BlockPosition(vector<CollisionEvent*>& collisions, float& mi
 		gameObject->SetPosition(pos);
 	}
 	else 
-	{
 		Collider2D::BlockPosition(collisions, min_tx, min_ty, nx, ny);
-	}
 }
 
 void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& collisions)

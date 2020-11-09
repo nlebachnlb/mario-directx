@@ -4,6 +4,7 @@
 #include "Consts.h"
 #include "Mathf.h"
 #include "MarioCollider.h"
+#include "QuestionBlock.h"
 
 void CMario::Awake()
 {
@@ -245,7 +246,8 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 	{
 		auto collider = collision->collider;
 		if (collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
-			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform)
+			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform || 
+			collider->GetGameObject()->GetTag() == ObjectTags::QuestBlock)
 		{
 			// DebugOut(L"Hit Solid: %f\n", collision->collisionDirection.y);
 			if (collision->collisionDirection.y < 0 &&
@@ -254,6 +256,10 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 				onGround = true;
 				physicState.jump = JumpingStates::Stand;
 			}
+
+			if (collision->collisionDirection.y > 0 &&
+				collider->GetGameObject()->GetTag() == ObjectTags::QuestBlock)
+				static_cast<QuestionBlock*>(collider->GetGameObject())->Bounce();
 
 			if (collision->collisionDirection.x != 0)
 			{

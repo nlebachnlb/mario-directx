@@ -4,7 +4,36 @@
 
 void QuestionBlock::Start()
 {
+	SetTag(ObjectTags::QuestBlock);
 	SetState("Sealed");
+	bouncingState = 0;
+}
+
+void QuestionBlock::LateUpdate()
+{
+	switch (bouncingState)
+	{
+	case 1:
+	{
+		visualRelativePosition.y -= BOUNCE_VEL * Game::DeltaTime();
+		if (GetTickCount() - lastTick > BOUNCE_TIME)
+			lastTick = GetTickCount(), bouncingState = 2;
+	}
+		break;
+	case 2:
+	{
+		visualRelativePosition.y += BOUNCE_VEL * Game::DeltaTime();
+		if (GetTickCount() - lastTick > BOUNCE_TIME)
+			visualRelativePosition.y = 0, bouncingState = 0;
+	}
+		break;
+	}
+}
+
+void QuestionBlock::Bounce()
+{
+	if (bouncingState == 0)
+		lastTick = GetTickCount(), bouncingState = 1;
 }
 
 void QuestionBlock::InitAnimation()

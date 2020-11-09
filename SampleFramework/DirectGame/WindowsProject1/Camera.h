@@ -42,7 +42,7 @@ public:
 	BoundarySet GetBoundarySet(int id);
 
 protected:
-	Vector2 position, viewportSize;
+	Vector2 position, viewportSize, targetPivot;
 	GameMap* map;
 	std::unordered_map<int, BoundarySet> boundaries;
 

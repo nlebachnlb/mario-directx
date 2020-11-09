@@ -9,6 +9,7 @@ Camera::Camera()
 	this->viewportSize = Vector2(configs.screenWidth, configs.screenHeight);
 	this->position = VectorZero();
     this->map = nullptr;
+    this->targetPivot = Vector2(0.5f, 0.3f);
 }
 
 Camera::Camera(Vector2 startPosition, Vector2 viewportSize)
@@ -31,8 +32,8 @@ void Camera::Update()
 
     auto pos = this->position;
     
-    pos.x = target->GetTransform().Position.x - viewportSize.x * 0.5f;
-    pos.y = target->GetTransform().Position.y - viewportSize.y * 0.5f;
+    pos.x = target->GetTransform().Position.x - viewportSize.x * targetPivot.x;
+    pos.y = target->GetTransform().Position.y - viewportSize.y * targetPivot.y;
 
     if (pos.x < boundary.left) pos.x = boundary.left;
     if (pos.x > boundary.right - viewportSize.x) pos.x = boundary.right - viewportSize.x;
