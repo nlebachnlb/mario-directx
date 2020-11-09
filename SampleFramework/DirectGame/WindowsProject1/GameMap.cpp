@@ -9,6 +9,7 @@
 #include "KoopaSpawner.h"
 #include "RedKoopa.h"
 #include "QuestionBlock.h"
+#include "EffectPool.h"
 
 GameMap::GameMap()
 {
@@ -29,6 +30,9 @@ void GameMap::Load(std::string filePath, bool manual)
 
         if (spawnerManager == nullptr) spawnerManager = new SpawnerManager();
         spawnerManager->ClearServices();
+
+        auto fxPool = new EffectPool();
+        spawnerManager->AddService(fxPool);
 
         auto tilesets = mapData->GetTilesets();
         for (auto x : *tilesets)
@@ -174,6 +178,7 @@ void GameMap::Load(std::string filePath, bool manual)
 
 void GameMap::Initialization()
 {
+    
 }
 
 MapData* GameMap::GetMapData()

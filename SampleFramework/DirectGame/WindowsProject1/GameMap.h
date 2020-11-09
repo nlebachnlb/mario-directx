@@ -36,5 +36,6 @@ private:
 	std::unordered_map<int, Tile> tilesets;
 	std::vector<GameObject> gameObjects;
 	SpawnerManager* spawnerManager;
+
 };
 #endif

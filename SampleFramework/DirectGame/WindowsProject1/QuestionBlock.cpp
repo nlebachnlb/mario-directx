@@ -1,6 +1,7 @@
 #include "QuestionBlock.h"
 #include "AnimationDatabase.h"
 #include "Game.h"
+#include "EffectPool.h"
 
 void QuestionBlock::Start()
 {
@@ -33,7 +34,12 @@ void QuestionBlock::LateUpdate()
 void QuestionBlock::Bounce()
 {
 	if (bouncingState == 0)
+	{
 		lastTick = GetTickCount(), bouncingState = 1;
+		auto gmap = Game::GetInstance().GetService<GameMap>();
+		auto spawner = gmap->GetSpawnerManager();
+		spawner->GetService<EffectPool>()->CreateFX("fx-coin-obtained", transform.Position);
+	}
 }
 
 void QuestionBlock::InitAnimation()

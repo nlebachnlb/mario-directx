@@ -154,9 +154,12 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CMario.h" />
+    <ClInclude Include="CoinObtainedFX.h" />
     <ClInclude Include="Collider2D.h" />
     <ClInclude Include="Effector2D.h" />
+    <ClInclude Include="EffectPool.h" />
     <ClInclude Include="FireMario.h" />
+    <ClInclude Include="FXObject.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="AbstractEnemy.h" />
     <ClInclude Include="Goomba.h" />
@@ -220,8 +223,11 @@
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CMario.cpp" />
+    <ClCompile Include="CoinObtainedFX.cpp" />
     <ClCompile Include="Collider2D.cpp" />
+    <ClCompile Include="EffectPool.cpp" />
     <ClCompile Include="FireMario.cpp" />
+    <ClCompile Include="FXObject.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="AbstractEnemy.cpp" />
     <ClCompile Include="Goomba.cpp" />

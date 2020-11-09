@@ -151,6 +151,9 @@
     <Filter Include="GameSource\GameObjects\Enemies\Koopas\RedKoopa">
       <UniqueIdentifier>{457a6924-713d-4deb-9229-23f6e5e0628a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Effects">
+      <UniqueIdentifier>{5b0e39fc-ecca-4059-b79d-042eef788b1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -344,6 +347,15 @@
     </ClInclude>
     <ClInclude Include="QuestionBlock.h">
       <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="FXObject.h">
+      <Filter>GameSource\GameObjects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPool.h">
+      <Filter>GameSource\GameObjects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinObtainedFX.h">
+      <Filter>GameSource\GameObjects\Effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -563,6 +575,15 @@
     </ClCompile>
     <ClCompile Include="QuestionBlock.cpp">
       <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="FXObject.cpp">
+      <Filter>GameSource\GameObjects\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectPool.cpp">
+      <Filter>GameSource\GameObjects\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinObtainedFX.cpp">
+      <Filter>GameSource\GameObjects\Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
