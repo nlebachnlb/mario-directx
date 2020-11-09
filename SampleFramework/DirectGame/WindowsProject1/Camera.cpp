@@ -54,6 +54,8 @@ void Camera::Render()
     for (auto l_data : *layers)
     {
         auto layer = l_data.second;
+        if (layer->IsVisible() == false) continue;
+
         auto tilesets = mapData->GetTilesets();
 
         for (auto t_data : *tilesets)

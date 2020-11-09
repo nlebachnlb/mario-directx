@@ -19,10 +19,13 @@ public:
 
 	int GetTileID(int x, int y);
 
+	bool IsVisible();
+
 private:
 	int id;
 	std::string name;
 	int width, height;
 	std::vector<std::vector<int>*>* data;
+	bool visible;
 };
 

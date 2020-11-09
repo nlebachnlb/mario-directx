@@ -64,20 +64,14 @@ void CMario::Update()
 	prevTargetVelocityX = targetVelocityX;
 
 #pragma region Horizontal Movement
-	auto speed = velocity.x;
-
+	auto curVelocity = velocity.x;
 	if (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))
 	{
 		// Accelerate velocity based on moving states
 		if (input->GetKeyDown(marioKeySet.Attack) && runningRestriction == false)
 		{
 			physicState.movement = MovingStates::Run;
-
-			if (skid == false)
-				rigidbody->SetAcceleration(MARIO_RUN_ACCELERATION);
-			else
-				rigidbody->SetAcceleration(MARIO_SKID_ACCELERATION);
-
+			rigidbody->SetAcceleration(skid ? MARIO_SKID_ACCELERATION : MARIO_RUN_ACCELERATION);
 			rigidbody->SetDrag(Vector2(MARIO_RUN_DRAG_FORCE, rigidbody->GetDrag().y));
 		}
 		else
@@ -95,18 +89,18 @@ void CMario::Update()
 		else if (input->GetKeyDown(marioKeySet.Right))
 			targetVelocityX = +1 * constSpeed;
 		
-		if (Mathf::Abs(speed - targetVelocityX) > rigidbody->GetAcceleration() * Game::DeltaTime())
+		if (Mathf::Abs(curVelocity - targetVelocityX) > rigidbody->GetAcceleration() * Game::DeltaTime())
 		{
-			if (speed < targetVelocityX)
-				speed += rigidbody->GetAcceleration() * Game::DeltaTime();
+			if (curVelocity < targetVelocityX)
+				curVelocity += rigidbody->GetAcceleration() * Game::DeltaTime();
 			else
-				speed -= rigidbody->GetAcceleration() * Game::DeltaTime();
+				curVelocity -= rigidbody->GetAcceleration() * Game::DeltaTime();
 		}
 		else
-			speed = targetVelocityX;
+			curVelocity = targetVelocityX;
 
 		// DebugOut(L"moving state: %d, %d\n", prevPhysicState.movement, physicState.movement);
-		velocity.x = speed;
+		velocity.x = curVelocity;
 		facing = Mathf::Sign(velocity.x);
 
 		SkidDetection(velocity);
@@ -114,18 +108,18 @@ void CMario::Update()
 	else
 	{
 		// If Mario stops moving, the drag force will reduce the remaining speed
-		if (Mathf::Abs(speed) > rigidbody->GetDrag().x * Game::DeltaTime()) 
-			speed = Mathf::Abs(speed) - (rigidbody->GetDrag().x * Game::DeltaTime());
+		if (Mathf::Abs(curVelocity) > rigidbody->GetDrag().x * Game::DeltaTime()) 
+			curVelocity = Mathf::Abs(curVelocity) - (rigidbody->GetDrag().x * Game::DeltaTime());
 		else
 		{
-			speed = 0.0f;
+			curVelocity = 0.0f;
 
 			// If Mario does not move anymore, he will be idle
 			if (physicState.movement != MovingStates::Idle)
 				physicState.movement = MovingStates::Idle;
 		}
 
-		velocity.x = facing * speed;
+		velocity.x = facing * curVelocity;
 		skid = false;
 	}
 
@@ -487,7 +481,7 @@ void CMario::StandState()
 void CMario::FeverProcess()
 {
 	auto velocity = rigidbody->GetVelocity();
-	// If Mario runs at max speed, the P Meter starts increasing
+	// If Mario runs at max curVelocity, the P Meter starts increasing
 	if (physicState.movement == MovingStates::Run && Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.15f &&
 		pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand &&
 		feverState != 2)

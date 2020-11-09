@@ -327,9 +327,6 @@
     <ClInclude Include="KoopaSpawner.h">
       <Filter>GameSource\GameObjects\Spawners\GoombaSpawners</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
-    </ClInclude>
     <ClInclude Include="RedKoopasShell.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
     </ClInclude>
@@ -338,6 +335,9 @@
     </ClInclude>
     <ClInclude Include="VisionBox.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
