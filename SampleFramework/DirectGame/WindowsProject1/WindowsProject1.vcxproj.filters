@@ -357,6 +357,9 @@
     <ClInclude Include="CoinObtainedFX.h">
       <Filter>GameSource\GameObjects\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="ItemInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -584,6 +587,9 @@
     </ClCompile>
     <ClCompile Include="CoinObtainedFX.cpp">
       <Filter>GameSource\GameObjects\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemInfo.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

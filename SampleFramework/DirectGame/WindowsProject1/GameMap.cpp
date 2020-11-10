@@ -99,9 +99,15 @@ void GameMap::Load(std::string filePath, bool manual)
                 for (int i = 0; i < objects->size(); ++i)
                 {
                     Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                    auto name = objects->at(i)->name;
+                    auto type = stoi(objects->at(i)->type);
+
                     QuestionBlock* solid = Instantiate<QuestionBlock>();
                     solid->SetPosition(position);
                     this->gameObjects.push_back(solid);
+
+                    if (name.compare("bcoin") == 0)
+                        solid->SetItem({ ItemTags::Coin, type });
                 }
             }
 

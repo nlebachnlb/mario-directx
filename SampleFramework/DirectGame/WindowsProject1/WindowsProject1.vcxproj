@@ -167,6 +167,7 @@
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
+    <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="KoopaSpawner.h" />
     <ClInclude Include="KoopasShell.h" />
     <ClInclude Include="Layer.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
+    <ClCompile Include="ItemInfo.cpp" />
     <ClCompile Include="KoopaSpawner.cpp" />
     <ClCompile Include="KoopasShell.cpp" />
     <ClCompile Include="Layer.cpp" />

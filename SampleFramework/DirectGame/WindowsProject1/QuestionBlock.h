@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractBlock.h"
+#include "ItemInfo.h"
 
 const int BOUNCE_TIME = 100;
 const int BOUNCE_DELTA = 16; // pixels
@@ -11,6 +12,7 @@ public:
 	void Start() override;
 	void LateUpdate() override;
 	void Bounce();
+	void SetItem(ItemInfo item);
 
 protected:
 	void InitAnimation() override;
@@ -18,5 +20,6 @@ protected:
 private:
 	int bouncingState;
 	int lastTick;
+	ItemInfo containedItem;
 };
 

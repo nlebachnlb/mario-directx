@@ -25,7 +25,10 @@ void QuestionBlock::LateUpdate()
 	{
 		visualRelativePosition.y += BOUNCE_VEL * Game::DeltaTime();
 		if (GetTickCount() - lastTick > BOUNCE_TIME)
+		{
 			visualRelativePosition.y = 0, bouncingState = 0;
+			if (containedItem.quantity <= 0) bouncingState = -1;
+		}
 	}
 		break;
 	}
@@ -36,10 +39,30 @@ void QuestionBlock::Bounce()
 	if (bouncingState == 0)
 	{
 		lastTick = GetTickCount(), bouncingState = 1;
-		auto gmap = Game::GetInstance().GetService<GameMap>();
-		auto spawner = gmap->GetSpawnerManager();
-		spawner->GetService<EffectPool>()->CreateFX("fx-coin-obtained", transform.Position);
+
+		switch (containedItem.type)
+		{
+		case ItemTags::Coin:
+		{
+			auto gmap = Game::GetInstance().GetService<GameMap>();
+			auto spawner = gmap->GetSpawnerManager();
+			spawner->GetService<EffectPool>()->CreateFX("fx-coin-obtained", transform.Position);
+		}
+		break;
+		}
+
+		containedItem.quantity--;
+		if (containedItem.quantity <= 0)
+		{
+			if (containedItem.quantity < 0) containedItem.quantity = 0;
+			if (currentState.compare("Empty") != 0) SetState("Empty");
+		}
 	}
+}
+
+void QuestionBlock::SetItem(ItemInfo item)
+{
+	this->containedItem = item;
 }
 
 void QuestionBlock::InitAnimation()
