@@ -10,7 +10,7 @@ void QuestionBlock::Start()
 	bouncingState = 0;
 }
 
-void QuestionBlock::LateUpdate()
+void QuestionBlock::PreRender()
 {
 	switch (bouncingState)
 	{

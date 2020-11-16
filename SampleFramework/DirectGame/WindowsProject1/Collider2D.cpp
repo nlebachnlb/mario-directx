@@ -184,7 +184,6 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 
 			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)) ||
 			(TagUtils::EnemyTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
-			// (TagUtils::EnemyTag(selfTag) && otherTag == ObjectTags::KoopasShell) ||
 			(selfTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(otherTag)) || 
 			(otherTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(selfTag))
 			)
@@ -347,7 +346,6 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 	if (gameObject == nullptr || gameObject->IsEnabled() == false
 		|| gameObject->GetRigidbody()->IsDynamic() == false) return;
 
-	if (gameObject == nullptr || gameObject->IsEnabled() == false) return;
 	auto dt = Game::DeltaTime();
 
 	this->dvx = gameObject->GetRigidbody()->GetVelocity().x * dt;

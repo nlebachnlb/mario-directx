@@ -59,8 +59,6 @@ void CGameObject::Start()
 
 void CGameObject::PhysicsUpdate(std::vector<GameObject>* objects)
 {
-	if (GetRigidbody()->IsDynamic() == false) return;
-
 	for (auto collider : *colliders)
 		collider->PhysicsUpdate(objects);
 }

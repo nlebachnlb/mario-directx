@@ -114,7 +114,7 @@ void Scene::Update()
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
 			if ((*obj)->IsEnabled() == false) continue;
-			(*obj)->PhysicsUpdate(objects);
+			if ((*obj)->GetRigidbody()->IsDynamic()) (*obj)->PhysicsUpdate(objects);
 			(*obj)->Update();
 			(*obj)->LateUpdate();
 		}
@@ -142,6 +142,8 @@ void Scene::Render()
 
 void Scene::AddObject(GameObject gameObject)
 {
+	if (find(objects->begin(), objects->end(), gameObject) != objects->end()) return;
+
 	objects->push_back(gameObject);
 	std::sort(objects->begin(), objects->end(), Scene::Comparator);
 }

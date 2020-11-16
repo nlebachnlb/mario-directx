@@ -21,6 +21,7 @@ void CMario::Awake()
 
 	canCrouch = true;
 	input = nullptr;
+	mainCamera = nullptr;
 }
 
 void CMario::Start()
@@ -133,7 +134,8 @@ void CMario::Update()
 	FeverProcess();
 
 	// Keep Mario inside Camera bounds
-	auto mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
+	if (mainCamera == nullptr)
+		mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
 	transform.Position.x = Mathf::Clamp(transform.Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x - MARIO_BBOX.x);
 
 #pragma region Vertical Movement
@@ -201,8 +203,6 @@ void CMario::Jump(float force, bool deflect)
 	onGround = false;
 	canHighJump = true;
 	this->deflect = deflect;
-
-	// DebugOut(L"Can high jump: %d, %f\n", canHighJump ? 1 : 0, rigidbody->GetVelocity().y);
 }
 
 bool CMario::IsReadyToRun()

@@ -7,6 +7,7 @@
 void PlayerController::Awake()
 {
 	SetTag(ObjectTags::Player);
+	rigidbody->SetDynamic(false);
 	auto activeScene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 
 	CMario* obj;

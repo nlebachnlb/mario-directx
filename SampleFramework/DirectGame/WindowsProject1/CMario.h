@@ -5,6 +5,7 @@
 #include "InputHandler.h"
 #include "IState.h"
 #include "Holdable.h"
+#include "Camera.h"
 
 const int	MARIO_MIN_VDISTANCE			= 8; // pixels
 const float MARIO_GRAVITY				= 0.00093f;
@@ -128,4 +129,5 @@ private:
 	float prevTargetVelocityX, targetVelocityX;
 	Vector2 previousVelocity;
 	Holdable* heldInHandsObject;
+	Camera* mainCamera;
 };

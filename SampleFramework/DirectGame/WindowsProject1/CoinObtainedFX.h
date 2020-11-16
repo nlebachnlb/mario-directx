@@ -9,6 +9,6 @@ class CoinObtainedFX : public FXObject
 public:
 	void Awake() override;
 	void Start() override;
-	void LateUpdate() override;
+	void Update() override;
 };
 

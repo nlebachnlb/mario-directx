@@ -10,7 +10,7 @@ class QuestionBlock : public AbstractBlock
 {
 public:
 	void Start() override;
-	void LateUpdate() override;
+	void PreRender() override;
 	void Bounce();
 	void SetItem(ItemInfo item);
 

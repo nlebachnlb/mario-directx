@@ -48,6 +48,9 @@ void Camera::Render()
     if (!initialized) Initialize();
 
     Vector2 translation = -1 * GetPosition();
+    auto camPos = GetPosition();
+    int tilex = (int)(camPos.x / tileWidth);
+    int tiley = (int)(camPos.y / tileHeight);
 
     for (auto l_data : *layers)
     {
@@ -65,9 +68,8 @@ void Camera::Render()
             {
                 for (int v = 0; v <= width + 1; ++v)
                 {
-                    auto camPos = GetPosition();
-                    int xGrid = (int)(camPos.x / tileWidth + v) % mapWidth;
-                    int yGrid = (int)(camPos.y / tileHeight + u) % mapHeight;
+                    int xGrid = (int)(tilex + v) % mapWidth;
+                    int yGrid = (int)(tiley + u) % mapHeight;
 
                     int tileId = layer->GetTileID(xGrid, yGrid);
                     int tilesetId = mapData->GetTilesetIdFromTileId(tileId);

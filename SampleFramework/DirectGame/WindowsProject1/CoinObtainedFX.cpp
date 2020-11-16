@@ -25,7 +25,7 @@ void CoinObtainedFX::Start()
 	transform.Scale.x = 0.8f;
 }
 
-void CoinObtainedFX::LateUpdate()
+void CoinObtainedFX::Update()
 {
 	if (transform.Position.y > startPosition.y) pool->Revoke(this);
 }
