@@ -27,7 +27,5 @@ void CoinObtainedFX::Start()
 
 void CoinObtainedFX::LateUpdate()
 {
-	DebugOut(L"FXCoin: %f, %f\n", transform.Position.x, transform.Position.y);
-
 	if (transform.Position.y > startPosition.y) pool->Revoke(this);
 }

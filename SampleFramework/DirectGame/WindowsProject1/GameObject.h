@@ -100,6 +100,9 @@ protected:
 
 	Rigidbody2D* rigidbody;
 	std::vector<Collider2D*>* colliders;
+
+private:
+	std::vector<Collider2D*> beingUpdatedColliders;
 };
 
 typedef CGameObject* GameObject;

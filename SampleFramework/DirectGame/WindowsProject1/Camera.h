@@ -47,7 +47,16 @@ protected:
 	std::unordered_map<int, BoundarySet> boundaries;
 
 private:
+	void Initialize();
 	GameObject target;
 	RectF boundary;
+	// Render temp variables
+	MapData* mapData;
+	std::map<int, Layer*>* layers;
+	std::map<int, TilesetInfo*>* tilesets;
+	int tileWidth, tileHeight;
+	int width, height; // Number of tiles on viewport
+	int mapWidth, mapHeight;
+	bool initialized;
 };
 

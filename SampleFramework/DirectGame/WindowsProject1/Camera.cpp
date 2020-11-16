@@ -10,12 +10,14 @@ Camera::Camera()
 	this->position = VectorZero();
     this->map = nullptr;
     this->targetPivot = Vector2(0.5f, 0.3f);
+    initialized = false;
 }
 
 Camera::Camera(Vector2 startPosition, Vector2 viewportSize)
 {
 	this->position = startPosition;
 	this->viewportSize = viewportSize;
+    initialized = false;
 }
 
 Camera::~Camera()
@@ -26,9 +28,6 @@ Camera::~Camera()
 void Camera::Update()
 {
     if (map == nullptr) map = Game::GetInstance().GetService<GameMap>();
-
-    auto mapWidth = map->GetMapData()->GetMapWidthInPixels();
-    auto mapHeight = map->GetMapData()->GetMapHeightInPixels();
 
     auto pos = this->position;
     
@@ -46,39 +45,29 @@ void Camera::Update()
 void Camera::Render()
 {
     if (map == nullptr) map = Game::GetInstance().GetService<GameMap>();
+    if (!initialized) Initialize();
 
     Vector2 translation = -1 * GetPosition();
-
-    auto mapData = map->GetMapData();
-    auto layers = mapData->GetLayers();
 
     for (auto l_data : *layers)
     {
         auto layer = l_data.second;
         if (layer->IsVisible() == false) continue;
 
-        auto tilesets = mapData->GetTilesets();
-
         for (auto t_data : *tilesets)
         {
             auto tileset = t_data.second;
 
-            int tileWidth = mapData->GetTileWidth();
-            int tileHeight = mapData->GetTileHeight();
-
             int tilesetWidth = tileset->GetImageWidth() / tileWidth;
             int tilesetHeight = tileset->GetImageHeight() / tileHeight;
-
-            int width = (int)(viewportSize.x / tileWidth);
-            int height = (int)(viewportSize.y / tileHeight);
 
             for (int u = 0; u <= height + 1; ++u)
             {
                 for (int v = 0; v <= width + 1; ++v)
                 {
                     auto camPos = GetPosition();
-                    int xGrid = (int)(camPos.x / tileWidth + v) % mapData->GetMapWidthInTiles();
-                    int yGrid = (int)(camPos.y / tileHeight + u) % mapData->GetMapHeightInTiles();
+                    int xGrid = (int)(camPos.x / tileWidth + v) % mapWidth;
+                    int yGrid = (int)(camPos.y / tileHeight + u) % mapHeight;
 
                     int tileId = layer->GetTileID(xGrid, yGrid);
                     int tilesetId = mapData->GetTilesetIdFromTileId(tileId);
@@ -159,4 +148,25 @@ BoundarySet Camera::GetBoundarySet(int id)
     if (boundaries.find(id) != boundaries.end())
         return boundaries.at(id);
     return BoundarySet::Empty();
+}
+
+void Camera::Initialize()
+{
+    if (initialized) return;
+    mapData = map->GetMapData();
+    if (map == nullptr) { initialized = false; return; }
+
+    layers = mapData->GetLayers();
+    tilesets = mapData->GetTilesets();
+
+    tileWidth = mapData->GetTileWidth();
+    tileHeight = mapData->GetTileHeight();
+
+    width = (int)(viewportSize.x / tileWidth);
+    height = (int)(viewportSize.y / tileHeight);
+
+    mapWidth = mapData->GetMapWidthInTiles();
+    mapHeight = mapData->GetMapHeightInTiles();
+
+    initialized = true;
 }

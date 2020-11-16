@@ -134,9 +134,8 @@ void Scene::Render()
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
 			if ((*obj)->IsEnabled() == false) continue;
-			Vector2 translation = -mainCamera->GetPosition();
 			(*obj)->PreRender();
-			(*obj)->Render(translation);
+			(*obj)->Render(-mainCamera->GetPosition());
 		}
 	}
 }
@@ -145,18 +144,13 @@ void Scene::AddObject(GameObject gameObject)
 {
 	objects->push_back(gameObject);
 	std::sort(objects->begin(), objects->end(), Scene::Comparator);
-	// DebugOut(L"objects' length: %d", objects->size());
-	// push_heap(objects->begin(), objects->end(), Comparator);
 }
 
 void Scene::RemoveObject(GameObject gameObject)
 {
 	auto remObj = find(objects->begin(), objects->end(), gameObject);
 	if (remObj != objects->end())
-	{
 		objects->erase(remObj);
-		// pop_heap(objects->begin(), objects->end(), Comparator);
-	}
 }
 
 std::vector<GameObject>* Scene::GetSceneObjects()

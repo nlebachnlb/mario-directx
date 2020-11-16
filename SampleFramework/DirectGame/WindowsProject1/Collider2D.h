@@ -43,7 +43,7 @@ public:
 	);
 
 	CollisionEvent* SweptAABBEx(Collider2D* other);
-	void CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<CollisionEvent*>& coEvents);
+	void CalcPotentialCollisions(vector<GameObject>* coObjects, vector<CollisionEvent*>& coEvents);
 	void FilterCollision(
 		vector<CollisionEvent*>& coEvents,
 		vector<CollisionEvent*>& coEventsResult,
@@ -51,7 +51,7 @@ public:
 		float& min_ty,
 		float& nx,
 		float& ny);
-	void PhysicsUpdate(vector<Collider2D*>* coObjects);
+	void PhysicsUpdate(vector<GameObject>* coObjects);
 
 	void AttachToEntity(GameObject gameObject);
 	GameObject GetGameObject();
@@ -90,5 +90,9 @@ protected:
 	float pushCoefficient;
 	bool enabled;
 	float dvx, dvy;
+
+private:
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
 };
 

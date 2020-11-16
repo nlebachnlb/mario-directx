@@ -61,21 +61,8 @@ void CGameObject::PhysicsUpdate(std::vector<GameObject>* objects)
 {
 	if (GetRigidbody()->IsDynamic() == false) return;
 
-	rigidbody->Update();
-
-	vector<Collider2D*> otherColliders;
-	for (auto obj : *objects)
-	{
-		auto cols = *(obj->GetColliders());
-		for (auto col : cols)
-			otherColliders.push_back(col);
-	}
-
 	for (auto collider : *colliders)
-	{
-		collider->Update();
-		collider->PhysicsUpdate(&otherColliders);
-	}
+		collider->PhysicsUpdate(objects);
 }
 
 void CGameObject::Update()

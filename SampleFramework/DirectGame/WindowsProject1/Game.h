@@ -68,6 +68,9 @@ private:
 	
 	GlobalConfigs configs;
 
+	SceneManager* sceneManager;
+	InputHandler* inputHandler;
+
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sourcePaths;
 };
 #endif

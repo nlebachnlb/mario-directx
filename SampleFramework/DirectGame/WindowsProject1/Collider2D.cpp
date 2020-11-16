@@ -15,11 +15,7 @@ Collider2D::Collider2D()
 
 void Collider2D::Update()
 {
-    if (gameObject == nullptr || gameObject->IsEnabled() == false) return;
-	auto dt = Game::DeltaTime();
-
-	this->dvx = gameObject->GetRigidbody()->GetVelocity().x * dt;
-	this->dvy = gameObject->GetRigidbody()->GetVelocity().y * dt;
+    
 }
 
 void Collider2D::SweptAABB(RectF movingBox, float dx, float dy, RectF staticBox, float& time, Vector2& direction)
@@ -164,23 +160,26 @@ CollisionEvent* Collider2D::SweptAABBEx(Collider2D* other)
 	return e;
 }
 
-void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<CollisionEvent*>& coEvents)
+void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<CollisionEvent*>& coEvents)
 {
-	for (UINT i = 0; i < coObjects->size(); i++)
+	for (int i = 0; i < coObjects->size(); ++i)
 	{
-		if (coObjects->at(i) == this || coObjects->at(i)->GetGameObject()->IsEnabled() == false) continue;
+		if (coObjects->at(i)->GetColliders() == nullptr) continue;
+		if (coObjects->at(i)->GetColliders()->size() == 0) continue;
+		if (coObjects->at(i)->GetColliders()->at(0) == this) continue;
+		if (coObjects->at(i)->IsEnabled() == false) continue;
 
 		auto selfBox = GetBoundingBox();
-		auto otherBox = coObjects->at(i)->GetBoundingBox();
+		auto otherBox = coObjects->at(i)->GetColliders()->at(0)->GetBoundingBox();
 		if (selfBox.TouchOrIntersect(otherBox) || otherBox.TouchOrIntersect(selfBox) || 
 			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
 		{
-			this->gameObject->OnOverlapped(this, coObjects->at(i));
-			coObjects->at(i)->GetGameObject()->OnOverlapped(coObjects->at(i), this);
+			this->gameObject->OnOverlapped(this, coObjects->at(i)->GetColliders()->at(0));
+			coObjects->at(i)->OnOverlapped(coObjects->at(i)->GetColliders()->at(0), this);
 			continue;
 		}
 
-		auto otherTag = coObjects->at(i)->GetGameObject()->GetTag();
+		auto otherTag = coObjects->at(i)->GetTag();
 		auto selfTag = gameObject->GetTag();
 		if ((TagUtils::MarioTag(selfTag) && otherTag == ObjectTags::FriendlyProjectiles) || 
 			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)) ||
@@ -191,16 +190,16 @@ void Collider2D::CalcPotentialCollisions(vector<Collider2D*>* coObjects, vector<
 			)
 			continue;
 
-		if (coObjects->at(i)->IsTrigger()) continue;
+		if (coObjects->at(i)->GetColliders()->at(0)->IsTrigger()) continue;
 
 		if (TagUtils::EnemyTag(selfTag) && TagUtils::EnemyTag(otherTag))
 		{
 			// If two enemies are in same type (e.g: goomba vs goomba), they can pass through eachother
-			if (typeid(gameObject) == typeid(coObjects->at(i)->GetGameObject()))
+			if (typeid(gameObject) == typeid(coObjects->at(i)))
 				continue;
 		}
 
-		CollisionEvent* e = SweptAABBEx(coObjects->at(i)); 
+		CollisionEvent* e = SweptAABBEx(coObjects->at(i)->GetColliders()->at(0)); 
 
 		if (e->time > 0 && e->time <= 1.0f)
 			coEvents.push_back(e);
@@ -343,20 +342,21 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 	}
 }
 
-void Collider2D::PhysicsUpdate(vector<Collider2D*>* coObjects)
+void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 {
 	if (gameObject == nullptr || gameObject->IsEnabled() == false
 		|| gameObject->GetRigidbody()->IsDynamic() == false) return;
 
+	if (gameObject == nullptr || gameObject->IsEnabled() == false) return;
 	auto dt = Game::DeltaTime();
+
+	this->dvx = gameObject->GetRigidbody()->GetVelocity().x * dt;
+	this->dvy = gameObject->GetRigidbody()->GetVelocity().y * dt;
 
 	auto rigidbody = gameObject->GetRigidbody();
 	auto velocity = rigidbody->GetVelocity();
 	velocity.y += rigidbody->GetGravity() * dt;
 	rigidbody->SetVelocity(&velocity);
-	
-	vector<CollisionEvent*> coEvents;
-	vector<CollisionEvent*> coEventsResult;
 
 	coEvents.clear();
 	coEventsResult.clear();

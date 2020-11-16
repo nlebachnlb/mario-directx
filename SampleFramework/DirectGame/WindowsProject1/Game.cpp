@@ -122,6 +122,7 @@ void Game::GameInit(HWND hWnd)
 	SceneManager* sceneManager = new SceneManager();
 	sceneManager->Initialization();
 	AddService(sceneManager);
+	this->sceneManager = sceneManager;
 
 	// Animation Database
 	AnimationDatabase* animationDb = new AnimationDatabase();
@@ -135,6 +136,7 @@ void Game::GameInit(HWND hWnd)
 	inputHandler->SetKeyEventHandler(keyboardHandler);
 	inputHandler->Initialization();
 	AddService(inputHandler);
+	this->inputHandler = inputHandler;
 
 	// Game map
 	GameMap* gameMap = new GameMap();
@@ -198,15 +200,12 @@ void Game::GameRun(HWND hWnd)
 
 void Game::GameEnd()
 {
-	//// Release all game objects in the worlds
-	//for (auto obj : GameObject::world)
-	//	delete obj;
 }
 
 void Game::Update()
 {
-	GetService<InputHandler>()->ProcessKeyboard();
-	auto sceneManager = GetService<SceneManager>();
+	if (inputHandler == nullptr) inputHandler = GetService<InputHandler>();
+	inputHandler->ProcessKeyboard();
 	auto activeScene = sceneManager->GetActiveScene();
 
 	if (activeScene != nullptr)
@@ -221,7 +220,7 @@ void Game::Render()
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		auto sceneManager = GetService<SceneManager>();
+		if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
 		auto activeScene = sceneManager->GetActiveScene();
 		if (activeScene != nullptr)
 			activeScene->Render();
