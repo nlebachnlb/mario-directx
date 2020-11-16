@@ -57,35 +57,32 @@ void Camera::Render()
         auto layer = l_data.second;
         if (layer->IsVisible() == false) continue;
 
-        for (auto t_data : *tilesets)
+        for (int u = 0; u <= height + 1; ++u)
         {
-            auto tileset = t_data.second;
-
-            int tilesetWidth = tileset->GetImageWidth() / tileWidth;
-            int tilesetHeight = tileset->GetImageHeight() / tileHeight;
-
-            for (int u = 0; u <= height + 1; ++u)
+            for (int v = 0; v <= width + 1; ++v)
             {
-                for (int v = 0; v <= width + 1; ++v)
-                {
-                    int xGrid = (int)(tilex + v) % mapWidth;
-                    int yGrid = (int)(tiley + u) % mapHeight;
+                int xGrid = (int)(tilex + v) % mapWidth;
+                int yGrid = (int)(tiley + u) % mapHeight;
 
-                    int tileId = layer->GetTileID(xGrid, yGrid);
-                    int tilesetId = mapData->GetTilesetIdFromTileId(tileId);
+                int tileId = layer->GetTileID(xGrid, yGrid);
+                int tilesetId = mapData->GetTilesetIdFromTileId(tileId);
 
-                    if (tilesetId == -1) continue;
+                if (tilesetId == -1) continue;
 
-                    int y = (tileId - tilesetId) / tilesetWidth;
-                    int x = (tileId - tilesetId) - y * tilesetWidth;
+                auto tileset = tilesets->at(tilesetId);
 
-                    Tile tile = map->GetTileset(tilesetId);
-                    tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                int tilesetWidth = tileset->GetImageWidth() / tileWidth;
+                int tilesetHeight = tileset->GetImageHeight() / tileHeight;
 
-                    Vector2 finalPosition(xGrid * tileWidth, yGrid * tileHeight);
-                    finalPosition = finalPosition + translation;
-                    tile->Draw(finalPosition.x, finalPosition.y);
-                }
+                int y = (tileId - tilesetId) / tilesetWidth;
+                int x = (tileId - tilesetId) - y * tilesetWidth;
+
+                Tile tile = map->GetTileset(tilesetId);
+                tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+
+                Vector2 finalPosition(xGrid * tileWidth, yGrid * tileHeight);
+                finalPosition = finalPosition + translation;
+                tile->Draw(finalPosition.x, finalPosition.y);
             }
         }
     }
