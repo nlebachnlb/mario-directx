@@ -24,7 +24,8 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	bool RectInsideCameraView(RECT rect);
+	bool RectInsideCameraView(RectF rect);
+	bool PointInsideCameraView(Vector2 point, int boundWidth);
 
 	Vector2 GetPosition();
 	void SetPosition(Vector2 newPos);

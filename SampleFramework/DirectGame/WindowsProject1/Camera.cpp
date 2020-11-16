@@ -44,7 +44,6 @@ void Camera::Update()
 
 void Camera::Render()
 {
-    if (map == nullptr) map = Game::GetInstance().GetService<GameMap>();
     if (!initialized) Initialize();
 
     Vector2 translation = -1 * GetPosition();
@@ -74,7 +73,7 @@ void Camera::Render()
                 int tilesetWidth = tileset->GetImageWidth() / tileWidth;
                 int tilesetHeight = tileset->GetImageHeight() / tileHeight;
 
-                int y = (tileId - tilesetId) / tilesetWidth;
+                int y = (tileId - tilesetId) / tilesetWidth; 
                 int x = (tileId - tilesetId) - y * tilesetWidth;
 
                 Tile tile = map->GetTileset(tilesetId);
@@ -88,13 +87,19 @@ void Camera::Render()
     }
 }
 
-bool Camera::RectInsideCameraView(RECT rect)
+bool Camera::RectInsideCameraView(RectF rect)
 {
 	auto rectWidth = rect.right - rect.left;
 	auto rectHeight = rect.bottom - rect.top;
 
 	return rect.left >= position.x - rectWidth && rect.right <= position.x + viewportSize.x + rectWidth &&
 			rect.top >= position.y - rectHeight && rect.bottom <= position.y + viewportSize.y + rectHeight;
+}
+
+bool Camera::PointInsideCameraView(Vector2 point, int boundThickness)
+{
+    return point.x >= position.x - boundThickness && point.x <= position.x + viewportSize.x + boundThickness && 
+            point.y >= position.y - boundThickness && point.y <= position.y + viewportSize.y + boundThickness;
 }
 
 Vector2 Camera::GetPosition()
