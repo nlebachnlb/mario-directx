@@ -346,7 +346,7 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 	if (gameObject == nullptr || gameObject->IsEnabled() == false
 		|| gameObject->GetRigidbody()->IsDynamic() == false) return;
 
-	auto dt = Game::DeltaTime();
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 
 	this->dvx = gameObject->GetRigidbody()->GetVelocity().x * dt;
 	this->dvy = gameObject->GetRigidbody()->GetVelocity().y * dt;

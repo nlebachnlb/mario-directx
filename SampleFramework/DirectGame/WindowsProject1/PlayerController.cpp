@@ -131,6 +131,7 @@ void PlayerController::SwitchToState(std::string state)
 		fxName, 
 		transform.Position - (grow ? 0.5f * delta : VectorZero())
 	);
+
 	waiting = true;
 	SwitchState(nullptr);
 	if (fx == nullptr) 

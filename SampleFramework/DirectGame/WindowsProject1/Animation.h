@@ -62,6 +62,8 @@ public:
 	int GetAlpha();
 	void SetAlpha(int alpha);
 
+	void SetUnscaledTime(bool unscaledTime);
+
 protected:
 	float					speedMultiplier;
 	std::vector<AnimFrame>	frames;
@@ -74,6 +76,6 @@ protected:
 	GameObject				gameObject;
 
 	int						alpha;
-
+	bool					unscaledTime;
 };
 typedef Animation* PAnimation;

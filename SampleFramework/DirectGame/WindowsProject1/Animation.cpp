@@ -21,17 +21,21 @@ void Animation::Render(Vector2 translation)
 		}
 		else
 		{
-			if (currentTime - lastFrameTime > frames[currentFrame]->GetTime() * Game::GetTimeScale() / speedMultiplier)
+			if (Game::GetTimeScale() != 0 || unscaledTime)
 			{
-				if (currentFrame == frames.size() - 1 && loop == false)
+				auto time = frames[currentFrame]->GetTime() / (unscaledTime ? 1 : Game::GetTimeScale()) / speedMultiplier;
+				if (currentTime - lastFrameTime > time)
 				{
-					gameObject->OnAnimationEnd();
-					playing = false;
-				}
-				else if (playing)
-				{
-					currentFrame = (currentFrame + 1) % frames.size();
-					lastFrameTime = currentTime;
+					if (currentFrame == frames.size() - 1 && loop == false)
+					{
+						gameObject->OnAnimationEnd();
+						playing = false;
+					}
+					else if (playing)
+					{
+						currentFrame = (currentFrame + 1) % frames.size();
+						lastFrameTime = currentTime;
+					}
 				}
 			}
 		}
@@ -79,4 +83,9 @@ int Animation::GetAlpha()
 void Animation::SetAlpha(int alpha)
 {
 	this->alpha = alpha;
+}
+
+void Animation::SetUnscaledTime(bool unscaledTime)
+{
+	this->unscaledTime = unscaledTime;
 }
