@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Textures> 
+ <Textures gameObjectId="0" textureId="tex-effect">
+    <Animation aniId="ani-enemy-damaged" frameTime="100" name = "ENEMY-DAMAGED">
+      <Sprite id="spr-enemy-damaged-effect-red-right" left="20" top="19"  width="16" height="16"/>
+      <Sprite id="spr-enemy-damaged-effect-white-right" left="20" top="1"  width="16" height="16"/>
+      <Sprite id="spr-enemy-damaged-effect-white-left" left="2" top="1"  width="16" height="16"/>
+      <Sprite id="spr-enemy-damaged-effect-red-left" left="2" top="19"  width="16" height="16"/>
+      <Sprite id="spr-enemy-damaged-effect-red-right" left="20" top="19"  width="16" height="16"/>
+      <Sprite id="spr-enemy-damaged-effect-white-right" left="20" top="1"  width="16" height="16"/>
+    </Animation>
+    <Animation aniId="ani-mario-damaged" frameTime="100" name = "MARIO-DAMAGED">
+      <Sprite id="spr-mario-damaged-effect-2" left="74" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-3" left="92" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-0" left="38" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-1" left="56" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-2" left="74" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-3" left="92" top="1"  width="16" height="16"/>
+    </Animation>
+    <Animation aniId="ani-fireball-damaged" frameTime="100" name = "FIRE-BALL-DAMAGED">
+      <Sprite id="spr-mario-damaged-effect-0" left="38" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-1" left="56" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-2" left="74" top="1"  width="16" height="16"/>
+      <Sprite id="spr-mario-damaged-effect-3" left="92" top="1"  width="16" height="16"/>
+    </Animation>
+  </Textures>
+</Textures>
