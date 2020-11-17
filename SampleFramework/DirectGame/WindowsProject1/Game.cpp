@@ -178,7 +178,6 @@ void Game::GameRun(HWND hWnd)
 		{
 			prevTime = currentTime;
 			currentTime = GetTickCount();
-			// delta += (currentTime - prevTime);
 			delta = (currentTime - prevTime);
 			deltaTime = delta;
 
@@ -188,13 +187,9 @@ void Game::GameRun(HWND hWnd)
 				// Call update then Render
 				Update();
 				Render();
-				// delta = 0;
 			}
 			else
-			{
 				Sleep(tickPerFrame - delta);
-				// delta = tickPerFrame;
-			}
 		}
 	}
 }

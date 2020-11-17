@@ -20,7 +20,7 @@ public:
 
 	void LinkToPool(ObjectPool* pool);
 private:
-	ObjectPool* pool;
+	ObjectPool* pool; 
 	Camera* mainCamera;
-};
+}; 
 

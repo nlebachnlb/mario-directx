@@ -215,6 +215,11 @@ void CMario::HoldObject(Holdable* holdableObj)
 	holdableObj->PassToHolder(this);
 }
 
+void CMario::SetController(PlayerController* controller)
+{
+	this->controller = controller;
+}
+
 #pragma region Keyboard
 
 void CMario::OnKeyDown(int keyCode)
@@ -269,6 +274,20 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 
 void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)
 {
+}
+
+void CMario::OnDamaged(AbstractEnemy* enemy)
+{
+	DebugOut(L"[Mario] Damaged\n");
+	switch (tag)
+	{
+	case ObjectTags::BigMario:
+		controller->SwitchToState("SmallMario");
+		break;
+	case ObjectTags::PowerupMario:
+		controller->SwitchToState("BigMario");
+		break;
+	}
 }
 
 #pragma endregion

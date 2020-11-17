@@ -6,15 +6,15 @@
 #include "IState.h"
 #include "Holdable.h"
 #include "Camera.h"
+#include "PlayerController.h"
+#include "AbstractEnemy.h"
 
 const int	MARIO_MIN_VDISTANCE			= 4; // pixels
 const float MARIO_GRAVITY				= 0.00093f * 2;
-const float MARIO_WALK_SPEED			= 0.15f * 2;
-const float MARIO_RUN_SPEED				= 0.40f * 2;
+const float MARIO_WALK_SPEED			= 0.25f;
+const float MARIO_RUN_SPEED				= 0.75f;
 const float MARIO_JUMP_FORCE			= 0.53f;
-const float MARIO_HIGH_JUMP_FORCE		= 0.85f;
-const float MARIO_SUPER_JUMP_FORCE		= 0.90f;
-const float MARIO_PUSH_FORCE			= 0.001f * 2;
+
 const float MARIO_MAX_JUMPHEIGHT		= 48 * 4; // px
 const float MARIO_MAX_SUPER_JUMPHEIGHT	= 48 * 5; // px
 const float MARIO_BUMP_FORCE			= 0.15f;
@@ -71,6 +71,7 @@ struct MarioStateSet
 	JumpingStates jump;
 };
 
+class PlayerController;
 class CMario : public CGameObject, public IState
 {
 public:
@@ -81,8 +82,8 @@ public:
 	virtual void OnKeyDown(int keyCode);
 	virtual void OnKeyUp(int keyCode);
 	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
-	virtual void OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
-	// virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
+	virtual void OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions); 
+	virtual void OnDamaged(AbstractEnemy* enemy);
 
 	// State Interface implementation
 	virtual void Entrance()		override;
@@ -96,6 +97,7 @@ public:
 	bool IsReadyToRun();
 
 	void HoldObject(Holdable* holdableObj);
+	void SetController(PlayerController* controller);
 
 protected:
 	virtual void InitAnimations();
@@ -113,6 +115,7 @@ protected:
 	int lastFeverTime;
 	int facing;
 	InputHandler* input;
+	PlayerController* controller;
 
 private:
 	void SkidDetection(Vector2 velocity);

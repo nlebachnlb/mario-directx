@@ -3,6 +3,7 @@
 #include "StateMachine.h"
 #include "Scene.h"
 
+class CMario;
 class PlayerController : public CGameObject, public StateMachine
 {
 public:
@@ -12,9 +13,11 @@ public:
 	void OnKeyDown(int keyCode) override;
 
 	void RegisterToScene(Scene* scene);
+	void SwitchToState(std::string state);
 
 private:
-	void SwitchToState(std::string state);
+	void LinkStates();
+
 	std::unordered_map<std::string, IState*> playerStates;
 	std::unordered_map<std::string, CMario*> stateGameObjects;
 	CMario* currentStateObject;

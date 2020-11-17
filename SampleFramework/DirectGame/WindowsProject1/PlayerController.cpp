@@ -41,6 +41,7 @@ void PlayerController::Start()
 		object->SetPosition(this->transform.Position);
 	}
 
+	LinkStates();
 	SwitchToState("BigMario");
 }
 
@@ -101,4 +102,13 @@ void PlayerController::SwitchToState(std::string state)
 
 	currentStateObject = stateGameObjects.at(state);
 	SwitchState(playerStates.at(state));
+}
+
+void PlayerController::LinkStates()
+{
+	for (auto go = stateGameObjects.begin(); go != stateGameObjects.end(); go++)
+	{
+		auto obj = (*go).second;
+		obj->SetController(this);
+	}
 }
