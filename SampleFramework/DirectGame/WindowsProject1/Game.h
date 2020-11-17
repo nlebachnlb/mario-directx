@@ -55,7 +55,7 @@ public:
 
 private:
 	static Game* instance;
-	static float deltaTime;
+	static DWORD deltaTime;
 	static float timeScale;
 
 	D3DXCOLOR clearColor;

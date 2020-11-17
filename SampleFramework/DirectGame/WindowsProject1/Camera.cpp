@@ -45,7 +45,7 @@ void Camera::Update()
 void Camera::Render()
 {
     if (!initialized) Initialize();
-
+    
     Vector2 translation = -1 * GetPosition();
     auto camPos = GetPosition();
     int tilex = (int)(camPos.x / tileWidth);

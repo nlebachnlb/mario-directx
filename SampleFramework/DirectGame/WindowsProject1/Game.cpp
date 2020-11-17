@@ -7,7 +7,7 @@
 
 
 Game* Game::instance = nullptr;
-float Game::deltaTime = 0.0f;
+DWORD Game::deltaTime = 0;
 float Game::timeScale = 1.0f;
 
 Game& Game::GetInstance()
@@ -160,17 +160,12 @@ void Game::GameRun(HWND hWnd)
 	bool done = false;
 
 	float prevTime, currentTime = GetTickCount();
-	float delta = 0;
-	float tickPerFrame = 1000.0f / configs.fps;
+	DWORD delta = 0;
+	DWORD tickPerFrame = 1000 / configs.fps;
 
 	// Game Loop
 	while (!done)
 	{
-		prevTime = currentTime;
-		currentTime = GetTickCount();
-		delta += (currentTime - prevTime);
-		deltaTime = delta;
-		
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)
@@ -181,18 +176,24 @@ void Game::GameRun(HWND hWnd)
 		}
 		else
 		{
+			prevTime = currentTime;
+			currentTime = GetTickCount();
+			// delta += (currentTime - prevTime);
+			delta = (currentTime - prevTime);
+			deltaTime = delta;
+
 			// Update & Render in limited fps
 			if (delta >= tickPerFrame)
 			{
 				// Call update then Render
 				Update();
 				Render();
-				delta = 0.0f;
+				// delta = 0;
 			}
 			else
 			{
 				Sleep(tickPerFrame - delta);
-				delta = tickPerFrame;
+				// delta = tickPerFrame;
 			}
 		}
 	}
