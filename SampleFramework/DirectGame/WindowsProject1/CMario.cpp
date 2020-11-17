@@ -474,6 +474,8 @@ void CMario::JumpState()
 			physicState.jump = JumpingStates::High;
 		}
 	}
+	else
+		physicState.jump = JumpingStates::High;
 }
 
 void CMario::HighJumpState()

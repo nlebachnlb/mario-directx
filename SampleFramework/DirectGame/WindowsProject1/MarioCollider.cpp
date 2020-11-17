@@ -132,6 +132,13 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 				auto readyToRun = mario->IsReadyToRun();
 				auto shell = (KoopasShell*)(collision->collider->GetGameObject());
 
+				if (shell->IsRunning())
+				{
+					if (!mario->IsInvincible())
+						mario->OnDamaged(shell);
+					DebugOut(L"HorDam-");
+				}
+
 				// If Mario is running, he will hold the shell
 				if (readyToRun)
 				{
@@ -142,13 +149,6 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 						shell->GetRigidbody()->SetGravity(0);
 						shell->GetColliders()->at(0)->Disable();
 						shell->PassToHolder(mario);
-					}
-					// Otherwise, he gets damaged
-					else
-					{
-						if (!mario->IsInvincible())
-							mario->OnDamaged(shell);
-						DebugOut(L"HorDam-");
 					}
 				}
 				// Otherwise, he kicks it

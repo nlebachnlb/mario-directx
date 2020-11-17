@@ -160,6 +160,9 @@
     <Filter Include="GameSource\GameObjects\Effects\MarioFX">
       <UniqueIdentifier>{3f61bc79-984f-4230-b8a9-6ba446ca1ad6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Effects\HitFX">
+      <UniqueIdentifier>{46a20bac-ead8-4325-a7b6-ee7eaf2f1b27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

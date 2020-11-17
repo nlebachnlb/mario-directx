@@ -10,7 +10,7 @@
 #include "AbstractEnemy.h"
 
 const int	MARIO_MIN_VDISTANCE			= 4; // pixels
-const float MARIO_GRAVITY				= 0.00093f * 2;
+const float MARIO_GRAVITY				= 0.0024;
 const float MARIO_WALK_SPEED			= 0.25f;
 const float MARIO_RUN_SPEED				= 0.75f;
 const float MARIO_JUMP_FORCE			= 0.53f;
