@@ -7,23 +7,27 @@
 #include "Holdable.h"
 #include "Camera.h"
 
-const int	MARIO_MIN_VDISTANCE			= 8; // pixels
-const float MARIO_GRAVITY				= 0.00093f;
-const float MARIO_WALK_SPEED			= 0.15f;
-const float MARIO_RUN_SPEED				= 0.40f;
-const float MARIO_JUMP_FORCE			= 0.25f;
-const float MARIO_HIGH_JUMP_FORCE		= 0.58f;
-const float MARIO_SUPER_JUMP_FORCE		= 0.62f;
-const float MARIO_PUSH_FORCE			= 0.001f;
+const int	MARIO_MIN_VDISTANCE			= 4; // pixels
+const float MARIO_GRAVITY				= 0.00093f * 2;
+const float MARIO_WALK_SPEED			= 0.15f * 2;
+const float MARIO_RUN_SPEED				= 0.40f * 2;
+const float MARIO_JUMP_FORCE			= 0.53f;
+const float MARIO_HIGH_JUMP_FORCE		= 0.85f;
+const float MARIO_SUPER_JUMP_FORCE		= 0.90f;
+const float MARIO_PUSH_FORCE			= 0.001f * 2;
+const float MARIO_MAX_JUMPHEIGHT		= 48 * 4; // px
+const float MARIO_MAX_SUPER_JUMPHEIGHT	= 48 * 5; // px
+const float MARIO_BUMP_FORCE			= 0.15f;
+
 const int	PMETER_MAX					= 7;
-const float PMETER_STEP					= 0.003f;
+const float PMETER_STEP					= 0.006f;
 // const float MARIO_ACCELERATION = 0.0276;
-const float MARIO_WALK_ACCELERATION		= 0.000376f;
+const float MARIO_WALK_ACCELERATION		= 0.000376f * 2;
 // const float MARIO_RUN_ACCELERATION		= 0.000188f;
-const float MARIO_RUN_ACCELERATION		= 0.000288f;
-const float MARIO_WALK_DRAG_FORCE		= 0.0002506f;
-const float MARIO_RUN_DRAG_FORCE		= 0.0006266f;
-const float MARIO_SKID_ACCELERATION		= 0.001104f;
+const float MARIO_RUN_ACCELERATION		= 0.000288f * 2;
+const float MARIO_WALK_DRAG_FORCE		= 0.0002506f * 3;
+const float MARIO_RUN_DRAG_FORCE		= 0.0006266f * 2;
+const float MARIO_SKID_ACCELERATION		= 0.001104f * 3;
 const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
 
 const Vector2 MARIO_BBOX(12 * 3, 26 * 3);
@@ -127,7 +131,8 @@ private:
 	bool canHighJump, deflect;
 
 	float prevTargetVelocityX, targetVelocityX;
-	Vector2 previousVelocity;
+	float jumpTime;
+	Vector2 previousVelocity, posBeforeJump;
 	Holdable* heldInHandsObject;
 	Camera* mainCamera;
 };

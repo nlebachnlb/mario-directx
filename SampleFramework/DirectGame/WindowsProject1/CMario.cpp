@@ -57,8 +57,7 @@ void CMario::Start()
 
 void CMario::Update()
 {
-	if (input == nullptr)
-		input = Game::GetInstance().GetService<InputHandler>();
+	if (input == nullptr) input = Game::GetInstance().GetService<InputHandler>();
 
 	auto velocity = rigidbody->GetVelocity();
 	previousVelocity = velocity;
@@ -79,7 +78,7 @@ void CMario::Update()
 		else
 		{
 			physicState.movement = MovingStates::Walk;
-			rigidbody->SetAcceleration(MARIO_WALK_ACCELERATION);
+			rigidbody->SetAcceleration(MARIO_WALK_ACCELERATION * (skid ? 2 : 1));
 			rigidbody->SetDrag(Vector2(MARIO_WALK_DRAG_FORCE, rigidbody->GetDrag().y));
 		}
 
@@ -101,7 +100,6 @@ void CMario::Update()
 		else
 			curVelocity = targetVelocityX;
 
-		// DebugOut(L"moving state: %d, %d\n", prevPhysicState.movement, physicState.movement);
 		velocity.x = curVelocity;
 		facing = Mathf::Sign(velocity.x);
 
@@ -122,7 +120,6 @@ void CMario::Update()
 		}
 
 		velocity.x = facing * curVelocity;
-		skid = false;
 	}
 
 	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.85f;
@@ -199,6 +196,7 @@ void CMario::Jump(float force, bool deflect)
 {
 	rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, -force));
 	physicState.jump = JumpingStates::Jump;
+	posBeforeJump = transform.Position;
 
 	onGround = false;
 	canHighJump = true;
@@ -222,18 +220,12 @@ void CMario::HoldObject(Holdable* holdableObj)
 void CMario::OnKeyDown(int keyCode)
 {
 	if (keyCode == marioKeySet.Jump && onGround && physicState.jump == JumpingStates::Stand)
-	{
-		Jump();
-	}
+		Jump(MARIO_JUMP_FORCE * 0.3f);
 }
 
 void CMario::OnKeyUp(int keyCode)
 {
-	if (keyCode == marioKeySet.Jump)
-	{
-		canHighJump = false;
-		// DebugOut(L"Can high jump: %d\n", canHighJump ? 1 : 0);
-	}
+
 }
 
 #pragma endregion
@@ -257,9 +249,15 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 				physicState.jump = JumpingStates::Stand;
 			}
 
-			if (collision->collisionDirection.y > 0 &&
-				collider->GetGameObject()->GetTag() == ObjectTags::QuestBlock)
-				static_cast<QuestionBlock*>(collider->GetGameObject())->Bounce();
+			if (collision->collisionDirection.y > 0)
+			{
+				rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, MARIO_BUMP_FORCE));
+				if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
+					physicState.jump = JumpingStates::Fall;
+
+				if (collider->GetGameObject()->GetTag() == ObjectTags::QuestBlock)
+					static_cast<QuestionBlock*>(collider->GetGameObject())->Bounce();
+			}
 
 			if (collision->collisionDirection.x != 0)
 			{
@@ -346,24 +344,7 @@ void CMario::JumpingAnimation()
 
 void CMario::SkidDetection(Vector2 velocity)
 {
-	bool movementConstraint = (
-			(
-				physicState.movement == MovingStates::Walk &&
-				Mathf::InRange(Mathf::Abs(velocity.x), MARIO_WALK_SPEED, MARIO_RUN_SPEED) == false
-			)
-			||
-			physicState.movement == MovingStates::Run
-		);
-
-	bool facingConstraint = (
-			(facing == 1 && previousVelocity.x > velocity.x) ||
-			(facing == -1 && previousVelocity.x < velocity.x)
-		);
-
-	if (movementConstraint && facingConstraint && skid == false)
-		skid = true;
-	else if (Mathf::Sign(velocity.x) != Mathf::Sign(previousVelocity.x))
-		skid = false;
+	skid = Mathf::Sign(velocity.x) * (input->GetKeyDown(marioKeySet.Right) ? 1 : -1) < 0;
 }
 
 void CMario::CrouchDetection(InputHandler* input)
@@ -419,39 +400,22 @@ void CMario::JumpState()
 {
 	auto velocity = rigidbody->GetVelocity();
 	auto jumpForce = MARIO_JUMP_FORCE;
+	canHighJump = input->GetKeyDown(marioKeySet.Jump);
 
-	auto onAir = Mathf::InRange
-	(
-		velocity.y,
-		-(feverState == 2 ? MARIO_SUPER_JUMP_FORCE : MARIO_HIGH_JUMP_FORCE),
-		-0.5f * MARIO_JUMP_FORCE
-	);
-
-	onAir = onAir || deflect;
-
-	if (input->GetKeyDown(marioKeySet.Jump) && canHighJump && onAir)
+	if (canHighJump)
 	{
-		jumpForce = MARIO_HIGH_JUMP_FORCE;
-		if (feverState == 2 && run)
-			jumpForce = MARIO_SUPER_JUMP_FORCE;
-	}
-
-	// Provide force to push Mario up
-	if (velocity.y > -jumpForce && velocity.y < 0 && canHighJump)
-	{
-		rigidbody->SetGravity(0.0f);
-		velocity.y -= MARIO_PUSH_FORCE * Game::DeltaTime();
-		//velocity.y = -jumpForce;
-		rigidbody->SetVelocity(&velocity);
-	}
-	else
-	{
-		// Reach maximum distance, get ready to fall
-		 velocity.y = -jumpForce;
-		// velocity.y = 0;
-		rigidbody->SetVelocity(&velocity);
-		physicState.jump = JumpingStates::High;
-		rigidbody->SetGravity(MARIO_GRAVITY);
+		auto maxHeight = ((feverState == 2 && run) || deflect) ? MARIO_MAX_SUPER_JUMPHEIGHT : MARIO_MAX_JUMPHEIGHT;
+		if (Mathf::Abs(posBeforeJump.y) - Mathf::Abs(transform.Position.y) <= maxHeight)
+		{
+			velocity.y = -MARIO_JUMP_FORCE;
+			rigidbody->SetVelocity(&velocity);
+		}
+		else
+		{
+			velocity.y = -MARIO_JUMP_FORCE * 0.5f;
+			rigidbody->SetVelocity(&velocity);
+			physicState.jump = JumpingStates::High;
+		}
 	}
 }
 
@@ -462,7 +426,7 @@ void CMario::HighJumpState()
 	// After reaching the max jump distance, fall down
 	if (velocity.y > 0)
 	{
-		canHighJump = false;
+		rigidbody->SetGravity(MARIO_GRAVITY);
 		physicState.jump = JumpingStates::Fall;
 	}
 }

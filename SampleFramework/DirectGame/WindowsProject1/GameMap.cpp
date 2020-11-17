@@ -94,7 +94,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 }
             }
 
-           /* if (groupName.compare("QuestionBlocks") == 0)
+            if (groupName.compare("QuestionBlocks") == 0)
             {
                 for (int i = 0; i < objects->size(); ++i)
                 {
@@ -109,7 +109,7 @@ void GameMap::Load(std::string filePath, bool manual)
                     if (name.compare("bcoin") == 0)
                         solid->SetItem({ ItemTags::Coin, type });
                 }
-            }*/
+            }
 
             if (groupName.compare("Enemies") == 0)
             {

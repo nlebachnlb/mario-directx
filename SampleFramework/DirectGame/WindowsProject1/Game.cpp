@@ -183,7 +183,7 @@ void Game::GameRun(HWND hWnd)
 			deltaTime = delta;
 
 			// Update & Render in limited fps
-			if (delta >= tickPerFrame)
+			if (delta > tickPerFrame)
 			{
 				// Call update then Render
 				Update();

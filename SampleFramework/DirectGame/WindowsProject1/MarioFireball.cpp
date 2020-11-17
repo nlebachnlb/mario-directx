@@ -64,6 +64,12 @@ void MarioFireball::OnCollisionEnter(Collider2D* selfCollider, std::vector<Colli
 	}
 }
 
+void MarioFireball::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
+{
+	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::Solid)
+		pool->Revoke(this);
+}
+
 void MarioFireball::LateUpdate()
 {
 	if (mainCamera == nullptr)

@@ -2,7 +2,7 @@
 #include "CMario.h"
 #include "ObjectPool.h"
 
-const float FIREBALL_VELOCITY = 0.3f;
+const float FIREBALL_VELOCITY = 0.45f;
 
 class FireMario : public CMario
 {
