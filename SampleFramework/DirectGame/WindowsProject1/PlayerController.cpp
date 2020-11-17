@@ -3,6 +3,8 @@
 #include "SmallMario.h"
 #include "FireMario.h"
 #include "RaccoonMario.h"
+#include "EffectPool.h"
+#include "MarioFX.h"
 
 void PlayerController::Awake()
 {
@@ -43,11 +45,13 @@ void PlayerController::Start()
 
 	LinkStates();
 	SwitchToState("BigMario");
+	waiting = false;
 }
 
 void PlayerController::Update()
 {
 	Execute();
+	if (waiting) return;
 	if (currentStateObject == nullptr) return;
 
 	if (invincible)
@@ -102,6 +106,34 @@ void PlayerController::RegisterToScene(Scene* scene)
 
 void PlayerController::SwitchToState(std::string state)
 {
+	targetState = state;
+
+	auto gmap = Game::GetInstance().GetService<GameMap>();
+	if (gmap == nullptr)
+	{
+		ContinueSwitchingState();
+		return;
+	}
+
+	auto spawner = gmap->GetSpawnerManager();
+	if (spawner == nullptr)
+	{
+		ContinueSwitchingState();
+		return;
+	}
+
+	auto fx = spawner->GetService<EffectPool>()->CreateFX("fx-mario-transformation", transform.Position);
+	waiting = true;
+	SwitchState(nullptr);
+	if (fx == nullptr) ContinueSwitchingState();
+	else static_cast<MarioFX*>(fx)->SetController(this);
+}
+
+void PlayerController::ContinueSwitchingState()
+{
+	auto state = targetState;
+	waiting = false;
+
 	if (currentStateObject != nullptr)
 	{
 		stateGameObjects.at(state)->SetFacing(currentStateObject->GetFacing());

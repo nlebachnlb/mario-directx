@@ -154,6 +154,12 @@
     <Filter Include="GameSource\GameObjects\Effects">
       <UniqueIdentifier>{5b0e39fc-ecca-4059-b79d-042eef788b1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Effects\MiscFX">
+      <UniqueIdentifier>{d39eaec5-6959-467c-ba83-f093d281d54e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Effects\MarioFX">
+      <UniqueIdentifier>{3f61bc79-984f-4230-b8a9-6ba446ca1ad6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -354,11 +360,17 @@
     <ClInclude Include="EffectPool.h">
       <Filter>GameSource\GameObjects\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="CoinObtainedFX.h">
-      <Filter>GameSource\GameObjects\Effects</Filter>
-    </ClInclude>
     <ClInclude Include="ItemInfo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinObtainedFX.h">
+      <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioFX.h">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformationFX.h">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -588,11 +600,17 @@
     <ClCompile Include="EffectPool.cpp">
       <Filter>GameSource\GameObjects\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="CoinObtainedFX.cpp">
-      <Filter>GameSource\GameObjects\Effects</Filter>
-    </ClCompile>
     <ClCompile Include="ItemInfo.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinObtainedFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformationFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

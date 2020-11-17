@@ -1,5 +1,6 @@
 #include "EffectPool.h"
 #include "CoinObtainedFX.h"
+#include "TransformationFX.h"
 #include "Game.h"
 
 void EffectPool::Initialization()
@@ -9,6 +10,7 @@ void EffectPool::Initialization()
 FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
 {
 	auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+	if (scene == nullptr) return nullptr;
 
 	ObjectPool* pool;
 	if (pools.find(fxName) != pools.end())
@@ -21,6 +23,8 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
 		FXObject* fx = nullptr;
 		if (fxName.compare("fx-coin-obtained") == 0)
 			fx = Instantiate<CoinObtainedFX>();
+		else if (fxName.compare("fx-mario-transformation") == 0)
+			fx = Instantiate<TransformationFX>();
 		
 		DebugOut(L"New spawn\n");
 

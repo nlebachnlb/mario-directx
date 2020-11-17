@@ -15,6 +15,8 @@ public:
 	void RegisterToScene(Scene* scene);
 	void SwitchToState(std::string state);
 
+	void ContinueSwitchingState();
+
 private:
 	void LinkStates();
 
@@ -24,5 +26,8 @@ private:
 
 	int invincibleTime;
 	bool invincible;
+	bool waiting;
+
+	std::string targetState;
 };
 

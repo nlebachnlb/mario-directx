@@ -174,6 +174,7 @@
     <ClInclude Include="MapData.h" />
     <ClInclude Include="MarioCollider.h" />
     <ClInclude Include="MarioFireball.h" />
+    <ClInclude Include="MarioFX.h" />
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="TilesetInfo.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
+    <ClInclude Include="TransformationFX.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -243,6 +245,7 @@
     <ClCompile Include="MapData.cpp" />
     <ClCompile Include="MarioCollider.cpp" />
     <ClCompile Include="MarioFireball.cpp" />
+    <ClCompile Include="MarioFX.cpp" />
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
@@ -280,6 +283,7 @@
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="TransformationFX.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VisionBox.cpp" />
   </ItemGroup>

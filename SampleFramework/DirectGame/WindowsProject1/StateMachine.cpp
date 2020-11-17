@@ -6,7 +6,9 @@ void StateMachine::SwitchState(IState* destState)
 		currentState->Exit();
 
 	currentState = destState;
-	currentState->Entrance();
+
+	if (currentState != nullptr)
+		currentState->Entrance();
 }
 
 void StateMachine::Execute()
