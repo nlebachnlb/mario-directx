@@ -12,7 +12,7 @@ void RaccoonMario::Awake()
 void RaccoonMario::Start()
 {
 	CMario::Start();
-
+	SetTag(ObjectTags::PowerupMario);
 	attacking = false;
 	floating = false;
 	flying = 0;

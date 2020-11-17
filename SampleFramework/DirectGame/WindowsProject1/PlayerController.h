@@ -21,5 +21,8 @@ private:
 	std::unordered_map<std::string, IState*> playerStates;
 	std::unordered_map<std::string, CMario*> stateGameObjects;
 	CMario* currentStateObject;
+
+	int invincibleTime;
+	bool invincible;
 };
 

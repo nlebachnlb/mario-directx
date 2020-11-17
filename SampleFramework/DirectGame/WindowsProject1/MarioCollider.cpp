@@ -106,7 +106,9 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 				else if (collision->collisionDirection.y > 0)
 				{
 					// Get Damaged
-					mario->OnDamaged(enemy);
+					if (!mario->IsInvincible())
+						mario->OnDamaged(enemy);
+					DebugOut(L"VerDam-");
 				}
 				break;
 			}
@@ -144,7 +146,9 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 					// Otherwise, he gets damaged
 					else
 					{
-						mario->OnDamaged(shell);
+						if (!mario->IsInvincible())
+							mario->OnDamaged(shell);
+						DebugOut(L"HorDam-");
 					}
 				}
 				// Otherwise, he kicks it
@@ -162,7 +166,9 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 			{
 				// Normally, Mario will get damaged when he collides with enemy horizontally
 				auto enemy = (AbstractEnemy*)collision->collider->GetGameObject();
-				mario->OnDamaged(enemy);
+				if (!mario->IsInvincible())
+					mario->OnDamaged(enemy);
+				DebugOut(L"CasualHorDam-%d-\n", mario->IsInvincible() ? 1 : 0);
 				break;
 			}
 			}

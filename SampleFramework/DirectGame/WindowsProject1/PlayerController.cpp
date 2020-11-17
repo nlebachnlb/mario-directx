@@ -50,6 +50,16 @@ void PlayerController::Update()
 	Execute();
 	if (currentStateObject == nullptr) return;
 
+	if (invincible)
+	{
+		invincibleTime += Game::DeltaTime();
+		if (invincibleTime > MARIO_INVINCIBLE_TIME)
+		{
+			invincible = false, invincibleTime = 0;
+			currentStateObject->SetInvincible(false);
+		}
+	}
+
 	SetPosition(currentStateObject->GetTransform().Position);
 	
 	for (auto go = stateGameObjects.begin(); go != stateGameObjects.end(); go++)
@@ -101,6 +111,9 @@ void PlayerController::SwitchToState(std::string state)
 	}
 
 	currentStateObject = stateGameObjects.at(state);
+	invincible = true;
+	invincibleTime = 0;
+	currentStateObject->SetInvincible(true);
 	SwitchState(playerStates.at(state));
 }
 

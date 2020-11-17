@@ -43,6 +43,8 @@ void CMario::Start()
 
 	canHighJump = false;
 	deflect = false;
+	invincible = false;
+	flickTimer = 0;
 
 	pMeter = 0.0f;
 	runningRestriction = false;
@@ -157,8 +159,28 @@ void CMario::Update()
 	HoldProcess();
 }
 
+void CMario::LateUpdate()
+{
+}
+
 void CMario::PreRender()
 {
+	if (invincible)
+	{
+		if (flickTimer > MARIO_FLICK_DELTA)
+		{
+			flickTimer = 0;
+			visualAlpha = 255 - visualAlpha;
+		}
+
+		flickTimer += Game::DeltaTime();
+	}
+	else
+		visualAlpha = 255;
+
+	if (!currentState.empty()) 
+		animations.at(currentState)->SetAlpha(visualAlpha);
+
 	// This update will be used for Animation updating
 	if (physicState.jump == JumpingStates::Stand)
 		MovementAnimation();
@@ -220,6 +242,16 @@ void CMario::SetController(PlayerController* controller)
 	this->controller = controller;
 }
 
+bool CMario::IsInvincible()
+{
+	return this->invincible;
+}
+
+void CMario::SetInvincible(bool invincible)
+{
+	this->invincible = invincible;
+}
+
 #pragma region Keyboard
 
 void CMario::OnKeyDown(int keyCode)
@@ -278,7 +310,10 @@ void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> co
 
 void CMario::OnDamaged(AbstractEnemy* enemy)
 {
-	DebugOut(L"[Mario] Damaged\n");
+	if (invincible) return;
+
+	// DebugOut(L"[Mario] Damaged\n");
+	invincible = true;
 	switch (tag)
 	{
 	case ObjectTags::SmallMario:

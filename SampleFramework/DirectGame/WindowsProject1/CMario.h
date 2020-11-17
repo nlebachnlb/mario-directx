@@ -21,14 +21,16 @@ const float MARIO_BUMP_FORCE			= 0.15f;
 
 const int	PMETER_MAX					= 7;
 const float PMETER_STEP					= 0.006f;
-// const float MARIO_ACCELERATION = 0.0276;
+
 const float MARIO_WALK_ACCELERATION		= 0.000376f * 2;
-// const float MARIO_RUN_ACCELERATION		= 0.000188f;
 const float MARIO_RUN_ACCELERATION		= 0.000288f * 2;
 const float MARIO_WALK_DRAG_FORCE		= 0.0002506f * 3;
 const float MARIO_RUN_DRAG_FORCE		= 0.0006266f * 2;
 const float MARIO_SKID_ACCELERATION		= 0.001104f * 3;
 const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
+
+const int	MARIO_FLICK_DELTA			= 5; // miliseconds
+const int	MARIO_INVINCIBLE_TIME		= 2000;
 
 const Vector2 MARIO_BBOX(12 * 3, 26 * 3);
 const Vector2 MARIO_SMALL_BBOX(12 * 3, 14 * 3);
@@ -78,11 +80,12 @@ public:
 	virtual void Awake()		override;
 	virtual void Start()		override;
 	virtual void Update()		override;
+	virtual void LateUpdate()	override;
 	virtual void PreRender()	override;
 	virtual void OnKeyDown(int keyCode);
 	virtual void OnKeyUp(int keyCode);
 	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
-	virtual void OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions); 
+	virtual void OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 	virtual void OnDamaged(AbstractEnemy* enemy);
 
 	// State Interface implementation
@@ -99,6 +102,9 @@ public:
 	void HoldObject(Holdable* holdableObj);
 	void SetController(PlayerController* controller);
 
+	bool IsInvincible();
+	void SetInvincible(bool invincible);
+
 protected:
 	virtual void InitAnimations();
 	virtual void MovementAnimation();
@@ -110,6 +116,10 @@ protected:
 	float pMeter;
 	bool maxRun;
 	bool runningRestriction; // If this flag is turned on, run state will be restricted
+
+	bool invincible;
+	int flickTimer, visualAlpha;
+
 	int feverTime; // The duration of PMeter keeping maximum value
 	int feverState; // -1: disable fever mode (for raccoon, he has his own flying mechanic)
 	int lastFeverTime;
