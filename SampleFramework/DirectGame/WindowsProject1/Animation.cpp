@@ -37,7 +37,7 @@ void Animation::Render(Vector2 translation)
 		}
 
 		Vector2 pos = transform.Position + translation;
-		frames.at(currentFrame)->GetSprite()->Draw(pos.x, pos.y, transform.Scale, transform.Rotation);
+		frames.at(currentFrame)->GetSprite()->Draw(pos.x, pos.y, transform.Scale, transform.Rotation, alpha);
 	}
 }
 
@@ -69,4 +69,14 @@ void Animation::Play(bool continueFromLastState)
 void Animation::SetGameObject(GameObject go)
 {
 	this->gameObject = go;
+}
+
+int Animation::GetAlpha()
+{
+	return this->alpha;
+}
+
+void Animation::SetAlpha(int alpha)
+{
+	this->alpha = alpha;
 }

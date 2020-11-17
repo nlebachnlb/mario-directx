@@ -255,7 +255,7 @@ LPDIRECT3DTEXTURE9 Game::LoadTexture(LPCWSTR texPath)
 
 void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 texture, 
 	int left, int top, int right, int bottom, 
-	Vector2 scale, float rotation)
+	Vector2 scale, float rotation, int alpha)
 {
 	RECT rect;
 	rect.left = left;
@@ -269,7 +269,7 @@ void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTU
 	D3DXMatrixTransformation2D(&newMatrix, &Vector2((int)x, (int)y), 0, &scale, &Vector2((int)x, (int)y), rotation, &VectorZero());
 
 	spriteHandler->SetTransform(&newMatrix);
-	spriteHandler->Draw(texture, &rect, &Vector3(xPivot, yPivot, 0), &Vector3((int)x, (int)y, 0), D3DCOLOR_XRGB(255, 255, 255));
+	spriteHandler->Draw(texture, &rect, &Vector3(xPivot, yPivot, 0), &Vector3((int)x, (int)y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);
 }
 

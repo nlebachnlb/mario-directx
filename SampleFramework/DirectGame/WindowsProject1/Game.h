@@ -46,7 +46,7 @@ public:
 	LPDIRECT3DDEVICE9 GetD3DDevice() { return d3ddev; }
 
 	LPDIRECT3DTEXTURE9 LoadTexture(LPCWSTR texPath);
-	void DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, Vector2 scale, float rotation);
+	void DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, Vector2 scale, float rotation, int alpha = 255);
 	void DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom);
 
 	std::string GetSourcePathOf(std::string category, std::string id);

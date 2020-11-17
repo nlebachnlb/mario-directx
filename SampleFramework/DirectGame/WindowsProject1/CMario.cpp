@@ -281,6 +281,9 @@ void CMario::OnDamaged(AbstractEnemy* enemy)
 	DebugOut(L"[Mario] Damaged\n");
 	switch (tag)
 	{
+	case ObjectTags::SmallMario:
+		// Dead event here
+		break;
 	case ObjectTags::BigMario:
 		controller->SwitchToState("SmallMario");
 		break;

@@ -23,6 +23,7 @@ public:
 		transform.Scale = NormalizedVector();
 		transform.Rotation = 0.0f;
 		ResetSpeedMultiplier();
+		alpha = 255;
 	}
 	Animation(const Animation& obj)
 	{
@@ -34,6 +35,7 @@ public:
 		this->frames = newFrames;
 		transform = CreateTransform(obj.transform.Position, obj.transform.Scale, obj.transform.Rotation);
 		ResetSpeedMultiplier();
+		alpha = 255;
 	}
 	void AddFrame(Sprite sprite, D3DXVECTOR2 pos, DWORD frameTime = 0);
 	void Render(Vector2 translation);
@@ -57,6 +59,9 @@ public:
 
 	void SetGameObject(GameObject go);
 
+	int GetAlpha();
+	void SetAlpha(int alpha);
+
 protected:
 	float					speedMultiplier;
 	std::vector<AnimFrame>	frames;
@@ -67,6 +72,8 @@ protected:
 
 	Transform				transform;
 	GameObject				gameObject;
+
+	int						alpha;
 
 };
 typedef Animation* PAnimation;

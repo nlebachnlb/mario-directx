@@ -10,7 +10,7 @@ public:
 
 	}
 
-	void Draw(float x, float y, Vector2 scale = Vector2(1.0f, 1.0f), float rotation = 0.0f) override;
+	void Draw(float x, float y, Vector2 scale = Vector2(1.0f, 1.0f), float rotation = 0.0f, int alpha = 255) override;
 };
 
 typedef CTile* Tile;

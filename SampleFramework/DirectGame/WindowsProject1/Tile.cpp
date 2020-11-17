@@ -1,7 +1,7 @@
 #include "Tile.h"
 #include "Game.h"
 
-void CTile::Draw(float x, float y, Vector2 scale, float rotation)
+void CTile::Draw(float x, float y, Vector2 scale, float rotation, int alpha)
 {
 	int right = left + width;
 	int bottom = top + height;
