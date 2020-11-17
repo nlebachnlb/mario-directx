@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Textures> 
-<Textures id="tex-effect">
+<Textures>
+  <Textures textureId="tex-effect">
     <Sprite id="spr-enemy-damaged-effect-white-left" left="2" top="1"  width="16" height="16"/>
     <Sprite id="spr-enemy-damaged-effect-white-right" left="20" top="1"  width="16" height="16"/>
     <Sprite id="spr-enemy-damaged-effect-red-left" left="2" top="19"  width="16" height="16"/>

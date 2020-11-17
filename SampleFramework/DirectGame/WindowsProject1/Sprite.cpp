@@ -45,6 +45,7 @@ void SpriteManager::Initialization()
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_MARIO));
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_ENEMY));
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_MISC));
+	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_EFFECT));
 }
 
 bool SpriteManager::LoadSpriteFile(std::string path)

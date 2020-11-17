@@ -5,16 +5,19 @@
     <Texture id="tex-enemy" source="Assets/Sprites/enemy_white.png"/>
     <Texture id="tex-misc" source="Assets/Sprites/misc_x3.png"/>
     <Texture id="tex-fire-ball" source="Assets/Sprites/fire-ball-white.png"/>
+    <Texture id="tex-effect" source="Assets/Sprites/effect_white_254_x3.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Assets/Sprites/SpriteDatabases/MarioDB.xml"/>
     <Sprite id="spr-enemy" source="Assets/Sprites/SpriteDatabases/EnemyDB.xml"/>
     <Sprite id="spr-misc" source="Assets/Sprites/SpriteDatabases/MiscDB.xml"/>
+    <Sprite id="spr-effect" source="Assets/Sprites/SpriteDatabases/EffectDB.xml"/>
   </Root>
   <Root name="Animations">
     <Animation id="ani-mario" source="Assets/Animations/MarioAnim.xml"/>
     <Animation id="ani-enemy" source="Assets/Animations/EnemyAnim.xml"/>
     <Animation id="ani-misc" source="Assets/Animations/MiscAnim.xml"/>
+    <Animation id="ani-effect" source="Assets/Animations/EffectAnim.xml"/>
   </Root>
   <Root name="Scenes">
     <Scene id="world-1-1" source="Assets/Scenes/World1-1.xml"/> 

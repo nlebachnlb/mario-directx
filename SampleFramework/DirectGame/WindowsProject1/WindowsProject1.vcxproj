@@ -288,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Maps\world-1-1.png" />
+    <Image Include="Assets\Sprites\effect_white_254_x3.png" />
     <Image Include="Assets\Sprites\enemy.png" />
     <Image Include="Assets\Sprites\fire-ball.png" />
     <Image Include="Assets\Sprites\intro.png" />
@@ -302,6 +303,7 @@
     <None Include="Assets\root.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\Animations\EffectAnim.xml" />
     <Xml Include="Assets\Animations\EnemyAnim.xml" />
     <Xml Include="Assets\Animations\IntroAnim.xml" />
     <Xml Include="Assets\Animations\MarioAnim.xml" />
@@ -309,6 +311,7 @@
     <Xml Include="Assets\Animations\UiAnim.xml" />
     <Xml Include="Assets\config.xml" />
     <Xml Include="Assets\Scenes\World1-1.xml" />
+    <Xml Include="Assets\Sprites\SpriteDatabases\EffectDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\EnemyDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\IntroDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\MarioDB.xml" />

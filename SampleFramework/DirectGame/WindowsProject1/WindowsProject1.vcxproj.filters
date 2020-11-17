@@ -394,6 +394,9 @@
     <Image Include="Assets\Sprites\fire-ball.png">
       <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
+    <Image Include="Assets\Sprites\effect_white_254_x3.png">
+      <Filter>GameSource\Assets\Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -636,6 +639,12 @@
     </Xml>
     <Xml Include="Assets\config.xml">
       <Filter>GameSource\Assets</Filter>
+    </Xml>
+    <Xml Include="Assets\Animations\EffectAnim.xml">
+      <Filter>GameSource\Assets\Animations</Filter>
+    </Xml>
+    <Xml Include="Assets\Sprites\SpriteDatabases\EffectDB.xml">
+      <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
   </ItemGroup>
 </Project>
