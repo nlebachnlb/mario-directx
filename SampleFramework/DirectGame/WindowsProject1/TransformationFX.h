@@ -3,7 +3,7 @@
 class TransformationFX : public MarioFX
 {
 public:
-	void Awake() override;
+	virtual void Awake() override;
 	void Start() override;
 	void OnAnimationEnd() override;
 };

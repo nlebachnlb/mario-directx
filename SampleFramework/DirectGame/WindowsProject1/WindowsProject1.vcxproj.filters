@@ -372,6 +372,12 @@
     <ClInclude Include="TransformationFX.h">
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClInclude>
+    <ClInclude Include="GrowUpFX.h">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClInclude>
+    <ClInclude Include="ShrinkDownFX.h">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -610,6 +616,12 @@
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClCompile>
     <ClCompile Include="TransformationFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClCompile>
+    <ClCompile Include="GrowUpFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClCompile>
+    <ClCompile Include="ShrinkDownFX.cpp">
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClCompile>
   </ItemGroup>

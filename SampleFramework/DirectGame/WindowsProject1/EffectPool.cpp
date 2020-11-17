@@ -1,7 +1,9 @@
 #include "EffectPool.h"
 #include "CoinObtainedFX.h"
 #include "TransformationFX.h"
+#include "GrowUpFX.h"
 #include "Game.h"
+#include "ShrinkDownFX.h"
 
 void EffectPool::Initialization()
 {
@@ -25,6 +27,10 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
 			fx = Instantiate<CoinObtainedFX>();
 		else if (fxName.compare("fx-mario-transformation") == 0)
 			fx = Instantiate<TransformationFX>();
+		else if (fxName.compare("fx-mario-grow-up") == 0)
+			fx = Instantiate<GrowUpFX>();
+		else if (fxName.compare("fx-mario-shrink-down") == 0)
+			fx = Instantiate<ShrinkDownFX>();
 		
 		DebugOut(L"New spawn\n");
 

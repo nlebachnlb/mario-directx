@@ -122,11 +122,27 @@ void PlayerController::SwitchToState(std::string state)
 		return;
 	}
 
-	auto fx = spawner->GetService<EffectPool>()->CreateFX("fx-mario-transformation", transform.Position);
+	auto grow	= curState.compare("SmallMario") == 0 && targetState.compare("BigMario") == 0;
+	auto shrink = curState.compare("BigMario") == 0 && targetState.compare("SmallMario") == 0;
+	auto fxName = grow ? "fx-mario-grow-up" : (shrink ? "fx-mario-shrink-down" : "fx-mario-transformation");
+
+	auto delta = MARIO_BBOX - MARIO_SMALL_BBOX;
+	auto fx = spawner->GetService<EffectPool>()->CreateFX(
+		fxName, 
+		transform.Position - (grow ? 0.5f * delta : VectorZero())
+	);
 	waiting = true;
 	SwitchState(nullptr);
-	if (fx == nullptr) ContinueSwitchingState();
-	else static_cast<MarioFX*>(fx)->SetController(this);
+	if (fx == nullptr) 
+		ContinueSwitchingState();
+	else
+	{
+		auto castFx = static_cast<MarioFX*>(fx);
+		castFx->SetController(this);
+
+		if (currentStateObject != nullptr)
+			castFx->SetScale(currentStateObject->GetTransform().Scale);
+	}
 }
 
 void PlayerController::ContinueSwitchingState()
@@ -143,6 +159,7 @@ void PlayerController::ContinueSwitchingState()
 	}
 
 	currentStateObject = stateGameObjects.at(state);
+	curState = targetState;
 	invincible = true;
 	invincibleTime = 0;
 	currentStateObject->SetInvincible(true);

@@ -19,6 +19,7 @@
 		<Sprite id="spr-small-mario-swim-1" left="544" top="8"  width="14" height="16" frameTime="100"/>
 		<Sprite id="spr-small-mario-idle-front-0" left="397" top="8"  width="16" height="16" frameTime="100"/>
 		<Sprite id="spr-small-mario-idle-0" left="254" top="9"  width="12" height="15" frameTime="100"/>
+		<Sprite id="spr-small-mario-grow-up" left="254" top="-3"  width="12" height="27" frameTime="100"/>
 		<Sprite id="spr-small-mario-climb-0" left="561" top="9"  width="14" height="15" frameTime="100"/>
 		<Sprite id="spr-small-mario-climb-1" left="578" top="9"  width="14" height="15" frameTime="100"/>
 		<Sprite id="spr-big-mario-walk-0" left="197" top="48"  width="14" height="27" frameTime="100"/>
@@ -42,7 +43,7 @@
 		<Sprite id="spr-big-mario-swim-0" left="556" top="48"  width="19" height="27" frameTime="100"/>
 		<Sprite id="spr-big-mario-swim-1" left="578" top="48"  width="18" height="27" frameTime="100"/>
 		<Sprite id="spr-big-mario-swim-2" left="599" top="49"  width="19" height="26" frameTime="100"/>
-        <Sprite id="spr-mario-growup" left="142" top="48"  width="14" height="27" frameTime="100"/>
+        <Sprite id="spr-mario-grow-up" left="142" top="48"  width="14" height="27" frameTime="100"/>
 		<Sprite id="spr-big-mario-idle-0" left="197" top="48"  width="14" height="27" frameTime="100"/>
 		<Sprite id="spr-big-mario-idle-front-0" left="415" top="48"  width="16" height="27" frameTime="100"/>
 		<Sprite id="spr-big-mario-climb-0" left="621" top="50"  width="16" height="25" frameTime="100"/>

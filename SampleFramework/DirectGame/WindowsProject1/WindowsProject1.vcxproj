@@ -164,6 +164,7 @@
     <ClInclude Include="AbstractEnemy.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaSpawner.h" />
+    <ClInclude Include="GrowUpFX.h" />
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="RedKoopasShell.h" />
     <ClInclude Include="Rigidbody2D.h" />
+    <ClInclude Include="ShrinkDownFX.h" />
     <ClInclude Include="SmallMario.h" />
     <ClInclude Include="SolidBox.h" />
     <ClInclude Include="SpawnerManager.h" />
@@ -235,6 +237,7 @@
     <ClCompile Include="AbstractEnemy.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="GoombaSpawner.cpp" />
+    <ClCompile Include="GrowUpFX.cpp" />
     <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
@@ -258,6 +261,7 @@
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="RedKoopasShell.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
+    <ClCompile Include="ShrinkDownFX.cpp" />
     <ClCompile Include="SmallMario.cpp" />
     <ClCompile Include="SolidBox.cpp" />
     <ClCompile Include="SpawnerManager.cpp" />

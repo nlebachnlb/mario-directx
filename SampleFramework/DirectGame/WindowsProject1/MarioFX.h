@@ -10,6 +10,7 @@ public:
 	void Entrance() override;
 	void Execute() override;
 	void Exit() override;
+
 protected:
 	PlayerController* controller;
 };

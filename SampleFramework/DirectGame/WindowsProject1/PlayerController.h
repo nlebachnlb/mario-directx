@@ -28,6 +28,6 @@ private:
 	bool invincible;
 	bool waiting;
 
-	std::string targetState;
+	std::string curState, targetState;
 };
 
