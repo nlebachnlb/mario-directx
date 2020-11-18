@@ -108,6 +108,8 @@ void GameMap::Load(std::string filePath, bool manual)
 
                     if (name.compare("bcoin") == 0)
                         solid->SetItem({ ItemTags::Coin, type });
+                    else if (name.compare("bmushroom") == 0)
+                        solid->SetItem({ ItemTags::Mushroom, type });
                 }
             }
 

@@ -11,9 +11,10 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 	if (mario == nullptr) 
 		mario = dynamic_cast<CMario*>(gameObject);
 
-	auto isEnemy = (collisions.size() > 0 && TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()));
-
-	if (isEnemy == false)
+	auto canPassThrough = collisions.size() > 0 &&
+		TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()) &&
+		TagUtils::PowerupTag(collisions.at(0)->collider->GetGameObject()->GetTag());
+	if (canPassThrough == false)
 	{
 		if (ny != 0)
 		{
@@ -50,7 +51,10 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 
 void MarioCollider::BlockPosition(vector<CollisionEvent*>& collisions, float& min_tx, float& min_ty, float& nx, float& ny)
 {
-	if (collisions.size() > 0 && TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()))
+	bool canPassThrough = collisions.size() > 0 &&
+		TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()) &&
+		TagUtils::PowerupTag(collisions.at(0)->collider->GetGameObject()->GetTag());
+	if (canPassThrough)
 	{
 		auto pos = gameObject->GetTransform().Position;
 		pos.x += dvx;
@@ -84,9 +88,19 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					}
 					else 
 					{
-						if (collision->collisionDirection.y < 0)
-							mario->Jump(MARIO_JUMP_FORCE, false);
-						shell->Run(); 
+						if (readyToRun)
+						{
+							if (collision->collisionDirection.y < 0)
+								mario->Jump(MARIO_JUMP_FORCE, false);
+							shell->Run();
+						}
+						else
+						{
+							mario->HoldObject(shell);
+							shell->GetRigidbody()->SetGravity(0);
+							shell->GetColliders()->at(0)->Disable();
+							shell->PassToHolder(mario);
+						}
 					}
 				}
 				break;

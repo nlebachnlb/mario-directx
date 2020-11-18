@@ -2,8 +2,8 @@
 #include "AbstractBlock.h"
 #include "ItemInfo.h"
 
-const int BOUNCE_TIME = 80;
-const int BOUNCE_DELTA = 32; // pixels
+const int BOUNCE_TIME = 50;
+const int BOUNCE_DELTA = 24; // pixels
 const float BOUNCE_VEL = (float)BOUNCE_DELTA / (float)BOUNCE_TIME;
 
 class QuestionBlock : public AbstractBlock

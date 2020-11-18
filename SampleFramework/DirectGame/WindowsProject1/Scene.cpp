@@ -155,9 +155,8 @@ void Scene::AddObject(GameObject gameObject)
 
 void Scene::RemoveObject(GameObject gameObject)
 {
-	auto remObj = find(objects->begin(), objects->end(), gameObject);
-	if (remObj != objects->end())
-		objects->erase(remObj);
+	// gameObject->SetActive(false);
+	objects->erase(std::remove(objects->begin(), objects->end(), gameObject), objects->end());
 }
 
 std::vector<GameObject>* Scene::GetSceneObjects()

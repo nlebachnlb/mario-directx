@@ -2,6 +2,7 @@
 #include "AnimationDatabase.h"
 #include "Game.h"
 #include "EffectPool.h"
+#include "RedMushroom.h"
 
 void QuestionBlock::Start()
 {
@@ -28,6 +29,19 @@ void QuestionBlock::PreRender()
 		{
 			visualRelativePosition.y = 0, bouncingState = 0;
 			if (containedItem.quantity <= 0) bouncingState = -1;
+
+			switch (containedItem.type)
+			{
+			case ItemTags::Mushroom:
+			{
+				auto mushroom = Instantiate<RedMushroom>();
+				mushroom->SetPosition(transform.Position - Vector2(0, 49));
+				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+				scene->AddObject(mushroom);
+				mushroom->SproutOut();
+			}
+			break;
+			}
 		}
 	}
 		break;

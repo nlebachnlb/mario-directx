@@ -19,3 +19,12 @@ bool TagUtils::StaticTag(ObjectTags tag)
 {
     return tag == ObjectTags::Solid;
 }
+
+bool TagUtils::PowerupTag(ObjectTags tag)
+{
+    return tag == ObjectTags::RedMushroom ||
+        tag == ObjectTags::GreenMushroom ||
+        tag == ObjectTags::FireFlower ||
+        tag == ObjectTags::RaccoonLeaf;
+
+}

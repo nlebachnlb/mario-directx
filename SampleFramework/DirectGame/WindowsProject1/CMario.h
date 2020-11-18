@@ -29,7 +29,7 @@ const float MARIO_RUN_DRAG_FORCE		= 0.0006266f * 2;
 const float MARIO_SKID_ACCELERATION		= 0.001104f * 3;
 const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
 
-const int	MARIO_FLICK_DELTA			= 5; // miliseconds
+const int	MARIO_FLICK_DELTA			= 3; // miliseconds
 const int	MARIO_INVINCIBLE_TIME		= 2000;
 
 const Vector2 MARIO_BBOX(12 * 3, 26 * 3);
@@ -86,6 +86,7 @@ public:
 	virtual void OnKeyUp(int keyCode);
 	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 	virtual void OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
+	virtual void OnOverlapped(Collider2D*, Collider2D*) override;
 	virtual void OnDamaged(AbstractEnemy* enemy);
 
 	// State Interface implementation

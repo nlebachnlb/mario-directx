@@ -9,6 +9,11 @@ enum class ObjectTags
 	FriendlyProjectiles,
 	MarioAttack,
 
+	RedMushroom,
+	GreenMushroom,
+	RaccoonLeaf,
+	FireFlower,
+
 	HostileProjectiles,
 	Solid,
 	GhostPlatform,
@@ -26,4 +31,5 @@ public:
 	static bool EnemyTag(ObjectTags tag);
 	static bool ProjectilesTag(ObjectTags tag);
 	static bool StaticTag(ObjectTags tag);
+	static bool PowerupTag(ObjectTags tag);
 };

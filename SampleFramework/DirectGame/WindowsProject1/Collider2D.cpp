@@ -185,7 +185,9 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			(selfTag == ObjectTags::FriendlyProjectiles && TagUtils::MarioTag(otherTag)) ||
 			(TagUtils::EnemyTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
 			(selfTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(otherTag)) || 
-			(otherTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(selfTag))
+			(otherTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(selfTag)) || 
+			(TagUtils::PowerupTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
+			(TagUtils::PowerupTag(otherTag) && TagUtils::MarioTag(selfTag))
 			)
 			continue;
 

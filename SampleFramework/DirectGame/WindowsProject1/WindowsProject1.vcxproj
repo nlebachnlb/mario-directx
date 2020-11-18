@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbstractBlock.h" />
+    <ClInclude Include="AbstractItem.h" />
     <ClInclude Include="AbstractSpawner.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationDatabase.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="RaccoonMario.h" />
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="RedKoopasShell.h" />
+    <ClInclude Include="RedMushroom.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="ShrinkDownFX.h" />
     <ClInclude Include="SmallMario.h" />
@@ -222,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractBlock.cpp" />
+    <ClCompile Include="AbstractItem.cpp" />
     <ClCompile Include="AbstractSpawner.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationDatabase.cpp" />
@@ -260,6 +263,7 @@
     <ClCompile Include="RaccoonMario.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="RedKoopasShell.cpp" />
+    <ClCompile Include="RedMushroom.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />
     <ClCompile Include="SmallMario.cpp" />

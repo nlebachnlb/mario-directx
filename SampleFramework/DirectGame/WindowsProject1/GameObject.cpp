@@ -40,8 +40,6 @@ CGameObject::CGameObject(Vector2 position, Vector2 scale, float rotation)
 
 CGameObject::~CGameObject()
 {
-	auto activeScene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
-	activeScene->RemoveObject(this);
 	if (rigidbody != nullptr) delete rigidbody;
 	for (Collider2D* col : *colliders)
 		delete col;

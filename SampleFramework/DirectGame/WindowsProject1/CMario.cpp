@@ -308,6 +308,26 @@ void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> co
 {
 }
 
+void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
+{
+	auto otherTag = other->GetGameObject()->GetTag();
+	if (TagUtils::PowerupTag(otherTag))
+	{
+		switch (otherTag)
+		{
+		case ObjectTags::RedMushroom:
+			controller->SwitchToState("BigMario");
+			break;
+		case ObjectTags::FireFlower:
+			break;
+		case ObjectTags::RaccoonLeaf:
+			break;
+		}
+
+		Destroy(other->GetGameObject());
+	}
+}
+
 void CMario::OnDamaged(AbstractEnemy* enemy)
 {
 	if (invincible) return;

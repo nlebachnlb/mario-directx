@@ -122,6 +122,12 @@ void PlayerController::SwitchToState(std::string state)
 		return;
 	}
 
+	if (curState.compare(targetState) == 0)
+	{
+		ContinueSwitchingState();
+		return;
+	}
+
 	auto grow	= curState.compare("SmallMario") == 0 && targetState.compare("BigMario") == 0;
 	auto shrink = curState.compare("BigMario") == 0 && targetState.compare("SmallMario") == 0;
 	auto fxName = grow ? "fx-mario-grow-up" : (shrink ? "fx-mario-shrink-down" : "fx-mario-transformation");
