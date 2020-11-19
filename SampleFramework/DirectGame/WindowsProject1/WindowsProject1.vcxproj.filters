@@ -387,6 +387,9 @@
     <ClInclude Include="RedMushroom.h">
       <Filter>GameSource\GameObjects\Items\Powerups</Filter>
     </ClInclude>
+    <ClInclude Include="RaccoonLeaf.h">
+      <Filter>GameSource\GameObjects\Items\Powerups</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -637,6 +640,9 @@
       <Filter>GameSource\GameObjects\Items</Filter>
     </ClCompile>
     <ClCompile Include="RedMushroom.cpp">
+      <Filter>GameSource\GameObjects\Items\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="RaccoonLeaf.cpp">
       <Filter>GameSource\GameObjects\Items\Powerups</Filter>
     </ClCompile>
   </ItemGroup>

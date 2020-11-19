@@ -193,6 +193,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			continue;
 
 		if (coObjects->at(i)->GetColliders()->at(0)->IsTrigger()) continue;
+		if (IsTrigger()) continue;
 
 		if (TagUtils::EnemyTag(selfTag) && TagUtils::EnemyTag(otherTag))
 		{

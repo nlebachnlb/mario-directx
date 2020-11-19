@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <ctime>
 
+const float Mathf::Pi = 3.1416f;
+
 float Mathf::Lerp(float a, float b, float t)
 {
     return a + (b - a) * t;
@@ -35,6 +37,16 @@ bool Mathf::InRange(float target, float inf, float sup)
 float Mathf::Abs(float x)
 {
     return x > 0 ? x : -x;
+}
+
+float Mathf::Sin(float x)
+{
+    return sin(x);
+}
+
+float Mathf::Cos(float x)
+{
+    return cos(x);
 }
 
 bool Random::initialized = false;

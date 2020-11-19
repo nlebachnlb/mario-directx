@@ -1,4 +1,5 @@
 #include "KoopasShell.h"
+#include "QuestionBlock.h"
 
 void KoopasShell::Awake()
 {
@@ -61,6 +62,12 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 			auto enemy = static_cast<AbstractEnemy*>(collision->collider->GetGameObject());
 			if (running)
 				enemy->OnDead(true);
+		}
+
+		if (otherTag == ObjectTags::QuestBlock && running)
+		{
+			auto questionBlock = static_cast<QuestionBlock*>(collision->collider->GetGameObject());
+			questionBlock->Bounce();
 		}
 	}
 }

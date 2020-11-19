@@ -185,6 +185,7 @@
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RaccoonAttackBox.h" />
+    <ClInclude Include="RaccoonLeaf.h" />
     <ClInclude Include="RaccoonMario.h" />
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="RedKoopasShell.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonAttackBox.cpp" />
+    <ClCompile Include="RaccoonLeaf.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="RedKoopasShell.cpp" />
