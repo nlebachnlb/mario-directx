@@ -42,15 +42,6 @@ void QuestionBlock::PreRender()
 				mushroom->SproutOut();
 			}
 			break;
-			case ItemTags::Leaf:
-			{
-				auto leaf = Instantiate<RaccoonLeaf>();
-				leaf->SetPosition(transform.Position);
-				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
-				scene->AddObject(leaf);
-				leaf->SproutOut();
-			}
-			break;
 			}
 		}
 	}
@@ -71,6 +62,15 @@ void QuestionBlock::Bounce()
 			auto gmap = Game::GetInstance().GetService<GameMap>();
 			auto spawner = gmap->GetSpawnerManager();
 			spawner->GetService<EffectPool>()->CreateFX("fx-coin-obtained", transform.Position);
+		}
+		break;
+		case ItemTags::Leaf:
+		{
+			auto leaf = Instantiate<RaccoonLeaf>();
+			leaf->SetPosition(transform.Position);
+			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+			scene->AddObject(leaf);
+			leaf->SproutOut();
 		}
 		break;
 		}
