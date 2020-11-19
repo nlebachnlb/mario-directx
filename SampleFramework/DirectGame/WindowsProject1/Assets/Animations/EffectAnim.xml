@@ -46,5 +46,13 @@
       <Sprite id="spr-mario-grow-up"/>
       <Sprite id="spr-small-mario-grow-up"/>
     </Animation>
+    
+    <Animation aniId="ani-brick-debris" frameTime="100" name = "BRICK-DEBRIS">
+      <Sprite id="spr-debris-0"/>
+      <Sprite id="spr-debris-1"/>
+      <Sprite id="spr-debris-2"/>
+      <Sprite id="spr-debris-3"/>
+    </Animation>
+    
   </Textures>
 </Textures>
