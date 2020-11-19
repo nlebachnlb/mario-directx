@@ -316,11 +316,15 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		switch (otherTag)
 		{
 		case ObjectTags::RedMushroom:
-			controller->SwitchToState("BigMario");
+			if (tag != ObjectTags::PowerupMario) controller->SwitchToState("BigMario");
 			break;
 		case ObjectTags::FireFlower:
+			if (tag == ObjectTags::BigMario) controller->SwitchToState("FireMario");
+			else controller->SwitchToState("BigMario");
 			break;
 		case ObjectTags::RaccoonLeaf:
+			if (tag == ObjectTags::BigMario) controller->SwitchToState("RaccoonMario");
+			else controller->SwitchToState("BigMario");
 			break;
 		}
 

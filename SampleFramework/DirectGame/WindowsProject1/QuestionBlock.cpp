@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "EffectPool.h"
 #include "RedMushroom.h"
+#include "RaccoonLeaf.h"
 
 void QuestionBlock::Start()
 {
@@ -39,6 +40,15 @@ void QuestionBlock::PreRender()
 				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 				scene->AddObject(mushroom);
 				mushroom->SproutOut();
+			}
+			break;
+			case ItemTags::Leaf:
+			{
+				auto leaf = Instantiate<RaccoonLeaf>();
+				leaf->SetPosition(transform.Position);
+				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+				scene->AddObject(leaf);
+				leaf->SproutOut();
 			}
 			break;
 			}

@@ -503,7 +503,7 @@
   <object id="47" name="bcoin" type="3" x="552" y="1080"/>
   <object id="49" name="bcoin" type="1" x="600" y="1080"/>
   <object id="50" name="bcoin" type="1" x="696" y="936"/>
-  <object id="51" name="bmushroom" type="1" x="744" y="936"/>
+  <object id="51" name="bleaf" type="1" x="744" y="936"/>
   <object id="53" name="bcoin" type="1" x="1272" y="984"/>
  </objectgroup>
 </map>
