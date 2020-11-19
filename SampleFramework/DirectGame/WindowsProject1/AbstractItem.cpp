@@ -10,6 +10,7 @@ void AbstractItem::Awake()
 	collider->SetBoxSize(ITEM_BBOX);
 	collider->AttachToEntity(this);
 	this->colliders->push_back(collider);
+	mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
 }
 
 void AbstractItem::Start()
@@ -22,6 +23,13 @@ void AbstractItem::Start()
 
 void AbstractItem::Update()
 {
+}
+
+void AbstractItem::LateUpdate()
+{
+	// Destroy item when Mario can not reach it
+	if (!mainCamera->PointInsideCameraView(transform.Position, 48 * 8))
+		Destroy(this);
 }
 
 void AbstractItem::PreRender()

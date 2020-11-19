@@ -1,11 +1,12 @@
 #pragma once
 #include "AbstractItem.h"
+#include "Camera.h"
 
 const int LEAF_AMPLITUDE = 32; // px
 const int LEAF_ROUNDTRIP_TIME = 500;
 const float LEAF_REVEAL_DISTANCE = 48 * 2.5f; // px
 const float LEAF_REVEAL_FORCE = 0.4f;
-const float LEAF_GRAVITY = 0.00085f;
+const float LEAF_GRAVITY = 0.0012f;
 const float LEAF_FALLING_VEL = 0.075f;
 
 class RaccoonLeaf : public AbstractItem
