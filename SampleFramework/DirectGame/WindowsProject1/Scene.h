@@ -16,6 +16,7 @@ public:
 	virtual void Unload();
 	virtual void Update();
 	virtual void Render();
+	void CleanDestroyedObjects();
 
 	std::string GetID() { return id; }
 	void AddObject(GameObject gameObject);
@@ -29,6 +30,7 @@ protected:
 	static bool Comparator(GameObject& a, GameObject& b) { return a->GetRenderOrder() < b->GetRenderOrder(); }
 	
 	std::vector<GameObject>* objects;
+	std::vector<GameObject> destroyed;
 	std::string id;
 	std::string filePath;
 	Camera* mainCamera;

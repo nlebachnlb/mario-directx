@@ -116,6 +116,7 @@ void Scene::Update()
 			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 96))
 				continue;
 
+			if ((*obj)->IsDestroyed()) continue;
 			if ((*obj)->IsEnabled() == false) continue;
 			if ((*obj)->GetRigidbody()->IsDynamic()) (*obj)->PhysicsUpdate(objects);
 			(*obj)->Update();
@@ -138,10 +139,21 @@ void Scene::Render()
 		{
 			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 96))
 				continue;
+			if ((*obj)->IsDestroyed()) continue;
 			if ((*obj)->IsEnabled() == false) continue;
 			(*obj)->PreRender();
 			(*obj)->Render(-mainCamera->GetPosition());
 		}
+	}
+}
+
+void Scene::CleanDestroyedObjects()
+{
+	if (destroyed.size() > 0)
+	{
+		for (auto x : destroyed)
+			delete x;
+		destroyed.clear();
 	}
 }
 
@@ -157,6 +169,8 @@ void Scene::RemoveObject(GameObject gameObject)
 {
 	// gameObject->SetActive(false);
 	objects->erase(std::remove(objects->begin(), objects->end(), gameObject), objects->end());
+	gameObject->SetDestroyed();
+	destroyed.push_back(gameObject);
 }
 
 std::vector<GameObject>* Scene::GetSceneObjects()

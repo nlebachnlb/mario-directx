@@ -17,7 +17,7 @@ bool TagUtils::ProjectilesTag(ObjectTags tag)
 
 bool TagUtils::StaticTag(ObjectTags tag)
 {
-    return tag == ObjectTags::Solid;
+    return tag == ObjectTags::Solid ||tag == ObjectTags::QuestBlock;
 }
 
 bool TagUtils::PowerupTag(ObjectTags tag)

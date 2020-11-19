@@ -49,8 +49,7 @@ void MarioFireball::OnCollisionEnter(Collider2D* selfCollider, std::vector<Colli
 	{
 		if (//col->collisionDirection.y < 0 && 
 			col->collisionDirection.x != 0 &&
-			(col->collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
-			col->collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform))
+			(TagUtils::StaticTag(col->collider->GetGameObject()->GetTag())))
 		{
 			pool->Revoke(this);
 		}
@@ -66,7 +65,7 @@ void MarioFireball::OnCollisionEnter(Collider2D* selfCollider, std::vector<Colli
 
 void MarioFireball::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
-	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::Solid)
+	if (TagUtils::StaticTag(otherCollider->GetGameObject()->GetTag()))
 		pool->Revoke(this);
 }
 

@@ -76,6 +76,8 @@ public:
 	Vector2 GetVisualRelativePosition();
 
 	bool IsEnabled();
+	bool IsDestroyed();
+	void SetDestroyed();
 	void SetActive(bool active);
 
 	void SetTag(ObjectTags tag);
@@ -94,7 +96,7 @@ protected:
 	std::unordered_map<std::string, Animation*> animations;
 
 	int renderOrder;
-	bool enabled;
+	bool enabled, destroyed;
 	ObjectTags tag;
 	Effector2D effector;
 

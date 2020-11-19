@@ -117,6 +117,7 @@ void CGameObject::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 
 void CGameObject::Initialize()
 {
+	destroyed = false;
 	rigidbody = new Rigidbody2D();
 	colliders = new vector<Collider2D*>();
 	effector = Effector2D::Full;
@@ -208,6 +209,17 @@ bool CGameObject::IsEnabled()
 	return this->enabled;
 }
 
+bool CGameObject::IsDestroyed()
+{
+	return this->destroyed;
+}
+
+void CGameObject::SetDestroyed()
+{
+	destroyed = true;
+	enabled = false;
+}
+
 void CGameObject::SetActive(bool active)
 {
 	enabled = active;
@@ -239,6 +251,4 @@ void Destroy(GameObject gameObject)
 
 	if (activeScene != nullptr)
 		activeScene->RemoveObject(gameObject);
-
-	delete gameObject;
 }

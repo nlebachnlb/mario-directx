@@ -187,6 +187,7 @@ void Game::GameRun(HWND hWnd)
 				// Call update then Render
 				Update();
 				Render();
+				Clean();
 			}
 			else
 				Sleep(tickPerFrame - delta);
@@ -226,6 +227,14 @@ void Game::Render()
 	}
 
 	d3ddev->Present(NULL, NULL, NULL, NULL);
+}
+
+void Game::Clean()
+{
+	auto activeScene = sceneManager->GetActiveScene();
+
+	if (activeScene != nullptr)
+		activeScene->CleanDestroyedObjects();
 }
 
 void Game::SetClearColor(D3DXCOLOR color)

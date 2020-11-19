@@ -40,6 +40,7 @@ public:
 	void GameEnd();
 	void Update();
 	void Render();
+	void Clean();
 
 	void SetClearColor(D3DXCOLOR color);
 
