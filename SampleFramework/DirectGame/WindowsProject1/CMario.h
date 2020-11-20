@@ -9,7 +9,7 @@
 #include "PlayerController.h"
 #include "AbstractEnemy.h"
 
-const int	MARIO_MIN_VDISTANCE			= 4; // pixels
+const int	MARIO_MIN_VDISTANCE			= 8; // pixels
 const float MARIO_GRAVITY				= 0.0024f;
 const float MARIO_WALK_SPEED			= 0.25f;
 const float MARIO_RUN_SPEED				= 0.75f;

@@ -113,13 +113,13 @@ void Scene::Update()
 	{
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 4))
+			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
 				continue;
 
 			if ((*obj)->IsDestroyed()) continue;
 			if ((*obj)->IsEnabled() == false) continue;
-			if ((*obj)->GetRigidbody()->IsDynamic()) (*obj)->PhysicsUpdate(objects);
 			(*obj)->Update();
+			if ((*obj)->GetRigidbody()->IsDynamic()) (*obj)->PhysicsUpdate(objects);
 			(*obj)->LateUpdate();
 		}
 	}
@@ -137,7 +137,7 @@ void Scene::Render()
 	{
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 4))
+			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
 				continue;
 			if ((*obj)->IsDestroyed()) continue;
 			if ((*obj)->IsEnabled() == false) continue;

@@ -161,7 +161,7 @@ void Game::GameRun(HWND hWnd)
 
 	float prevTime, currentTime = GetTickCount();
 	DWORD delta = 0;
-	DWORD tickPerFrame = 1000 / configs.fps;
+	float tickPerFrame = 1000.0f / (float)configs.fps;
 
 	// Game Loop
 	while (!done)
@@ -177,7 +177,7 @@ void Game::GameRun(HWND hWnd)
 		else
 		{
 			prevTime = currentTime;
-			currentTime = GetTickCount64();
+			currentTime = GetTickCount();
 			delta = (currentTime - prevTime);
 			deltaTime = delta;
 
