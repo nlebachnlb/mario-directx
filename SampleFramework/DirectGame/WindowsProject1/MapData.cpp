@@ -45,9 +45,11 @@ MapData* MapData::FromTMX(std::string path)
         }
 
         // Get Layers
+        int order = 0;
         for (auto node = root->FirstChildElement("layer"); node != nullptr; node = node->NextSiblingElement("layer"))
         {
-            Layer* layer = Layer::FromXMLData(node);
+            Layer* layer = Layer::FromXMLData(node, order++);
+            if (layer->IsVisible() == false) continue;
             mapData->layers->insert(std::make_pair(layer->GetID(), layer));
         }
 

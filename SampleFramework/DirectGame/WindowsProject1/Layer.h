@@ -9,7 +9,7 @@ public:
 	Layer();
 	~Layer();
 
-	static Layer* FromXMLData(TiXmlElement* data);
+	static Layer* FromXMLData(TiXmlElement* data, int index = -1);
 
 	int GetID();
 	std::string GetName();

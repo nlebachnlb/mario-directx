@@ -13,11 +13,12 @@ Layer::~Layer()
     delete data;
 }
 
-Layer* Layer::FromXMLData(TiXmlElement* data)
+Layer* Layer::FromXMLData(TiXmlElement* data, int index)
 {
     Layer* layer = new Layer();
 
     data->QueryIntAttribute("id", &layer->id);
+    if (index != -1) layer->id = index;
     layer->name  = data->Attribute("name");
     data->QueryIntAttribute("width",    &layer->width);
     data->QueryIntAttribute("height",   &layer->height);

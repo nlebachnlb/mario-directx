@@ -57,6 +57,7 @@ void RaccoonLeaf::PreRender()
 
 	prevVisualPos = visualRelativePosition;
 	visualRelativePosition.x = a * movement + a;
+	colliders->at(0)->SetLocalPosition(Vector2(visualRelativePosition.x, colliders->at(0)->GetLocalPosition().y));
 	SetScale(Vector2(-Mathf::Sign(visualRelativePosition.x - prevVisualPos.x), 1));
 }
 

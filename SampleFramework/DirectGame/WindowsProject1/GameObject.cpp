@@ -118,6 +118,7 @@ void CGameObject::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 void CGameObject::Initialize()
 {
 	destroyed = false;
+	
 	rigidbody = new Rigidbody2D();
 	colliders = new vector<Collider2D*>();
 	effector = Effector2D::Full;

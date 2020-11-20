@@ -64,10 +64,10 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 				enemy->OnDead(true);
 		}
 
-		if (otherTag == ObjectTags::QuestBlock && running)
+		if (otherTag == ObjectTags::Block && running)
 		{
-			auto questionBlock = static_cast<QuestionBlock*>(collision->collider->GetGameObject());
-			questionBlock->Bounce();
+			auto block = static_cast<AbstractBlock*>(collision->collider->GetGameObject());
+			block->Bounce(this);
 		}
 	}
 }

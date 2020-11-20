@@ -177,7 +177,7 @@ void Game::GameRun(HWND hWnd)
 		else
 		{
 			prevTime = currentTime;
-			currentTime = GetTickCount();
+			currentTime = GetTickCount64();
 			delta = (currentTime - prevTime);
 			deltaTime = delta;
 

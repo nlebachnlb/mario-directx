@@ -10,7 +10,8 @@ void Animation::AddFrame(Sprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
 
 void Animation::Render(Vector2 translation)
 {
-	if ((frames.size() > 0 || speedMultiplier > 0.0f))
+	size_t size = frames.size();
+	if ((size > 0 || speedMultiplier > 0.0f))
 	{
 		DWORD currentTime = GetTickCount();
 
@@ -19,26 +20,25 @@ void Animation::Render(Vector2 translation)
 			currentFrame = 0;
 			lastFrameTime = currentTime;
 		}
-		else
+
+		if (Game::GetTimeScale() != 0 || unscaledTime)
 		{
-			if (Game::GetTimeScale() != 0 || unscaledTime)
+			auto time = frames.at(currentFrame)->GetTime() / (unscaledTime ? 1 : Game::GetTimeScale()) / speedMultiplier;
+			if (currentTime - lastFrameTime > time)
 			{
-				auto time = frames[currentFrame]->GetTime() / (unscaledTime ? 1 : Game::GetTimeScale()) / speedMultiplier;
-				if (currentTime - lastFrameTime > time)
+				if (currentFrame == size - 1 && loop == false)
 				{
-					if (currentFrame == frames.size() - 1 && loop == false)
-					{
-						gameObject->OnAnimationEnd();
-						playing = false;
-					}
-					else if (playing)
-					{
-						currentFrame = (currentFrame + 1) % frames.size();
-						lastFrameTime = currentTime;
-					}
+					gameObject->OnAnimationEnd();
+					playing = false;
+				}
+				else if (playing)
+				{
+					currentFrame = (currentFrame + 1 == size ? 0 : (currentFrame + 1));
+					lastFrameTime = currentTime;
 				}
 			}
 		}
+		
 
 		Vector2 pos = transform.Position + translation;
 		frames.at(currentFrame)->GetSprite()->Draw(pos.x, pos.y, transform.Scale, transform.Rotation, alpha);

@@ -60,8 +60,10 @@ void Camera::Render()
         {
             for (int v = 0; v <= width + 1; ++v)
             {
-                int xGrid = (int)(tilex + v) % mapWidth;
-                int yGrid = (int)(tiley + u) % mapHeight;
+                int xGrid = (int)(tilex + v);
+                int yGrid = (int)(tiley + u);
+
+                if (xGrid > mapWidth || yGrid > mapHeight) continue;
 
                 int tileId = layer->GetTileID(xGrid, yGrid);
                 int tilesetId = mapData->GetTilesetIdFromTileId(tileId);
@@ -73,8 +75,9 @@ void Camera::Render()
                 int tilesetWidth = tileset->GetImageWidth() / tileWidth;
                 int tilesetHeight = tileset->GetImageHeight() / tileHeight;
 
-                int y = (tileId - tilesetId) / tilesetWidth; 
-                int x = (tileId - tilesetId) - y * tilesetWidth;
+                int temp = tileId - tilesetId;
+                int y = temp / tilesetWidth; 
+                int x = temp - y * tilesetWidth;
 
                 Tile tile = map->GetTileset(tilesetId);
                 tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);

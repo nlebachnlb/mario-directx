@@ -4,6 +4,7 @@
 #include "GrowUpFX.h"
 #include "Game.h"
 #include "ShrinkDownFX.h"
+#include "BrickDebrisFX.h"
 
 void EffectPool::Initialization()
 {
@@ -31,6 +32,8 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
 			fx = Instantiate<GrowUpFX>();
 		else if (fxName.compare("fx-mario-shrink-down") == 0)
 			fx = Instantiate<ShrinkDownFX>();
+		else if (fxName.compare("fx-brick-debris") == 0)
+			fx = Instantiate<BrickDebrisFX>();
 		
 		DebugOut(L"New spawn\n");
 

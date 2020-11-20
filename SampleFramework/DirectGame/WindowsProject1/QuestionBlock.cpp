@@ -7,7 +7,7 @@
 
 void QuestionBlock::Start()
 {
-	SetTag(ObjectTags::QuestBlock);
+	SetTag(ObjectTags::Block);
 	SetState("Sealed");
 	bouncingState = 0;
 }
@@ -49,7 +49,7 @@ void QuestionBlock::PreRender()
 	}
 }
 
-void QuestionBlock::Bounce()
+void QuestionBlock::Bounce(GameObject obj)
 {
 	if (bouncingState == 0)
 	{
