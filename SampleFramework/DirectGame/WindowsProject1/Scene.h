@@ -27,7 +27,11 @@ public:
 	Camera* GetMainCamera();
 
 protected:
-	static bool Comparator(GameObject& a, GameObject& b) { return a->GetRenderOrder() < b->GetRenderOrder(); }
+	static bool Comparator(GameObject& a, GameObject& b) 
+	{ 
+		return (a->GetRenderOrder() < b->GetRenderOrder() || 
+			(a->GetRenderOrder() == b->GetRenderOrder() && a->GetTransform().Position.x < b->GetTransform().Position.x)); 
+	}
 	
 	std::vector<GameObject>* objects;
 	std::vector<GameObject> destroyed;

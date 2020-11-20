@@ -16,14 +16,14 @@ Game& Game::GetInstance()
 	return *instance;
 }
 
-float Game::DeltaTime()
+DWORD Game::DeltaTime()
 {
 	return deltaTime;
 }
 
-float Game::FixedDeltaTime()
+DWORD Game::FixedDeltaTime()
 {
-	return 20.0f;
+	return 20;
 }
 
 void Game::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
@@ -160,8 +160,8 @@ void Game::GameRun(HWND hWnd)
 	bool done = false;
 
 	float prevTime, currentTime = GetTickCount();
-	DWORD delta = 0;
-	float tickPerFrame = 1000.0f / (float)configs.fps;
+	DWORD tickPerFrame = 1000 / configs.fps;
+	deltaTime = 0;
 
 	// Game Loop
 	while (!done)
@@ -178,11 +178,10 @@ void Game::GameRun(HWND hWnd)
 		{
 			prevTime = currentTime;
 			currentTime = GetTickCount();
-			delta = (currentTime - prevTime);
-			deltaTime = delta;
+			deltaTime = (currentTime - prevTime);
 
 			// Update & Render in limited fps
-			if (delta > tickPerFrame)
+			if (deltaTime > tickPerFrame)
 			{
 				// Call update then Render
 				Update();
@@ -192,7 +191,7 @@ void Game::GameRun(HWND hWnd)
 				Clean();
 			}
 			else
-				Sleep(tickPerFrame - delta);
+				Sleep(tickPerFrame - deltaTime);
 		}
 	}
 }
@@ -205,7 +204,7 @@ void Game::Update()
 {
 	if (inputHandler == nullptr) inputHandler = GetService<InputHandler>();
 	inputHandler->ProcessKeyboard();
-	auto activeScene = sceneManager->GetActiveScene();
+	if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
 
 	if (activeScene != nullptr)
 		activeScene->Update();
@@ -220,7 +219,7 @@ void Game::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
-		auto activeScene = sceneManager->GetActiveScene();
+		if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
 		if (activeScene != nullptr)
 			activeScene->Render();
 

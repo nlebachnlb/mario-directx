@@ -113,13 +113,34 @@ void Scene::Update()
 	{
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
+			if (*obj == nullptr) continue;
+			if ((*obj)->IsDestroyed()) continue;
+			if ((*obj)->IsEnabled() == false) continue;
 			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
 				continue;
 
+			if ((*obj)->GetRigidbody()->IsDynamic()) (*obj)->PhysicsUpdate(objects);
+		}
+
+		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
+		{
+			if (*obj == nullptr) continue;
 			if ((*obj)->IsDestroyed()) continue;
 			if ((*obj)->IsEnabled() == false) continue;
+			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
+				continue;
+
 			(*obj)->Update();
-			if ((*obj)->GetRigidbody()->IsDynamic()) (*obj)->PhysicsUpdate(objects);
+		}
+
+		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
+		{
+			if (*obj == nullptr) continue;
+			if ((*obj)->IsDestroyed()) continue;
+			if ((*obj)->IsEnabled() == false) continue;
+			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
+				continue;
+
 			(*obj)->LateUpdate();
 		}
 	}
@@ -137,11 +158,23 @@ void Scene::Render()
 	{
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
-				continue;
+			if (*obj == nullptr) continue;
 			if ((*obj)->IsDestroyed()) continue;
 			if ((*obj)->IsEnabled() == false) continue;
+			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
+				continue;
+
 			(*obj)->PreRender();
+		}
+
+		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
+		{
+			if (*obj == nullptr) continue;
+			if ((*obj)->IsDestroyed()) continue;
+			if ((*obj)->IsEnabled() == false) continue;
+			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
+				continue;
+
 			(*obj)->Render(-mainCamera->GetPosition());
 		}
 	}
@@ -157,6 +190,7 @@ void Scene::CleanDestroyedObjects()
 			{
 				objects->erase(std::remove(objects->begin(), objects->end(), x));
 				delete x;
+				x = nullptr;
 			}
 		}
 		destroyed.clear();

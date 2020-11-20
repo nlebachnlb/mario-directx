@@ -40,8 +40,10 @@ void Brick::Bounce(GameObject obj)
 {
 	auto oTag = obj->GetTag();
 
-	if (oTag == ObjectTags::SmallMario && bouncingState == 0)
-		lastTick = GetTickCount(), bouncingState = 1;
+	if (oTag == ObjectTags::SmallMario)
+	{
+		if (bouncingState == 0) lastTick = GetTickCount(), bouncingState = 1;
+	}
 	else
 		Explode();
 }

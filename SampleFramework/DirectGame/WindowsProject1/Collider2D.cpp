@@ -9,7 +9,7 @@ Collider2D::Collider2D()
     boxSize = Vector2(1.0f, 1.0f);
     isTrigger = false;
 	this->name = "";
-	this->pushCoefficient = 0.4f;
+	this->pushCoefficient = 0.8f;
 	Enable();
 }
 

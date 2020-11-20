@@ -26,8 +26,8 @@ public:
 	static void SetTimeScale(float time) { Game::timeScale = time; }
 	static float GetTimeScale() { return timeScale; }
 	static Game& GetInstance();
-	static float DeltaTime();
-	static float FixedDeltaTime();
+	static DWORD DeltaTime();
+	static DWORD FixedDeltaTime();
 
 	void SetGlobalConfigs(GlobalConfigs conf);
 	GlobalConfigs GetGlobalConfigs();
@@ -70,6 +70,7 @@ private:
 	GlobalConfigs configs;
 
 	SceneManager* sceneManager;
+	Scene* activeScene;
 	InputHandler* inputHandler;
 
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sourcePaths;

@@ -35,9 +35,7 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 			}
 		}
 
-		if (nx != 0
-			&& collisions.size() > 0 && collisions.at(0)->collider->GetGameObject()->GetTag() == ObjectTags::Solid
-			)
+		if (nx != 0)
 		{
 			velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
 			 dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();

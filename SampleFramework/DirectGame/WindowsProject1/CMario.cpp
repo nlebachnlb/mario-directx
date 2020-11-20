@@ -65,6 +65,7 @@ void CMario::Update()
 	previousVelocity = velocity;
 	prevPhysicState = physicState;
 	prevTargetVelocityX = targetVelocityX;
+	auto dt = Game::DeltaTime();
 
 #pragma region Horizontal Movement
 	auto curVelocity = velocity.x;
@@ -87,17 +88,17 @@ void CMario::Update()
 		auto constSpeed = physicState.movement == MovingStates::Run ? MARIO_RUN_SPEED : MARIO_WALK_SPEED;
 		targetVelocityX = constSpeed;
 		
-		if (input->GetKeyDown(marioKeySet.Left))
+		if (input->GetKeyDown(marioKeySet.Left) && pushSide == 0)
 			targetVelocityX = -1 * constSpeed, nx = -1;
-		else if (input->GetKeyDown(marioKeySet.Right))
+		else if (input->GetKeyDown(marioKeySet.Right) && pushSide == 0)
 			targetVelocityX = +1 * constSpeed, nx = +1;
 		
-		if (Mathf::Abs(curVelocity - targetVelocityX) > rigidbody->GetAcceleration() * Game::DeltaTime())
+		if (Mathf::Abs(curVelocity - targetVelocityX) > rigidbody->GetAcceleration() * dt)
 		{
 			if (curVelocity < targetVelocityX)
-				curVelocity += rigidbody->GetAcceleration() * Game::DeltaTime();
+				curVelocity += rigidbody->GetAcceleration() * dt;
 			else
-				curVelocity -= rigidbody->GetAcceleration() * Game::DeltaTime();
+				curVelocity -= rigidbody->GetAcceleration() * dt;
 		}
 		else
 			curVelocity = targetVelocityX;
@@ -110,8 +111,8 @@ void CMario::Update()
 	else
 	{
 		// If Mario stops moving, the drag force will reduce the remaining speed
-		if (Mathf::Abs(curVelocity) > rigidbody->GetDrag().x * Game::DeltaTime()) 
-			curVelocity = Mathf::Abs(curVelocity) - (rigidbody->GetDrag().x * Game::DeltaTime());
+		if (Mathf::Abs(curVelocity) > rigidbody->GetDrag().x * dt) 
+			curVelocity = Mathf::Abs(curVelocity) - (rigidbody->GetDrag().x * dt);
 		else
 		{
 			curVelocity = 0.0f;
@@ -126,7 +127,7 @@ void CMario::Update()
 
 	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.85f;
 	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.85f;
-	rigidbody->SetVelocity(&velocity);
+	if (pushSide == 0) rigidbody->SetVelocity(&velocity);
 
 #pragma endregion
 
@@ -256,6 +257,7 @@ void CMario::SetInvincible(bool invincible)
 
 void CMario::OnKeyDown(int keyCode)
 {
+	if (pushSide != 0) return;
 	if (keyCode == marioKeySet.Jump && onGround && physicState.jump == JumpingStates::Stand)
 		Jump(MARIO_JUMP_FORCE * 0.3f);
 }
@@ -333,22 +335,42 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 	if (TagUtils::StaticTag(otherTag))
 	{
+		DebugOut(L"Enter overlap\n");
 		auto selfBox = colliders->at(0)->GetBoundingBox();
 		auto otherBox = other->GetBoundingBox();
 		Vector2 point(transform.Position.x, selfBox.top + 1);
+		/*auto lDiff = selfBox.left - otherBox.left;
+		auto rDiff = selfBox.right - otherBox.right;*/
+		auto mergedBox = RectF
+		{
+			Mathf::Min(selfBox.left, otherBox.left),
+			Mathf::Min(selfBox.top, otherBox.top),
+			Mathf::Max(selfBox.right, otherBox.right),
+			Mathf::Max(selfBox.bottom, otherBox.bottom),
+		};
+		auto lDiff = selfBox.left - mergedBox.left;
+		auto rDiff = selfBox.right - mergedBox.right;
 
 		// Mario gets embed into wall from RIGHT
-		if (selfBox.left < otherBox.right)
+		if (selfBox.left <= otherBox.right)
 		{
 			if (pushSide == 0)
-				pushSide = 1;
+				if (rDiff > 0)
+					pushSide = 1;
+				else
+					pushSide = (Mathf::Abs(rDiff) < Mathf::Abs(lDiff) ? 1 : 0);
 		}
 		// Mario gets embed into wall from LEFT
-		else if (selfBox.right > otherBox.left)
+		if (selfBox.right >= otherBox.left)
 		{
 			if (pushSide == 0)
-				pushSide = -1;
+				if (lDiff < 0)
+					pushSide = -1;
+				else
+					pushSide = (Mathf::Abs(lDiff) < Mathf::Abs(rDiff) ? -1 : 0);
 		}
+
+		// if (pushSide == 0) pushSide = (Mathf::Abs(rDiff) < Mathf::Abs(lDiff) ? 1 : -1);
 
 		transform.Position.x += pushSide * 0.25f * Game::DeltaTime();
 	}
@@ -356,6 +378,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 void CMario::OnSolidOverlappedExit()
 {
+	// DebugOut(L"Exit overlap\n");
 	pushSide = 0;
 }
 

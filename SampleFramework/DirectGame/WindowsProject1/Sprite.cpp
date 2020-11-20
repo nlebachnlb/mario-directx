@@ -23,7 +23,7 @@ void CSprite::Draw(float x, float y, Vector2 scale, float rotation, int alpha)
 	int px = xPivot < 0 ? width / 2 : xPivot;
 	int py = yPivot < 0 ? height / 2 : yPivot;
 
-	Game::GetInstance().DrawTexture(x, y, px, py, texture, left, top, right, bottom, scale, rotation, alpha);
+	Game::GetInstance().DrawTexture((int)x, (int)y, px, py, texture, left, top, right, bottom, scale, rotation, alpha);
 }
 
 void CSprite::SetSourceRect(int left, int top, int width, int height)
