@@ -122,7 +122,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					// Get Damaged
 					if (!mario->IsInvincible())
 						mario->OnDamaged(enemy);
-					DebugOut(L"VerDam-");
+					// DebugOut(L"VerDam-");
 				}
 				break;
 			}
@@ -150,7 +150,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 				{
 					if (!mario->IsInvincible())
 						mario->OnDamaged(shell);
-					DebugOut(L"HorDam-");
+					// DebugOut(L"HorDam-");
 				}
 
 				// If Mario is running, he will hold the shell
@@ -182,7 +182,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 				auto enemy = (AbstractEnemy*)collision->collider->GetGameObject();
 				if (!mario->IsInvincible())
 					mario->OnDamaged(enemy);
-				DebugOut(L"CasualHorDam-%d-\n", mario->IsInvincible() ? 1 : 0);
+				// DebugOut(L"CasualHorDam-%d-\n", mario->IsInvincible() ? 1 : 0);
 				break;
 			}
 			}
