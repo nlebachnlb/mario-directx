@@ -170,7 +170,7 @@ void CMario::PreRender()
 		if (flickTimer > MARIO_FLICK_DELTA)
 		{
 			flickTimer = 0;
-			visualAlpha = 255 - visualAlpha;
+			visualAlpha = 255 - visualAlpha + 128;
 		}
 
 		flickTimer += Game::DeltaTime();

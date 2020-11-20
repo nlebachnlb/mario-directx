@@ -350,6 +350,9 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 	if (gameObject == nullptr || gameObject->IsEnabled() == false
 		|| gameObject->GetRigidbody()->IsDynamic() == false) return;
 
+	if (gameObject->GetColliders()->size() == 0) return;
+	// if (boxSize.x < 0.0001f || boxSize.y < 0.0001f) return;
+
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 
 	this->dvx = gameObject->GetRigidbody()->GetVelocity().x * dt;
@@ -406,14 +409,14 @@ void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigi
 	if (ny != 0)
 	{
 		velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-		dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+		// dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
 		rigidbody->SetVelocity(&velocity);
 	}
 
 	if (nx != 0)
 	{
 		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
-		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
+		// dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
 		rigidbody->SetVelocity(&velocity);
 	}
 }

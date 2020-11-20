@@ -10,7 +10,7 @@
 #include "AbstractEnemy.h"
 
 const int	MARIO_MIN_VDISTANCE			= 4; // pixels
-const float MARIO_GRAVITY				= 0.0024;
+const float MARIO_GRAVITY				= 0.0024f;
 const float MARIO_WALK_SPEED			= 0.25f;
 const float MARIO_RUN_SPEED				= 0.75f;
 const float MARIO_JUMP_FORCE			= 0.53f;
@@ -26,10 +26,10 @@ const float MARIO_WALK_ACCELERATION		= 0.000376f * 2;
 const float MARIO_RUN_ACCELERATION		= 0.000288f * 2;
 const float MARIO_WALK_DRAG_FORCE		= 0.0002506f * 3;
 const float MARIO_RUN_DRAG_FORCE		= 0.0006266f * 2;
-const float MARIO_SKID_ACCELERATION		= 0.001104f * 3;
+const float MARIO_SKID_ACCELERATION		= 0.001104f * 2;
 const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
 
-const int	MARIO_FLICK_DELTA			= 3; // miliseconds
+const int	MARIO_FLICK_DELTA			= 5; // miliseconds
 const int	MARIO_INVINCIBLE_TIME		= 2000;
 
 const Vector2 MARIO_BBOX(12 * 3, 26 * 3);

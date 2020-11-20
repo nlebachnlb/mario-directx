@@ -137,7 +137,7 @@ void Scene::Render()
 	{
 		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
 		{
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 96))
+			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 4))
 				continue;
 			if ((*obj)->IsDestroyed()) continue;
 			if ((*obj)->IsEnabled() == false) continue;
