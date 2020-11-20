@@ -164,6 +164,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 {
 	for (int i = 0; i < coObjects->size(); ++i)
 	{
+		if (coObjects->at(i)->IsDestroyed()) continue;
 		if (coObjects->at(i)->GetColliders() == nullptr) continue;
 		if (coObjects->at(i)->GetColliders()->size() == 0) continue;
 		if (coObjects->at(i)->GetColliders()->at(0) == this) continue;
@@ -175,7 +176,6 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
 		{
 			this->gameObject->OnOverlapped(this, coObjects->at(i)->GetColliders()->at(0));
-			coObjects->at(i)->OnOverlapped(coObjects->at(i)->GetColliders()->at(0), this);
 			continue;
 		}
 

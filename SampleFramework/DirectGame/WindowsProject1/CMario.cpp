@@ -276,7 +276,7 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 		auto collider = collision->collider;
 		if (collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
 			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform || 
-			collider->GetGameObject()->GetTag() == ObjectTags::QuestBlock)
+			collider->GetGameObject()->GetTag() == ObjectTags::Block)
 		{
 			// DebugOut(L"Hit Solid: %f\n", collision->collisionDirection.y);
 			if (collision->collisionDirection.y < 0 &&
@@ -292,8 +292,8 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 				if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
 					physicState.jump = JumpingStates::Fall;
 
-				if (collider->GetGameObject()->GetTag() == ObjectTags::QuestBlock)
-					static_cast<QuestionBlock*>(collider->GetGameObject())->Bounce();
+				if (collider->GetGameObject()->GetTag() == ObjectTags::Block)
+					static_cast<AbstractBlock*>(collider->GetGameObject())->Bounce(this);
 			}
 
 			if (collision->collisionDirection.x != 0)

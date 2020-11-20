@@ -390,6 +390,9 @@
     <ClInclude Include="RaccoonLeaf.h">
       <Filter>GameSource\GameObjects\Items\Powerups</Filter>
     </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -644,6 +647,9 @@
     </ClCompile>
     <ClCompile Include="RaccoonLeaf.cpp">
       <Filter>GameSource\GameObjects\Items\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

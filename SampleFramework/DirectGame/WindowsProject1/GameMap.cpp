@@ -10,6 +10,7 @@
 #include "RedKoopa.h"
 #include "QuestionBlock.h"
 #include "EffectPool.h"
+#include "Brick.h"
 
 GameMap::GameMap()
 {
@@ -112,6 +113,17 @@ void GameMap::Load(std::string filePath, bool manual)
                         solid->SetItem({ ItemTags::Mushroom, type });
                     else if (name.compare("bleaf") == 0)
                         solid->SetItem({ ItemTags::Leaf, type });
+                }
+            }
+
+            if (groupName.compare("Bricks") == 0)
+            {
+                for (int i = 0; i < objects->size(); ++i)
+                {
+                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                    Brick* solid = Instantiate<Brick>();
+                    solid->SetPosition(position);
+                    this->gameObjects.push_back(solid);
                 }
             }
 

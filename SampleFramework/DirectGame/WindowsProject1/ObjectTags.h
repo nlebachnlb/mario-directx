@@ -17,7 +17,7 @@ enum class ObjectTags
 	HostileProjectiles,
 	Solid,
 	GhostPlatform,
-	QuestBlock,
+	Block,
 	Enemy,
 	KoopasShell,
 	Goomba,

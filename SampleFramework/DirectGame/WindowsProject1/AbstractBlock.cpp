@@ -2,7 +2,7 @@
 
 void AbstractBlock::Awake()
 {
-	SetTag(ObjectTags::Solid);
+	SetTag(ObjectTags::Block);
 
 	Collider2D* box = new Collider2D();
 	box->SetBoxSize(BLOCK_BBOX);
