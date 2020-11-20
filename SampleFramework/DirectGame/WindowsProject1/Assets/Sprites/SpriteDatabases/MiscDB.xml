@@ -43,6 +43,12 @@
 		<Sprite id="spr-music-note-block-1" left="371" top="188"  width="16" height="16"/>
 		<Sprite id="spr-music-note-block-2" left="390" top="188"  width="16" height="16"/>
 		<Sprite id="spr-red-music-note-block-0" left="409" top="188"  width="16" height="16"/>
+        
+        <Sprite id="spr-debris-0" left="155" top="362"  width="15" height="17"/>
+        <Sprite id="spr-debris-1" left="179" top="363"  width="17" height="15"/>
+        <Sprite id="spr-debris-2" left="206" top="362"  width="15" height="17"/>
+        <Sprite id="spr-debris-3" left="230" top="363"  width="17" height="15"/>
+
 	</Textures>
 	<Textures textureId="tex-fire-ball">
 		<Sprite id="spr-fire-ball-0" left="0" top="1"  width="8" height="8"/>
