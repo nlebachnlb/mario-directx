@@ -5,5 +5,5 @@
 void GrowUpFX::Awake()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Default", animations->Clone("ani-mario-grow-up"), false);
+	AddAnimation("Default", animations->Get("ani-mario-grow-up"), false);
 }

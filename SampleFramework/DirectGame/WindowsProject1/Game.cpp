@@ -78,13 +78,13 @@ bool Game::ImportConfig()
 		std::string category = element->Attribute("name");
 		std::unordered_map<std::string, std::string> bucket;
 
-		OutputDebugStringW(ToLPCWSTR(category + '\n'));
+		// OutputDebugStringW(ToLPCWSTR(category + '\n'));
 		for (auto item = element->FirstChildElement(); item != nullptr; item = item->NextSiblingElement())
 		{
 			std::string id = item->Attribute("id");
 			std::string source = item->Attribute("source");
 			bucket.insert(make_pair(id, source));
-			OutputDebugStringW(ToLPCWSTR("|--" + id + ":" + source + '\n'));
+			// OutputDebugStringW(ToLPCWSTR("|--" + id + ":" + source + '\n'));
 		}
 
 		sourcePaths.insert(make_pair(category, bucket));
@@ -187,6 +187,8 @@ void Game::GameRun(HWND hWnd)
 				// Call update then Render
 				Update();
 				Render();
+
+				// Clean destroyed objects
 				Clean();
 			}
 			else

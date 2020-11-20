@@ -10,7 +10,7 @@ void Animation::AddFrame(Sprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
 
 void Animation::Render(Vector2 translation)
 {
-	if ((frames.size() == 0 || speedMultiplier == 0.0f) == false)
+	if ((frames.size() > 0 || speedMultiplier > 0.0f))
 	{
 		DWORD currentTime = GetTickCount();
 

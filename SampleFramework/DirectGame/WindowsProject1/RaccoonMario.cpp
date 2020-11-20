@@ -56,7 +56,7 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	{
 		if (feverState == 2 && flying == 0)
 		{
-			DebugOut(L"[fly] start\n");
+			// DebugOut(L"[fly] start\n");
 			flying = 1;
 			lastFlyingTime = GetTickCount();
 		}
@@ -154,7 +154,7 @@ void RaccoonMario::LateUpdate()
 		flying = 2;
 		pMeter = 0;
 		rigidbody->SetGravity(MARIO_GRAVITY);
-		DebugOut(L"[fly] done\n");
+		// DebugOut(L"[fly] done\n");
 	}
 
 	if (flying == 1)

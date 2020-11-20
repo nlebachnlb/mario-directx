@@ -9,7 +9,7 @@ void RedKoopa::Start()
 	int direction = Random::Range(0, 100) < 50 ? 1 : -1;
 	rigidbody->SetVelocity(&Vector2(direction * KOOPA_MOVING_SPEED, 0));
 	rigidbody->SetGravity(KOOPA_GRAVITY);
-	DebugOut(L"Koopa start: %f, %f\n", colliders->at(0)->GetBoxSize().x, colliders->at(0)->GetBoxSize().x);
+	// DebugOut(L"Koopa start: %f, %f\n", colliders->at(0)->GetBoxSize().x, colliders->at(0)->GetBoxSize().x);
 
 	SetState("Walk");
 	rigidbody->SetMaterial(KOOPA_PHYSIC_MATERIAL);
@@ -29,8 +29,8 @@ void RedKoopa::Movement()
 void RedKoopa::InitAnimations()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Walk", animations->Clone("ani-red-koopa-troopa-move"));
-	AddAnimation("Die", animations->Clone("ani-red-koopa-troopa-shell-idle"));
+	AddAnimation("Walk", animations->Get("ani-red-koopa-troopa-move"));
+	AddAnimation("Die", animations->Get("ani-red-koopa-troopa-shell-idle"));
 }
 
 void RedKoopa::OnDead(bool oneHit)

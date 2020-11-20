@@ -25,9 +25,9 @@ void Goomba::Movement()
 void Goomba::InitAnimations()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Idle", animations->Clone("ani-goomba-idle"));
-	AddAnimation("Walk", animations->Clone("ani-goomba-walk"));
-	AddAnimation("Die", animations->Clone("ani-goomba-die"));
+	AddAnimation("Idle", animations->Get("ani-goomba-idle"));
+	AddAnimation("Walk", animations->Get("ani-goomba-walk"));
+	AddAnimation("Die", animations->Get("ani-goomba-die"));
 }
 
 void Goomba::OnDead(bool oneHit)

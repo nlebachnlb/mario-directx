@@ -5,5 +5,5 @@
 void ShrinkDownFX::Awake()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Default", animations->Clone("ani-mario-shrink-down"), false);
+	AddAnimation("Default", animations->Get("ani-mario-shrink-down"), false);
 }

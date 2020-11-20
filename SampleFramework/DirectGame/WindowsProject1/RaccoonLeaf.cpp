@@ -52,11 +52,11 @@ void RaccoonLeaf::PreRender()
 	auto a = LEAF_AMPLITUDE;
 	auto t = LEAF_ROUNDTRIP_TIME;
 	auto omega = 2 * Mathf::Pi / (float)t;
-	auto phi = Mathf::Pi / 2;
+	auto phi = Mathf::Pi;
 	auto movement = Mathf::Cos(omega * lifeTime + phi);
 
 	prevVisualPos = visualRelativePosition;
-	visualRelativePosition.x = a * movement;
+	visualRelativePosition.x = a * movement + a;
 	SetScale(Vector2(-Mathf::Sign(visualRelativePosition.x - prevVisualPos.x), 1));
 }
 

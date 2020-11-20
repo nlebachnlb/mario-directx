@@ -27,5 +27,6 @@ void CoinObtainedFX::Start()
 
 void CoinObtainedFX::Update()
 {
-	if (transform.Position.y > startPosition.y) pool->Revoke(this);
+	if (transform.Position.y > startPosition.y - 48 && rigidbody->GetVelocity().y > 0) 
+		pool->Revoke(this);
 }
