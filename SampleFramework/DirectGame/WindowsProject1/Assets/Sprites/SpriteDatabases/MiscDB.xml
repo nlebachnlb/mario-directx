@@ -44,10 +44,10 @@
 		<Sprite id="spr-music-note-block-2" left="390" top="188"  width="16" height="16"/>
 		<Sprite id="spr-red-music-note-block-0" left="409" top="188"  width="16" height="16"/>
         
-        <Sprite id="spr-debris-0" left="155" top="362"  width="15" height="17"/>
-        <Sprite id="spr-debris-1" left="179" top="363"  width="17" height="15"/>
-        <Sprite id="spr-debris-2" left="206" top="362"  width="15" height="17"/>
-        <Sprite id="spr-debris-3" left="230" top="363"  width="17" height="15"/>
+        <Sprite id="spr-debris-0" left="154" top="351"  width="11" height="13"/>
+        <Sprite id="spr-debris-1" left="166" top="352"  width="13" height="11"/>
+        <Sprite id="spr-debris-2" left="180" top="351"  width="11" height="13"/>
+        <Sprite id="spr-debris-3" left="192" top="352"  width="13" height="11"/>
 
 	</Textures>
 	<Textures textureId="tex-fire-ball">
