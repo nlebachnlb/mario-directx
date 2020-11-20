@@ -64,7 +64,8 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 	{
 		if (collision->collisionDirection.y < 0 == false || collision->collisionDirection.x != 0) continue;
 		if (collision->collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
-			collision->collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform)
+			collision->collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform || 
+			collision->collider->GetGameObject()->GetTag() == ObjectTags::Block)
 		{
 			auto otherBox = collision->collider->GetBoundingBox();
 

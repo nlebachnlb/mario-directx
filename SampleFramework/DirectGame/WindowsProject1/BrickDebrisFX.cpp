@@ -15,6 +15,7 @@ void BrickDebrisFX::Awake()
 	this->colliders->push_back(box);
 
 	rigidbody->SetDynamic(true);
+	SetScale(Vector2(0.65f, 0.65f));
 }
 
 void BrickDebrisFX::Start()
