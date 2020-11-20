@@ -63,7 +63,7 @@ void Camera::Render()
                 int xGrid = (int)(tilex + v);
                 int yGrid = (int)(tiley + u);
 
-                if (xGrid > mapWidth || yGrid > mapHeight) continue;
+                if (xGrid >= mapWidth || yGrid >= mapHeight) continue;
 
                 int tileId = layer->GetTileID(xGrid, yGrid);
                 int tilesetId = mapData->GetTilesetIdFromTileId(tileId);

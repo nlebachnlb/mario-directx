@@ -159,7 +159,7 @@ void Game::GameRun(HWND hWnd)
 	MSG msg;
 	bool done = false;
 
-	float prevTime, currentTime = GetTickCount();
+	DWORD frameStart = GetTickCount();
 	DWORD tickPerFrame = 1000 / configs.fps;
 	deltaTime = 0;
 
@@ -174,25 +174,24 @@ void Game::GameRun(HWND hWnd)
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		else
+
+		auto now = GetTickCount();
+		deltaTime = (now - frameStart);
+
+		// Update & Render in limited fps
+		if (deltaTime >= tickPerFrame)
 		{
-			prevTime = currentTime;
-			currentTime = GetTickCount();
-			deltaTime = (currentTime - prevTime);
+			frameStart = now;
 
-			// Update & Render in limited fps
-			if (deltaTime > tickPerFrame)
-			{
-				// Call update then Render
-				Update();
-				Render();
+			// Call update then Render
+			Update();
+			Render();
 
-				// Clean destroyed objects
-				Clean();
-			}
-			else
-				Sleep(tickPerFrame - deltaTime);
+			// Clean destroyed objects
+			Clean();
 		}
+		else
+			Sleep(tickPerFrame - deltaTime);
 	}
 }
 
@@ -267,6 +266,12 @@ void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTU
 	int left, int top, int right, int bottom, 
 	Vector2 scale, float rotation, int alpha)
 {
+	if (scale == Vector2(1, 1) && rotation < 0.001f)
+	{
+		DrawTexture(x, y, xPivot, yPivot, texture, left, top, right, bottom, alpha);
+		return;
+	}
+
 	RECT rect;
 	rect.left = left;
 	rect.top = top;
@@ -283,7 +288,7 @@ void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTU
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
-void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom)
+void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 	RECT rect;
 	rect.left	= left;
@@ -291,7 +296,7 @@ void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTU
 	rect.right	= right;
 	rect.bottom = bottom;
 
-	spriteHandler->Draw(texture, &rect, NULL, &Vector3((int)x, (int)y, 0), D3DCOLOR_XRGB(255, 255, 255));
+	spriteHandler->Draw(texture, &rect, &Vector3(xPivot, yPivot, 0), &Vector3((int)x, (int)y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 std::string Game::GetSourcePathOf(std::string category, std::string id)
