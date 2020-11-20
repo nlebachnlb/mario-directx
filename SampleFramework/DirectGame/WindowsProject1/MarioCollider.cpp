@@ -21,7 +21,7 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 			if (rigidbody->GetGravity() == 0)
 			{
 				velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-				// dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+				 dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
 				rigidbody->SetVelocity(&velocity);
 			}
 			else
@@ -29,7 +29,7 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 				if (nx == 0)
 				{
 					velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-					// dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+					 dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
 					rigidbody->SetVelocity(&velocity);
 				}
 			}
@@ -40,7 +40,7 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 			)
 		{
 			velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
-			// dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
+			 dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
 			rigidbody->SetVelocity(&velocity);
 		}
 	}

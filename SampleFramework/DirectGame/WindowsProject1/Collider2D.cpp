@@ -162,6 +162,7 @@ CollisionEvent* Collider2D::SweptAABBEx(Collider2D* other)
 
 void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<CollisionEvent*>& coEvents)
 {
+	bool solid = false;
 	for (int i = 0; i < coObjects->size(); ++i)
 	{
 		if (coObjects->at(i)->IsDestroyed()) continue;
@@ -175,6 +176,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 		if (selfBox.TouchOrIntersect(otherBox) || otherBox.TouchOrIntersect(selfBox) || 
 			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
 		{
+			if (TagUtils::StaticTag(coObjects->at(i)->GetTag())) solid = true;
 			this->gameObject->OnOverlapped(this, coObjects->at(i)->GetColliders()->at(0));
 			continue;
 		}
@@ -210,6 +212,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			delete e;
 	}
 
+	if (solid == false) gameObject->OnSolidOverlappedExit();
 	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::Comparator);
 }
 
@@ -409,14 +412,14 @@ void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigi
 	if (ny != 0)
 	{
 		velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-		// dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+		 dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
 		rigidbody->SetVelocity(&velocity);
 	}
 
 	if (nx != 0)
 	{
 		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
-		// dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
+		 dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
 		rigidbody->SetVelocity(&velocity);
 	}
 }

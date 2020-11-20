@@ -45,3 +45,11 @@ bool RectF::Contains(const RectF& other)
         this->right >= other.right &&
         this->bottom >= other.bottom);
 }
+
+bool RectF::Contains(const Vector2& point)
+{
+    return left <= point.x && 
+            top <= point.y && 
+            right >= point.x &&
+            bottom >= point.y;
+}

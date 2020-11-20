@@ -87,6 +87,7 @@ public:
 	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 	virtual void OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 	virtual void OnOverlapped(Collider2D*, Collider2D*) override;
+	virtual void OnSolidOverlappedExit() override;
 	virtual void OnDamaged(AbstractEnemy* enemy);
 
 	// State Interface implementation
@@ -124,7 +125,7 @@ protected:
 	int feverTime; // The duration of PMeter keeping maximum value
 	int feverState; // -1: disable fever mode (for raccoon, he has his own flying mechanic)
 	int lastFeverTime;
-	int facing;
+	int facing, nx, pushSide;
 	InputHandler* input;
 	PlayerController* controller;
 

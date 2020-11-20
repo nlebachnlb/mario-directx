@@ -91,6 +91,8 @@ protected:
 	bool enabled;
 	float dvx, dvy;
 
+	bool solidOverlapped;
+
 private:
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;

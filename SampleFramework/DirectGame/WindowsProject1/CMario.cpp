@@ -88,9 +88,9 @@ void CMario::Update()
 		targetVelocityX = constSpeed;
 		
 		if (input->GetKeyDown(marioKeySet.Left))
-			targetVelocityX = -1 * constSpeed;
+			targetVelocityX = -1 * constSpeed, nx = -1;
 		else if (input->GetKeyDown(marioKeySet.Right))
-			targetVelocityX = +1 * constSpeed;
+			targetVelocityX = +1 * constSpeed, nx = +1;
 		
 		if (Mathf::Abs(curVelocity - targetVelocityX) > rigidbody->GetAcceleration() * Game::DeltaTime())
 		{
@@ -330,6 +330,33 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 		Destroy(other->GetGameObject());
 	}
+
+	if (TagUtils::StaticTag(otherTag))
+	{
+		auto selfBox = colliders->at(0)->GetBoundingBox();
+		auto otherBox = other->GetBoundingBox();
+		Vector2 point(transform.Position.x, selfBox.top + 1);
+
+		// Mario gets embed into wall from RIGHT
+		if (selfBox.left < otherBox.right)
+		{
+			if (pushSide == 0)
+				pushSide = 1;
+		}
+		// Mario gets embed into wall from LEFT
+		else if (selfBox.right > otherBox.left)
+		{
+			if (pushSide == 0)
+				pushSide = -1;
+		}
+
+		transform.Position.x += pushSide * 0.25f * Game::DeltaTime();
+	}
+}
+
+void CMario::OnSolidOverlappedExit()
+{
+	pushSide = 0;
 }
 
 void CMario::OnDamaged(AbstractEnemy* enemy)
@@ -425,7 +452,7 @@ void CMario::JumpingAnimation()
 
 void CMario::SkidDetection(Vector2 velocity)
 {
-	skid = Mathf::Sign(velocity.x) * (input->GetKeyDown(marioKeySet.Right) ? 1 : -1) < 0;
+	skid = Mathf::Sign(velocity.x) * nx < 0;
 }
 
 void CMario::CrouchDetection(InputHandler* input)

@@ -115,6 +115,10 @@ void CGameObject::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 {
 }
 
+void CGameObject::OnSolidOverlappedExit()
+{
+}
+
 void CGameObject::Initialize()
 {
 	destroyed = false;

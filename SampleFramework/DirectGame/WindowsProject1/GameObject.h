@@ -55,6 +55,7 @@ public:
 	virtual void OnTriggerEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions);
 	// OnOverlapped: Called when an intersection of selfBox with another box
 	virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
+	virtual void OnSolidOverlappedExit();
 #pragma endregion
 
 	virtual void Initialize();

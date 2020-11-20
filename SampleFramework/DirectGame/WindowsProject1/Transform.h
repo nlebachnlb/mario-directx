@@ -18,6 +18,7 @@ struct RectF
 	float left, top, right, bottom;
 	bool TouchOrIntersect(const RectF& other);
 	bool Contains(const RectF& other);
+	bool Contains(const Vector2& point);
 };
 
 Vector2 VectorInfinity();
