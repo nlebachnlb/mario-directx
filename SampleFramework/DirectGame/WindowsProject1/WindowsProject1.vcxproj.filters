@@ -393,6 +393,9 @@
     <ClInclude Include="Brick.h">
       <Filter>GameSource\GameObjects\Blocks</Filter>
     </ClInclude>
+    <ClInclude Include="BrickDebrisFX.h">
+      <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -650,6 +653,9 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickDebrisFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

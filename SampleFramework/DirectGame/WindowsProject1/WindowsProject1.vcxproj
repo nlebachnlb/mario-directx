@@ -154,6 +154,7 @@
     <ClInclude Include="AnimationDatabase.h" />
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickDebrisFX.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CMario.h" />
     <ClInclude Include="CoinObtainedFX.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="AnimationDatabase.cpp" />
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickDebrisFX.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CMario.cpp" />
     <ClCompile Include="CoinObtainedFX.cpp" />
