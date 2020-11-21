@@ -162,6 +162,7 @@ CollisionEvent* Collider2D::SweptAABBEx(Collider2D* other)
 
 void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<CollisionEvent*>& coEvents)
 {
+	vector<CollisionEvent*> temp;
 	bool solid = false;
 	for (int i = 0; i < coObjects->size(); ++i)
 	{
@@ -207,13 +208,48 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 		CollisionEvent* e = SweptAABBEx(coObjects->at(i)->GetColliders()->at(0)); 
 
 		if (e->time > 0 && e->time <= 1.0f)
-			coEvents.push_back(e);
+			temp.push_back(e);
 		else
 			delete e;
 	}
 
 	if (solid == false) gameObject->OnSolidOverlappedExit();
-	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::Comparator);
+	std::sort(temp.begin(), temp.end(), CollisionEvent::Comparator);
+
+	for (auto col0 : temp)
+	{
+		for (auto col1 : coEvents)
+		{
+			Vector2 d(this->dvx, this->dvy);
+			auto dist = d - col0->collider->GetGameObject()->GetRigidbody()->GetVelocity() * Game::DeltaTime();
+
+			if (col0->collisionDirection.x != 0)
+			{
+				dist.y *= col1->time;
+				dist.y -= 0.1f;
+			}
+			else
+			{
+				dist.x *= col1->time;
+				dist.x -= 0.1f;
+			}
+
+			float time;
+			Vector2 dir;
+			SweptAABB(GetBoundingBox(), dist.x, dist.y, col0->collider->GetBoundingBox(), time, dir);
+
+			if (time <= 0 || time > 1.0f)
+			{
+				col0->time = 99999.0f;
+				break;
+			}
+		}
+
+		if (col0->time > 0 && col0->time <= 1.0f)
+			coEvents.push_back(col0);
+	}
+
+	sort(coEvents.begin(), coEvents.end(), CollisionEvent::Comparator);
 }
 
 void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<CollisionEvent*>& coEventsResult, float& min_tx, float& min_ty, float& nx, float& ny)
