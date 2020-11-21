@@ -34,11 +34,13 @@ protected:
 	}
 	
 	std::vector<GameObject>* objects;
-	std::vector<GameObject> destroyed;
+	std::vector<GameObject> destroyed, updated;
 	std::string id;
 	std::string filePath;
 	Camera* mainCamera;
 
 	bool loaded;
+
+	void Remove(GameObject go);
 };
 

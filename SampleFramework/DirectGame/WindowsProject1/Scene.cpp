@@ -108,43 +108,31 @@ void Scene::Unload()
 void Scene::Update()
 {
 	if (loaded == false) return;
+	updated.clear();
 
-	if (!(objects == nullptr || objects->size() == 0))
+	if (objects != nullptr)
 	{
-		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
+		for (auto o : *objects)
 		{
-			if (*obj == nullptr) continue;
-			if ((*obj)->IsDestroyed()) continue;
-			if ((*obj)->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
+			if (o == nullptr) continue;
+			if (o->IsDestroyed()) continue;
+			if (o->IsEnabled() == false) continue;
+			if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 6))
 				continue;
 
-			if ((*obj)->GetRigidbody()->IsDynamic()) (*obj)->PhysicsUpdate(objects);
-		}
-
-		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
-		{
-			if (*obj == nullptr) continue;
-			if ((*obj)->IsDestroyed()) continue;
-			if ((*obj)->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
-				continue;
-
-			(*obj)->Update();
-		}
-
-		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
-		{
-			if (*obj == nullptr) continue;
-			if ((*obj)->IsDestroyed()) continue;
-			if ((*obj)->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
-				continue;
-
-			(*obj)->LateUpdate();
+			updated.push_back(o);
 		}
 	}
 
+	for (auto o : updated)
+		o->PhysicsUpdate(objects);
+
+	for (auto o : updated)
+		o->Update();
+
+	for (auto o : updated)
+		o->LateUpdate();
+	
 	if (mainCamera != nullptr) mainCamera->Update();
 }
 
@@ -154,45 +142,23 @@ void Scene::Render()
 
 	if (mainCamera != nullptr) mainCamera->Render();
 
-	if (!(objects == nullptr || objects->size() == 0))
-	{
-		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
-		{
-			if (*obj == nullptr) continue;
-			if ((*obj)->IsDestroyed()) continue;
-			if ((*obj)->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
-				continue;
+	for (auto o : updated)
+		o->PreRender();
 
-			(*obj)->PreRender();
-		}
-
-		for (std::vector<GameObject>::iterator obj = objects->begin(); obj != objects->end(); ++obj)
-		{
-			if (*obj == nullptr) continue;
-			if ((*obj)->IsDestroyed()) continue;
-			if ((*obj)->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView((*obj)->GetTransform().Position, 48 * 6))
-				continue;
-
-			(*obj)->Render(-mainCamera->GetPosition());
-		}
-	}
+	for (auto o : updated)
+		o->Render(-mainCamera->GetPosition());
 }
 
 void Scene::CleanDestroyedObjects()
 {
 	if (destroyed.size() > 0)
 	{
-		for (auto x : destroyed)
-		{
-			if (x)
-			{
-				objects->erase(std::remove(objects->begin(), objects->end(), x));
-				delete x;
-				x = nullptr;
-			}
-		}
+		for (auto o : destroyed)
+			Remove(o);
+
+		for (auto o : destroyed)
+			delete o;
+
 		destroyed.clear();
 	}
 }
@@ -207,9 +173,7 @@ void Scene::AddObject(GameObject gameObject)
 
 void Scene::RemoveObject(GameObject gameObject)
 {
-	// gameObject->SetActive(false);
-	/*if (find(objects->begin(), objects->end(), gameObject) != objects->end())
-		objects->erase(std::remove(objects->begin(), objects->end(), gameObject), objects->end());*/
+	// Mark object as destroyed object, wait for cleaning phase
 	gameObject->SetDestroyed();
 	destroyed.push_back(gameObject);
 }
@@ -227,4 +191,11 @@ void Scene::SetMainCamera(Camera* camera)
 Camera* Scene::GetMainCamera()
 {
 	return this->mainCamera;
+}
+
+void Scene::Remove(GameObject go)
+{
+	auto index = find(objects->begin(), objects->end(), go);
+	if (index != objects->end())
+		objects->erase(index);
 }

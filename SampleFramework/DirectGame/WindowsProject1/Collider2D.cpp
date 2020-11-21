@@ -354,7 +354,6 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 		|| gameObject->GetRigidbody()->IsDynamic() == false) return;
 
 	if (gameObject->GetColliders()->size() == 0) return;
-	// if (boxSize.x < 0.0001f || boxSize.y < 0.0001f) return;
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 

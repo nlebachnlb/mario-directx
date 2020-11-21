@@ -16,6 +16,8 @@ void BrickDebrisFX::Awake()
 
 	rigidbody->SetDynamic(true);
 	SetScale(Vector2(0.65f, 0.65f));
+
+	renderOrder = 10;
 }
 
 void BrickDebrisFX::Start()

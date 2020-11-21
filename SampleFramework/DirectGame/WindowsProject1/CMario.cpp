@@ -10,6 +10,7 @@ void CMario::Awake()
 {
 	SetTag(ObjectTags::BigMario);
 	DebugOut(L"Mario Awake\n");
+	renderOrder = 1;
 
 	InitAnimations();
 	 
