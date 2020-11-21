@@ -26,6 +26,24 @@ DWORD Game::FixedDeltaTime()
 	return 20;
 }
 
+Raycast* Game::Raycast2D()
+{
+	auto scene = sceneManager->GetActiveScene();
+	if (scene == nullptr)
+	{
+		if (raycast != nullptr) delete raycast;
+		raycast = nullptr;
+	}
+	else
+	{
+		if (raycast == nullptr)
+			raycast = new Raycast();
+		raycast->SetCastObjects(scene->GetSceneObjects());
+	}
+
+	return raycast;
+}
+
 void Game::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 {
 	d3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -106,6 +124,7 @@ GlobalConfigs Game::GetGlobalConfigs()
 
 void Game::GameInit(HWND hWnd)
 {
+	raycast = nullptr;
 #pragma region Init Services
 	DebugOut(L"Init Service\n");
 	// Texture Manager

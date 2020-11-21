@@ -396,6 +396,9 @@
     <ClInclude Include="BrickDebrisFX.h">
       <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
     </ClInclude>
+    <ClInclude Include="Raycast.h">
+      <Filter>Framework\Game\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -656,6 +659,9 @@
     </ClCompile>
     <ClCompile Include="BrickDebrisFX.cpp">
       <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
+    </ClCompile>
+    <ClCompile Include="Raycast.cpp">
+      <Filter>Framework\Game\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

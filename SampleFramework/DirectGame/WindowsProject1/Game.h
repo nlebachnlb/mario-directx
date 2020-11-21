@@ -11,6 +11,7 @@
 #include "SceneManager.h"
 #include "Sprite.h"
 #include "InputHandler.h"
+#include "Raycast.h"
 
 using namespace std;
 
@@ -28,6 +29,8 @@ public:
 	static Game& GetInstance();
 	static DWORD DeltaTime();
 	static DWORD FixedDeltaTime();
+
+	Raycast* Raycast2D();
 
 	void SetGlobalConfigs(GlobalConfigs conf);
 	GlobalConfigs GetGlobalConfigs();
@@ -72,6 +75,7 @@ private:
 	SceneManager* sceneManager;
 	Scene* activeScene;
 	InputHandler* inputHandler;
+	Raycast* raycast;
 
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sourcePaths;
 };
