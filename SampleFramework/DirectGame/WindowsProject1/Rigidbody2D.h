@@ -29,6 +29,9 @@ public:
 	void SetMaterial(PhysicMaterial material);
 	PhysicMaterial GetMaterial();
 
+	void SetFallLimitVelocity(float limit);
+	float GetFallLimitVelocity();
+
 protected:
 	PhysicMaterial material;
 	Vector2 velocity;
@@ -37,5 +40,6 @@ protected:
 	Vector2 drag;
 	float acceleration;
 	float mass;
+	float fallLimit;
 };
 

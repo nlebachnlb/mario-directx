@@ -9,7 +9,7 @@ Collider2D::Collider2D()
     boxSize = Vector2(1.0f, 1.0f);
     isTrigger = false;
 	this->name = "";
-	this->pushCoefficient = 0.8f;
+	this->pushCoefficient = 0.6f;
 	Enable();
 }
 
@@ -362,7 +362,9 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 
 	auto rigidbody = gameObject->GetRigidbody();
 	auto velocity = rigidbody->GetVelocity();
+	auto fallLimitVel = rigidbody->GetFallLimitVelocity();
 	velocity.y += rigidbody->GetGravity() * dt;
+	velocity.y = fallLimitVel > 0 ? Mathf::Min(velocity.y, fallLimitVel) : velocity.y;
 	rigidbody->SetVelocity(&velocity);
 
 	coEvents.clear();

@@ -33,6 +33,7 @@ void CMario::Start()
 	this->rigidbody->SetDynamic(true);
 	this->rigidbody->SetAcceleration(MARIO_WALK_ACCELERATION);
 	this->rigidbody->SetDrag(Vector2(MARIO_WALK_DRAG_FORCE, 0.0f));
+	this->rigidbody->SetFallLimitVelocity(MARIO_FALL_LIMIT_VEL);
 	rigidbody->GetMaterial().AddBypassTag(ObjectTags::FriendlyProjectiles);
 	rigidbody->GetMaterial().AddBypassTag(ObjectTags::BigMario);
 	rigidbody->GetMaterial().AddBypassTag(ObjectTags::PowerupMario);

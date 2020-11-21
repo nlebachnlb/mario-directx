@@ -9,6 +9,7 @@ Rigidbody2D::Rigidbody2D()
 	this->drag = VectorZero();
 	this->mass = 1.0f;
 	this->material = PhysicMaterial::Empty();
+	this->fallLimit = -1;
 }
 
 void Rigidbody2D::Update()
@@ -84,4 +85,14 @@ void Rigidbody2D::SetMaterial(PhysicMaterial material)
 PhysicMaterial Rigidbody2D::GetMaterial()
 {
 	return this->material;
+}
+
+void Rigidbody2D::SetFallLimitVelocity(float limit)
+{
+	this->fallLimit = limit;
+}
+
+float Rigidbody2D::GetFallLimitVelocity()
+{
+	return this->fallLimit;
 }
