@@ -66,7 +66,7 @@ void CMario::Update()
 	previousVelocity = velocity;
 	prevPhysicState = physicState;
 	prevTargetVelocityX = targetVelocityX;
-	auto dt = Game::DeltaTime();
+	auto dt = Game::DeltaTime(); 
 
 #pragma region Horizontal Movement
 	auto curVelocity = velocity.x;
@@ -489,8 +489,8 @@ void CMario::MovementAnimation()
 
 void CMario::JumpingAnimation()
 {
-	if (currentState.compare("Fly") == 0)
-		return;
+	if (physicState.movement == MovingStates::Crouch) return;
+	if (currentState.compare("Fly") == 0) return;
 
 	if (feverState == 2 && !hold)
 	{
@@ -515,9 +515,9 @@ void CMario::SkidDetection(Vector2 velocity)
 
 void CMario::CrouchDetection(InputHandler* input)
 {
-	bool exitConditions =
-		input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right) ||
-		physicState.jump != JumpingStates::Stand;
+	bool exitConditions = 
+	physicState.jump == JumpingStates::Stand && 
+		(input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right));
 
 	if (input->GetKeyDown(marioKeySet.Crouch) && exitConditions == false)
 	{

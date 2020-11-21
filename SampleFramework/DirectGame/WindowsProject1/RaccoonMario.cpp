@@ -43,7 +43,7 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	// Process attack key
 	if (keyCode == marioKeySet.Attack && 
 		attacking == false && physicalAttacking == false &&
-		flying == 0)
+		flying == 0 && physicState.movement != MovingStates::Crouch)
 	{
 		physicalAttacking = true;
 		attackBox->SetActive(true);
