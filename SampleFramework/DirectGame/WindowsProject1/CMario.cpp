@@ -70,7 +70,7 @@ void CMario::Update()
 
 #pragma region Horizontal Movement
 	auto curVelocity = velocity.x;
-	if (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))
+	if (pushSide == 0 && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right)))
 	{
 		// Accelerate velocity based on moving states
 		if (input->GetKeyDown(marioKeySet.Attack) && runningRestriction == false)
@@ -336,44 +336,78 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 	if (TagUtils::StaticTag(otherTag))
 	{
-		DebugOut(L"Enter overlap\n");
+		// DebugOut(L"Enter overlap\n");
 		auto selfBox = colliders->at(0)->GetBoundingBox();
 		auto otherBox = other->GetBoundingBox();
-		Vector2 point(transform.Position.x, selfBox.top + 1);
-		/*auto lDiff = selfBox.left - otherBox.left;
-		auto rDiff = selfBox.right - otherBox.right;*/
-		auto mergedBox = RectF
-		{
-			Mathf::Min(selfBox.left, otherBox.left),
-			Mathf::Min(selfBox.top, otherBox.top),
-			Mathf::Max(selfBox.right, otherBox.right),
-			Mathf::Max(selfBox.bottom, otherBox.bottom),
-		};
-		auto lDiff = selfBox.left - mergedBox.left;
-		auto rDiff = selfBox.right - mergedBox.right;
+		Vector2 headPoint(transform.Position.x, selfBox.top + 6);
+		Vector2 footPoint(transform.Position.x, selfBox.bottom - 6);
 
-		// Mario gets embed into wall from RIGHT
-		if (selfBox.left <= otherBox.right)
+		if (pushSide == 0)
 		{
-			if (pushSide == 0)
-				if (rDiff > 0)
-					pushSide = 1;
-				else
-					pushSide = (Mathf::Abs(rDiff) < Mathf::Abs(lDiff) ? 1 : 0);
+			std::vector<Collider2D*> headHits, footHits;
+			auto raycast = Game::GetInstance().Raycast2D();
+			bool goLeft = false, goRight = false;
+			int i, leftLength, rightLength;
+			float dist = 0, mDist;
+			RectF m;
+
+			// Shoot to left side
+			dist = mDist = 0;
+			raycast->HShoot(headPoint, HRayDirection::Left, ObjectTags::Block, 48 * 7, headHits);
+			raycast->HShoot(footPoint, HRayDirection::Left, ObjectTags::Block, 48 * 7, footHits);
+
+			headHits.insert(headHits.begin(), other);
+			for (i = 0; i < headHits.size() - 1; ++i)
+			{
+				dist = headHits[i]->GetBoundingBox().left - headHits[i + 1]->GetBoundingBox().right;
+				if (dist >= self->GetBoxSize().x) break;
+			}
+
+			if (footHits.size() == 0) goLeft = true;
+			else
+			{
+				m = footHits[0]->GetBoundingBox();
+				mDist = m.right - headHits[i]->GetBoundingBox().left;
+				goLeft = mDist >= 0 && mDist <= dist;
+			}
+
+			DebugOut(L"LEFT: d=%f, m=%f\n", dist, mDist);
+			leftLength = headHits.size();
+
+			// Shoot to right side
+			dist = mDist = 0; 
+			raycast->HShoot(headPoint, HRayDirection::Right, ObjectTags::Block, 48 * 7, headHits);
+			raycast->HShoot(footPoint, HRayDirection::Right, ObjectTags::Block, 48 * 7, footHits);
+
+			headHits.insert(headHits.begin(), other);
+			for (i = 0; i < headHits.size() - 1; ++i)
+			{
+				dist = headHits[i + 1]->GetBoundingBox().left - headHits[i]->GetBoundingBox().right;
+				if (dist >= self->GetBoxSize().x) break;
+			}
+
+			if (footHits.size() == 0) DebugOut(L"Pass RIGHT\n"), goRight = true;
+			else
+			{
+				m = footHits[0]->GetBoundingBox();
+				mDist = m.left - headHits[i + 1]->GetBoundingBox().right;
+				goRight = mDist >= 0 && mDist <= dist;
+			}
+
+			rightLength = headHits.size();
+
+			if (goLeft == goRight) pushSide = leftLength < rightLength ? -1 : 1;
+			else pushSide = goLeft ? -1 : 1;
+
+			DebugOut(L"Head: ");
+			for (auto h : headHits) DebugOut(L"- (%f, %f) - ", h->GetBoundingBox().left, h->GetBoundingBox().right);
+			DebugOut(L"\n");
+
+			DebugOut(L"RIGHT: d=%f, m=%f, size=%d\n", dist, mDist, headHits.size());
+			DebugOut(L"Go left:%d, go right: %d, side: %d\n", goLeft ? 1 : 0, goRight ? 1 : 0, pushSide);
 		}
-		// Mario gets embed into wall from LEFT
-		if (selfBox.right >= otherBox.left)
-		{
-			if (pushSide == 0)
-				if (lDiff < 0)
-					pushSide = -1;
-				else
-					pushSide = (Mathf::Abs(lDiff) < Mathf::Abs(rDiff) ? -1 : 0);
-		}
-
-		// if (pushSide == 0) pushSide = (Mathf::Abs(rDiff) < Mathf::Abs(lDiff) ? 1 : -1);
-
-		transform.Position.x += pushSide * 0.25f * Game::DeltaTime();
+		
+		transform.Position.x += pushSide * 0.15f * Game::DeltaTime();
 	}
 }
 
