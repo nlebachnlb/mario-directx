@@ -8,7 +8,7 @@ void Coin::Awake()
 	SetTag(ObjectTags::Coin);
 
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Default", animations->Get("ani-idle-coin"));
+	AddAnimation("Default", animations->Get("ani-coin"));
 }
 
 void Coin::Start()
