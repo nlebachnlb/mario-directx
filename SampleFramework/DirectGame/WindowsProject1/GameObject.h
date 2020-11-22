@@ -33,6 +33,8 @@ public:
 	virtual void Awake();
 	// Start: Call next to Awake, use to set default value for data
 	virtual void Start();
+	// OnEnabled: Call when SetActive(true) is called
+	virtual void OnEnabled();
 	// PhysicsUpdate (auto): update physic collisions, call automatically, DO NOT override
 	virtual void PhysicsUpdate(std::vector<CGameObject*>* objects);
 	// Update: Main update, OVERRIDE for purposes

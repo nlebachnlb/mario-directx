@@ -96,6 +96,12 @@ void Scene::Load()
 	loaded = true;
 }
 
+void Scene::Init()
+{
+	for (auto o : *objects)
+		o->OnEnabled();
+}
+
 void Scene::Unload()
 {
 	loaded = false;

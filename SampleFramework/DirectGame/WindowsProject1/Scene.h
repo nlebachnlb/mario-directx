@@ -13,6 +13,7 @@ public:
 	Scene(std::string filePath);
 	~Scene();
 	virtual void Load();
+	virtual void Init();
 	virtual void Unload();
 	virtual void Update();
 	virtual void Render();
@@ -29,6 +30,7 @@ public:
 	Camera* GetMainCamera();
 
 protected:
+	void Remove(GameObject go);
 	static bool Comparator(GameObject& a, GameObject& b) 
 	{ 
 		return (a->GetRenderOrder() < b->GetRenderOrder() || 
@@ -42,7 +44,5 @@ protected:
 	Camera* mainCamera;
 
 	bool loaded;
-
-	void Remove(GameObject go);
 };
 

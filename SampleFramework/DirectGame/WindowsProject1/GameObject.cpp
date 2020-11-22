@@ -55,6 +55,10 @@ void CGameObject::Start()
 {
 }
 
+void CGameObject::OnEnabled()
+{
+}
+
 void CGameObject::PhysicsUpdate(std::vector<GameObject>* objects)
 {
 	for (auto collider : *colliders)
@@ -228,6 +232,7 @@ void CGameObject::SetDestroyed()
 void CGameObject::SetActive(bool active)
 {
 	enabled = active;
+	OnEnabled();
 }
 
 void CGameObject::SetTag(ObjectTags tag)

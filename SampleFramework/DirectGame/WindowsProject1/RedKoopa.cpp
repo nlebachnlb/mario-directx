@@ -6,8 +6,6 @@
 
 void RedKoopa::Start()
 {
-	int direction = Random::Range(0, 100) < 50 ? 1 : -1;
-	rigidbody->SetVelocity(&Vector2(direction * KOOPA_MOVING_SPEED, 0));
 	rigidbody->SetGravity(KOOPA_GRAVITY);
 	// DebugOut(L"Koopa start: %f, %f\n", colliders->at(0)->GetBoxSize().x, colliders->at(0)->GetBoxSize().x);
 
@@ -54,6 +52,12 @@ void RedKoopa::OnDead(bool oneHit)
 		time = -1;
 		dead = true;
 	}
+}
+
+void RedKoopa::OnEnabled()
+{
+	AbstractEnemy::OnEnabled();
+	rigidbody->SetVelocity(&Vector2(direction * KOOPA_MOVING_SPEED, 0));
 }
 
 void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)

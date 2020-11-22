@@ -44,6 +44,28 @@ Raycast* Game::Raycast2D()
 	return raycast;
 }
 
+GameObject Game::FindGameObjectWithTag(ObjectTags tag, bool inactiveIncluded)
+{
+	if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
+	if (sceneManager == nullptr) return nullptr;
+	auto scene = sceneManager->GetActiveScene();
+	if (scene == nullptr)
+	{
+		DebugOut(L"SceneNULL"); return nullptr;
+	}
+
+	auto searchPool = inactiveIncluded ? *scene->GetSceneObjects() : scene->GetActiveObjects();
+	for (auto o : searchPool)
+	{
+		DebugOut(L"%d-", o->GetTag());
+		if (o->GetTag() == tag) return o;
+	}
+
+	DebugOut(L"PP: %d-", tag);
+
+	return nullptr;
+}
+
 void Game::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 {
 	d3d = Direct3DCreate9(D3D_SDK_VERSION);

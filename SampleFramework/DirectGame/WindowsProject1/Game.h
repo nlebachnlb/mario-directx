@@ -31,6 +31,7 @@ public:
 	static DWORD FixedDeltaTime();
 
 	Raycast* Raycast2D();
+	GameObject FindGameObjectWithTag(ObjectTags tag, bool inactiveIncluded = false);
 
 	void SetGlobalConfigs(GlobalConfigs conf);
 	GlobalConfigs GetGlobalConfigs();

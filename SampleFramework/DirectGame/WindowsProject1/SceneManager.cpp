@@ -11,6 +11,7 @@ bool SceneManager::LoadScene(Scene* scene)
     scene->Load();
     loadedScenes.insert(make_pair(scene->GetID(), scene));
     activeSceneID = scene->GetID();
+    scene->Init();
     
     return true;
 }

@@ -9,6 +9,7 @@ public:
 	virtual void Awake() override;
 	virtual void Update() override;
 	virtual void LateUpdate() override;
+	virtual void OnEnabled() override;
 
 	virtual void Movement() = 0;
 	virtual void InitAnimations() = 0;
@@ -19,8 +20,9 @@ public:
 protected:
 	ObjectPool* linkedPool;
 	virtual Vector2 GetBoxSize() = 0;
+	GameObject player;
 	float time;
 	bool dead;
-	int facing;
+	int facing, direction;
 };
 

@@ -10,7 +10,7 @@ void CGlobalKeyEventHandler::OnKeyDown(int KeyCode)
 	//DebugOut(L"Keydown\n");
 	auto sceneManager = Game::GetInstance().GetService<SceneManager>();
 	Scene* activeScene = sceneManager->GetActiveScene();
-	auto gameObjects = *activeScene->GetSceneObjects();
+	auto gameObjects = activeScene->GetActiveObjects();
 
 	for (auto go : gameObjects)
 	{
@@ -23,7 +23,7 @@ void CGlobalKeyEventHandler::OnKeyUp(int KeyCode)
 {
 	auto sceneManager = Game::GetInstance().GetService<SceneManager>();
 	Scene* activeScene = sceneManager->GetActiveScene();
-	auto gameObjects = *activeScene->GetSceneObjects();
+	auto gameObjects = activeScene->GetActiveObjects();
 
 	for (auto go : gameObjects)
 	{

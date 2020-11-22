@@ -5,10 +5,7 @@
 
 void Goomba::Start()
 {
-	int direction = Random::Range(0, 100) < 50 ? 1 : -1;
-	rigidbody->SetVelocity(&Vector2(direction * GOOMBA_MOVING_SPEED, 0));
 	rigidbody->SetGravity(GOOMBA_GRAVITY);
-	DebugOut(L"Goomba start: %f, %f\n", colliders->at(0)->GetBoxSize().x, colliders->at(0)->GetBoxSize().x);
 
 	SetState("Walk");
 	rigidbody->SetMaterial(GOOMBA_PHYSIC_MATERIAL);
@@ -50,6 +47,12 @@ void Goomba::OnDead(bool oneHit)
 		SetState("Die");
 		dead = true;
 	}
+}
+
+void Goomba::OnEnabled()
+{
+	AbstractEnemy::OnEnabled();
+	rigidbody->SetVelocity(&Vector2(direction * GOOMBA_MOVING_SPEED, 0));
 }
 
 void Goomba::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
