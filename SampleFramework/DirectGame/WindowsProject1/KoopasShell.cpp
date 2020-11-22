@@ -1,5 +1,6 @@
 #include "KoopasShell.h"
 #include "QuestionBlock.h"
+#include "CMario.h"
 
 void KoopasShell::Awake()
 {
@@ -57,12 +58,24 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 	for (auto collision : collisions)
 	{
 		auto otherTag = collision->collider->GetGameObject()->GetTag();
-		if (TagUtils::EnemyTag(otherTag))
-		{
-			auto enemy = static_cast<AbstractEnemy*>(collision->collider->GetGameObject());
-			if (running)
-				enemy->OnDead(true);
-		}
+		//if (TagUtils::EnemyTag(otherTag))
+		//{
+		//	auto enemy = static_cast<AbstractEnemy*>(collision->collider->GetGameObject());
+		//	if (running || IsHeld())
+		//	{
+		//		enemy->OnDead(true);
+		//		if (running && tag == otherTag) OnDead(true);
+		//		else if (IsHeld())
+		//		{
+		//			auto holderTag = holder->GetTag();
+		//			if (TagUtils::MarioTag(holderTag))
+		//			{
+		//				static_cast<CMario*>(holder)->ReleaseInHandObject();
+		//				OnDead(true);
+		//			}
+		//		}
+		//	}
+		//}
 
 		if (otherTag == ObjectTags::Block && running)
 		{
@@ -89,11 +102,25 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
 	}
 
-	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
+	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()) && dead == false)
 	{
 		auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
-		if (running)
-			enemy->OnDead(true);
+		DebugOut(L"Enemy OVERLAP\n");
+
+		if (running || IsHeld())
+		{
+			if (enemy->IsDead() == false) enemy->OnDead(true);
+			if (running && tag == enemy->GetTag()) OnDead(true);
+			else if (IsHeld())
+			{
+				auto holderTag = holder->GetTag();
+				if (TagUtils::MarioTag(holderTag))
+				{
+					static_cast<CMario*>(holder)->ReleaseInHandObject();
+					OnDead(true);
+				}
+			}
+		}
 	}
 }
 
@@ -109,6 +136,7 @@ void KoopasShell::SetHoldablePosition(Vector2 position)
 
 void KoopasShell::OnRelease()
 {
+	// colliders->at(0)->SetTrigger(false);
 	colliders->at(0)->Enable();
 	SetFacing(holdableFacing);
 	Run();

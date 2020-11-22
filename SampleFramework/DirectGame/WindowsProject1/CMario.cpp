@@ -240,6 +240,18 @@ void CMario::HoldObject(Holdable* holdableObj)
 	holdableObj->PassToHolder(this);
 }
 
+void CMario::ReleaseInHandObject()
+{
+	hold = false;
+	if (heldInHandsObject != nullptr) heldInHandsObject->Release();
+	heldInHandsObject = nullptr;
+}
+
+Holdable* CMario::GetInHandObject()
+{
+	return this->heldInHandsObject;
+}
+
 void CMario::SetController(PlayerController* controller)
 {
 	this->controller = controller;
@@ -253,6 +265,11 @@ bool CMario::IsInvincible()
 void CMario::SetInvincible(bool invincible)
 {
 	this->invincible = invincible;
+}
+
+void CMario::PassPrivateData(CMario* other)
+{
+	other->posBeforeJump = posBeforeJump;
 }
 
 #pragma region Keyboard
@@ -551,8 +568,7 @@ void CMario::HoldProcess()
 		}
 		else
 		{
-			hold = false;
-			heldInHandsObject->Release();
+			ReleaseInHandObject();
 		}
 	}
 }

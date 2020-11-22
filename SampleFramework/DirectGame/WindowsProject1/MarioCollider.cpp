@@ -96,7 +96,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 						{
 							mario->HoldObject(shell);
 							shell->GetRigidbody()->SetGravity(0);
-							shell->GetColliders()->at(0)->Disable();
+							// shell->GetColliders()->at(0)->SetTrigger(true);
 							shell->PassToHolder(mario);
 						}
 					}
@@ -159,7 +159,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 					{
 						mario->HoldObject(shell);
 						shell->GetRigidbody()->SetGravity(0);
-						shell->GetColliders()->at(0)->Disable();
+						// shell->GetColliders()->at(0)->Disable();
 						shell->PassToHolder(mario);
 					}
 				}
