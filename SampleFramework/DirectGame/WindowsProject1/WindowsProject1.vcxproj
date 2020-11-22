@@ -157,6 +157,7 @@
     <ClInclude Include="BrickDebrisFX.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CMario.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinObtainedFX.h" />
     <ClInclude Include="Collider2D.h" />
     <ClInclude Include="Effector2D.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="RedKoopasShell.h" />
     <ClInclude Include="RedMushroom.h" />
+    <ClInclude Include="RedParagoomba.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="ShrinkDownFX.h" />
     <ClInclude Include="SmallMario.h" />
@@ -237,6 +239,7 @@
     <ClCompile Include="BrickDebrisFX.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CMario.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinObtainedFX.cpp" />
     <ClCompile Include="Collider2D.cpp" />
     <ClCompile Include="EffectPool.cpp" />
@@ -272,6 +275,7 @@
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="RedKoopasShell.cpp" />
     <ClCompile Include="RedMushroom.cpp" />
+    <ClCompile Include="RedParagoomba.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />
     <ClCompile Include="SmallMario.cpp" />
