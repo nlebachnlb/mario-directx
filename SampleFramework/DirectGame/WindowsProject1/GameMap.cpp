@@ -186,7 +186,7 @@ void GameMap::Load(std::string filePath, bool manual)
                         AbstractEnemy* koopa = nullptr;
                         if (type.compare("red") == 0)
                             koopa = Instantiate<RedKoopa>();
-                        else if (type.compare("green"))
+                        else if (type.compare("green") == 0)
                             koopa = Instantiate<GreenKoopa>();
                         
                         if (koopa != nullptr)
