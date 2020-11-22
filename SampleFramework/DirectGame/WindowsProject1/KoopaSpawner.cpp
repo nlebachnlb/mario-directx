@@ -1,23 +1,32 @@
 #include "KoopaSpawner.h"
 #include "RedKoopasShell.h"
 #include "Game.h"
+#include "GreenKoopasShell.h"
 
 void KoopaSpawner::Initialization()
 {
 	
 }
 
-KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, bool reset)
+KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType shellType, bool reset)
 {
-	RedKoopasShell* shell = nullptr;
+	KoopasShell* shell = nullptr;
 	if (shells->IsEmpty())
 	{
-		shell = Instantiate<RedKoopasShell>();
+		switch (shellType)
+		{
+		case KoopasShellType::Green:
+			shell = Instantiate<GreenKoopasShell>();
+			break;
+		case KoopasShellType::Red:
+			shell = Instantiate<RedKoopasShell>();
+			break;
+		}
 		auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 		scene->AddObject(shell);
 	}
 	else
-		shell = static_cast<RedKoopasShell*>(shells->Instantiate());
+		shell = static_cast<KoopasShell*>(shells->Instantiate());
 	
 	if (reset) shell->Start();
 	shell->SetPosition(position);

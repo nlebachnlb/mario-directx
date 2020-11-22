@@ -163,6 +163,9 @@
     <Filter Include="GameSource\GameObjects\Effects\HitFX">
       <UniqueIdentifier>{46a20bac-ead8-4325-a7b6-ee7eaf2f1b27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Koopas\GreenKoopa">
+      <UniqueIdentifier>{df757476-4fa5-4af8-a00a-7f7497d576ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -404,6 +407,12 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenKoopasShell.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenKoopa.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -674,6 +683,12 @@
     </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKoopasShell.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKoopa.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

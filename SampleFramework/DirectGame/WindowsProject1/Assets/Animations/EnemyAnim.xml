@@ -131,7 +131,7 @@
 
     <!--Green Koopa-->
     <!-- Animation MOVE-->
-    <Animation aniId="ani-green-koopa-troopa-move" frameTime="100">
+    <Animation aniId="ani-green-koopa-troopa-move" frameTime="300">
       <Sprite id="spr-green-koopa-troopa-move-0" left="31" top="119"  width="16" height="26"/>
       <Sprite id="spr-green-koopa-troopa-move-1" left="50" top="118"  width="16" height="27"/>
     </Animation>

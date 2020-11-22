@@ -12,6 +12,7 @@
 #include "EffectPool.h"
 #include "Brick.h"
 #include "Coin.h"
+#include "GreenKoopa.h"
 
 GameMap::GameMap()
 {
@@ -182,10 +183,15 @@ void GameMap::Load(std::string filePath, bool manual)
                             spawnerManager->AddService(koopaSpawner); 
                         }
 
+                        AbstractEnemy* koopa = nullptr;
                         if (type.compare("red") == 0)
+                            koopa = Instantiate<RedKoopa>();
+                        else if (type.compare("green"))
+                            koopa = Instantiate<GreenKoopa>();
+                        
+                        if (koopa != nullptr)
                         {
                             auto oid = objects->at(i)->id;
-                            auto koopa = Instantiate<RedKoopa>();
                             koopa->SetPosition(position);
                             koopa->SetPool(koopaSpawner->GetPool());
                             koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
