@@ -57,11 +57,11 @@ GameObject Game::FindGameObjectWithTag(ObjectTags tag, bool inactiveIncluded)
 	auto searchPool = inactiveIncluded ? *scene->GetSceneObjects() : scene->GetActiveObjects();
 	for (auto o : searchPool)
 	{
-		DebugOut(L"%d-", o->GetTag());
+		// DebugOut(L"%d-", o->GetTag());
 		if (o->GetTag() == tag) return o;
 	}
 
-	DebugOut(L"PP: %d-", tag);
+	// DebugOut(L"PP: %d-", tag);
 
 	return nullptr;
 }

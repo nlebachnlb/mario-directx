@@ -14,8 +14,18 @@ void CGlobalKeyEventHandler::OnKeyDown(int KeyCode)
 
 	for (auto go : gameObjects)
 	{
-		if (go->IsEnabled())
+		if (go == nullptr) continue;
+		if (go->IsDestroyed()) continue;
+		if (!go->IsEnabled()) continue;
+		
+		try
+		{
 			go->OnKeyDown(KeyCode);
+		}
+		catch(...) 
+		{
+			DebugOut(L"[WARNING] Object was destroyed but you try to access\n");
+		}
 	}
 }
 
@@ -27,7 +37,17 @@ void CGlobalKeyEventHandler::OnKeyUp(int KeyCode)
 
 	for (auto go : gameObjects)
 	{
-		if (go->IsEnabled())
+		if (go == nullptr) continue;
+		if (go->IsDestroyed()) continue;
+		if (!go->IsEnabled()) continue;
+
+		try
+		{
 			go->OnKeyUp(KeyCode);
+		}
+		catch (...)
+		{
+			DebugOut(L"[WARNING] Object was destroyed but you try to access\n");
+		}
 	}
 }

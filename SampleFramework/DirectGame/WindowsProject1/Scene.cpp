@@ -163,7 +163,10 @@ void Scene::CleanDestroyedObjects()
 			Remove(o);
 
 		for (auto o : destroyed)
+		{
 			delete o;
+			o = nullptr;
+		}
 
 		destroyed.clear();
 	}
