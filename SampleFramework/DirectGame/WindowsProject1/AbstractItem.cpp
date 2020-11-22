@@ -10,7 +10,11 @@ void AbstractItem::Awake()
 	collider->SetBoxSize(ITEM_BBOX);
 	collider->AttachToEntity(this);
 	this->colliders->push_back(collider);
-	mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
+
+	auto sm = Game::GetInstance().GetService<SceneManager>();
+	Scene* sc = nullptr;
+	if (sm != nullptr) sc = sm->GetActiveScene();
+	if (sc != nullptr) mainCamera = sc->GetMainCamera();
 }
 
 void AbstractItem::Start()

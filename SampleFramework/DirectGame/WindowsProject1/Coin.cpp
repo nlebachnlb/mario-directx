@@ -8,7 +8,7 @@ void Coin::Awake()
 	SetTag(ObjectTags::Coin);
 
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Default", animations->Get("ani-idle-icon"));
+	AddAnimation("Default", animations->Get("ani-idle-coin"));
 }
 
 void Coin::Start()
@@ -18,4 +18,12 @@ void Coin::Start()
 	rigidbody->SetDynamic(false);
 	colliders->at(0)->SetTrigger(true);
 	SetState("Default");
+}
+
+void Coin::LateUpdate()
+{
+}
+
+void Coin::PreRender()
+{
 }

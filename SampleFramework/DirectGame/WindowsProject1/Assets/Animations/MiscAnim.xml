@@ -14,7 +14,7 @@
 		</Animation>
 
     <Animation aniId="ani-idle-coin" frameTime="100">
-      <Sprite id="spr-coin-0" left="294" top="101"  width="8" height="14"/>
+      <Sprite id="spr-coin-3" left="294" top="101"  width="8" height="14"/>
     </Animation>
 
 		<!-- SUPER MUSHROOM -->

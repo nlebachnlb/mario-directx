@@ -11,6 +11,7 @@
 #include "QuestionBlock.h"
 #include "EffectPool.h"
 #include "Brick.h"
+#include "Coin.h"
 
 GameMap::GameMap()
 {
@@ -189,6 +190,27 @@ void GameMap::Load(std::string filePath, bool manual)
                             koopa->SetPool(koopaSpawner->GetPool());
                             koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
                             this->gameObjects.push_back(koopa);
+                        }
+                    }
+                }
+            }
+
+            if (groupName.compare("Items") == 0)
+            {
+                for (int i = 0; i < objects->size(); ++i)
+                {
+                    auto name = objects->at(i)->name;
+                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                    auto type = objects->at(i)->type;
+
+                    if (name.compare("coin") == 0)
+                    {
+                        if (type.compare("basic") == 0)
+                        {
+                            auto oid = objects->at(i)->id;
+                            auto coin = Instantiate<Coin>();
+                            coin->SetPosition(position);
+                            this->gameObjects.push_back(coin);
                         }
                     }
                 }
