@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="21" nextobjectid="105">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="21" nextobjectid="109">
  <editorsettings>
   <export target="../../../../../Resource/Xml/NewMap/BigMap/world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -327,7 +327,19 @@
   <object id="78" name="goomba" type="basic" x="2664" y="1164">
    <point/>
   </object>
-  <object id="80" name="goomba" type="tan-red-para" x="2856" y="1164">
+  <object id="80" name="goomba" type="tanpara-red" x="2856" y="1164">
+   <point/>
+  </object>
+  <object id="105" name="koopa" type="green" x="4392" y="1200">
+   <point/>
+  </object>
+  <object id="106" name="koopa" type="para-green" x="3960" y="924">
+   <point/>
+  </object>
+  <object id="107" name="koopa" type="para-green" x="4104" y="924">
+   <point/>
+  </object>
+  <object id="108" name="koopa" type="para-green" x="4248" y="924">
    <point/>
   </object>
  </objectgroup>
