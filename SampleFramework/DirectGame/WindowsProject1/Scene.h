@@ -23,6 +23,8 @@ public:
 	void RemoveObject(GameObject gameObject);
 
 	std::vector<GameObject>* GetSceneObjects();
+	std::vector<GameObject>& GetActiveObjects();
+
 	void SetMainCamera(Camera* camera);
 	Camera* GetMainCamera();
 

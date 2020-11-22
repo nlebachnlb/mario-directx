@@ -183,6 +183,11 @@ std::vector<GameObject>* Scene::GetSceneObjects()
 	return objects;
 }
 
+std::vector<GameObject>& Scene::GetActiveObjects()
+{
+	return updated;
+}
+
 void Scene::SetMainCamera(Camera* camera)
 {
 	this->mainCamera = camera;

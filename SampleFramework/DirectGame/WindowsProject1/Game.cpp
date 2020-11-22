@@ -38,7 +38,7 @@ Raycast* Game::Raycast2D()
 	{
 		if (raycast == nullptr)
 			raycast = new Raycast();
-		raycast->SetCastObjects(scene->GetSceneObjects());
+		raycast->SetCastObjects(&scene->GetActiveObjects());
 	}
 
 	return raycast;
