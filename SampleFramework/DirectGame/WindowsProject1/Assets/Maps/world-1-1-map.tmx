@@ -333,13 +333,13 @@
   <object id="105" name="koopa" type="green" x="4392" y="1200">
    <point/>
   </object>
-  <object id="106" name="koopa" type="para-green" x="3960" y="924">
+  <object id="106" name="koopa" type="para-green" x="3960" y="900">
    <point/>
   </object>
-  <object id="107" name="koopa" type="para-green" x="4104" y="924">
+  <object id="107" name="koopa" type="para-green" x="4104" y="900">
    <point/>
   </object>
-  <object id="108" name="koopa" type="para-green" x="4248" y="924">
+  <object id="108" name="koopa" type="para-green" x="4248" y="900">
    <point/>
   </object>
  </objectgroup>
