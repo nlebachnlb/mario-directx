@@ -13,7 +13,7 @@ class Goomba : public AbstractEnemy
 public:
 	void Start()			override;
 	void Movement()			override;
-	void InitAnimations()	override;
+	virtual void InitAnimations()	override;
 	void OnDead(bool oneHit)override;
 
 	void OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions) override;
