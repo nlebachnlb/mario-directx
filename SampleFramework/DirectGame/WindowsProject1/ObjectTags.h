@@ -13,6 +13,7 @@ enum class ObjectTags
 	GreenMushroom,
 	RaccoonLeaf,
 	FireFlower,
+	Coin,
 
 	HostileProjectiles,
 	Solid,
@@ -32,4 +33,5 @@ public:
 	static bool ProjectilesTag(ObjectTags tag);
 	static bool StaticTag(ObjectTags tag);
 	static bool PowerupTag(ObjectTags tag);
+	static bool ItemTag(ObjectTags tag);
 };

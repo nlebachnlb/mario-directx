@@ -399,6 +399,12 @@
     <ClInclude Include="Raycast.h">
       <Filter>Framework\Game\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="RedParagoomba.h">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -662,6 +668,12 @@
     </ClCompile>
     <ClCompile Include="Raycast.cpp">
       <Filter>Framework\Game\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="RedParagoomba.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

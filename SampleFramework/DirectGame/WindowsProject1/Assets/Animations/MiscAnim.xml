@@ -13,6 +13,10 @@
 			<Sprite id="spr-coin-5" left="372" top="100"  width="10" height="16"/>
 		</Animation>
 
+    <Animation aniId="ani-idle-coin" frameTime="100">
+      <Sprite id="spr-coin-0" left="294" top="101"  width="8" height="14"/>
+    </Animation>
+
 		<!-- SUPER MUSHROOM -->
 		<Animation aniId="ani-super-mushroom" frameTime="100">
 			<Sprite id="spr-super-mushroom-0" left="156" top="121"  width="16" height="16"/>

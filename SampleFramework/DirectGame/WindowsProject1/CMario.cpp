@@ -315,7 +315,7 @@ void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> co
 void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 {
 	auto otherTag = other->GetGameObject()->GetTag();
-	if (TagUtils::PowerupTag(otherTag))
+	if (TagUtils::PowerupTag(otherTag) || TagUtils::ItemTag(otherTag))
 	{
 		switch (otherTag)
 		{
@@ -329,6 +329,9 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		case ObjectTags::RaccoonLeaf:
 			if (tag == ObjectTags::BigMario || tag == ObjectTags::PowerupMario) controller->SwitchToState("RaccoonMario");
 			else controller->SwitchToState("BigMario");
+			break;
+		case ObjectTags::Coin:
+			// Increase coin data
 			break;
 		}
 

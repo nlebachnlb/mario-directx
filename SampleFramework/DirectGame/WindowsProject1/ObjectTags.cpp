@@ -28,3 +28,8 @@ bool TagUtils::PowerupTag(ObjectTags tag)
         tag == ObjectTags::RaccoonLeaf;
 
 }
+
+bool TagUtils::ItemTag(ObjectTags tag)
+{
+    return tag == ObjectTags::Coin;
+}
