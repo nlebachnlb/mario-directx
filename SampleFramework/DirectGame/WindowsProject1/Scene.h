@@ -18,6 +18,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 	void CleanDestroyedObjects();
+	void ProcessInstantiateRequests();
 
 	std::string GetID() { return id; }
 	void AddObject(GameObject gameObject);
@@ -31,14 +32,14 @@ public:
 
 protected:
 	void Remove(GameObject go);
-	static bool Comparator(GameObject& a, GameObject& b) 
+	static bool Comparator(const GameObject& a, const GameObject& b) 
 	{ 
 		return (a->GetRenderOrder() < b->GetRenderOrder() || 
 			(a->GetRenderOrder() == b->GetRenderOrder() && a->GetTransform().Position.x < b->GetTransform().Position.x)); 
 	}
 	
 	std::vector<GameObject>* objects;
-	std::vector<GameObject> destroyed, updated;
+	std::vector<GameObject> destroyed, updated, instantiated;
 	std::string id;
 	std::string filePath;
 	Camera* mainCamera;

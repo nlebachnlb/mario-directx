@@ -224,10 +224,14 @@ void Game::GameRun(HWND hWnd)
 		{
 			frameStart = now;
 
-			// Call update then Render
+			// Process input
+			InputProc();
+			// Process instantiate requests at last frame
+			Request();
+			// Start updating new frame
 			Update();
+			// Render new frame
 			Render();
-
 			// Clean destroyed objects
 			Clean();
 		}
@@ -240,10 +244,22 @@ void Game::GameEnd()
 {
 }
 
-void Game::Update()
+void Game::Request()
+{
+	auto activeScene = sceneManager->GetActiveScene();
+
+	if (activeScene != nullptr)
+		activeScene->ProcessInstantiateRequests();
+}
+
+void Game::InputProc()
 {
 	if (inputHandler == nullptr) inputHandler = GetService<InputHandler>();
 	inputHandler->ProcessKeyboard();
+}
+
+void Game::Update()
+{
 	if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
 
 	if (activeScene != nullptr)
