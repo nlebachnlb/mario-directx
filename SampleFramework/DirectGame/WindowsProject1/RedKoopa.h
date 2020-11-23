@@ -22,5 +22,7 @@ public:
 
 protected:
 	Vector2 GetBoxSize()	override;
+	bool hit;
+	Vector2 hitPos;
 };
 

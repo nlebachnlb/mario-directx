@@ -414,6 +414,15 @@
     <ClInclude Include="ItemInfo.h">
       <Filter>GameSource\GameObjects\Items</Filter>
     </ClInclude>
+    <ClInclude Include="HitFX.h">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeSpotFX.h">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClInclude>
+    <ClInclude Include="HitStarFX.h">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -689,6 +698,15 @@
     </ClCompile>
     <ClCompile Include="ItemInfo.cpp">
       <Filter>GameSource\GameObjects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HitFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeSpotFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClCompile>
+    <ClCompile Include="HitStarFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -199,7 +199,7 @@ void RaccoonMario::LateUpdate()
 	}
  
 	attackBox->SetPosition(transform.Position + 
-		Vector2((MARIO_BBOX.x + RACCOON_ATTACK_BOX.x) * 0.5f * facing, 0));
+		Vector2((MARIO_BBOX.x + RACCOON_ATTACK_BOX.x) * 0.5f * facing, RACCOON_ATTACK_BOX.y * 0.4f));
 }
 
 void RaccoonMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)

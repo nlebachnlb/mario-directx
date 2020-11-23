@@ -5,6 +5,8 @@
 #include "Game.h"
 #include "ShrinkDownFX.h"
 #include "BrickDebrisFX.h"
+#include "HitStarFX.h"
+#include "SmokeSpotFX.h"
 
 void EffectPool::Initialization()
 {
@@ -39,6 +41,10 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position, bool expand
 			fx = Instantiate<ShrinkDownFX>();
 		else if (fxName.compare("fx-brick-debris") == 0)
 			fx = Instantiate<BrickDebrisFX>();
+		else if (fxName.compare("fx-hit-star") == 0)
+			fx = Instantiate<HitStarFX>();
+		else if (fxName.compare("fx-smoke-spot") == 0)
+			fx = Instantiate<SmokeSpotFX>();
 		
 		DebugOut(L"New spawn\n");
 

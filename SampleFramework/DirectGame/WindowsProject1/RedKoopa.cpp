@@ -3,6 +3,7 @@
 #include "AnimationDatabase.h"
 #include "Game.h"
 #include "KoopaSpawner.h"
+#include "EffectPool.h"
 
 void RedKoopa::Start()
 {
@@ -15,6 +16,7 @@ void RedKoopa::Start()
 	dead = false;
 	time = 0;
 	facing = direction;
+	hit = false;
 }
 
 void RedKoopa::Movement()
@@ -48,7 +50,18 @@ void RedKoopa::OnDead(bool oneHit)
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
 		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 		auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
-		koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f, KoopasShellType::Red);
+		auto shell = koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f, KoopasShellType::Red);
+		if (hit)
+		{
+			shell->OnDead(false);
+			auto gmap = Game::GetInstance().GetService<GameMap>();
+			auto spawner = gmap->GetSpawnerManager();
+			auto fxPool = spawner->GetService<EffectPool>();
+
+			fxPool->CreateFX("fx-hit-star", hitPos);
+			hit = false;
+		}
+
 		time = -1;
 		dead = true;
 	}
@@ -94,6 +107,8 @@ void RedKoopa::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 	{
 		DebugOut(L"Koopa crouch\n");
+		hit = true;
+		hitPos = otherCollider->GetGameObject()->GetTransform().Position;
 		this->OnDead(false);
 		otherCollider->GetGameObject()->SetActive(false);
 		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();

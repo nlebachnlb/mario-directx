@@ -20,6 +20,7 @@ public:
 
 	void LinkToPool(ObjectPool* pool);
 private:
+	void Explode();
 	ObjectPool* pool; 
 	Camera* mainCamera;
 }; 

@@ -1,5 +1,7 @@
 #include "RaccoonAttackBox.h"
 #include "AbstractEnemy.h"
+#include "Game.h"
+#include "EffectPool.h"
 
 void RaccoonAttackBox::Awake()
 {
@@ -21,26 +23,17 @@ void RaccoonAttackBox::Start()
 
 void RaccoonAttackBox::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
 {
-	/*for (auto col : collisions)
-	{
-		if (TagUtils::EnemyTag(col->collider->GetGameObject()->GetTag()))
-		{
-			DebugOut(L"Enemy collision\n");
-			auto enemy = (AbstractEnemy*)col->collider->GetGameObject();
-			if (enemy != nullptr)
-				enemy->OnDead(true);
-		}
-	}*/
+
 }
 
 void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
-	//DebugOut(L"Attack box overlap\n");
-	//if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
-	//{
-	//	DebugOut(L"Enemy collision\n");
-	//	/*auto enemy = (AbstractEnemy*)otherCollider->GetGameObject();
-	//	if (enemy != nullptr)
-	//		enemy->OnDead(true);*/
-	//}
+	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
+	{
+		auto gmap = Game::GetInstance().GetService<GameMap>();
+		auto spawner = gmap->GetSpawnerManager();
+		auto fxPool = spawner->GetService<EffectPool>();
+
+		fxPool->CreateFX("fx-hit-star", transform.Position);
+	}
 }
