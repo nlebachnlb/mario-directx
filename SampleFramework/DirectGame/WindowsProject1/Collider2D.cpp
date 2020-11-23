@@ -177,8 +177,11 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 		if (selfBox.TouchOrIntersect(otherBox) || otherBox.TouchOrIntersect(selfBox) || 
 			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
 		{
+			auto other = coObjects->at(i)->GetColliders()->at(0);
 			if (TagUtils::StaticTag(coObjects->at(i)->GetTag())) solid = true;
 			this->gameObject->OnOverlapped(this, coObjects->at(i)->GetColliders()->at(0));
+			if (!other->GetGameObject()->GetRigidbody()->IsDynamic())
+				other->GetGameObject()->OnOverlapped(other, this);
 			continue;
 		}
 
@@ -387,7 +390,7 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 {
 	if (gameObject == nullptr || gameObject->IsEnabled() == false) return;
-
+	if (gameObject->GetRigidbody()->IsDynamic() == false) return;
 	if (gameObject->GetColliders()->size() == 0) return;
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
@@ -406,8 +409,6 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 	coEventsResult.clear();
 
 	CalcPotentialCollisions(coObjects, coEvents);
-
-	if (gameObject->GetRigidbody()->IsDynamic() == false) return;
 	
 	if (coEvents.size() == 0)
 	{
