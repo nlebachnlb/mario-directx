@@ -101,6 +101,7 @@ void RaccoonMario::InitAnimations()
 
 	AddAnimation("HoldIdle", animations->Get("ani-raccoon-mario-hold-idle"));
 	AddAnimation("HoldMove", animations->Get("ani-raccoon-mario-hold"));
+	AddAnimation("HoldJump", animations->Get("ani-raccoon-mario-hold-jump"));
 	AddAnimation("Kick", animations->Get("ani-raccoon-mario-kick"));
 }
 

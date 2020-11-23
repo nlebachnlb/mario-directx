@@ -485,6 +485,7 @@ void CMario::InitAnimations()
 
 	AddAnimation("HoldIdle",	animations->Get("ani-big-mario-hold-idle"));
 	AddAnimation("HoldMove",	animations->Get("ani-big-mario-hold"));
+	AddAnimation("HoldJump",	animations->Get("ani-big-mario-hold-jump"));
 	AddAnimation("Kick",		animations->Get("ani-big-mario-kick"));
 }
 
@@ -528,9 +529,9 @@ void CMario::JumpingAnimation()
 	}
 
 	if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
-		SetState(hold ? "Fall" : "Jump");
+		SetState(hold ? "HoldJump" : "Jump");
 	else if (physicState.jump == JumpingStates::Fall)
-		SetState("Fall");
+		SetState(hold ? "HoldJump" : "Fall");
 }
 
 #pragma endregion

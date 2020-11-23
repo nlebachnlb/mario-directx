@@ -59,6 +59,7 @@ void FireMario::InitAnimations()
 
 	AddAnimation("HoldIdle", animations->Get("ani-fire-mario-hold-idle"));
 	AddAnimation("HoldMove", animations->Get("ani-fire-mario-hold"));
+	AddAnimation("HoldJump", animations->Get("ani-fire-mario-hold-jump"));
 	AddAnimation("Kick", animations->Get("ani-fire-mario-kick"));
 }
 
