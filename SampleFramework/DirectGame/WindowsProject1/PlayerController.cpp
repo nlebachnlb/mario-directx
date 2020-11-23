@@ -106,6 +106,7 @@ void PlayerController::RegisterToScene(Scene* scene)
 
 void PlayerController::SwitchToState(std::string state)
 {
+	if (waiting) return;
 	targetState = state;
 
 	auto gmap = Game::GetInstance().GetService<GameMap>();
