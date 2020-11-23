@@ -386,8 +386,7 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 
 void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 {
-	if (gameObject == nullptr || gameObject->IsEnabled() == false
-		|| gameObject->GetRigidbody()->IsDynamic() == false) return;
+	if (gameObject == nullptr || gameObject->IsEnabled() == false) return;
 
 	if (gameObject->GetColliders()->size() == 0) return;
 
@@ -407,6 +406,8 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 	coEventsResult.clear();
 
 	CalcPotentialCollisions(coObjects, coEvents);
+
+	if (gameObject->GetRigidbody()->IsDynamic() == false) return;
 	
 	if (coEvents.size() == 0)
 	{

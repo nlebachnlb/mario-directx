@@ -58,24 +58,6 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 	for (auto collision : collisions)
 	{
 		auto otherTag = collision->collider->GetGameObject()->GetTag();
-		//if (TagUtils::EnemyTag(otherTag))
-		//{
-		//	auto enemy = static_cast<AbstractEnemy*>(collision->collider->GetGameObject());
-		//	if (running || IsHeld())
-		//	{
-		//		enemy->OnDead(true);
-		//		if (running && tag == otherTag) OnDead(true);
-		//		else if (IsHeld())
-		//		{
-		//			auto holderTag = holder->GetTag();
-		//			if (TagUtils::MarioTag(holderTag))
-		//			{
-		//				static_cast<CMario*>(holder)->ReleaseInHandObject();
-		//				OnDead(true);
-		//			}
-		//		}
-		//	}
-		//}
 
 		if (otherTag == ObjectTags::Block && running)
 		{

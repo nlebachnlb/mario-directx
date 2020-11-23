@@ -270,6 +270,14 @@ void CMario::SetInvincible(bool invincible)
 void CMario::PassPrivateData(CMario* other)
 {
 	other->posBeforeJump = posBeforeJump;
+	other->physicState = physicState;
+	other->pMeter = pMeter;
+	other->feverState = feverState;
+	other->feverTime = feverTime;
+	other->lastFeverTime = lastFeverTime;
+	other->hold = hold;
+	other->pushSide = pushSide;
+	other->invincible = invincible;
 }
 
 #pragma region Keyboard

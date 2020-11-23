@@ -8,7 +8,7 @@ void RaccoonAttackBox::Awake()
 	Collider2D* box = new Collider2D();
 	box->AttachToEntity(this);
 	box->SetBoxSize(RACCOON_ATTACK_BOX);
-	box->SetTrigger(false);
+	box->SetTrigger(true);
 	box->SetPushCoefficient(0.4f);
 	this->colliders->push_back(box);
 

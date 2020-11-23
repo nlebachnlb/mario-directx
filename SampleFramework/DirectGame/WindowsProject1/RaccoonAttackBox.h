@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-const Vector2 RACCOON_ATTACK_BOX(48, 48);
+const Vector2 RACCOON_ATTACK_BOX(32, 46);
 
 class RaccoonAttackBox : public CGameObject
 {
