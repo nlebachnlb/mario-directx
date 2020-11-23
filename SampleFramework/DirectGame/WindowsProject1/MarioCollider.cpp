@@ -66,10 +66,6 @@ void MarioCollider::BlockPosition(vector<CollisionEvent*>& collisions, float& mi
 
 void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& collisions)
 {
-	auto gmap = Game::GetInstance().GetService<GameMap>();
-	auto spawner = gmap->GetSpawnerManager();
-	auto fxPool = spawner->GetService<EffectPool>();
-
 	for (auto collision : collisions)
 	{
 		auto tag = collision->collider->GetGameObject()->GetTag();
@@ -96,7 +92,6 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 							if (collision->collisionDirection.y < 0)
 								mario->Jump(MARIO_JUMP_FORCE, true);
 							shell->Run();
-							fxPool->CreateFX("fx-smoke-spot", Vector2(gameObject->GetTransform().Position.x, GetBoundingBox().bottom));
 						}
 						else
 						{
@@ -120,7 +115,6 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					if (enemy != nullptr)
 					{
 						enemy->OnDead(false);
-						fxPool->CreateFX("fx-hit-star", Vector2(gameObject->GetTransform().Position.x, GetBoundingBox().bottom));
 					}
 				}
 				else if (collision->collisionDirection.y > 0)
@@ -139,10 +133,6 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 
 void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& collisions)
 {
-	auto gmap = Game::GetInstance().GetService<GameMap>();
-	auto spawner = gmap->GetSpawnerManager();
-	auto fxPool = spawner->GetService<EffectPool>();
-
 	for (auto collision : collisions)
 	{
 		auto tag = collision->collider->GetGameObject()->GetTag();
@@ -182,9 +172,6 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 					if (shell->IsRunning() == false)
 					{
 						shell->Run();
-						Vector2 position(gameObject->GetTransform().Position.x + mario->GetFacing() * boxSize.x * 0.5f,
-							gameObject->GetTransform().Position.y + 12);
-						fxPool->CreateFX("fx-hit-star", position);
 					}
 				}
 				break;

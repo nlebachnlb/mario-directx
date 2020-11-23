@@ -1,6 +1,8 @@
 #include "KoopasShell.h"
 #include "QuestionBlock.h"
 #include "CMario.h"
+#include "Game.h"
+#include "EffectPool.h"
 
 void KoopasShell::Awake()
 {
@@ -50,7 +52,6 @@ void KoopasShell::OnDead(bool oneHit)
 		StopRunning();
 		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
-		DebugOut(L"KoopaDEFLECT\n");
 	}
 }
 
@@ -80,19 +81,28 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 
 	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 	{
-		this->OnDead(false);
 		otherCollider->GetGameObject()->SetActive(false);
 		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
+		this->OnDead(false);
 	}
 
 	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()) && dead == false)
 	{
 		auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
 		DebugOut(L"Enemy OVERLAP\n");
+		auto gmap = Game::GetInstance().GetService<GameMap>();
+		auto spawner = gmap->GetSpawnerManager();
+		auto fxPool = spawner->GetService<EffectPool>();
 
 		if (running || IsHeld())
 		{
-			if (enemy->IsDead() == false) enemy->OnDead(true);
+			if (enemy->IsDead() == false)
+			{
+				Vector2 pos = transform.Position;
+				fxPool->CreateFX("fx-hit-star", pos);
+				enemy->OnDead(true);
+			}
+
 			if (running && tag == enemy->GetTag()) OnDead(true);
 			else if (IsHeld())
 			{

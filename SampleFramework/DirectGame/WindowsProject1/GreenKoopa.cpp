@@ -2,6 +2,7 @@
 #include "AnimationDatabase.h"
 #include "Game.h"
 #include "KoopaSpawner.h"
+#include "EffectPool.h"
 
 void GreenKoopa::InitAnimations()
 {
@@ -12,6 +13,8 @@ void GreenKoopa::InitAnimations()
 
 void GreenKoopa::OnDead(bool oneHit)
 {
+	if (dead) return;
+
 	if (oneHit)
 	{
 		rigidbody->SetGravity(KOOPA_GRAVITY);
@@ -27,7 +30,19 @@ void GreenKoopa::OnDead(bool oneHit)
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
 		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 		auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
-		koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f, KoopasShellType::Green);
+		auto shell = koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f, KoopasShellType::Green);
+		
+		if (hit)
+		{
+			shell->OnDead(false);
+			auto gmap = Game::GetInstance().GetService<GameMap>();
+			auto spawner = gmap->GetSpawnerManager();
+			auto fxPool = spawner->GetService<EffectPool>();
+
+			fxPool->CreateFX("fx-hit-star", hitPos);
+			hit = false;
+		}
+
 		time = -1;
 		dead = true;
 	}

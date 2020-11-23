@@ -51,6 +51,7 @@ void RedKoopa::OnDead(bool oneHit)
 		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 		auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
 		auto shell = koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f, KoopasShellType::Red);
+	
 		if (hit)
 		{
 			shell->OnDead(false);
@@ -106,10 +107,13 @@ void RedKoopa::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
 	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 	{
-		DebugOut(L"Koopa crouch\n");
-		hit = true;
-		hitPos = otherCollider->GetGameObject()->GetTransform().Position;
-		this->OnDead(false);
+		// DebugOut(L"Koopa crouch\n");
+		if (!hit)
+		{
+			hit = true;
+			hitPos = otherCollider->GetGameObject()->GetTransform().Position;
+			this->OnDead(false);
+		}
 		otherCollider->GetGameObject()->SetActive(false);
 		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
 	}
