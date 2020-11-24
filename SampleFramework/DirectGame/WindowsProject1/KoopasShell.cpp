@@ -1,5 +1,8 @@
 #include "KoopasShell.h"
 #include "QuestionBlock.h"
+#include "CMario.h"
+#include "Game.h"
+#include "EffectPool.h"
 
 void KoopasShell::Awake()
 {
@@ -57,15 +60,10 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 	for (auto collision : collisions)
 	{
 		auto otherTag = collision->collider->GetGameObject()->GetTag();
-		if (TagUtils::EnemyTag(otherTag))
-		{
-			auto enemy = static_cast<AbstractEnemy*>(collision->collider->GetGameObject());
-			if (running)
-				enemy->OnDead(true);
-		}
 
 		if (otherTag == ObjectTags::Block && running)
 		{
+			if (collision->collisionDirection.y != 0) continue;
 			auto block = static_cast<AbstractBlock*>(collision->collider->GetGameObject());
 			block->Bounce(this);
 		}
@@ -81,19 +79,41 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 			this->OnDead(true);
 	}
 
-	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
+	/*if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 	{
-		// DebugOut(L"Overlapp atta mario\n");
-		this->OnDead(false);
 		otherCollider->GetGameObject()->SetActive(false);
 		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
-	}
+		this->OnDead(false);
+	}*/
 
-	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
+	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()) && dead == false)
 	{
 		auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
-		if (running)
-			enemy->OnDead(true);
+		DebugOut(L"Enemy OVERLAP\n");
+		auto gmap = Game::GetInstance().GetService<GameMap>();
+		auto spawner = gmap->GetSpawnerManager();
+		auto fxPool = spawner->GetService<EffectPool>();
+
+		if (running || IsHeld())
+		{
+			if (enemy->IsDead() == false)
+			{
+				Vector2 pos = transform.Position;
+				fxPool->CreateFX("fx-hit-star", pos);
+				enemy->OnDead(true);
+			}
+
+			if (running && tag == enemy->GetTag()) OnDead(true);
+			else if (IsHeld())
+			{
+				auto holderTag = holder->GetTag();
+				if (TagUtils::MarioTag(holderTag))
+				{
+					static_cast<CMario*>(holder)->ReleaseInHandObject();
+					OnDead(true);
+				}
+			}
+		}
 	}
 }
 
@@ -109,6 +129,7 @@ void KoopasShell::SetHoldablePosition(Vector2 position)
 
 void KoopasShell::OnRelease()
 {
+	// colliders->at(0)->SetTrigger(false);
 	colliders->at(0)->Enable();
 	SetFacing(holdableFacing);
 	Run();

@@ -103,10 +103,14 @@ public:
 	bool IsReadyToRun();
 
 	void HoldObject(Holdable* holdableObj);
+	void ReleaseInHandObject();
+	Holdable* GetInHandObject();
 	void SetController(PlayerController* controller);
 
 	bool IsInvincible();
 	void SetInvincible(bool invincible);
+
+	void PassPrivateData(CMario* other);
 
 protected:
 	virtual void InitAnimations();

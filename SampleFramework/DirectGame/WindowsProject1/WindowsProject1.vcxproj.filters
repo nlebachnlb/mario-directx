@@ -363,12 +363,6 @@
     <ClInclude Include="FXObject.h">
       <Filter>GameSource\GameObjects\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="EffectPool.h">
-      <Filter>GameSource\GameObjects\Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CoinObtainedFX.h">
       <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
     </ClInclude>
@@ -405,14 +399,29 @@
     <ClInclude Include="RedParagoomba.h">
       <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GreenKoopasShell.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClInclude>
     <ClInclude Include="GreenKoopa.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>GameSource\GameObjects\Items\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPool.h">
+      <Filter>GameSource\GameObjects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemInfo.h">
+      <Filter>GameSource\GameObjects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="HitFX.h">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClInclude>
+    <ClInclude Include="SmokeSpotFX.h">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClInclude>
+    <ClInclude Include="HitStarFX.h">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -642,9 +651,6 @@
     <ClCompile Include="EffectPool.cpp">
       <Filter>GameSource\GameObjects\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="ItemInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CoinObtainedFX.cpp">
       <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
     </ClCompile>
@@ -681,14 +687,26 @@
     <ClCompile Include="RedParagoomba.cpp">
       <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GreenKoopasShell.cpp">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClCompile>
     <ClCompile Include="GreenKoopa.cpp">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>GameSource\GameObjects\Items\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemInfo.cpp">
+      <Filter>GameSource\GameObjects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HitFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClCompile>
+    <ClCompile Include="SmokeSpotFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClCompile>
+    <ClCompile Include="HitStarFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

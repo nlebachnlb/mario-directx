@@ -42,6 +42,8 @@ public:
 	void GameInit(HWND hWnd);
 	void GameRun(HWND hWnd);
 	void GameEnd();
+	void Request();
+	void InputProc();
 	void Update();
 	void Render();
 	void Clean();

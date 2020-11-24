@@ -19,7 +19,7 @@ void RaccoonMario::Start()
 	pushing = false;
 	feverState = 0;
 	feverTime = RACCOON_FEVER_TIME;
-	physicalAttacking = false;
+	physicalAttacking = 0;
 	attackBox->GetColliders()->at(0)->Disable();
 	attackBox->SetActive(false);
 }
@@ -42,12 +42,10 @@ void RaccoonMario::OnKeyDown(int keyCode)
 
 	// Process attack key
 	if (keyCode == marioKeySet.Attack && 
-		attacking == false && physicalAttacking == false &&
+		attacking == false && physicalAttacking == 0 &&
 		flying == 0 && physicState.movement != MovingStates::Crouch)
 	{
-		physicalAttacking = true;
-		attackBox->SetActive(true);
-		attackBox->GetColliders()->at(0)->Enable();
+		physicalAttacking = 1;
 		lastAttackingTime = GetTickCount();
 		attacking = true;
 	}
@@ -101,6 +99,7 @@ void RaccoonMario::InitAnimations()
 
 	AddAnimation("HoldIdle", animations->Get("ani-raccoon-mario-hold-idle"));
 	AddAnimation("HoldMove", animations->Get("ani-raccoon-mario-hold"));
+	AddAnimation("HoldJump", animations->Get("ani-raccoon-mario-hold-jump"));
 	AddAnimation("Kick", animations->Get("ani-raccoon-mario-kick"));
 }
 
@@ -190,16 +189,23 @@ void RaccoonMario::LateUpdate()
 
 	if (physicalAttacking)
 	{
+		if (GetTickCount() - lastAttackingTime > 0.5f * RACCOON_ATTACK_TIME && physicalAttacking == 1)
+		{
+			physicalAttacking = 2;
+			attackBox->SetActive(true);
+			attackBox->GetColliders()->at(0)->Enable();
+		}
+
 		if (GetTickCount() - lastAttackingTime > RACCOON_ATTACK_TIME)
 		{
-			physicalAttacking = false;
+			physicalAttacking = 0;
 			attackBox->SetActive(false);
 			attackBox->GetColliders()->at(0)->Disable();
 		}
 	}
  
 	attackBox->SetPosition(transform.Position + 
-		Vector2((MARIO_BBOX.x + RACCOON_ATTACK_BOX.x) * 0.5f * facing, 0));
+		Vector2((MARIO_BBOX.x + RACCOON_ATTACK_BOX.x) * 0.5f * facing, RACCOON_ATTACK_BOX.y * 0.4f));
 }
 
 void RaccoonMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)

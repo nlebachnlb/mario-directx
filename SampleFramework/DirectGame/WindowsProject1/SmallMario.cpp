@@ -34,5 +34,6 @@ void SmallMario::InitAnimations()
 
 	AddAnimation("HoldIdle", animations->Get("ani-small-mario-hold-idle"));
 	AddAnimation("HoldMove", animations->Get("ani-small-mario-hold"));
+	AddAnimation("HoldJump", animations->Get("ani-small-mario-hold-jump"));
 	AddAnimation("Kick", animations->Get("ani-small-mario-kick"));
 }

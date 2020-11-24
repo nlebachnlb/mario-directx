@@ -106,6 +106,7 @@ void PlayerController::RegisterToScene(Scene* scene)
 
 void PlayerController::SwitchToState(std::string state)
 {
+	if (waiting) return;
 	targetState = state;
 
 	auto gmap = Game::GetInstance().GetService<GameMap>();
@@ -163,6 +164,11 @@ void PlayerController::ContinueSwitchingState()
 		stateGameObjects.at(state)->GetRigidbody()->SetVelocity(&currentStateObject->GetRigidbody()->GetVelocity());
 		stateGameObjects.at(state)->GetRigidbody()->SetGravity(currentStateObject->GetRigidbody()->GetGravity());
 		stateGameObjects.at(state)->GetRigidbody()->SetAcceleration(currentStateObject->GetRigidbody()->GetAcceleration());
+		
+		if (currentStateObject->GetInHandObject() != nullptr)
+			stateGameObjects.at(state)->HoldObject(currentStateObject->GetInHandObject());
+
+		stateGameObjects.at(state)->PassPrivateData(currentStateObject);
 	}
 
 	currentStateObject = stateGameObjects.at(state);

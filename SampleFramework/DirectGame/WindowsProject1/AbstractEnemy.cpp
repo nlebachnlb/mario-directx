@@ -47,3 +47,8 @@ void AbstractEnemy::SetPool(ObjectPool* pool)
 {
 	this->linkedPool = pool;
 }
+
+bool AbstractEnemy::IsDead()
+{
+	return dead;
+}

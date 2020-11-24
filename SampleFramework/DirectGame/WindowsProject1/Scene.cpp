@@ -3,6 +3,8 @@
 #include "CMario.h"
 #include "tinyxml.h"
 #include "PlayerController.h"
+#include "EffectPool.h"
+#include <algorithm>
 
 Scene::Scene()
 {
@@ -98,8 +100,22 @@ void Scene::Load()
 
 void Scene::Init()
 {
+	auto gmap = Game::GetInstance().GetService<GameMap>();
+	auto spawner = gmap->GetSpawnerManager();
+	auto fxPool = spawner->GetService<EffectPool>();
+	fxPool->Initialization();
+
+	ProcessInstantiateRequests();
 	for (auto o : *objects)
 		o->OnEnabled();
+#pragma region Debug Logs
+	/*
+	DebugOut(L"\n");
+	for (auto o : *objects)
+		DebugOut(L"%f-", o->GetTransform().Position.x),
+		o->OnEnabled();
+	DebugOut(L"\n");*/
+#pragma endregion
 }
 
 void Scene::Unload()
@@ -114,8 +130,8 @@ void Scene::Unload()
 void Scene::Update()
 {
 	if (loaded == false) return;
-	updated.clear();
 
+	updated.clear();
 	if (objects != nullptr)
 	{
 		for (auto o : *objects)
@@ -172,12 +188,29 @@ void Scene::CleanDestroyedObjects()
 	}
 }
 
+void Scene::ProcessInstantiateRequests()
+{
+	if (instantiated.size() > 0)
+	{
+		for (auto o : instantiated)
+		{
+			if (objects->empty()) { objects->push_back(o); continue; }
+
+			// Binary search the approriate position
+			auto pos = std::lower_bound(objects->begin(), objects->end(), o, Scene::Comparator);
+			objects->insert(pos, o);
+		}
+		instantiated.clear();
+	}
+}
+
 void Scene::AddObject(GameObject gameObject)
 {
 	if (find(objects->begin(), objects->end(), gameObject) != objects->end()) return;
 
-	objects->push_back(gameObject);
-	std::sort(objects->begin(), objects->end(), Scene::Comparator);
+	// objects->push_back(gameObject);
+	instantiated.push_back(gameObject);
+	// std::sort(objects->begin(), objects->end(), Scene::Comparator);
 }
 
 void Scene::RemoveObject(GameObject gameObject)

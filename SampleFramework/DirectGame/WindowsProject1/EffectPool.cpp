@@ -5,12 +5,19 @@
 #include "Game.h"
 #include "ShrinkDownFX.h"
 #include "BrickDebrisFX.h"
+#include "HitStarFX.h"
+#include "SmokeSpotFX.h"
 
 void EffectPool::Initialization()
 {
+	for (int i = 0; i < N_FX; ++i)
+		for (int j = 0; j < INIT_QUANTITIES[i]; ++j)
+			CreateFX(INIT_FX_NAMES[i], VectorZero(), true);
+
+	DebugOut(L"FXpool init done\n");
 }
 
-FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
+FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position, bool expandPoolOnly)
 {
 	auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 	if (scene == nullptr) return nullptr;
@@ -21,7 +28,7 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
 	else
 		pool = new ObjectPool(), pools.insert(std::make_pair(fxName, pool));
 
-	if (pool->IsEmpty())
+	if (pool->IsEmpty() || expandPoolOnly)
 	{
 		FXObject* fx = nullptr;
 		if (fxName.compare("fx-coin-obtained") == 0)
@@ -34,6 +41,10 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
 			fx = Instantiate<ShrinkDownFX>();
 		else if (fxName.compare("fx-brick-debris") == 0)
 			fx = Instantiate<BrickDebrisFX>();
+		else if (fxName.compare("fx-hit-star") == 0)
+			fx = Instantiate<HitStarFX>();
+		else if (fxName.compare("fx-smoke-spot") == 0)
+			fx = Instantiate<SmokeSpotFX>();
 		
 		DebugOut(L"New spawn\n");
 
@@ -42,6 +53,7 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position)
 		fx->SetStartPosition(position);
 		fx->Start();
 		fx->SetPool(pool);
+		if (expandPoolOnly) pool->Revoke(fx);
 		return fx;
 	}
 	else

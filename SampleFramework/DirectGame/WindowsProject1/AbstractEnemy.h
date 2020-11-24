@@ -16,6 +16,7 @@ public:
 	virtual void OnDead(bool oneHit) = 0;
 
 	void SetPool(ObjectPool* pool);
+	bool IsDead();
 
 protected:
 	ObjectPool* linkedPool;

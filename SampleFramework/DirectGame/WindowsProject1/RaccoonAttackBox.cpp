@@ -1,5 +1,8 @@
 #include "RaccoonAttackBox.h"
 #include "AbstractEnemy.h"
+#include "Game.h"
+#include "EffectPool.h"
+#include "KoopasShell.h"
 
 void RaccoonAttackBox::Awake()
 {
@@ -8,7 +11,7 @@ void RaccoonAttackBox::Awake()
 	Collider2D* box = new Collider2D();
 	box->AttachToEntity(this);
 	box->SetBoxSize(RACCOON_ATTACK_BOX);
-	box->SetTrigger(false);
+	box->SetTrigger(true);
 	box->SetPushCoefficient(0.4f);
 	this->colliders->push_back(box);
 
@@ -21,26 +24,29 @@ void RaccoonAttackBox::Start()
 
 void RaccoonAttackBox::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
 {
-	/*for (auto col : collisions)
-	{
-		if (TagUtils::EnemyTag(col->collider->GetGameObject()->GetTag()))
-		{
-			DebugOut(L"Enemy collision\n");
-			auto enemy = (AbstractEnemy*)col->collider->GetGameObject();
-			if (enemy != nullptr)
-				enemy->OnDead(true);
-		}
-	}*/
+
 }
 
 void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
-	//DebugOut(L"Attack box overlap\n");
-	//if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
-	//{
-	//	DebugOut(L"Enemy collision\n");
-	//	/*auto enemy = (AbstractEnemy*)otherCollider->GetGameObject();
-	//	if (enemy != nullptr)
-	//		enemy->OnDead(true);*/
-	//}
+	auto otherTag = otherCollider->GetGameObject()->GetTag();
+	if (TagUtils::EnemyTag(otherTag))
+	{
+		auto gmap = Game::GetInstance().GetService<GameMap>();
+		auto spawner = gmap->GetSpawnerManager();
+		auto fxPool = spawner->GetService<EffectPool>();
+
+		fxPool->CreateFX("fx-hit-star", transform.Position);
+
+		switch (otherTag)
+		{
+		case ObjectTags::KoopasShell:
+		{
+			SetActive(false);
+			selfCollider->Disable();
+			static_cast<KoopasShell*>(otherCollider->GetGameObject())->OnDead(false);
+		}
+			break;
+		}
+	}
 }

@@ -3,6 +3,7 @@
 #include "AnimationDatabase.h"
 #include "Mathf.h"
 #include "AbstractEnemy.h"
+#include "EffectPool.h"
 
 void MarioFireball::Awake()
 {
@@ -41,18 +42,17 @@ void MarioFireball::OnCollisionEnter(Collider2D* selfCollider, std::vector<Colli
 {
 	for (auto col : collisions)
 	{
-		if (//col->collisionDirection.y < 0 && 
-			col->collisionDirection.x != 0 &&
+		if (col->collisionDirection.x != 0 &&
 			(TagUtils::StaticTag(col->collider->GetGameObject()->GetTag())))
 		{
-			pool->Revoke(this);
+			Explode();
 		}
 		else if (TagUtils::EnemyTag(col->collider->GetGameObject()->GetTag()))
 		{
 			auto enemy = (AbstractEnemy*)col->collider->GetGameObject();
 			if (enemy != nullptr)
 				enemy->OnDead(true);
-			pool->Revoke(this);
+			Explode();
 		}
 	}
 }
@@ -80,4 +80,15 @@ void MarioFireball::LateUpdate()
 void MarioFireball::LinkToPool(ObjectPool* pool)
 {
 	this->pool = pool;
+}
+
+void MarioFireball::Explode()
+{
+	pool->Revoke(this);
+
+	auto gmap = Game::GetInstance().GetService<GameMap>();
+	auto spawner = gmap->GetSpawnerManager();
+	auto fxPool = spawner->GetService<EffectPool>();
+
+	fxPool->CreateFX("fx-smoke-spot", transform.Position);
 }

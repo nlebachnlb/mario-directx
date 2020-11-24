@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "AbstractEnemy.h"
 #include "KoopasShell.h"
+#include "EffectPool.h"
 
 void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions, 
 	Rigidbody2D* rigidbody, Vector2& velocity, 
@@ -96,7 +97,6 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 						{
 							mario->HoldObject(shell);
 							shell->GetRigidbody()->SetGravity(0);
-							shell->GetColliders()->at(0)->Disable();
 							shell->PassToHolder(mario);
 						}
 					}
@@ -113,7 +113,9 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					mario->Jump(MARIO_JUMP_FORCE, true);
 					
 					if (enemy != nullptr)
+					{
 						enemy->OnDead(false);
+					}
 				}
 				else if (collision->collisionDirection.y > 0)
 				{
@@ -159,7 +161,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 					{
 						mario->HoldObject(shell);
 						shell->GetRigidbody()->SetGravity(0);
-						shell->GetColliders()->at(0)->Disable();
+						// shell->GetColliders()->at(0)->Disable();
 						shell->PassToHolder(mario);
 					}
 				}

@@ -4,7 +4,7 @@
 	<Textures gameObjectId="0" textureId="tex-misc">
 
 		<!-- COIN -->
-		<Animation aniId="ani-coin" frameTime="100">
+		<Animation aniId="ani-coin" frameTime="150">
 			<Sprite id="spr-coin-0" left="294" top="101"  width="8" height="14"/>
 			<Sprite id="spr-coin-1" left="311" top="101"  width="1" height="14"/>
 			<Sprite id="spr-coin-2" left="321" top="101"  width="4" height="14"/>

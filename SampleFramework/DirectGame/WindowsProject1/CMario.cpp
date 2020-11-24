@@ -240,6 +240,18 @@ void CMario::HoldObject(Holdable* holdableObj)
 	holdableObj->PassToHolder(this);
 }
 
+void CMario::ReleaseInHandObject()
+{
+	hold = false;
+	if (heldInHandsObject != nullptr) heldInHandsObject->Release();
+	heldInHandsObject = nullptr;
+}
+
+Holdable* CMario::GetInHandObject()
+{
+	return this->heldInHandsObject;
+}
+
 void CMario::SetController(PlayerController* controller)
 {
 	this->controller = controller;
@@ -253,6 +265,19 @@ bool CMario::IsInvincible()
 void CMario::SetInvincible(bool invincible)
 {
 	this->invincible = invincible;
+}
+
+void CMario::PassPrivateData(CMario* other)
+{
+	other->posBeforeJump = posBeforeJump;
+	other->physicState = physicState;
+	other->pMeter = pMeter;
+	other->feverState = feverState;
+	other->feverTime = feverTime;
+	other->lastFeverTime = lastFeverTime;
+	other->hold = hold;
+	other->pushSide = pushSide;
+	other->invincible = invincible;
 }
 
 #pragma region Keyboard
@@ -460,6 +485,7 @@ void CMario::InitAnimations()
 
 	AddAnimation("HoldIdle",	animations->Get("ani-big-mario-hold-idle"));
 	AddAnimation("HoldMove",	animations->Get("ani-big-mario-hold"));
+	AddAnimation("HoldJump",	animations->Get("ani-big-mario-hold-jump"));
 	AddAnimation("Kick",		animations->Get("ani-big-mario-kick"));
 }
 
@@ -503,9 +529,9 @@ void CMario::JumpingAnimation()
 	}
 
 	if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
-		SetState(hold ? "Fall" : "Jump");
+		SetState(hold ? "HoldJump" : "Jump");
 	else if (physicState.jump == JumpingStates::Fall)
-		SetState("Fall");
+		SetState(hold ? "HoldJump" : "Fall");
 }
 
 #pragma endregion
@@ -551,8 +577,7 @@ void CMario::HoldProcess()
 		}
 		else
 		{
-			hold = false;
-			heldInHandsObject->Release();
+			ReleaseInHandObject();
 		}
 	}
 }

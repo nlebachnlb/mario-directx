@@ -7,7 +7,7 @@ const int RACCOON_FLOAT_TIME = 500; // miliseconds
 const int RACCOON_FLY_TIME = 4000; // miliseconds = 4 seconds
 const float RACCOON_FLY_VELOCITY = -0.3f;
 const int RACCOON_FEVER_TIME = 100;
-const float RACCOON_ATTACK_TIME = 400;
+const float RACCOON_ATTACK_TIME = 200;
 
 class RaccoonMario : public CMario
 {
@@ -25,7 +25,8 @@ protected:
 	void LateUpdate() override;
 	void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions) override;
 private:
-	bool attacking, physicalAttacking;
+	bool attacking;
+	int physicalAttacking;
 	bool floating, pushing;
 	int flying;
 	int lastFloatingTime, lastFlyingTime, lastPushingTime, lastAttackingTime;
