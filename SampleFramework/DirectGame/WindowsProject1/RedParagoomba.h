@@ -1,9 +1,9 @@
 #pragma once
 #include "RedGoomba.h"
 
-const float RED_PARAGOOMBA_HIGH_JUMP = 0.53f;
-const float RED_PARAGOOMBA_LOW_JUMP = 0.2f;
-const int RED_PARAGOOMBA_BREAK_TIME = 100; // miliseconds
+const float RED_PARAGOOMBA_HIGH_JUMP = 0.7f;
+const float RED_PARAGOOMBA_LOW_JUMP = 0.15f;
+const int RED_PARAGOOMBA_BREAK_TIME = 500; // miliseconds
 
 class RedParagoomba : public RedGoomba
 {

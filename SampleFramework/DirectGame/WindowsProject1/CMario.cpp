@@ -392,7 +392,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 				if (dist >= self->GetBoxSize().x) break;
 			}
 
-			if (footHits.size() == 0) goLeft = true;
+			if (footHits.size() == 0 || headHits.size() <= 1) goLeft = true;
 			else
 			{
 				m = footHits[0]->GetBoundingBox();
@@ -415,7 +415,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 				if (dist >= self->GetBoxSize().x) break;
 			}
 
-			if (footHits.size() == 0) DebugOut(L"Pass RIGHT\n"), goRight = true;
+			if (footHits.size() == 0 || headHits.size() <= 1) DebugOut(L"Pass RIGHT\n"), goRight = true;
 			else
 			{
 				m = footHits[0]->GetBoundingBox();

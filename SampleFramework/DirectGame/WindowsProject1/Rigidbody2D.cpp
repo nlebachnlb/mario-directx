@@ -96,3 +96,14 @@ float Rigidbody2D::GetFallLimitVelocity()
 {
 	return this->fallLimit;
 }
+
+void Rigidbody2D::PassDataTo(Rigidbody2D* target)
+{
+	target->acceleration = this->acceleration;
+	target->drag = this->drag;
+	target->fallLimit = this->fallLimit;
+	target->velocity = this->velocity;
+	target->gravity = this->gravity;
+	target->material = this->material;
+	target->isDynamic = this->isDynamic;
+}

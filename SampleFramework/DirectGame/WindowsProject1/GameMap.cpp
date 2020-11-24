@@ -185,27 +185,11 @@ void GameMap::LoadEnemy()
                         goomba->SetPool(goombaSpawner->GetPool());
                         goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
                         this->gameObjects.push_back(goomba);*/
-                        goombaSpawner->Spawn("enm-tan-goomba", position, &gameObjects);
+                        goombaSpawner->Spawn("enm-tan-goomba", position);
                     }
+                    else if (type.compare("red-para") == 0)
+                        goombaSpawner->Spawn("enm-red-para-goomba", position);
                 }
-                /*else if (name.compare("koopa-shell") == 0)
-                {
-                    auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
-                    if (koopaSpawner == nullptr)
-                    {
-                        koopaSpawner = new KoopaSpawner();
-                        spawnerManager->AddService(koopaSpawner);
-                    }
-
-                    auto oid = objects->at(i)->id;
-
-                    KoopasShell* shell = nullptr;
-                    if (type.compare("red") == 0)
-                    {
-                        shell = koopaSpawner->InstantiateShell(position);
-                        this->gameObjects.push_back(shell);
-                    }
-                }*/
                 else if (name.compare("koopa") == 0)
                 {
                     auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
@@ -217,9 +201,9 @@ void GameMap::LoadEnemy()
 
                     AbstractEnemy* koopa = nullptr;
                     if (type.compare("red") == 0)
-                        koopa = koopaSpawner->Spawn("enm-red-koopa", position, &gameObjects);
+                        koopa = koopaSpawner->Spawn("enm-red-koopa", position);
                     else if (type.compare("green") == 0)
-                        koopa = koopaSpawner->Spawn("enm-green-koopa", position, &gameObjects);
+                        koopa = koopaSpawner->Spawn("enm-green-koopa", position);
 
                     if (koopa != nullptr)
                     {

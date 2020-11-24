@@ -2,9 +2,11 @@
 #include "AnimationDatabase.h"
 #include "Game.h"
 #include "GoombaSpawner.h"
+#include "Mathf.h"
 
 void RedParagoomba::Start()
 {
+	Goomba::Start();
 	SetState("Walk");
 	timer = 0;
 	jumpStep = 0;
@@ -13,9 +15,9 @@ void RedParagoomba::Start()
 void RedParagoomba::InitAnimations()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Idle", animations->Get("ani-red-para-goomba-idle"));
-	AddAnimation("Walk", animations->Get("ani-red-para-goomba-walk"));
-	AddAnimation("Fly", animations->Get("ani-red-para-goomba-fly"));
+	AddAnimation("Idle", animations->Clone("ani-red-para-goomba-idle"));
+	AddAnimation("Walk", animations->Clone("ani-red-para-goomba-walk"));
+	AddAnimation("Fly", animations->Clone("ani-red-para-goomba-fly"));
 }
 
 void RedParagoomba::Movement()
@@ -28,7 +30,7 @@ void RedParagoomba::Movement()
 		{
 			UpdateDirection();
 			auto curVel = rigidbody->GetVelocity();
-			curVel.x *= direction;
+			curVel.x = Mathf::Abs(curVel.x) * direction;
 			rigidbody->SetVelocity(&curVel);
 			timer = 0;
 			jumpStep = 1;
@@ -49,7 +51,7 @@ void RedParagoomba::Movement()
 		case 4:
 		{
 			auto curVel = rigidbody->GetVelocity();
-			curVel.y = RED_PARAGOOMBA_LOW_JUMP;
+			curVel.y = -RED_PARAGOOMBA_LOW_JUMP;
 			rigidbody->SetVelocity(&curVel);
 			onGround = false;
 			jumpStep++;
@@ -58,12 +60,15 @@ void RedParagoomba::Movement()
 		case 5:
 		{
 			auto curVel = rigidbody->GetVelocity();
-			curVel.y = RED_PARAGOOMBA_HIGH_JUMP;
+			curVel.y = -RED_PARAGOOMBA_HIGH_JUMP;
 			rigidbody->SetVelocity(&curVel);
 			onGround = false;
-			jumpStep = 0;
+			jumpStep = 6;
 		}
 		break;
+		case 6:
+			jumpStep = 0;
+			break;
 		}
 	}
 }
@@ -74,7 +79,7 @@ void RedParagoomba::PreRender()
 
 	if (jumpStep >= 2 && currentState.compare("Fly") != 0)
 		SetState("Fly");
-	else if (currentState.compare("Walk") != 0)
+	else if (jumpStep < 2 && currentState.compare("Walk") != 0)
 		SetState("Walk");
 }
 
@@ -94,7 +99,10 @@ void RedParagoomba::OnDead(bool oneHit)
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
 		auto goombaSpawner = gameMap->GetSpawnerManager()->GetService<GoombaSpawner>();
 
-		
+		auto goomba = goombaSpawner->Spawn("enm-red-goomba", transform.Position);
+		rigidbody->PassDataTo(goomba->GetRigidbody());
+		time = -1;
+		dead = true;
 	}
 }
 

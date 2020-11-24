@@ -2,7 +2,7 @@
 #include "AbstractEnemy.h"
 
 const Vector2 GOOMBA_BBOX(16 * 3 - 8, 16 * 3 - 10);
-const float GOOMBA_MOVING_SPEED = 0.1f;
+const float GOOMBA_MOVING_SPEED = 0.09f;
 const PhysicMaterial GOOMBA_PHYSIC_MATERIAL(Vector2(GOOMBA_MOVING_SPEED, 0), 0);
 const float GOOMBA_GRAVITY = 0.0024;
 const int GOOMBA_DEAD_TIME = 800; // miliseconds

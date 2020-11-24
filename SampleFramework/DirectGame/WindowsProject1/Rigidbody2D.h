@@ -32,6 +32,8 @@ public:
 	void SetFallLimitVelocity(float limit);
 	float GetFallLimitVelocity();
 
+	void PassDataTo(Rigidbody2D* target);
+
 protected:
 	PhysicMaterial material;
 	Vector2 velocity;
