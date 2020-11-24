@@ -14,6 +14,7 @@ public:
 	GameMap();
 	GameMap(std::string filePath);
 	void Load(std::string filePath = "", bool manual = true);
+	void LoadEnemy();
 
 	void Initialization() override;
 	MapData* GetMapData();
@@ -36,6 +37,6 @@ private:
 	std::unordered_map<int, Tile> tilesets;
 	std::vector<GameObject> gameObjects;
 	SpawnerManager* spawnerManager;
-
+	TiXmlElement* enemiesData;
 };
 #endif

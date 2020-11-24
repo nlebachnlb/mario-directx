@@ -52,3 +52,9 @@ bool AbstractEnemy::IsDead()
 {
 	return dead;
 }
+
+void AbstractEnemy::UpdateDirection()
+{
+	if (player == nullptr) player = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player, true);
+	direction = player == nullptr ? (Random::Range(0, 100) < 50 ? 1 : -1) : Mathf::Sign(player->GetTransform().Position.x - transform.Position.x);
+}

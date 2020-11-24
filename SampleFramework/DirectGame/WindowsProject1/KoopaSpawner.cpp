@@ -2,6 +2,7 @@
 #include "RedKoopasShell.h"
 #include "Game.h"
 #include "GreenKoopasShell.h"
+#include "GreenKoopa.h"
 
 void KoopaSpawner::Initialization()
 {
@@ -33,4 +34,38 @@ KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType sh
 	shell->SetPool(shells);
 
 	return shell;
+}
+
+AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool reset)
+{
+	auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+	if (scene == nullptr) return nullptr;
+
+	auto pool = GetPool(name);
+
+	if (pool->IsEmpty())
+	{
+		AbstractEnemy* enm = nullptr;
+		if (name.compare("enm-green-koopa") == 0)
+			enm = Instantiate<GreenKoopa>();
+		else if (name.compare("enm-red-koopa") == 0)
+			enm = Instantiate<RedKoopa>();
+
+		DebugOut(L"Koopa-New spawn\n");
+
+		scene->AddObject(enm);
+		enm->SetPosition(position);
+		enm->Start();
+		enm->SetPool(pool);
+		return enm;
+	}
+	else
+	{
+		AbstractEnemy* enm = static_cast<AbstractEnemy*>(pool->Instantiate());
+		enm->SetPool(pool);
+		enm->SetPosition(position);
+		enm->Start();
+		DebugOut(L"Koopa-Old spawn\n");
+		return enm;
+	}
 }

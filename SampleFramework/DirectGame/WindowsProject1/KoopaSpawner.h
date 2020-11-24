@@ -13,6 +13,7 @@ public:
 	KoopaSpawner() : AbstractSpawner() { shells = new ObjectPool(); }
 	void Initialization() override;
 	KoopasShell* InstantiateShell(Vector2 position, KoopasShellType shellType, bool reset = true);
+	AbstractEnemy* Spawn(std::string name, Vector2 position, bool reset = true);
 private:
 	ObjectPool* shells;
 };

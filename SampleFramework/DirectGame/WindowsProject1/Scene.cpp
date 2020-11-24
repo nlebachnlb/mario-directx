@@ -104,6 +104,7 @@ void Scene::Init()
 	auto spawner = gmap->GetSpawnerManager();
 	auto fxPool = spawner->GetService<EffectPool>();
 	fxPool->Initialization();
+	gmap->LoadEnemy();
 
 	ProcessInstantiateRequests();
 	for (auto o : *objects)

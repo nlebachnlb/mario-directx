@@ -27,202 +27,211 @@ GameMap::GameMap(std::string filePath)
 
 void GameMap::Load(std::string filePath, bool manual)
 {
-    if (manual)
+    mapData = MapData::FromTMX(filePath);
+
+    if (spawnerManager == nullptr) spawnerManager = new SpawnerManager();
+    spawnerManager->ClearServices();
+
+    auto fxPool = new EffectPool();
+    spawnerManager->AddService(fxPool);
+
+    auto tilesets = mapData->GetTilesets();
+    for (auto x : *tilesets)
     {
-        mapData = MapData::FromTMX(filePath);
+        auto tileset = x.second;
+        auto texManager = Game::GetInstance().GetService<TextureManager>();
+        auto tilesetTexture = texManager->LoadTexture(ToLPCWSTR(tileset->GetSource()));
 
-        if (spawnerManager == nullptr) spawnerManager = new SpawnerManager();
-        spawnerManager->ClearServices();
+        Tile tile = new CTile(
+            "map-tileset",
+            0, 0,
+            tileset->GetImageWidth(), tileset->GetImageHeight(),
+            tilesetTexture);
 
-        auto fxPool = new EffectPool();
-        spawnerManager->AddService(fxPool);
+        this->tilesets.insert(make_pair(tileset->GetID(), tile));
+    }
 
-        auto tilesets = mapData->GetTilesets();
-        for (auto x : *tilesets)
+    auto objectGroups = mapData->GetObjectGroups();
+    // Load game objects
+    gameObjects.clear();
+    for (auto x : *objectGroups)
+    {
+        auto objectGroup = x.second;
+        auto objects = objectGroup->GetObjects();
+        auto groupName = objectGroup->GetName();
+
+        if (groupName.compare("Solid") == 0)
         {
-            auto tileset = x.second;
-            auto texManager = Game::GetInstance().GetService<TextureManager>();
-            auto tilesetTexture = texManager->LoadTexture(ToLPCWSTR(tileset->GetSource()));
+            for (int i = 0; i < objects->size(); ++i)
+            {
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                Vector2 size(objects->at(i)->width, objects->at(i)->height);
+                DebugOut(L"Solid: %f, %f, %f, %f\n", position.x, position.y, size.x, size.y);
 
-            Tile tile = new CTile(
-                "map-tileset",
-                0, 0,
-                tileset->GetImageWidth(), tileset->GetImageHeight(),
-                tilesetTexture);
+                SolidBox* solid = Instantiate<SolidBox>();
+                solid->SetPosition(position + (size / 2.0f));
+                solid->GetColliders()->at(0)->SetBoxSize(size);
+                this->gameObjects.push_back(solid);
 
-            this->tilesets.insert(make_pair(tileset->GetID(), tile));
+                auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
+                // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+            }
         }
 
-        auto objectGroups = mapData->GetObjectGroups();
-        // Load game objects
-        gameObjects.clear();
-        for (auto x : *objectGroups)
+        if (groupName.compare("Ghost") == 0)
         {
-            auto objectGroup = x.second;
-            auto objects = objectGroup->GetObjects();
-            auto groupName = objectGroup->GetName();
-
-            if (groupName.compare("Solid") == 0)
+            for (int i = 0; i < objects->size(); ++i)
             {
-                for (int i = 0; i < objects->size(); ++i)
-                {
-                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
-                    Vector2 size(objects->at(i)->width, objects->at(i)->height);
-                    DebugOut(L"Solid: %f, %f, %f, %f\n", position.x, position.y, size.x, size.y);
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                Vector2 size(objects->at(i)->width, objects->at(i)->height);
 
-                    SolidBox* solid = Instantiate<SolidBox>();
-                    solid->SetPosition(position + (size / 2.0f));
-                    solid->GetColliders()->at(0)->SetBoxSize(size);
-                    this->gameObjects.push_back(solid);
+                GhostPlatform* solid = Instantiate<GhostPlatform>();
+                solid->SetPosition(position + (size / 2.0f));
+                solid->GetColliders()->at(0)->SetBoxSize(size);
+                this->gameObjects.push_back(solid);
 
-                    auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
-                    // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
-                }
+                auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
+                // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
             }
+        }
 
-            if (groupName.compare("Ghost") == 0)
+        if (groupName.compare("QuestionBlocks") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
             {
-                for (int i = 0; i < objects->size(); ++i)
-                {
-                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
-                    Vector2 size(objects->at(i)->width, objects->at(i)->height);
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                auto name = objects->at(i)->name;
+                auto type = stoi(objects->at(i)->type);
 
-                    GhostPlatform* solid = Instantiate<GhostPlatform>();
-                    solid->SetPosition(position + (size / 2.0f));
-                    solid->GetColliders()->at(0)->SetBoxSize(size);
-                    this->gameObjects.push_back(solid);
+                QuestionBlock* solid = Instantiate<QuestionBlock>();
+                solid->SetPosition(position);
+                this->gameObjects.push_back(solid);
 
-                    auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
-                    // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
-                }
+                if (name.compare("bcoin") == 0)
+                    solid->SetItem({ ItemTags::Coin, type });
+                else if (name.compare("bmushroom") == 0)
+                    solid->SetItem({ ItemTags::Mushroom, type });
+                else if (name.compare("bleaf") == 0)
+                    solid->SetItem({ ItemTags::Leaf, type });
             }
+        }
 
-            if (groupName.compare("QuestionBlocks") == 0)
+        if (groupName.compare("Bricks") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
             {
-                for (int i = 0; i < objects->size(); ++i)
-                {
-                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
-                    auto name = objects->at(i)->name;
-                    auto type = stoi(objects->at(i)->type);
-
-                    QuestionBlock* solid = Instantiate<QuestionBlock>();
-                    solid->SetPosition(position);
-                    this->gameObjects.push_back(solid);
-
-                    if (name.compare("bcoin") == 0)
-                        solid->SetItem({ ItemTags::Coin, type });
-                    else if (name.compare("bmushroom") == 0)
-                        solid->SetItem({ ItemTags::Mushroom, type });
-                    else if (name.compare("bleaf") == 0)
-                        solid->SetItem({ ItemTags::Leaf, type });
-                }
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                Brick* solid = Instantiate<Brick>();
+                solid->SetPosition(position);
+                this->gameObjects.push_back(solid);
             }
+        }
 
-            if (groupName.compare("Bricks") == 0)
+        if (groupName.compare("Items") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
             {
-                for (int i = 0; i < objects->size(); ++i)
-                {
-                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
-                    Brick* solid = Instantiate<Brick>();
-                    solid->SetPosition(position);
-                    this->gameObjects.push_back(solid);
-                }
-            }
+                auto name = objects->at(i)->name;
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                auto type = objects->at(i)->type;
 
-            if (groupName.compare("Enemies") == 0)
-            {
-                for (int i = 0; i < objects->size(); ++i)
+                if (name.compare("coin") == 0)
                 {
-                    auto name = objects->at(i)->name;
-                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
-                    auto type = objects->at(i)->type;
-
-                    if (name.compare("goomba") == 0)
+                    if (type.compare("basic") == 0)
                     {
-                        auto goombaSpawner = spawnerManager->GetService<GoombaSpawner>();
-                        if (goombaSpawner == nullptr)
-                        {
-                            goombaSpawner = new GoombaSpawner();
-                            spawnerManager->AddService(goombaSpawner);
-                        }
-
-                        if (type.compare("basic") == 0)
-                        {
-                            auto oid = objects->at(i)->id;
-                            auto goomba = Instantiate<Goomba>();
-                            goomba->SetPosition(position);
-                            goomba->SetPool(goombaSpawner->GetPool());
-                            goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
-                            this->gameObjects.push_back(goomba);
-                        }
-                    }
-                    /*else if (name.compare("koopa-shell") == 0)
-                    {
-                        auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
-                        if (koopaSpawner == nullptr)
-                        {
-                            koopaSpawner = new KoopaSpawner();
-                            spawnerManager->AddService(koopaSpawner);
-                        }
-
                         auto oid = objects->at(i)->id;
-
-                        KoopasShell* shell = nullptr;
-                        if (type.compare("red") == 0)
-                        {
-                            shell = koopaSpawner->InstantiateShell(position);
-                            this->gameObjects.push_back(shell);
-                        }
-                    }*/
-                    else if (name.compare("koopa") == 0)
-                    {
-                        auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
-                        if (koopaSpawner == nullptr)
-                        {
-                            koopaSpawner = new KoopaSpawner();
-                            spawnerManager->AddService(koopaSpawner); 
-                        }
-
-                        AbstractEnemy* koopa = nullptr;
-                        if (type.compare("red") == 0)
-                            koopa = Instantiate<RedKoopa>();
-                        else if (type.compare("green") == 0)
-                            koopa = Instantiate<GreenKoopa>();
-                        
-                        if (koopa != nullptr)
-                        {
-                            auto oid = objects->at(i)->id;
-                            koopa->SetPosition(position);
-                            koopa->SetPool(koopaSpawner->GetPool());
-                            koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
-                            this->gameObjects.push_back(koopa);
-                        }
-                    }
-                }
-            }
-
-            if (groupName.compare("Items") == 0)
-            {
-                for (int i = 0; i < objects->size(); ++i)
-                {
-                    auto name = objects->at(i)->name;
-                    Vector2 position(objects->at(i)->x, objects->at(i)->y);
-                    auto type = objects->at(i)->type;
-
-                    if (name.compare("coin") == 0)
-                    {
-                        if (type.compare("basic") == 0)
-                        {
-                            auto oid = objects->at(i)->id;
-                            auto coin = Instantiate<Coin>();
-                            coin->SetPosition(position);
-                            this->gameObjects.push_back(coin);
-                        }
+                        auto coin = Instantiate<Coin>();
+                        coin->SetPosition(position);
+                        this->gameObjects.push_back(coin);
                     }
                 }
             }
         }
-        return;
+    }
+    return;
+}
+
+void GameMap::LoadEnemy()
+{
+    auto objectGroups = mapData->GetObjectGroups();
+    for (auto x : *objectGroups)
+    {
+        auto objectGroup = x.second;
+        auto objects = objectGroup->GetObjects();
+        auto groupName = objectGroup->GetName();
+
+        if (groupName.compare("Enemies") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
+            {
+                auto name = objects->at(i)->name;
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                auto type = objects->at(i)->type;
+
+                if (name.compare("goomba") == 0)
+                {
+                    auto goombaSpawner = spawnerManager->GetService<GoombaSpawner>();
+                    if (goombaSpawner == nullptr)
+                    {
+                        goombaSpawner = new GoombaSpawner();
+                        spawnerManager->AddService(goombaSpawner);
+                    }
+
+                    if (type.compare("basic") == 0)
+                    {
+                        auto oid = objects->at(i)->id;
+                        /*auto goomba = Instantiate<Goomba>();
+                        goomba->SetPosition(position);
+                        goomba->SetPool(goombaSpawner->GetPool());
+                        goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
+                        this->gameObjects.push_back(goomba);*/
+                        goombaSpawner->Spawn("enm-tan-goomba", position, &gameObjects);
+                    }
+                }
+                /*else if (name.compare("koopa-shell") == 0)
+                {
+                    auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
+                    if (koopaSpawner == nullptr)
+                    {
+                        koopaSpawner = new KoopaSpawner();
+                        spawnerManager->AddService(koopaSpawner);
+                    }
+
+                    auto oid = objects->at(i)->id;
+
+                    KoopasShell* shell = nullptr;
+                    if (type.compare("red") == 0)
+                    {
+                        shell = koopaSpawner->InstantiateShell(position);
+                        this->gameObjects.push_back(shell);
+                    }
+                }*/
+                else if (name.compare("koopa") == 0)
+                {
+                    auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
+                    if (koopaSpawner == nullptr)
+                    {
+                        koopaSpawner = new KoopaSpawner();
+                        spawnerManager->AddService(koopaSpawner);
+                    }
+
+                    AbstractEnemy* koopa = nullptr;
+                    if (type.compare("red") == 0)
+                        koopa = koopaSpawner->Spawn("enm-red-koopa", position, &gameObjects);
+                    else if (type.compare("green") == 0)
+                        koopa = koopaSpawner->Spawn("enm-green-koopa", position, &gameObjects);
+
+                    if (koopa != nullptr)
+                    {
+                        auto oid = objects->at(i)->id;
+                        /*koopa->SetPosition(position);
+                        koopa->SetPool(koopaSpawner->GetPool());
+                        koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
+                        this->gameObjects.push_back(koopa);*/
+                    }
+                }
+            }
+        }
     }
 }
 

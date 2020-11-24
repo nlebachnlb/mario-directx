@@ -32,6 +32,7 @@ public:
 	static bool EnemyTag(ObjectTags tag);
 	static bool ProjectilesTag(ObjectTags tag);
 	static bool StaticTag(ObjectTags tag);
+	static bool PlatformTag(ObjectTags tag);
 	static bool PowerupTag(ObjectTags tag);
 	static bool ItemTag(ObjectTags tag);
 };

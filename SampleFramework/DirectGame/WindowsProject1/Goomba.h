@@ -12,7 +12,7 @@ class Goomba : public AbstractEnemy
 {
 public:
 	void Start()			override;
-	void Movement()			override;
+	virtual void Movement()			override;
 	virtual void InitAnimations()	override;
 	void OnDead(bool oneHit)override;
 	virtual void OnEnabled() override;

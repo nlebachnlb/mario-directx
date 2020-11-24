@@ -11,7 +11,7 @@
       <Sprite id="spr-goomba-idle-0" left="9" top="11"  width="16" height="16"/>
     </Animation>
     <!-- Animation WALK-->
-    <Animation aniId="ani-goomba-walk" frameTime="100">
+    <Animation aniId="ani-goomba-walk" frameTime="150">
       <Sprite id="spr-goomba-walk-0" left="9" top="11"  width="16" height="16"/>
       <Sprite id="spr-goomba-walk-1" left="32" top="11"  width="16" height="16"/>
     </Animation>
@@ -27,7 +27,7 @@
       <Sprite id="spr-red-goomba-idle-1" left="125" top="70"  width="16" height="16"/>
     </Animation>
     <!-- Animation WALK-->
-    <Animation aniId="ani-red-goomba-walk" frameTime="100">
+    <Animation aniId="ani-red-goomba-walk" frameTime="150">
       <Sprite id="spr-red-goomba-walk-0" left="104" top="70"  width="16" height="16"/>
       <Sprite id="spr-red-goomba-walk-1" left="125" top="70"  width="16" height="16"/>
     </Animation>
@@ -55,14 +55,20 @@
 
     <!--Red Para Goomba-->
     <!-- Animation IDLE-->
-    <Animation aniId="ani-red-para-goomba-idle" frameTime="100">
+    <Animation aniId="ani-red-para-goomba-idle" frameTime="150">
+      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19"/>
+    </Animation>
+
+    <Animation aniId="ani-red-para-goomba-walk" frameTime="150">
       <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19"/>
       <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19"/>
     </Animation>
     <!-- Animation FLAP-->
-    <Animation aniId="ani-red-para-goomba-fly" frameTime="100">
+    <Animation aniId="ani-red-para-goomba-fly" frameTime="150">
       <Sprite id="spr-red-para-goomba-flap-0" left="66" top="35"  width="20" height="24"/>
+      <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19"/>
       <Sprite id="spr-red-para-goomba-flap-1" left="90" top="35"  width="20" height="24"/>
+      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19"/>
     </Animation>
 
     <!--		VENUS		-->

@@ -351,9 +351,6 @@
     <ClInclude Include="VisionBox.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractBlock.h">
       <Filter>GameSource\GameObjects\Blocks</Filter>
     </ClInclude>
@@ -396,9 +393,6 @@
     <ClInclude Include="Raycast.h">
       <Filter>Framework\Game\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="RedParagoomba.h">
-      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
-    </ClInclude>
     <ClInclude Include="GreenKoopasShell.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClInclude>
@@ -422,6 +416,15 @@
     </ClInclude>
     <ClInclude Include="HitStarFX.h">
       <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClInclude>
+    <ClInclude Include="RedGoomba.h">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClInclude>
+    <ClInclude Include="RedParagoomba.h">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -684,9 +687,6 @@
     <ClCompile Include="Raycast.cpp">
       <Filter>Framework\Game\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="RedParagoomba.cpp">
-      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
-    </ClCompile>
     <ClCompile Include="GreenKoopasShell.cpp">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClCompile>
@@ -707,6 +707,12 @@
     </ClCompile>
     <ClCompile Include="HitStarFX.cpp">
       <Filter>GameSource\GameObjects\Effects\HitFX</Filter>
+    </ClCompile>
+    <ClCompile Include="RedGoomba.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClCompile>
+    <ClCompile Include="RedParagoomba.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

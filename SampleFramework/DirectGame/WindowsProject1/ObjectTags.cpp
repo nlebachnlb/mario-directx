@@ -20,6 +20,11 @@ bool TagUtils::StaticTag(ObjectTags tag)
     return tag == ObjectTags::Solid ||tag == ObjectTags::Block;
 }
 
+bool TagUtils::PlatformTag(ObjectTags tag)
+{
+    return tag == ObjectTags::Solid || tag == ObjectTags::Block || tag == ObjectTags::GhostPlatform;
+}
+
 bool TagUtils::PowerupTag(ObjectTags tag)
 {
     return tag == ObjectTags::RedMushroom ||

@@ -2,6 +2,7 @@
 #include "Service.h"
 #include "ObjectPool.h"
 #include "Transform.h"
+#include "AbstractEnemy.h"
 
 struct SpawnPrototype
 {
@@ -27,15 +28,14 @@ public:
 	virtual ~AbstractSpawner();
 
 	virtual void Initialization() override;
-
-	GameObject Spawn(Vector2 position, bool reset = true);
+	virtual AbstractEnemy* Spawn(std::string name, Vector2 position, bool reset = true) = 0;
 	SpawnPrototype* GetPrototypeAt(int id);
 	void AddPrototype(int, SpawnPrototype* prototype);
+	ObjectPool* GetPool(std::string name);
 
-	ObjectPool* GetPool();
+	// ObjectPool* GetPool(std::string name);
 
 protected:
-	ObjectPool* pool;
+	std::unordered_map<std::string, ObjectPool*> pools;
 	std::unordered_map<int, SpawnPrototype*> prototypes;
 };
-

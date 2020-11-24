@@ -198,6 +198,7 @@
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="RedKoopasShell.h" />
     <ClInclude Include="RedMushroom.h" />
+    <ClInclude Include="RedGoomba.h" />
     <ClInclude Include="RedParagoomba.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="ShrinkDownFX.h" />
@@ -284,6 +285,7 @@
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="RedKoopasShell.cpp" />
     <ClCompile Include="RedMushroom.cpp" />
+    <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="RedParagoomba.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />
