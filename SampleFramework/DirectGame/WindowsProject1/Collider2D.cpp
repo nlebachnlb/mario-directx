@@ -9,7 +9,7 @@ Collider2D::Collider2D()
     boxSize = Vector2(1.0f, 1.0f);
     isTrigger = false;
 	this->name = "";
-	this->pushCoefficient = 0.8f;
+	this->pushCoefficient = 0.4f;
 	Enable();
 }
 
@@ -140,9 +140,10 @@ CollisionEvent* Collider2D::SweptAABBEx(Collider2D* other)
 	auto velocity = other->GetGameObject()->GetRigidbody()->GetVelocity();
 	svx = velocity.x;
 	svy = velocity.y;
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 
-	float sdx = svx * Game::DeltaTime();
-	float sdy = svy * Game::DeltaTime();
+	float sdx = svx * dt;
+	float sdy = svy * dt;
 
 	float dx = this->dvx - sdx;
 	float dy = this->dvy - sdy;
@@ -172,7 +173,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 		if (coObjects->at(i)->GetColliders()->at(0) == this) continue;
 		if (coObjects->at(i)->IsEnabled() == false) continue;
 
-		auto selfBox = GetBoundingBox();
+		/*auto selfBox = GetBoundingBox();
 		auto otherBox = coObjects->at(i)->GetColliders()->at(0)->GetBoundingBox();
 		if (selfBox.TouchOrIntersect(otherBox) || otherBox.TouchOrIntersect(selfBox) || 
 			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
@@ -183,7 +184,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			if (!other->GetGameObject()->GetRigidbody()->IsDynamic())
 				other->GetGameObject()->OnOverlapped(other, this);
 			continue;
-		}
+		}*/
 
 		auto otherTag = coObjects->at(i)->GetTag();
 		auto selfTag = gameObject->GetTag();
@@ -216,7 +217,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			delete e;
 	}
 
-	if (solid == false) gameObject->OnSolidOverlappedExit();
+	// if (solid == false) gameObject->OnSolidOverlappedExit();
 	std::sort(temp.begin(), temp.end(), CollisionEvent::Comparator);
 
 	for (auto col0 : temp)
@@ -224,7 +225,8 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 		for (auto col1 : coEvents)
 		{
 			Vector2 d(this->dvx, this->dvy);
-			auto dist = d - col0->collider->GetGameObject()->GetRigidbody()->GetVelocity() * Game::DeltaTime();
+			auto dt = Game::DeltaTime() * Game::GetTimeScale();
+			auto dist = d - col0->collider->GetGameObject()->GetRigidbody()->GetVelocity() * dt;
 
 			if (col0->collisionDirection.x != 0)
 			{
@@ -387,6 +389,34 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 	}
 }
 
+void Collider2D::CalcOverlappedCollisions(vector<GameObject>* coObjects)
+{
+	bool solid = false;
+	for (int i = 0; i < coObjects->size(); ++i)
+	{
+		if (coObjects->at(i)->IsDestroyed()) continue;
+		if (coObjects->at(i)->GetColliders() == nullptr) continue;
+		if (coObjects->at(i)->GetColliders()->size() == 0) continue;
+		if (coObjects->at(i)->GetColliders()->at(0) == this) continue;
+		if (coObjects->at(i)->IsEnabled() == false) continue;
+
+		auto selfBox = GetBoundingBox();
+		auto otherBox = coObjects->at(i)->GetColliders()->at(0)->GetBoundingBox();
+		if (selfBox.TouchOrIntersect(otherBox) || otherBox.TouchOrIntersect(selfBox) ||
+			selfBox.Contains(otherBox) || otherBox.Contains(selfBox))
+		{
+			auto other = coObjects->at(i)->GetColliders()->at(0);
+			if (TagUtils::StaticTag(coObjects->at(i)->GetTag())) solid = true;
+			this->gameObject->OnOverlapped(this, coObjects->at(i)->GetColliders()->at(0));
+			if (!other->GetGameObject()->GetRigidbody()->IsDynamic())
+				other->GetGameObject()->OnOverlapped(other, this);
+			continue;
+		}
+	}
+
+	if (solid == false) gameObject->OnSolidOverlappedExit();
+}
+
 void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 {
 	if (gameObject == nullptr || gameObject->IsEnabled() == false) return;
@@ -394,7 +424,6 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 	if (gameObject->GetColliders()->size() == 0) return;
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
-
 	this->dvx = gameObject->GetRigidbody()->GetVelocity().x * dt;
 	this->dvy = gameObject->GetRigidbody()->GetVelocity().y * dt;
 
@@ -436,6 +465,8 @@ void Collider2D::PhysicsUpdate(vector<GameObject>* coObjects)
 	}
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	CalcOverlappedCollisions(coObjects);
 }
 
 void Collider2D::BlockPosition(vector<CollisionEvent*>& collisions, float& min_tx, float& min_ty, float& nx, float& ny)
@@ -448,17 +479,19 @@ void Collider2D::BlockPosition(vector<CollisionEvent*>& collisions, float& min_t
 
 void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigidbody2D* rigidbody, Vector2& velocity, int mintx, int minty, int nx, int ny)
 {
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+
 	if (ny != 0)
 	{
 		velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
-		 dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * Game::DeltaTime();
+		dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * dt;
 		rigidbody->SetVelocity(&velocity);
 	}
 
 	if (nx != 0)
 	{
 		velocity.x = -1 * Mathf::Sign(velocity.x) * rigidbody->GetMaterial().bounciness.x;
-		 dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * Game::DeltaTime();
+		dvx = -1 * Mathf::Sign(dvx) * rigidbody->GetMaterial().bounciness.x * dt;
 		rigidbody->SetVelocity(&velocity);
 	}
 }

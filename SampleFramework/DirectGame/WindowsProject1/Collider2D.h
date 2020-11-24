@@ -51,6 +51,7 @@ public:
 		float& min_ty,
 		float& nx,
 		float& ny);
+	void CalcOverlappedCollisions(vector<GameObject>* coObjects);
 	void PhysicsUpdate(vector<GameObject>* coObjects);
 
 	void AttachToEntity(GameObject gameObject);

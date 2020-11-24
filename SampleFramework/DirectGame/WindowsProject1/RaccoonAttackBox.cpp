@@ -2,6 +2,7 @@
 #include "AbstractEnemy.h"
 #include "Game.h"
 #include "EffectPool.h"
+#include "KoopasShell.h"
 
 void RaccoonAttackBox::Awake()
 {
@@ -28,12 +29,24 @@ void RaccoonAttackBox::OnCollisionEnter(Collider2D* selfCollider, std::vector<Co
 
 void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
-	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
+	auto otherTag = otherCollider->GetGameObject()->GetTag();
+	if (TagUtils::EnemyTag(otherTag))
 	{
 		auto gmap = Game::GetInstance().GetService<GameMap>();
 		auto spawner = gmap->GetSpawnerManager();
 		auto fxPool = spawner->GetService<EffectPool>();
 
 		fxPool->CreateFX("fx-hit-star", transform.Position);
+
+		switch (otherTag)
+		{
+		case ObjectTags::KoopasShell:
+		{
+			SetActive(false);
+			selfCollider->Disable();
+			static_cast<KoopasShell*>(otherCollider->GetGameObject())->OnDead(false);
+		}
+			break;
+		}
 	}
 }
