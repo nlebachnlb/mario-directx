@@ -8,3 +8,8 @@ My project in the subject "Introduction to Game Development" at my university us
 * Map editor: Tiled Map Editor
 * Data reader: TinyXML library for reading XML
 * Image editor: Adobe Photoshop
+## Technique
+* SweptAABB: for detecting collisions of physical movement
+* AABB: for detecting overlapped collisions
+* Raycast: for asynchronous line collision checking calls
+* Grid: for space partitioning
