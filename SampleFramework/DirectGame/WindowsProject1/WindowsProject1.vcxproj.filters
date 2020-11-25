@@ -438,6 +438,9 @@
     <ClInclude Include="Plant.h">
       <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
     </ClInclude>
+    <ClInclude Include="PiranhaPlant.h">
+      <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -733,6 +736,9 @@
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClCompile>
     <ClCompile Include="Plant.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="PiranhaPlant.cpp">
       <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
     </ClCompile>
   </ItemGroup>

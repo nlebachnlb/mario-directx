@@ -28,6 +28,7 @@ void Plant::Movement()
 				timer = 0;
 				OnRevealed();
 			}
+			colliders->at(0)->Enable();
 		}
 		break;
 		case 1:
@@ -50,6 +51,7 @@ void Plant::Movement()
 				timer = 0;
 				TrackPlayerPosition();
 				OnHidden();
+				colliders->at(0)->Disable();
 			}
 		}
 		break;
@@ -80,6 +82,22 @@ void Plant::OnDead(bool oneHit)
 		fxPool->CreateFX("fx-smoke-spot", transform.Position);
 		dead = true;
 		time = -1;
+	}
+}
+
+void Plant::PreRender()
+{
+	// Default animation
+	switch (movementPhase)
+	{
+	case 0:
+	case 2:
+		if (currentState.compare("Reveal") != 0) SetState("Reveal");
+		break;
+	case 1:
+	case 3:
+		if (currentState.compare("Idle") != 0) SetState("Idle");
+		break;
 	}
 }
 

@@ -13,6 +13,7 @@ public:
 	virtual void Start() override;
 	virtual void Movement() override;
 	virtual void OnDead(bool oneHit) override;
+	virtual void PreRender() override;
 
 	virtual void OnRevealed();
 	virtual void OnHidden();
