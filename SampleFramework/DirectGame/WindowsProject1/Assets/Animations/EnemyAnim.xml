@@ -160,10 +160,14 @@
 
     <!--Green Koopa Paratroopa-->
     <!-- Animation FLY-->
-    <Animation aniId="ani-green-koopa-paratroopa-fly" frameTime="100">
+    <Animation aniId="ani-green-koopa-paratroopa-fly" frameTime="300">
       <Sprite id="spr-green-koopa-paratroopa-fly-0" left="105" top="129"  width="16" height="27"/>
       <Sprite id="spr-green-koopa-paratroopa-fly-1" left="126" top="130"  width="16" height="26"/>
       <Sprite id="spr-green-koopa-paratroopa-fly-2" left="147" top="129"  width="16" height="27"/>
+    </Animation>
+
+    <Animation aniId="ani-green-koopa-paratroopa-idle" frameTime="100">
+      <Sprite id="spr-green-koopa-paratroopa-fly-0" left="105" top="129"  width="16" height="27"/>
     </Animation>
 
     <!--Red Koopa Paratroopa-->

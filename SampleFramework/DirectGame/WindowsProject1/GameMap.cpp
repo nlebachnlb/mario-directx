@@ -204,6 +204,8 @@ void GameMap::LoadEnemy()
                         koopa = koopaSpawner->Spawn("enm-red-koopa", position);
                     else if (type.compare("green") == 0)
                         koopa = koopaSpawner->Spawn("enm-green-koopa", position);
+                    else if (type.compare("green-para") == 0)
+                        koopa = koopaSpawner->Spawn("enm-green-para-koopa", position);
 
                     if (koopa != nullptr)
                     {

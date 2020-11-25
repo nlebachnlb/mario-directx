@@ -132,21 +132,6 @@ void Scene::Update()
 {
 	if (loaded == false) return;
 
-	updated.clear();
-	if (objects != nullptr)
-	{
-		for (auto o : *objects)
-		{
-			if (o == nullptr) continue;
-			if (o->IsDestroyed()) continue;
-			if (o->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 6))
-				continue;
-
-			updated.push_back(o);
-		}
-	}
-
 	for (auto o : updated)
 		o->PhysicsUpdate(objects);
 
@@ -202,6 +187,24 @@ void Scene::ProcessInstantiateRequests()
 			objects->insert(pos, o);
 		}
 		instantiated.clear();
+	}
+}
+
+void Scene::UpdateActiveObjects()
+{
+	updated.clear();
+	if (objects != nullptr)
+	{
+		for (auto o : *objects)
+		{
+			if (o == nullptr) continue;
+			if (o->IsDestroyed()) continue;
+			if (o->IsEnabled() == false) continue;
+			if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 6))
+				continue;
+
+			updated.push_back(o);
+		}
 	}
 }
 

@@ -396,9 +396,6 @@
     <ClInclude Include="GreenKoopasShell.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClInclude>
-    <ClInclude Include="GreenKoopa.h">
-      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
-    </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>GameSource\GameObjects\Items\Misc</Filter>
     </ClInclude>
@@ -425,6 +422,15 @@
     </ClInclude>
     <ClInclude Include="RedParagoomba.h">
       <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaParatroopa.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenKoopa.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenKoopaParatroopa.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -713,6 +719,12 @@
     </ClCompile>
     <ClCompile Include="RedParagoomba.cpp">
       <Filter>GameSource\GameObjects\Enemies\Goombas</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaParatroopa.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKoopaParatroopa.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

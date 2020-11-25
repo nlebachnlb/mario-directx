@@ -108,7 +108,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 			{
 				auto enemy = (AbstractEnemy*)(collision->collider->GetGameObject());
 
-				if (collision->collisionDirection.y < 0)
+				if (collision->collisionDirection.y < 0 && mario->GetRigidbody()->GetVelocity().y > 0.01f)
 				{
 					mario->Jump(MARIO_JUMP_FORCE, true);
 					

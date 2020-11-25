@@ -19,6 +19,7 @@ public:
 	virtual void Render();
 	void CleanDestroyedObjects();
 	void ProcessInstantiateRequests();
+	void UpdateActiveObjects();
 
 	std::string GetID() { return id; }
 	void AddObject(GameObject gameObject);

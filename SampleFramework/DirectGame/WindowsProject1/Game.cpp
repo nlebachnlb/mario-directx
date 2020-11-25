@@ -224,10 +224,10 @@ void Game::GameRun(HWND hWnd)
 		{
 			frameStart = now;
 
-			// Process input
-			InputProc();
 			// Process instantiate requests at last frame
 			Request();
+			// Process input
+			InputProc();
 			// Start updating new frame
 			Update();
 			// Render new frame
@@ -249,7 +249,8 @@ void Game::Request()
 	auto activeScene = sceneManager->GetActiveScene();
 
 	if (activeScene != nullptr)
-		activeScene->ProcessInstantiateRequests();
+		activeScene->ProcessInstantiateRequests(),
+		activeScene->UpdateActiveObjects();
 }
 
 void Game::InputProc()

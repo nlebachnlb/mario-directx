@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "GreenKoopasShell.h"
 #include "GreenKoopa.h"
+#include "GreenKoopaParatroopa.h"
 
 void KoopaSpawner::Initialization()
 {
@@ -50,6 +51,8 @@ AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool rese
 			enm = Instantiate<GreenKoopa>();
 		else if (name.compare("enm-red-koopa") == 0)
 			enm = Instantiate<RedKoopa>();
+		else if (name.compare("enm-green-para-koopa") == 0)
+			enm = Instantiate<GreenKoopaParatroopa>();
 
 		DebugOut(L"Koopa-New spawn\n");
 

@@ -169,6 +169,7 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaSpawner.h" />
     <ClInclude Include="GreenKoopa.h" />
+    <ClInclude Include="GreenKoopaParatroopa.h" />
     <ClInclude Include="GreenKoopasShell.h" />
     <ClInclude Include="GrowUpFX.h" />
     <ClInclude Include="HitFX.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="ItemInfo.h" />
+    <ClInclude Include="KoopaParatroopa.h" />
     <ClInclude Include="KoopaSpawner.h" />
     <ClInclude Include="KoopasShell.h" />
     <ClInclude Include="Layer.h" />
@@ -256,6 +258,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="GoombaSpawner.cpp" />
     <ClCompile Include="GreenKoopa.cpp" />
+    <ClCompile Include="GreenKoopaParatroopa.cpp" />
     <ClCompile Include="GreenKoopasShell.cpp" />
     <ClCompile Include="GrowUpFX.cpp" />
     <ClCompile Include="HitFX.cpp" />
@@ -264,6 +267,7 @@
     <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="ItemInfo.cpp" />
+    <ClCompile Include="KoopaParatroopa.cpp" />
     <ClCompile Include="KoopaSpawner.cpp" />
     <ClCompile Include="KoopasShell.cpp" />
     <ClCompile Include="Layer.cpp" />
