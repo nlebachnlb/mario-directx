@@ -105,10 +105,10 @@
 
     <!--Green Piranha Plant-->
     <!-- Animation ATTACK-->
-    <Animation aniId="ani-green-piranha-plant-attack" frameTime="100">
+    <Animation aniId="ani-green-piranha-plant-attack" frameTime="300">
       <Sprite id="spr-green-piranha-plant-attack-0" left="7" top="108"  width="16" height="23"/>
       <Sprite id="spr-green-piranha-plant-attack-1" left="7" top="137"  width="16" height="24"/>
-    </Animation>
+    </Animation> 
 
     <!--		KOOPA		-->
 

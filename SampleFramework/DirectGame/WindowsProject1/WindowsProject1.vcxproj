@@ -191,6 +191,7 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectTags.h" />
     <ClInclude Include="PhysicMaterial.h" />
+    <ClInclude Include="Plant.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RaccoonAttackBox.h" />
@@ -280,6 +281,7 @@
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectTags.cpp" />
     <ClCompile Include="PhysicMaterial.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonAttackBox.cpp" />

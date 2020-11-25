@@ -166,6 +166,9 @@
     <Filter Include="GameSource\GameObjects\Enemies\Koopas\GreenKoopa">
       <UniqueIdentifier>{df757476-4fa5-4af8-a00a-7f7497d576ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Plants">
+      <UniqueIdentifier>{dc79af46-1747-40b8-b909-6b7070c36e0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -431,6 +434,9 @@
     </ClInclude>
     <ClInclude Include="GreenKoopaParatroopa.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="Plant.h">
+      <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -725,6 +731,9 @@
     </ClCompile>
     <ClCompile Include="GreenKoopaParatroopa.cpp">
       <Filter>GameSource\GameObjects\Enemies\Koopas\GreenKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="Plant.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -113,9 +113,7 @@ void MarioCollider::VerticalCollisionProcess(std::vector<CollisionEvent*>& colli
 					mario->Jump(MARIO_JUMP_FORCE, true);
 					
 					if (enemy != nullptr)
-					{
 						enemy->OnDead(false);
-					}
 				}
 				else if (collision->collisionDirection.y > 0)
 				{
