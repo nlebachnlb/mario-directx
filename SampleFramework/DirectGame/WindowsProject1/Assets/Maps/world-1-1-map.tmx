@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="21" nextobjectid="110">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="157">
  <editorsettings>
   <export target="../../../../../Resource/Xml/NewMap/BigMap/world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -277,41 +277,47 @@
 </data>
  </layer>
  <objectgroup id="13" name="Solid">
-  <object id="8" x="2" y="1247.86" width="1872" height="48"/>
-  <object id="9" x="1872.62" y="1200.47" width="1392" height="96"/>
-  <object id="10" x="3457.38" y="1249.24" width="1006.56" height="46"/>
-  <object id="11" x="4562" y="1248.33" width="238.073" height="52"/>
-  <object id="12" x="4754" y="1104.33" width="46.0906" height="148"/>
-  <object id="14" x="4704" y="1152.33" width="48" height="52"/>
-  <object id="15" x="4656.47" y="1201.24" width="48.7631" height="49.7108"/>
-  <object id="16" x="4943.67" y="1103.53" width="48.9477" height="148.948"/>
-  <object id="17" x="4990" y="1152.47" width="49.5261" height="49.5261"/>
-  <object id="18" x="5040" y="1201.71" width="48" height="44.2892"/>
-  <object id="19" x="4944" y="1247.86" width="1728" height="50"/>
-  <object id="20" x="5326.91" y="1153.09" width="97.0923" height="96.9077"/>
-  <object id="21" x="5520" y="1104.47" width="94.9077" height="147.526"/>
-  <object id="22" x="6719.88" y="1251.17" width="1730.74" height="50.5434"/>
-  <object id="23" x="6719.8" y="1103.91" width="96.2045" height="144.419"/>
-  <object id="24" x="6911.77" y="1150" width="96.2345" height="98"/>
-  <object id="25" x="6720" y="478" width="96" height="530"/>
-  <object id="26" x="1056" y="1103.33" width="96.6667" height="144.667"/>
-  <object id="27" x="4464" y="1006" width="96" height="51"/>
+  <object id="110" x="6720" y="960" width="96" height="48"/>
+  <object id="111" x="6720" y="1104" width="96" height="48"/>
+  <object id="118" x="0" y="1248" width="1872" height="48"/>
+  <object id="119" x="1872" y="1200" width="1392" height="96"/>
+  <object id="120" x="3456" y="1248" width="1008" height="48"/>
+  <object id="121" x="4464" y="1008" width="96" height="48"/>
+  <object id="122" x="4560" y="1248" width="240" height="48"/>
+  <object id="123" x="4752" y="1104" width="48" height="144"/>
+  <object id="124" x="4704" y="1152" width="48" height="96"/>
+  <object id="125" x="4656" y="1200" width="48" height="48"/>
+  <object id="126" x="4944" y="1104" width="48" height="144"/>
+  <object id="127" x="4992" y="1152" width="48" height="96"/>
+  <object id="128" x="5040" y="1200" width="48" height="48"/>
+  <object id="129" x="4944" y="1248" width="1728" height="48"/>
+  <object id="130" x="6720" y="1248" width="1728" height="48"/>
+  <object id="133" x="7008" y="1392" width="384" height="576"/>
+  <object id="134" x="5856" y="1392" width="384" height="576"/>
+  <object id="135" x="6240" y="1872" width="768" height="96"/>
+  <object id="136" x="6864" y="1584" width="144" height="288"/>
+  <object id="137" x="6816" y="1632" width="48" height="240"/>
+  <object id="138" x="6768" y="1680" width="48" height="192"/>
+  <object id="139" x="6720" y="1728" width="48" height="144"/>
+  <object id="140" x="6672" y="1776" width="48" height="96"/>
+  <object id="141" x="6624" y="1824" width="48" height="48"/>
+  <object id="142" x="6336" y="1392" width="576" height="48"/>
  </objectgroup>
  <objectgroup id="14" name="Ghost">
-  <object id="28" x="720.523" y="1104.97" width="142.597" height="47.1135"/>
-  <object id="29" x="817.891" y="1008.86" width="140.712" height="47.7417"/>
-  <object id="30" x="1200.45" y="1104.34" width="239.337" height="47.1135"/>
-  <object id="31" x="1392.68" y="1008.23" width="190.967" height="47.1135"/>
-  <object id="32" x="1537.16" y="912.118" width="189.71" height="47.7417"/>
-  <object id="33" x="1537.16" y="1152.71" width="285.194" height="48.3699"/>
-  <object id="34" x="3889.06" y="433.444" width="190.967" height="45.229"/>
-  <object id="35" x="4176.77" y="576.041" width="190.967" height="47.1135"/>
-  <object id="36" x="4418" y="529.339" width="667.487" height="43.7697"/>
-  <object id="37" x="6385.12" y="1104.31" width="142.349" height="47.2642"/>
-  <object id="38" x="6480.76" y="816.281" width="142.349" height="47.2642"/>
-  <object id="39" x="3745.09" y="1152.82" width="333.545" height="46.9245"/>
-  <object id="40" x="3841.47" y="1056.44" width="334.813" height="48.1928"/>
-  <object id="41" x="3936.59" y="960.051" width="333.545" height="46.9245"/>
+  <object id="143" x="720" y="1104" width="144" height="48"/>
+  <object id="144" x="816" y="1008" width="144" height="48"/>
+  <object id="145" x="1200" y="1104" width="240" height="48"/>
+  <object id="146" x="1392" y="1008" width="192" height="48"/>
+  <object id="147" x="1536" y="912" width="192" height="48"/>
+  <object id="148" x="1536" y="1152" width="288" height="48"/>
+  <object id="149" x="3888" y="432" width="192" height="48"/>
+  <object id="150" x="4176" y="576" width="192" height="48"/>
+  <object id="151" x="4416" y="528" width="672" height="48"/>
+  <object id="152" x="6384" y="1104" width="144" height="48"/>
+  <object id="153" x="6480" y="816" width="144" height="48"/>
+  <object id="154" x="3744" y="1152" width="336" height="48"/>
+  <object id="155" x="3840" y="1056" width="336" height="48"/>
+  <object id="156" x="3936" y="960" width="336" height="48"/>
  </objectgroup>
  <objectgroup id="15" name="Enemies">
   <object id="42" name="goomba" type="basic" x="1608" y="1224"/>
@@ -494,5 +500,13 @@
   <object id="75" x="6312" y="1224">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="21" name="Pipes">
+  <object id="112" x="5328" y="1152" width="96" height="96"/>
+  <object id="113" x="5520" y="1104" width="96" height="144"/>
+  <object id="114" x="6720" y="480" width="96" height="480"/>
+  <object id="115" x="6720" y="1152" width="96" height="96"/>
+  <object id="116" x="6912" y="1152" width="96" height="96"/>
+  <object id="117" x="1056" y="1104" width="96" height="144"/>
  </objectgroup>
 </map>
