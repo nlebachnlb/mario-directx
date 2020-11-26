@@ -24,6 +24,7 @@ void KoopaParatroopa::OnDead(bool oneHit)
 		if (troopa == Troopa::Green) color = "green"; else color = "red";
 		auto name = "enm-" + color + "-koopa";
 		auto koopa = koopaSpawner->Spawn(name, transform.Position);
+		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, 0));
 		rigidbody->PassDataTo(koopa->GetRigidbody());
 
 		time = -1;

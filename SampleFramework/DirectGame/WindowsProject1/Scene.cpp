@@ -148,13 +148,10 @@ void Scene::Render()
 {
 	if (loaded == false) return;
 
-	if (mainCamera != nullptr) mainCamera->Render();
-
 	for (auto o : updated)
 		o->PreRender();
 
-	for (auto o : updated)
-		o->Render(-mainCamera->GetPosition());
+	if (mainCamera != nullptr) mainCamera->Render(updated);
 }
 
 void Scene::CleanDestroyedObjects()

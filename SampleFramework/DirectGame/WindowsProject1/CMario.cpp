@@ -5,6 +5,7 @@
 #include "Mathf.h"
 #include "MarioCollider.h"
 #include "QuestionBlock.h"
+#include "KoopasShell.h"
 
 void CMario::Awake()
 {
@@ -276,6 +277,7 @@ void CMario::PassPrivateData(CMario* other)
 	other->feverTime = feverTime;
 	other->lastFeverTime = lastFeverTime;
 	other->hold = hold;
+	other->heldInHandsObject = heldInHandsObject;
 	other->pushSide = pushSide;
 	other->invincible = invincible;
 }
@@ -397,7 +399,8 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			{
 				m = footHits[0]->GetBoundingBox();
 				mDist = m.right - headHits[i]->GetBoundingBox().left;
-				goLeft = mDist >= 0 && mDist <= dist;
+				goLeft = mDist >= 0;
+					//&& mDist <= dist;
 			}
 
 			DebugOut(L"LEFT: d=%f, m=%f\n", dist, mDist);
@@ -420,7 +423,8 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			{
 				m = footHits[0]->GetBoundingBox();
 				mDist = m.left - headHits[i + 1]->GetBoundingBox().right;
-				goRight = mDist >= 0 && mDist <= dist;
+				goRight = mDist >= 0;
+					// && mDist <= dist;
 			}
 
 			rightLength = headHits.size();
@@ -428,15 +432,24 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			if (goLeft == goRight) pushSide = leftLength < rightLength ? -1 : 1;
 			else pushSide = goLeft ? -1 : 1;
 
-			DebugOut(L"Head: ");
+			/*DebugOut(L"Head: ");
 			for (auto h : headHits) DebugOut(L"- (%f, %f) - ", h->GetBoundingBox().left, h->GetBoundingBox().right);
 			DebugOut(L"\n");
 
 			DebugOut(L"RIGHT: d=%f, m=%f, size=%d\n", dist, mDist, headHits.size());
-			DebugOut(L"Go left:%d, go right: %d, side: %d\n", goLeft ? 1 : 0, goRight ? 1 : 0, pushSide);
+			DebugOut(L"Go left:%d, go right: %d, side: %d\n", goLeft ? 1 : 0, goRight ? 1 : 0, pushSide);*/
 		}
 		
 		transform.Position.x += pushSide * 0.15f * Game::DeltaTime();
+	}
+
+	if (TagUtils::EnemyTag(otherTag) && other->IsTrigger())
+	{
+		if (!IsInvincible())
+		{
+			auto enemy = static_cast<AbstractEnemy*>(other->GetGameObject());
+			OnDamaged(enemy);
+		}
 	}
 }
 

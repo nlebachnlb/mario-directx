@@ -57,7 +57,9 @@ void MarioCollider::BlockPosition(vector<CollisionEvent*>& collisions, float& mi
 	{
 		auto pos = gameObject->GetTransform().Position;
 		pos.x += dvx;
-		pos.y += (ny < 0 ? min_ty * dvy + ny * pushCoefficient : dvy);
+		// pos.y += dvy;
+		// pos.y += min_ty * dvy + ny * pushCoefficient;
+		// pos.y += (ny > 0 ? min_ty * dvy + ny * pushCoefficient : dvy);
 		gameObject->SetPosition(pos);
 	}
 	else 

@@ -100,6 +100,7 @@ void RedParagoomba::OnDead(bool oneHit)
 		auto goombaSpawner = gameMap->GetSpawnerManager()->GetService<GoombaSpawner>();
 
 		auto goomba = goombaSpawner->Spawn("enm-red-goomba", transform.Position);
+		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, 0));
 		rigidbody->PassDataTo(goomba->GetRigidbody());
 		time = -1;
 		dead = true;

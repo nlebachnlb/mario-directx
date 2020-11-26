@@ -22,7 +22,7 @@ public:
 	~Camera();
 
 	virtual void Update();
-	virtual void Render();
+	virtual void Render(std::vector<GameObject>& objs);
 
 	bool RectInsideCameraView(RectF rect);
 	bool PointInsideCameraView(Vector2 point, int boundWidth);
