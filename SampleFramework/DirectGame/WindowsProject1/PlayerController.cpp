@@ -164,11 +164,11 @@ void PlayerController::ContinueSwitchingState()
 		stateGameObjects.at(state)->GetRigidbody()->SetVelocity(&currentStateObject->GetRigidbody()->GetVelocity());
 		stateGameObjects.at(state)->GetRigidbody()->SetGravity(currentStateObject->GetRigidbody()->GetGravity());
 		stateGameObjects.at(state)->GetRigidbody()->SetAcceleration(currentStateObject->GetRigidbody()->GetAcceleration());
-		
-		if (currentStateObject->GetInHandObject() != nullptr)
-			stateGameObjects.at(state)->HoldObject(currentStateObject->GetInHandObject());
 
 		stateGameObjects.at(state)->PassPrivateData(currentStateObject);
+
+		// if (currentStateObject->GetInHandObject() != nullptr)
+		stateGameObjects.at(state)->HoldObject(currentStateObject->GetInHandObject());
 	}
 
 	currentStateObject = stateGameObjects.at(state);

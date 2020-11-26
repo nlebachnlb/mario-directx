@@ -16,6 +16,7 @@ public:
 	void Start() override;
 	void OnAnimationEnd() override;
 	void OnKeyDown(int keyCode) override;
+	void Exit() override;
 
 	void RegisterToScene(Scene* scene);
 protected:

@@ -50,7 +50,6 @@ void Camera::Render(std::vector<GameObject>& objs)
     auto camPos = GetPosition();
     int tilex = (int)(camPos.x / tileWidth);
     int tiley = (int)(camPos.y / tileHeight);
-    Layer* foreground = nullptr;
 
     for (auto l_data : *layers)
     {
@@ -91,7 +90,7 @@ void Camera::Render(std::vector<GameObject>& objs)
     }
 
     for (auto o : objs)
-        o->Render(-GetPosition());
+        if (o->IsEnabled()) o->Render(-GetPosition());
 }
 
 bool Camera::RectInsideCameraView(RectF rect)

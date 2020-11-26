@@ -123,6 +123,10 @@ void CGameObject::OnSolidOverlappedExit()
 {
 }
 
+void CGameObject::OnOffScreen()
+{
+}
+
 void CGameObject::Initialize()
 {
 	destroyed = false;
@@ -165,6 +169,18 @@ void CGameObject::SetRotation(float rotation, RotationUnits unit)
 int CGameObject::GetRenderOrder()
 {
 	return this->renderOrder;
+}
+
+bool CGameObject::IsOffScreen()
+{
+	return this->offscreen;
+}
+
+void CGameObject::SetOffScreen(bool value)
+{
+	if (this->offscreen == false && value == true)
+		OnOffScreen();
+	this->offscreen = value;
 }
 
 void CGameObject::AddAnimation(string stateName, Animation* animation, bool loop)
