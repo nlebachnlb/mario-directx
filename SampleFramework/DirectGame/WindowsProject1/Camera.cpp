@@ -97,7 +97,7 @@ void Camera::Render(std::vector<GameObject>& objs)
     for (auto o : objs)
         o->Render(-GetPosition());
 
-    for (int u = 0; u <= height + 1; ++u)
+    /*for (int u = 0; u <= height + 1; ++u)
     {
         for (int v = 0; v <= width + 1; ++v)
         {
@@ -127,7 +127,7 @@ void Camera::Render(std::vector<GameObject>& objs)
             finalPosition = finalPosition + translation;
             tile->Draw(finalPosition.x, finalPosition.y);
         }
-    }
+    }*/
 }
 
 bool Camera::RectInsideCameraView(RectF rect)

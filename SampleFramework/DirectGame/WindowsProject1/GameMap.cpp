@@ -98,6 +98,7 @@ void GameMap::Load(std::string filePath, bool manual)
 
                 Pipe* pipe = Instantiate<Pipe>();
                 pipe->SetSize(size.x, size.y);
+                pipe->SetPosition(position);
 
                 auto props = split(type, "-");
                 auto color = props.at(0);
@@ -112,6 +113,10 @@ void GameMap::Load(std::string filePath, bool manual)
                         IntPoint{ (startX + 1) * 48, startY * 48 });
                     pipe->SetBodySrc(IntPoint{ startX * 48, (startY + 1) * 48 },
                         IntPoint{ (startX + 1) * 48, (startY + 1) * 48 });
+
+                    if (dir.compare("up") == 0) pipe->SetDirection(PipeDirection::Up);
+                    else if (dir.compare("vertical") == 0) pipe->SetDirection(PipeDirection::Vertical);
+                    else if (dir.compare("down") == 0) pipe->SetDirection(PipeDirection::Down);
                 }
                 else
                 {
@@ -120,6 +125,7 @@ void GameMap::Load(std::string filePath, bool manual)
                     pipe->SetBodySrc(IntPoint{ (startX + 1) * 48, startY * 48 },
                         IntPoint{ (startX + 1) * 48, (startY + 1) * 48 });
                 }
+                pipe->SetTileset(GetPipeTileset());
 
                 this->gameObjects.push_back(pipe);
             }

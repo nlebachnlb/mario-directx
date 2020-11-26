@@ -10,6 +10,7 @@ void Plant::Start()
 	movementPhase = 0;
 	timer = 0;
 	visualRelativePosition.y = GetBoxSize().y;
+	renderOrder = -2;
 }
 
 void Plant::Movement()

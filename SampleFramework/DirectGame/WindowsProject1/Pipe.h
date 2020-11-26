@@ -22,6 +22,7 @@ public:
 	void SetTileset(Tile tileset);
 
 	void SetSize(int w, int h);
+	void SetDirection(PipeDirection direction);
 
 protected:
 	IntPoint headSrc[2], bodySrc[2];
