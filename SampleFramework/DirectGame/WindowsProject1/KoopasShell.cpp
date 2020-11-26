@@ -41,6 +41,7 @@ void KoopasShell::OnDead(bool oneHit)
 		time = KOOPAS_SHELL_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform.Scale.y = -1;
+		StopRunning();
 		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 		dead = true;
