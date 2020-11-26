@@ -502,11 +502,11 @@
   </object>
  </objectgroup>
  <objectgroup id="21" name="Pipes">
-  <object id="112" x="5328" y="1152" width="96" height="96"/>
-  <object id="113" x="5520" y="1104" width="96" height="144"/>
-  <object id="114" x="6720" y="480" width="96" height="480"/>
-  <object id="115" x="6720" y="1152" width="96" height="96"/>
-  <object id="116" x="6912" y="1152" width="96" height="96"/>
-  <object id="117" x="1056" y="1104" width="96" height="144"/>
+  <object id="112" name="pipe" type="green-up" x="5328" y="1152" width="96" height="96"/>
+  <object id="113" name="pipe" type="green-up" x="5520" y="1104" width="96" height="144"/>
+  <object id="114" name="pipe" type="green-up" x="6720" y="480" width="96" height="480"/>
+  <object id="115" name="pipe" type="green-vertical" x="6720" y="1152" width="96" height="96"/>
+  <object id="116" name="pipe" type="green-up" x="6912" y="1152" width="96" height="96"/>
+  <object id="117" name="pipe" type="green-up" x="1056" y="1104" width="96" height="144"/>
  </objectgroup>
 </map>
