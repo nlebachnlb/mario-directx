@@ -73,9 +73,6 @@
     <Filter Include="Framework\Game\Camera">
       <UniqueIdentifier>{fb09292d-3800-48b3-9348-e3f148126f9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\GameObjects\EnvironmentalColliders">
-      <UniqueIdentifier>{43f5686f-e80e-4eaa-9820-aa6b808891e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Game\Physics">
       <UniqueIdentifier>{da3078ff-d09d-41f9-b355-0d38893f350c}</UniqueIdentifier>
     </Filter>
@@ -175,6 +172,12 @@
     <Filter Include="GameSource\GameObjects\Spawners\PlantSpawners">
       <UniqueIdentifier>{815b75f3-031f-4e1c-8780-e0ac836fd798}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Pipes">
+      <UniqueIdentifier>{b006ed4f-f53a-4ca9-be11-7f73d4c48aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Colliders">
+      <UniqueIdentifier>{43f5686f-e80e-4eaa-9820-aa6b808891e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -256,7 +259,7 @@
       <Filter>Framework\Game\Physics</Filter>
     </ClInclude>
     <ClInclude Include="SolidBox.h">
-      <Filter>GameSource\GameObjects\EnvironmentalColliders</Filter>
+      <Filter>GameSource\GameObjects\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="ObjectTags.h">
       <Filter>Framework\Game\GameObject</Filter>
@@ -289,7 +292,7 @@
       <Filter>Framework\Game\Physics</Filter>
     </ClInclude>
     <ClInclude Include="GhostPlatform.h">
-      <Filter>GameSource\GameObjects\EnvironmentalColliders</Filter>
+      <Filter>GameSource\GameObjects\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Effector2D.h">
       <Filter>Framework\Game\Physics</Filter>
@@ -450,6 +453,9 @@
     <ClInclude Include="PlantSpawner.h">
       <Filter>GameSource\GameObjects\Spawners\PlantSpawners</Filter>
     </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>GameSource\GameObjects\Pipes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -559,7 +565,7 @@
       <Filter>Framework\Game\Physics</Filter>
     </ClCompile>
     <ClCompile Include="SolidBox.cpp">
-      <Filter>GameSource\GameObjects\EnvironmentalColliders</Filter>
+      <Filter>GameSource\GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="ObjectTags.cpp">
       <Filter>Framework\Game\GameObject</Filter>
@@ -589,7 +595,7 @@
       <Filter>Framework\Game\Physics</Filter>
     </ClCompile>
     <ClCompile Include="GhostPlatform.cpp">
-      <Filter>GameSource\GameObjects\EnvironmentalColliders</Filter>
+      <Filter>GameSource\GameObjects\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="TilesetInfo.cpp">
       <Filter>Framework\Game\Map\MapLoader</Filter>
@@ -752,6 +758,9 @@
     </ClCompile>
     <ClCompile Include="PlantSpawner.cpp">
       <Filter>GameSource\GameObjects\Spawners\PlantSpawners</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>GameSource\GameObjects\Pipes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

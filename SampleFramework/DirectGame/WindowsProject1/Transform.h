@@ -21,6 +21,8 @@ struct RectF
 	bool Contains(const Vector2& point);
 };
 
+struct IntPoint { int x, y; };
+
 Vector2 VectorInfinity();
 Vector2 VectorZero();
 Vector2 NormalizedVector();

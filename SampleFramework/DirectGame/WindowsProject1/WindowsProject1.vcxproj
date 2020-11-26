@@ -191,6 +191,7 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectTags.h" />
     <ClInclude Include="PhysicMaterial.h" />
+    <ClInclude Include="Pipe.h" />
     <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PlantSpawner.h" />
@@ -283,6 +284,7 @@
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectTags.cpp" />
     <ClCompile Include="PhysicMaterial.cpp" />
+    <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PlantSpawner.cpp" />
