@@ -5,10 +5,11 @@
 
 void Plant::Start()
 {
-	state = PlantState::Hidden;
+	state = PlantState::Reveal;
 	colliders->at(0)->SetTrigger(true);
 	movementPhase = 0;
 	timer = 0;
+	visualRelativePosition.y = GetBoxSize().y;
 }
 
 void Plant::Movement()
@@ -21,9 +22,9 @@ void Plant::Movement()
 		case 0:
 		{
 			visualRelativePosition.y -= speed * dt;
-			if (visualRelativePosition.y < -GetBoxSize().y)
+			if (visualRelativePosition.y < 0)
 			{
-				visualRelativePosition.y = -GetBoxSize().y;
+				visualRelativePosition.y = 0;
 				movementPhase = 1;
 				timer = 0;
 				OnRevealed();
@@ -44,9 +45,9 @@ void Plant::Movement()
 		case 2:
 		{
 			visualRelativePosition.y += speed * dt;
-			if (visualRelativePosition.y > 0)
+			if (visualRelativePosition.y > GetBoxSize().y)
 			{
-				visualRelativePosition.y = 0;
+				visualRelativePosition.y = GetBoxSize().y;
 				movementPhase = 3;
 				timer = 0;
 				TrackPlayerPosition();
@@ -67,6 +68,8 @@ void Plant::Movement()
 		break;
 		}
 	}
+	else
+		TrackPlayerPosition();
 
 	colliders->at(0)->SetLocalPosition(visualRelativePosition);
 }
@@ -122,4 +125,6 @@ void Plant::TrackPlayerPosition()
 		movementPhase = 0;
 		timer = 0;
 	}
+	else if (distance >= hideDistance && state == PlantState::Hidden)
+		state = PlantState::Reveal;
 }

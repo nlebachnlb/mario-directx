@@ -13,6 +13,7 @@
 #include "Brick.h"
 #include "Coin.h"
 #include "GreenKoopa.h"
+#include "PlantSpawner.h"
 
 GameMap::GameMap()
 {
@@ -215,6 +216,18 @@ void GameMap::LoadEnemy()
                         koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
                         this->gameObjects.push_back(koopa);*/
                     }
+                }
+                else if (name.compare("piranha-plant") == 0)
+                {
+                    auto plantSpawner = spawnerManager->GetService<PlantSpawner>();
+                    if (plantSpawner == nullptr)
+                    {
+                        plantSpawner = new PlantSpawner();
+                        spawnerManager->AddService(plantSpawner);
+                    }
+
+                    if (type.compare("green") == 0)
+                        plantSpawner->Spawn("enm-green-piranha-plant", position);
                 }
             }
         }
