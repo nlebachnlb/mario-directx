@@ -10,11 +10,11 @@ enum class KoopasShellType
 class KoopaSpawner : public AbstractSpawner
 {
 public:
-	KoopaSpawner() : AbstractSpawner() { shells = new ObjectPool(); }
+	KoopaSpawner() : AbstractSpawner() { redShells = new ObjectPool(); greenShells = new ObjectPool();  }
 	void Initialization() override;
 	KoopasShell* InstantiateShell(Vector2 position, KoopasShellType shellType, bool reset = true);
 	AbstractEnemy* Spawn(std::string name, Vector2 position, bool reset = true);
 private:
-	ObjectPool* shells;
+	ObjectPool* redShells, *greenShells;
 };
 
