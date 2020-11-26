@@ -55,11 +55,7 @@ void Camera::Render(std::vector<GameObject>& objs)
     for (auto l_data : *layers)
     {
         auto layer = l_data.second;
-        if (layer->GetName().compare("Foreground") == 0)
-        {
-            foreground = layer;
-            continue;
-        }
+        if (layer->IsVisible() == false) continue;
 
         for (int u = 0; u <= height + 1; ++u)
         {
@@ -96,38 +92,6 @@ void Camera::Render(std::vector<GameObject>& objs)
 
     for (auto o : objs)
         o->Render(-GetPosition());
-
-    /*for (int u = 0; u <= height + 1; ++u)
-    {
-        for (int v = 0; v <= width + 1; ++v)
-        {
-            int xGrid = (int)(tilex + v);
-            int yGrid = (int)(tiley + u);
-
-            if (xGrid >= mapWidth || yGrid >= mapHeight) continue;
-
-            int tileId = foreground->GetTileID(xGrid, yGrid);
-            int tilesetId = mapData->GetTilesetIdFromTileId(tileId);
-
-            if (tilesetId == -1) continue;
-
-            auto tileset = tilesets->at(tilesetId);
-
-            int tilesetWidth = tileset->GetImageWidth() / tileWidth;
-            int tilesetHeight = tileset->GetImageHeight() / tileHeight;
-
-            int temp = tileId - tilesetId;
-            int y = temp / tilesetWidth;
-            int x = temp - y * tilesetWidth;
-
-            Tile tile = map->GetTileset(tilesetId);
-            tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-
-            Vector2 finalPosition(xGrid * tileWidth, yGrid * tileHeight);
-            finalPosition = finalPosition + translation;
-            tile->Draw(finalPosition.x, finalPosition.y);
-        }
-    }*/
 }
 
 bool Camera::RectInsideCameraView(RectF rect)
