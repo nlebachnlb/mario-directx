@@ -72,5 +72,6 @@ void Pipe::SetSize(int w, int h)
 {
 	this->width = w / PIPE_DEFAULT_TILE_SIZE;
 	this->height = h / PIPE_DEFAULT_TILE_SIZE;
+	colliders->at(0)->SetBoxSize(Vector2(w, h));
 	colliders->at(0)->SetLocalPosition(Vector2(w * 0.5f, h * 0.5f));
 }
