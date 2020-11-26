@@ -14,6 +14,7 @@ public:
 	virtual void Movement() override;
 	virtual void OnDead(bool oneHit) override;
 	virtual void PreRender() override;
+	virtual void OnOverlapped(Collider2D* self, Collider2D* other) override;
 
 	virtual void OnRevealed();
 	virtual void OnHidden();

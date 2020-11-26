@@ -61,6 +61,9 @@ void MarioFireball::OnOverlapped(Collider2D* selfCollider, Collider2D* otherColl
 {
 	if (TagUtils::StaticTag(otherCollider->GetGameObject()->GetTag()))
 		pool->Revoke(this);
+
+	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
+		static_cast<AbstractEnemy*>(otherCollider->GetGameObject())->OnDead(true), Explode();
 }
 
 void MarioFireball::LateUpdate()

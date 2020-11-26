@@ -105,6 +105,11 @@ void Plant::PreRender()
 	}
 }
 
+void Plant::OnOverlapped(Collider2D* self, Collider2D* other)
+{
+	
+}
+
 void Plant::OnRevealed()
 {
 }
