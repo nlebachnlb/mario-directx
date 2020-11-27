@@ -26,6 +26,7 @@ AbstractEnemy* GoombaSpawner::Spawn(std::string name, Vector2 position, bool res
 		scene->AddObject(enm);
 		enm->SetPosition(position);
 		enm->Start();
+		enm->OnEnabled();
 		enm->SetPool(pool);
 		return enm;
 	}
@@ -35,6 +36,7 @@ AbstractEnemy* GoombaSpawner::Spawn(std::string name, Vector2 position, bool res
 		enm->SetPool(pool);
 		enm->SetPosition(position);
 		enm->Start();
+		enm->OnEnabled();
 		DebugOut(L"Goomba-Old spawn\n");
 		return enm;
 	}

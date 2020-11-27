@@ -130,6 +130,7 @@ void CGameObject::OnOffScreen()
 void CGameObject::Initialize()
 {
 	destroyed = false;
+	offscreen = false;
 	
 	rigidbody = new Rigidbody2D();
 	colliders = new vector<Collider2D*>();

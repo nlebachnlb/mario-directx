@@ -26,6 +26,7 @@ AbstractEnemy* PlantSpawner::Spawn(std::string name, Vector2 position, bool rese
 		scene->AddObject(enm);
 		enm->SetPosition(position);
 		enm->Start();
+		enm->OnEnabled();
 		enm->SetPool(pool);
 		return enm;
 	}
@@ -35,6 +36,7 @@ AbstractEnemy* PlantSpawner::Spawn(std::string name, Vector2 position, bool rese
 		enm->SetPool(pool);
 		enm->SetPosition(position);
 		enm->Start();
+		enm->OnEnabled();
 		DebugOut(L"Plant-Old spawn\n");
 		return enm;
 	}

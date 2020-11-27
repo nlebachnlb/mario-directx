@@ -184,6 +184,9 @@
     <Filter Include="GameSource\GameObjects\Enemies\Plants\VenusFireTrap">
       <UniqueIdentifier>{45471835-1f59-46eb-ba25-64f27cd66f19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Projectiles\HostileProjectiles">
+      <UniqueIdentifier>{ad23a509-e01a-4d2b-8a93-9f74ec86a6e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -470,6 +473,9 @@
     </ClInclude>
     <ClInclude Include="GreenVenusFireTrap.h">
       <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusFireball.h">
+      <Filter>GameSource\GameObjects\Projectiles\HostileProjectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -785,6 +791,9 @@
     </ClCompile>
     <ClCompile Include="GreenVenusFireTrap.cpp">
       <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusFireball.cpp">
+      <Filter>GameSource\GameObjects\Projectiles\HostileProjectiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

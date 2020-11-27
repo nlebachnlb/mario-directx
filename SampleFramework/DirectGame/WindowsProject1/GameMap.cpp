@@ -15,6 +15,7 @@
 #include "GreenKoopa.h"
 #include "PlantSpawner.h"
 #include "Pipe.h"
+#include "VenusFireTrap.h"
 
 GameMap::GameMap()
 {
@@ -290,8 +291,11 @@ void GameMap::LoadEnemy()
                         spawnerManager->AddService(plantSpawner);
                     }
 
+                    VenusFireTrap* venus = nullptr;
                     if (type.compare("red") == 0 || type.compare("green") == 0)
-                        plantSpawner->Spawn("enm-" + type + "-venus-fire-trap", position);
+                    {
+                        venus = static_cast<VenusFireTrap*>(plantSpawner->Spawn("enm-" + type + "-venus-fire-trap", position));
+                    }
                 }
             }
         }

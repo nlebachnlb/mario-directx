@@ -240,6 +240,7 @@
     <ClInclude Include="Consts.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="VenusFireball.h" />
     <ClInclude Include="VenusFireTrap.h" />
     <ClInclude Include="VisionBox.h" />
   </ItemGroup>
@@ -334,6 +335,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformationFX.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="VenusFireball.cpp" />
     <ClCompile Include="VenusFireTrap.cpp" />
     <ClCompile Include="VisionBox.cpp" />
   </ItemGroup>
