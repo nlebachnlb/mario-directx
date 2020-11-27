@@ -354,7 +354,7 @@
   <object id="157" name="venus-fire-trap" type="red" x="1104" y="1056">
    <point/>
   </object>
-  <object id="158" name="venus-fire-trap" type="green" x="5568" y="1104">
+  <object id="158" name="venus-fire-trap" type="green" x="5568" y="1080">
    <point/>
   </object>
  </objectgroup>
