@@ -7,7 +7,7 @@ bool TagUtils::MarioTag(ObjectTags tag)
 
 bool TagUtils::EnemyTag(ObjectTags tag)
 {
-    return tag == ObjectTags::Enemy || tag == ObjectTags::Goomba || tag == ObjectTags::KoopasShell;
+    return tag == ObjectTags::Enemy || tag == ObjectTags::Goomba || tag == ObjectTags::KoopasShell || tag == ObjectTags::HostileProjectiles;
 }
 
 bool TagUtils::ProjectilesTag(ObjectTags tag)

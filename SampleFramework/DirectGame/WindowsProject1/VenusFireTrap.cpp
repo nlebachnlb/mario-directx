@@ -65,10 +65,10 @@ void VenusFireTrap::LateUpdate()
 
 				Vector2 directionalVector = Mathf::Normalize(player->GetTransform().Position - startPos);
 				auto angle = Mathf::ToAngle(directionalVector);
-				if (Mathf::InRange(angle, Mathf::Deg2Rad(45), Mathf::Deg2Rad(135)))
+				if (Mathf::InRange(Mathf::Abs(angle), Mathf::Deg2Rad(45), Mathf::Deg2Rad(135)))
 				{
-					if (angle < Mathf::Deg2Rad(90)) angle = Mathf::Deg2Rad(45);
-					else angle = Mathf::Deg2Rad(135);
+					if (Mathf::Abs(angle) < Mathf::Deg2Rad(90)) angle = Mathf::Sign(angle) * Mathf::Deg2Rad(45);
+					else angle = Mathf::Sign(angle) * Mathf::Deg2Rad(135);
 				}
 
 				directionalVector = Mathf::ToDirectionalVector(angle);
