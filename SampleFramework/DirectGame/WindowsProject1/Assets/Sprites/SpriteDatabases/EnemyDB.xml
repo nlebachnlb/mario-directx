@@ -65,5 +65,15 @@
     <Sprite id="spr-hammer-5" left="203" top="199"  width="16" height="14"/>
     <Sprite id="spr-hammer-6" left="205" top="171"  width="14" height="16"/>
     <Sprite id="spr-hammer-7" left="206" top="146"  width="16" height="14"/>
+    
+    <Sprite id="spr-red-venus-head-down-0" left="220" top="66" width="16" height="32"/>
+    <Sprite id="spr-red-venus-head-down-1" left="236" top="66" width="16" height="32"/>
+    <Sprite id="spr-red-venus-head-up-0" left="252" top="66" width="16" height="32"/>
+    <Sprite id="spr-red-venus-head-up-1" left="268" top="66" width="16" height="32"/>
+    
+    <Sprite id="spr-green-venus-head-down-0" left="220" top="34" width="16" height="32"/>
+    <Sprite id="spr-green-venus-head-down-1" left="236" top="34" width="16" height="32"/>
+    <Sprite id="spr-green-venus-head-up-0" left="252" top="34" width="16" height="32"/>
+    <Sprite id="spr-green-venus-head-up-1" left="268" top="34" width="16" height="32"/>
   </Textures>
 </Textures>
