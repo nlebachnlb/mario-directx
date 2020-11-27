@@ -77,6 +77,7 @@ void Plant::Movement()
 
 void Plant::OnDead(bool oneHit)
 {
+	if (dead) return;
 	if (oneHit)
 	{
 		auto gmap = Game::GetInstance().GetService<GameMap>();
@@ -107,7 +108,10 @@ void Plant::PreRender()
 
 void Plant::OnOverlapped(Collider2D* self, Collider2D* other)
 {
-	
+	if (other->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
+	{
+		this->OnDead(true);
+	}
 }
 
 void Plant::OnRevealed()
