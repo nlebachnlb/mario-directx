@@ -19,7 +19,7 @@ public:
 	bool IsDead();
 
 protected:
-	void UpdateDirection();
+	virtual void UpdateDirection();
 	ObjectPool* linkedPool;
 	virtual Vector2 GetBoxSize() = 0;
 	GameObject player;

@@ -206,6 +206,7 @@
     <ClInclude Include="RedMushroom.h" />
     <ClInclude Include="RedGoomba.h" />
     <ClInclude Include="RedParagoomba.h" />
+    <ClInclude Include="RedVenusFireTrap.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="ShrinkDownFX.h" />
     <ClInclude Include="SmallMario.h" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Consts.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="VenusFireTrap.h" />
     <ClInclude Include="VisionBox.h" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +301,7 @@
     <ClCompile Include="RedMushroom.cpp" />
     <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="RedParagoomba.cpp" />
+    <ClCompile Include="RedVenusFireTrap.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />
     <ClCompile Include="SmallMario.cpp" />
@@ -329,6 +332,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformationFX.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="VenusFireTrap.cpp" />
     <ClCompile Include="VisionBox.cpp" />
   </ItemGroup>
   <ItemGroup>

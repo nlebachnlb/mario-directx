@@ -281,6 +281,18 @@ void GameMap::LoadEnemy()
                     if (type.compare("green") == 0)
                         plantSpawner->Spawn("enm-green-piranha-plant", position);
                 }
+                else if (name.compare("venus-fire-trap") == 0)
+                {
+                    auto plantSpawner = spawnerManager->GetService<PlantSpawner>();
+                    if (plantSpawner == nullptr)
+                    {
+                        plantSpawner = new PlantSpawner();
+                        spawnerManager->AddService(plantSpawner);
+                    }
+
+                    if (type.compare("red") == 0)
+                        plantSpawner->Spawn("enm-red-venus-fire-trap", position);
+                }
             }
         }
     }

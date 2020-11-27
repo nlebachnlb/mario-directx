@@ -178,6 +178,12 @@
     <Filter Include="GameSource\GameObjects\Colliders">
       <UniqueIdentifier>{43f5686f-e80e-4eaa-9820-aa6b808891e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Plants\Piranha">
+      <UniqueIdentifier>{274a121e-d6ea-4124-a052-febd9a9807bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Plants\VenusFireTrap">
+      <UniqueIdentifier>{45471835-1f59-46eb-ba25-64f27cd66f19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -444,9 +450,6 @@
     <ClInclude Include="Plant.h">
       <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
     </ClInclude>
-    <ClInclude Include="PiranhaPlant.h">
-      <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
-    </ClInclude>
     <ClInclude Include="KoopaSpawner.h">
       <Filter>GameSource\GameObjects\Spawners\KoopaSpawners</Filter>
     </ClInclude>
@@ -455,6 +458,15 @@
     </ClInclude>
     <ClInclude Include="Pipe.h">
       <Filter>GameSource\GameObjects\Pipes</Filter>
+    </ClInclude>
+    <ClInclude Include="PiranhaPlant.h">
+      <Filter>GameSource\GameObjects\Enemies\Plants\Piranha</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusFireTrap.h">
+      <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
+    </ClInclude>
+    <ClInclude Include="RedVenusFireTrap.h">
+      <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -750,9 +762,6 @@
     <ClCompile Include="Plant.cpp">
       <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
     </ClCompile>
-    <ClCompile Include="PiranhaPlant.cpp">
-      <Filter>GameSource\GameObjects\Enemies\Plants</Filter>
-    </ClCompile>
     <ClCompile Include="KoopaSpawner.cpp">
       <Filter>GameSource\GameObjects\Spawners\KoopaSpawners</Filter>
     </ClCompile>
@@ -761,6 +770,15 @@
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>GameSource\GameObjects\Pipes</Filter>
+    </ClCompile>
+    <ClCompile Include="PiranhaPlant.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Plants\Piranha</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusFireTrap.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
+    </ClCompile>
+    <ClCompile Include="RedVenusFireTrap.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
