@@ -21,6 +21,8 @@ void KoopasShell::Start()
 
 	dead = false;
 	time = 0;
+	Release();
+	StopRunning();
 	running = false;
 
 	transform.Scale.y = 1;
@@ -111,11 +113,20 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 				if (TagUtils::MarioTag(holderTag))
 				{
 					static_cast<CMario*>(holder)->ReleaseInHandObject();
+					Release();
+					StopRunning();
 					OnDead(true);
 				}
 			}
 		}
 	}
+}
+
+void KoopasShell::OnOffScreen()
+{
+	time = -1;
+	dead = true;
+	linkedPool->Revoke(this);
 }
 
 Vector2 KoopasShell::GetColliderBox()

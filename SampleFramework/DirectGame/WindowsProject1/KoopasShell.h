@@ -19,6 +19,7 @@ public:
 	virtual void OnDead(bool oneHit) override;
 	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 	virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
+	virtual void OnOffScreen() override;
 
 	// Implement holdable interface methods
 	virtual Vector2 GetColliderBox() override;

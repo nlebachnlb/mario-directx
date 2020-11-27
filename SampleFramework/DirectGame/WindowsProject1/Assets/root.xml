@@ -6,6 +6,7 @@
     <Texture id="tex-misc" source="Assets/Sprites/misc_x3.png"/>
     <Texture id="tex-fire-ball" source="Assets/Sprites/fire-ball-white.png"/>
     <Texture id="tex-effect" source="Assets/Sprites/effect_white_254_x3.png"/>
+    <Texture id="tex-pipe" source="Assets/Maps/world-1-1.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Assets/Sprites/SpriteDatabases/MarioDB.xml"/>

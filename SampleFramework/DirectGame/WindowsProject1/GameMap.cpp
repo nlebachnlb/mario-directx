@@ -14,6 +14,7 @@
 #include "Coin.h"
 #include "GreenKoopa.h"
 #include "PlantSpawner.h"
+#include "Pipe.h"
 
 GameMap::GameMap()
 {
@@ -37,10 +38,10 @@ void GameMap::Load(std::string filePath, bool manual)
     spawnerManager->AddService(fxPool);
 
     auto tilesets = mapData->GetTilesets();
+    auto texManager = Game::GetInstance().GetService<TextureManager>();
     for (auto x : *tilesets)
     {
         auto tileset = x.second;
-        auto texManager = Game::GetInstance().GetService<TextureManager>();
         auto tilesetTexture = texManager->LoadTexture(ToLPCWSTR(tileset->GetSource()));
 
         Tile tile = new CTile(
@@ -51,6 +52,14 @@ void GameMap::Load(std::string filePath, bool manual)
 
         this->tilesets.insert(make_pair(tileset->GetID(), tile));
     }
+
+    Tile tile = new CTile(
+        "pipe",
+        PIPE_START_X, PIPE_START_Y,
+        PIPE_WIDTH * 48, PIPE_HEIGHT * 48,
+        texManager->GetTexture(TEXTURE_PIPE)
+    );
+    this->tilesets.insert(make_pair(PIPE_TILESET_ID, tile));
 
     auto objectGroups = mapData->GetObjectGroups();
     // Load game objects
@@ -76,6 +85,49 @@ void GameMap::Load(std::string filePath, bool manual)
 
                 auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
                 // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+            }
+        }
+
+        if (groupName.compare("Pipes") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
+            {
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                Vector2 size(objects->at(i)->width, objects->at(i)->height);
+                auto type = objects->at(i)->type;
+
+                Pipe* pipe = Instantiate<Pipe>();
+                pipe->SetSize(size.x, size.y);
+                pipe->SetPosition(position);
+
+                auto props = split(type, "-");
+                auto color = props.at(0);
+                auto dir = props.at(1);
+                int startX = PIPE_START_X, startY = PIPE_START_Y;
+
+                if (color.compare("green") == 0) startX += 2;
+                if (dir.compare("up") == 0 || dir.compare("down") || dir.compare("vertical") == 0)
+                {
+                    startY += 2;
+                    pipe->SetHeadSrc(IntPoint{ startX * 48, startY * 48 },
+                        IntPoint{ (startX + 1) * 48, startY * 48 });
+                    pipe->SetBodySrc(IntPoint{ startX * 48, (startY + 1) * 48 },
+                        IntPoint{ (startX + 1) * 48, (startY + 1) * 48 });
+
+                    if (dir.compare("up") == 0) pipe->SetDirection(PipeDirection::Up);
+                    else if (dir.compare("vertical") == 0) pipe->SetDirection(PipeDirection::Vertical);
+                    else if (dir.compare("down") == 0) pipe->SetDirection(PipeDirection::Down);
+                }
+                else
+                {
+                    pipe->SetHeadSrc(IntPoint{ startX * 48, startY * 48 },
+                        IntPoint{ startX * 48, (startY + 1) * 48 });
+                    pipe->SetBodySrc(IntPoint{ (startX + 1) * 48, startY * 48 },
+                        IntPoint{ (startX + 1) * 48, (startY + 1) * 48 });
+                }
+                pipe->SetTileset(GetPipeTileset());
+
+                this->gameObjects.push_back(pipe);
             }
         }
 
@@ -252,6 +304,11 @@ std::vector<GameObject> GameMap::GetGameObjects()
 Tile GameMap::GetTileset(int id)
 {
     return tilesets.at(id);
+}
+
+Tile GameMap::GetPipeTileset()
+{
+    return tilesets.at(PIPE_TILESET_ID);
 }
 
 int GameMap::GetMapWidth()

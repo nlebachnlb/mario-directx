@@ -110,12 +110,14 @@ public:
 	bool IsInvincible();
 	void SetInvincible(bool invincible);
 
-	void PassPrivateData(CMario* other);
+	void PassPrivateData(CMario* other, bool moveData = true); 
+	// if moveData, data of this will be reset
 
 protected:
 	virtual void InitAnimations();
 	virtual void MovementAnimation();
 	virtual void JumpingAnimation();
+	void ResetPrivateData();
 	bool canCrouch;
 	MarioKeySet marioKeySet;
 	MarioStateSet prevPhysicState, physicState;

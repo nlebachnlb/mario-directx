@@ -133,13 +133,13 @@ void Scene::Update()
 	if (loaded == false) return;
 
 	for (auto o : updated)
-		o->PhysicsUpdate(objects);
+		if (o->IsEnabled()) o->PhysicsUpdate(objects);
 
 	for (auto o : updated)
-		o->Update();
+		if (o->IsEnabled()) o->Update();
 
 	for (auto o : updated)
-		o->LateUpdate();
+		if (o->IsEnabled()) o->LateUpdate();
 	
 	if (mainCamera != nullptr) mainCamera->Update();
 }
@@ -198,8 +198,12 @@ void Scene::UpdateActiveObjects()
 			if (o->IsDestroyed()) continue;
 			if (o->IsEnabled() == false) continue;
 			if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 6))
+			{
+				o->SetOffScreen(true);
 				continue;
+			}
 
+			o->SetOffScreen(false);
 			updated.push_back(o);
 		}
 	}

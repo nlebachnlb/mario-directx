@@ -46,7 +46,10 @@ void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherC
 			selfCollider->Disable();
 			static_cast<KoopasShell*>(otherCollider->GetGameObject())->OnDead(false);
 		}
-			break;
+		break;
 		}
+
+		SetActive(false);
+		selfCollider->Disable();
 	}
 }

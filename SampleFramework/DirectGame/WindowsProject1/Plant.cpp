@@ -10,6 +10,7 @@ void Plant::Start()
 	movementPhase = 0;
 	timer = 0;
 	visualRelativePosition.y = GetBoxSize().y;
+	renderOrder = -2;
 }
 
 void Plant::Movement()
@@ -76,6 +77,7 @@ void Plant::Movement()
 
 void Plant::OnDead(bool oneHit)
 {
+	if (dead) return;
 	if (oneHit)
 	{
 		auto gmap = Game::GetInstance().GetService<GameMap>();
@@ -101,6 +103,14 @@ void Plant::PreRender()
 	case 3:
 		if (currentState.compare("Idle") != 0) SetState("Idle");
 		break;
+	}
+}
+
+void Plant::OnOverlapped(Collider2D* self, Collider2D* other)
+{
+	if (other->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
+	{
+		this->OnDead(true);
 	}
 }
 

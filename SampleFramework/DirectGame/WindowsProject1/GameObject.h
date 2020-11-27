@@ -58,6 +58,8 @@ public:
 	// OnOverlapped: Called when an intersection of selfBox with another box
 	virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
 	virtual void OnSolidOverlappedExit();
+	// OnOffScreen: Called when an object is out of the camera view
+	virtual void OnOffScreen();
 #pragma endregion
 
 	virtual void Initialize();
@@ -67,6 +69,8 @@ public:
 	void SetScale(Vector2 scale);
 	void SetRotation(float rotation, RotationUnits unit = Degree);
 	int  GetRenderOrder();
+	bool IsOffScreen();
+	void SetOffScreen(bool value);
 
 	void AddAnimation(std::string stateName, Animation* animation, bool loop = true);
 	void SetState(std::string state);
@@ -99,7 +103,7 @@ protected:
 	std::unordered_map<std::string, Animation*> animations;
 
 	int renderOrder;
-	bool enabled, destroyed;
+	bool enabled, destroyed, offscreen;
 	ObjectTags tag;
 	Effector2D effector;
 

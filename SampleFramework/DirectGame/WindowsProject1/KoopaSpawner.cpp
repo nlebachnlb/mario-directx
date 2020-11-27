@@ -13,6 +13,10 @@ void KoopaSpawner::Initialization()
 KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType shellType, bool reset)
 {
 	KoopasShell* shell = nullptr;
+	ObjectPool* shells;
+	if (shellType == KoopasShellType::Red) shells = redShells;
+	else shells = greenShells;
+
 	if (shells->IsEmpty())
 	{
 		switch (shellType)

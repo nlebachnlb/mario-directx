@@ -76,6 +76,13 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	}
 }
 
+void RaccoonMario::Exit()
+{
+	attackBox->GetColliders()->at(0)->Disable();
+	attackBox->SetActive(false);
+	CMario::Exit();
+}
+
 void RaccoonMario::RegisterToScene(Scene* scene)
 {
 	scene->AddObject(attackBox);

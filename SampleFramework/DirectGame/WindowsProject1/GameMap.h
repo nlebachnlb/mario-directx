@@ -8,6 +8,12 @@
 #include "MapData.h"
 #include "SpawnerManager.h"
 
+const int PIPE_TILESET_ID = 100;
+const int PIPE_START_X = 17;
+const int PIPE_START_Y = 1;
+const int PIPE_HEIGHT = 3;
+const int PIPE_WIDTH = 12;
+
 class GameMap : public Service
 {
 public:
@@ -21,6 +27,7 @@ public:
 	std::vector<GameObject> GetGameObjects();
 
 	Tile GetTileset(int id);
+	Tile GetPipeTileset();
 	int GetMapWidth();
 	int GetMapHeight();
 
@@ -37,6 +44,5 @@ private:
 	std::unordered_map<int, Tile> tilesets;
 	std::vector<GameObject> gameObjects;
 	SpawnerManager* spawnerManager;
-	TiXmlElement* enemiesData;
 };
 #endif

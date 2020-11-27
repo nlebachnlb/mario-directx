@@ -236,6 +236,13 @@ bool CMario::IsReadyToRun()
 
 void CMario::HoldObject(Holdable* holdableObj)
 {
+	if (holdableObj == nullptr)
+	{
+		hold = false;
+		this->heldInHandsObject = nullptr;
+		return;
+	}
+
 	hold = true;
 	this->heldInHandsObject = holdableObj;
 	holdableObj->PassToHolder(this);
@@ -268,7 +275,7 @@ void CMario::SetInvincible(bool invincible)
 	this->invincible = invincible;
 }
 
-void CMario::PassPrivateData(CMario* other)
+void CMario::PassPrivateData(CMario* other, bool moveData)
 {
 	other->posBeforeJump = posBeforeJump;
 	other->physicState = physicState;
@@ -276,10 +283,12 @@ void CMario::PassPrivateData(CMario* other)
 	other->feverState = feverState;
 	other->feverTime = feverTime;
 	other->lastFeverTime = lastFeverTime;
-	other->hold = hold;
-	other->heldInHandsObject = heldInHandsObject;
+	//other->hold = hold;
+	//other->heldInHandsObject = heldInHandsObject;
+	
 	other->pushSide = pushSide;
 	other->invincible = invincible;
+	// ResetPrivateData();
 }
 
 #pragma region Keyboard
@@ -547,6 +556,12 @@ void CMario::JumpingAnimation()
 		SetState(hold ? "HoldJump" : "Fall");
 }
 
+void CMario::ResetPrivateData()
+{
+	hold = false;
+	heldInHandsObject = nullptr;
+}
+
 #pragma endregion
 
 #pragma region Skid-Crouch-Hold
@@ -578,7 +593,11 @@ void CMario::CrouchDetection(InputHandler* input)
 
 void CMario::HoldProcess()
 {
-	if (heldInHandsObject == nullptr) return;
+	if (heldInHandsObject == nullptr)
+	{
+		hold = false;
+		return;
+	}
 
 	if (hold)
 	{

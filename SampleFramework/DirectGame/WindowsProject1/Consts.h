@@ -16,6 +16,7 @@
 #define TEXTURE_MISC "tex-misc"
 #define TEXTURE_FIREBALL "tex-fire-ball"
 #define TEXTURE_EFFECT "tex-effect"
+#define TEXTURE_PIPE "tex-pipe"
 
 #define FIREBALL_TRANS_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define DEFAULT_TRANS_COLOR D3DCOLOR_XRGB(254, 254, 254)
