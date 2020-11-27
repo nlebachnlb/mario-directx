@@ -37,6 +37,7 @@ void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherC
 		auto fxPool = spawner->GetService<EffectPool>();
 
 		fxPool->CreateFX("fx-hit-star", transform.Position);
+		//auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
 
 		switch (otherTag)
 		{
@@ -48,8 +49,5 @@ void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherC
 		}
 		break;
 		}
-
-		SetActive(false);
-		selfCollider->Disable();
 	}
 }

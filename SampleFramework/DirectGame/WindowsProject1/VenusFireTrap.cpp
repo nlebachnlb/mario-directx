@@ -46,6 +46,8 @@ void VenusFireTrap::PreRender()
 
 void VenusFireTrap::LateUpdate()
 {
+	AbstractEnemy::LateUpdate();
+
 	if (movementPhase <= 1) UpdateDirection();
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();

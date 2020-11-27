@@ -77,9 +77,10 @@ void Plant::Movement()
 
 void Plant::OnDead(bool oneHit)
 {
-	if (dead) return;
+	// if (dead) return;
 	if (oneHit)
 	{
+		DebugOut(L"Plant dead\n");
 		auto gmap = Game::GetInstance().GetService<GameMap>();
 		auto spawner = gmap->GetSpawnerManager();
 		auto fxPool = spawner->GetService<EffectPool>();
@@ -110,6 +111,8 @@ void Plant::OnOverlapped(Collider2D* self, Collider2D* other)
 {
 	if (other->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
 	{
+		other->GetGameObject()->SetActive(false);
+		other->Disable();
 		this->OnDead(true);
 	}
 }
@@ -128,7 +131,7 @@ void Plant::TrackPlayerPosition()
 	if (player == nullptr) return;
 	
 	auto distance = Mathf::Abs(player->GetTransform().Position.x - transform.Position.x);
-	if (distance < hideDistance && state == PlantState::Reveal && movementPhase == 0)
+	if (distance < hideDistance && state == PlantState::Reveal)
 	{
 		state = PlantState::Hidden;
 	}
