@@ -468,6 +468,9 @@
     <ClInclude Include="RedVenusFireTrap.h">
       <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
     </ClInclude>
+    <ClInclude Include="GreenVenusFireTrap.h">
+      <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -778,6 +781,9 @@
       <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
     </ClCompile>
     <ClCompile Include="RedVenusFireTrap.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenVenusFireTrap.cpp">
       <Filter>GameSource\GameObjects\Enemies\Plants\VenusFireTrap</Filter>
     </ClCompile>
   </ItemGroup>

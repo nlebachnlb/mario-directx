@@ -128,13 +128,15 @@ void Plant::TrackPlayerPosition()
 	if (player == nullptr) return;
 	
 	auto distance = Mathf::Abs(player->GetTransform().Position.x - transform.Position.x);
-	if (distance < hideDistance && state == PlantState::Reveal)
+	if (distance < hideDistance && state == PlantState::Reveal && movementPhase == 0)
 	{
 		state = PlantState::Hidden;
+	}
+	else if (distance >= hideDistance && state == PlantState::Hidden)
+	{
+		state = PlantState::Reveal;
 		// Reset movement phases
 		movementPhase = 0;
 		timer = 0;
 	}
-	else if (distance >= hideDistance && state == PlantState::Hidden)
-		state = PlantState::Reveal;
 }

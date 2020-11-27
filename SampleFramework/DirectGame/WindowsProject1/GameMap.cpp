@@ -290,8 +290,8 @@ void GameMap::LoadEnemy()
                         spawnerManager->AddService(plantSpawner);
                     }
 
-                    if (type.compare("red") == 0)
-                        plantSpawner->Spawn("enm-red-venus-fire-trap", position);
+                    if (type.compare("red") == 0 || type.compare("green") == 0)
+                        plantSpawner->Spawn("enm-" + type + "-venus-fire-trap", position);
                 }
             }
         }

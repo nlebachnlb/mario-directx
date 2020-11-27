@@ -45,5 +45,5 @@ void VenusFireTrap::UpdateDirection()
 {
 	AbstractEnemy::UpdateDirection();
 	verticalDirection = player != nullptr ? 
-		Mathf::Sign(player->GetTransform().Position.y + visualRelativePosition.y - 0.25f * GetBoxSize().y - transform.Position.y) : 1;
+		Mathf::Sign(player->GetTransform().Position.y - 0.25f * GetBoxSize().y - transform.Position.y) : 1;
 }

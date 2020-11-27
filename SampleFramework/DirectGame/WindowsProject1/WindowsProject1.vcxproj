@@ -171,6 +171,7 @@
     <ClInclude Include="GreenKoopa.h" />
     <ClInclude Include="GreenKoopaParatroopa.h" />
     <ClInclude Include="GreenKoopasShell.h" />
+    <ClInclude Include="GreenVenusFireTrap.h" />
     <ClInclude Include="GrowUpFX.h" />
     <ClInclude Include="HitFX.h" />
     <ClInclude Include="HitStarFX.h" />
@@ -266,6 +267,7 @@
     <ClCompile Include="GreenKoopa.cpp" />
     <ClCompile Include="GreenKoopaParatroopa.cpp" />
     <ClCompile Include="GreenKoopasShell.cpp" />
+    <ClCompile Include="GreenVenusFireTrap.cpp" />
     <ClCompile Include="GrowUpFX.cpp" />
     <ClCompile Include="HitFX.cpp" />
     <ClCompile Include="HitStarFX.cpp" />

@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "PiranhaPlant.h"
 #include "RedVenusFireTrap.h"
+#include "GreenVenusFireTrap.h"
 
 AbstractEnemy* PlantSpawner::Spawn(std::string name, Vector2 position, bool reset)
 {
@@ -17,6 +18,8 @@ AbstractEnemy* PlantSpawner::Spawn(std::string name, Vector2 position, bool rese
 			enm = Instantiate<PiranhaPlant>();
 		else if (name.compare("enm-red-venus-fire-trap") == 0)
 			enm = Instantiate<RedVenusFireTrap>();
+		else if (name.compare("enm-green-venus-fire-trap") == 0)
+			enm = Instantiate<GreenVenusFireTrap>();
 
 		DebugOut(L"Plant-New spawn\n");
 
