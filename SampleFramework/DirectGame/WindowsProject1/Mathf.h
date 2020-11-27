@@ -1,4 +1,5 @@
 #pragma once
+#include "Transform.h"
 class Mathf
 {
 public:
@@ -12,6 +13,15 @@ public:
 	static float Abs(float x);
 	static float Sin(float x);
 	static float Cos(float x);
+	static float Tan(float x);
+	static float Arctan(float radian);
+	static float Arctan2(float y, float x);
+	static float Rad2Deg(float radian);
+	static float Deg2Rad(float degree);
+	static float Magnitude(Vector2 vec);
+	static Vector2 Normalize(Vector2 vec);
+	static float ToAngle(Vector2 vec);
+	static Vector2 ToDirectionalVector(float radian);
 };
 
 class Random

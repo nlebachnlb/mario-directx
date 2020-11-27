@@ -49,6 +49,52 @@ float Mathf::Cos(float x)
     return cos(x);
 }
 
+float Mathf::Tan(float x)
+{
+    return tan(x);
+}
+
+float Mathf::Arctan(float radian)
+{
+    return atan(radian);
+}
+
+float Mathf::Arctan2(float y, float x)
+{
+    return atan2(y, x);
+}
+
+float Mathf::Rad2Deg(float radian)
+{
+    return (radian / Pi) * 180.0f;
+}
+
+float Mathf::Deg2Rad(float degree)
+{
+    return degree * Pi / 180.0f;
+}
+
+float Mathf::Magnitude(Vector2 vec)
+{
+    return sqrt((vec.x * vec.x) + (vec.y * vec.y));
+}
+
+Vector2 Mathf::Normalize(Vector2 vec)
+{
+    auto magnitude = Magnitude(vec);
+    return Vector2(vec.x / magnitude, vec.y / magnitude);
+}
+
+float Mathf::ToAngle(Vector2 vec)
+{
+    return Arctan2(vec.y, vec.x);
+}
+
+Vector2 Mathf::ToDirectionalVector(float radian)
+{
+    return Normalize(Vector2(Cos(radian), Sin(radian)));
+}
+
 bool Random::initialized = false;
 
 // Random an integer in [inf, sup] (bounds included)
