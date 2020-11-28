@@ -13,7 +13,7 @@ void KoopaParatroopa::OnDead(bool oneHit)
 		colliders->at(0)->Disable();
 		transform.Scale.y = -1;
 		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, KOOPA_PARATROOPA_DEFLECTION_ON_SHOT));
-		SetState("Idle");
+		SetState("Die");
 		dead = true;
 	}
 	else

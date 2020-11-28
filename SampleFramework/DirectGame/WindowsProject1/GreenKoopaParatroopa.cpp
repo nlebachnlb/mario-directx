@@ -25,6 +25,7 @@ void GreenKoopaParatroopa::InitAnimations()
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Fly", animations->Get("ani-green-koopa-paratroopa-fly"));
 	AddAnimation("Idle", animations->Get("ani-green-koopa-paratroopa-idle"));
+	AddAnimation("Die", animations->Get("ani-green-koopa-troopa-shell-idle"));
 }
 
 void GreenKoopaParatroopa::OnCollisionEnter(Collider2D* self, std::vector<CollisionEvent*> collisions)

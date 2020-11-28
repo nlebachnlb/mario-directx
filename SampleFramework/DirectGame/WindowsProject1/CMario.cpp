@@ -460,6 +460,9 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			OnDamaged(enemy);
 		}
 	}
+
+	if (otherTag == ObjectTags::HostileProjectiles && !IsInvincible())
+		OnDamaged(nullptr);
 }
 
 void CMario::OnSolidOverlappedExit()

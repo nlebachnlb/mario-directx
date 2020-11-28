@@ -82,13 +82,6 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 			this->OnDead(true);
 	}
 
-	/*if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
-	{
-		otherCollider->GetGameObject()->SetActive(false);
-		otherCollider->GetGameObject()->GetColliders()->at(0)->Disable();
-		this->OnDead(false);
-	}*/
-
 	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()) && dead == false)
 	{
 		auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
