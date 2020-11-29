@@ -635,7 +635,7 @@ void CMario::JumpState()
 	if (canHighJump)
 	{
 		auto maxHeight = ((feverState == 2 && run) || deflect) ? MARIO_MAX_SUPER_JUMPHEIGHT : MARIO_MAX_JUMPHEIGHT;
-		if (Mathf::Abs(posBeforeJump.y) - Mathf::Abs(transform.Position.y) <= maxHeight)
+		if (Mathf::Abs(posBeforeJump.y - transform.Position.y) <= maxHeight)
 		{
 			velocity.y = -MARIO_JUMP_FORCE;
 			rigidbody->SetVelocity(&velocity);
@@ -654,11 +654,11 @@ void CMario::JumpState()
 void CMario::HighJumpState()
 {
 	auto velocity = rigidbody->GetVelocity();
+	rigidbody->SetGravity(MARIO_GRAVITY);
 
 	// After reaching the max jump distance, fall down
 	if (velocity.y > 0)
 	{
-		rigidbody->SetGravity(MARIO_GRAVITY);
 		physicState.jump = JumpingStates::Fall;
 	}
 }

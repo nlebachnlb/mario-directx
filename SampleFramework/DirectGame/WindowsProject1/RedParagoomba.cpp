@@ -10,6 +10,7 @@ void RedParagoomba::Start()
 	SetState("Walk");
 	timer = 0;
 	jumpStep = 0;
+	visualRelativePosition.y = -3;
 }
 
 void RedParagoomba::InitAnimations()

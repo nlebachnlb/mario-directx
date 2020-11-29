@@ -60,15 +60,15 @@
     </Animation>
 
     <Animation aniId="ani-red-para-goomba-walk" frameTime="150">
-      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19" yPivot="11"/>
-      <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19" yPivot="11"/>
+      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19" yPivot="12"/>
+      <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19" yPivot="12"/>
     </Animation>
     <!-- Animation FLAP-->
     <Animation aniId="ani-red-para-goomba-fly" frameTime="150">
       <Sprite id="spr-red-para-goomba-flap-0" left="66" top="35"  width="20" height="24"/>
-      <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19" yPivot="11"/>
+      <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19" yPivot="12"/>
       <Sprite id="spr-red-para-goomba-flap-1" left="90" top="35"  width="20" height="24"/>
-      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19" yPivot="11"/>
+      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19" yPivot="12"/>
     </Animation>
 
     <!--		VENUS		-->

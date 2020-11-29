@@ -16,6 +16,7 @@ void RaccoonAttackBox::Awake()
 	this->colliders->push_back(box);
 
 	this->rigidbody->SetDynamic(true);
+	renderOrder = -1;
 }
 
 void RaccoonAttackBox::Start()
@@ -37,7 +38,6 @@ void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherC
 		auto fxPool = spawner->GetService<EffectPool>();
 
 		fxPool->CreateFX("fx-hit-star", transform.Position);
-		//auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
 
 		switch (otherTag)
 		{
