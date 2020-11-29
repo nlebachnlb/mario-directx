@@ -33,6 +33,7 @@ public:
 	float GetFallLimitVelocity();
 
 	void PassDataTo(Rigidbody2D* target);
+	void GenerateDragForce();
 
 protected:
 	PhysicMaterial material;

@@ -9,6 +9,7 @@ void KoopasShell::Awake()
 	AbstractEnemy::Awake();
 	SetTag(ObjectTags::KoopasShell);
 	renderOrder = 10;
+	rigidbody->SetDrag(Vector2(KOOPAS_SHELL_DRAG_FORCE, 0));
 }
 
 void KoopasShell::Start()
@@ -33,6 +34,8 @@ void KoopasShell::Movement()
 	rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY * (IsHeld() ? 0 : 1));
 	rigidbody->SetVelocity(IsHeld() ? &VectorZero() : &rigidbody->GetVelocity());
 	// DebugOut(L"Shell vel: %f\n", rigidbody->GetVelocity().y);
+
+	if (!running) rigidbody->GenerateDragForce();
 }
 
 void KoopasShell::OnDead(bool oneHit)
@@ -44,7 +47,7 @@ void KoopasShell::OnDead(bool oneHit)
 		colliders->at(0)->Disable();
 		transform.Scale.y = -1;
 		StopRunning();
-		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
+		rigidbody->SetVelocity(&Vector2(-facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 		dead = true;
 	}
@@ -53,7 +56,7 @@ void KoopasShell::OnDead(bool oneHit)
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		transform.Scale.y = -1;
 		StopRunning();
-		rigidbody->SetVelocity(&Vector2(0, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
+		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 	}
 }

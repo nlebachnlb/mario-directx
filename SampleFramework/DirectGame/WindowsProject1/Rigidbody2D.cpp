@@ -1,5 +1,6 @@
 #include "Rigidbody2D.h"
 #include "Utils.h"
+#include "Game.h"
 
 Rigidbody2D::Rigidbody2D()
 {
@@ -106,4 +107,21 @@ void Rigidbody2D::PassDataTo(Rigidbody2D* target)
 	target->gravity = this->gravity;
 	target->material = this->material;
 	target->isDynamic = this->isDynamic;
+}
+
+void Rigidbody2D::GenerateDragForce()
+{
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+
+	if (velocity.x > 0)
+	{
+		velocity.x -= drag.x * dt;
+		if (velocity.x < 0) velocity.x = 0;
+	}
+
+	if (velocity.x < 0)
+	{
+		velocity.x += drag.x * dt;
+		if (velocity.x > 0) velocity.x = 0;
+	}
 }

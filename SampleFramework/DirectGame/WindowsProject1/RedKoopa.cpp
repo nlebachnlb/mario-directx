@@ -7,6 +7,7 @@
 
 void RedKoopa::Start()
 {
+	visualRelativePosition.y = -16;
 	rigidbody->SetGravity(KOOPA_GRAVITY);
 	// DebugOut(L"Koopa start: %f, %f\n", colliders->at(0)->GetBoxSize().x, colliders->at(0)->GetBoxSize().x);
 

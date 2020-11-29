@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "EffectPool.h"
 #include "KoopasShell.h"
+#include "Mathf.h"
 
 void RaccoonAttackBox::Awake()
 {
@@ -45,7 +46,9 @@ void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherC
 		{
 			SetActive(false);
 			selfCollider->Disable();
-			static_cast<KoopasShell*>(otherCollider->GetGameObject())->OnDead(false);
+			auto shell = static_cast<KoopasShell*>(otherCollider->GetGameObject());
+			shell->SetFacing(Mathf::Sign(shell->GetTransform().Position.x - transform.Position.x));
+			shell->OnDead(false);
 		}
 		break;
 		}
