@@ -128,8 +128,8 @@ void CMario::Update()
 		velocity.x = facing * curVelocity;
 	}
 
-	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.85f;
-	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.85f;
+	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.92f;
+	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f;
 	if (pushSide == 0) rigidbody->SetVelocity(&velocity);
 
 #pragma endregion
@@ -212,7 +212,7 @@ int CMario::GetFacing()
 {
 	return this->facing;
 }
-
+ 
 int CMario::SetFacing(int facing)
 {
 	return this->facing = facing;

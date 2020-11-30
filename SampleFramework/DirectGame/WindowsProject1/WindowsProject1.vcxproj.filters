@@ -187,6 +187,9 @@
     <Filter Include="GameSource\GameObjects\Projectiles\HostileProjectiles">
       <UniqueIdentifier>{ad23a509-e01a-4d2b-8a93-9f74ec86a6e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Warp">
+      <UniqueIdentifier>{f24fc652-9d5f-45f1-99a1-c8df6c224bdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -476,6 +479,9 @@
     </ClInclude>
     <ClInclude Include="VenusFireball.h">
       <Filter>GameSource\GameObjects\Projectiles\HostileProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpInfo.h">
+      <Filter>GameSource\GameObjects\Warp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -794,6 +800,9 @@
     </ClCompile>
     <ClCompile Include="VenusFireball.cpp">
       <Filter>GameSource\GameObjects\Projectiles\HostileProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="WarpInfo.cpp">
+      <Filter>GameSource\GameObjects\Warp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

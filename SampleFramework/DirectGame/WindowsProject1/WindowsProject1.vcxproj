@@ -243,6 +243,7 @@
     <ClInclude Include="VenusFireball.h" />
     <ClInclude Include="VenusFireTrap.h" />
     <ClInclude Include="VisionBox.h" />
+    <ClInclude Include="WarpInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractBlock.cpp" />
@@ -338,6 +339,7 @@
     <ClCompile Include="VenusFireball.cpp" />
     <ClCompile Include="VenusFireTrap.cpp" />
     <ClCompile Include="VisionBox.cpp" />
+    <ClCompile Include="WarpInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc" />
