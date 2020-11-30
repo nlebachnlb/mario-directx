@@ -15,6 +15,9 @@ enum class ObjectTags
 	FireFlower,
 	Coin,
 
+	WarpEntrance,
+	WarpMark,
+
 	HostileProjectiles,
 	Solid,
 	GhostPlatform,

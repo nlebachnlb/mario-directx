@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include "tinyxml.h"
 
 struct Object
@@ -8,6 +9,9 @@ struct Object
 	int id;
 	int x, y, width, height;
 	std::string name, type;
+	std::unordered_map<std::string, std::string> properties;
+
+	std::string GetPropertyValue(std::string propertyName);
 };
 
 class ObjectGroup

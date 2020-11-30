@@ -1,17 +1,6 @@
 #pragma once
 #include "Transform.h"
-enum class WarpType
-{
-	None,
-	WarpIn,
-	WarpOut,
-	WarpInOut
-};
-
-enum class WarpDirection
-{
-	None, Left, Right, Up, Down
-};
+#include "WarpUtils.h"
 
 struct WarpInfo
 {

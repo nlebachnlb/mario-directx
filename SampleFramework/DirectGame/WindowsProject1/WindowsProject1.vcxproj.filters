@@ -483,6 +483,15 @@
     <ClInclude Include="WarpInfo.h">
       <Filter>GameSource\GameObjects\Warp</Filter>
     </ClInclude>
+    <ClInclude Include="WarpMark.h">
+      <Filter>GameSource\GameObjects\Warp</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpEntrance.h">
+      <Filter>GameSource\GameObjects\Warp</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpUtils.h">
+      <Filter>GameSource\GameObjects\Warp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -802,6 +811,12 @@
       <Filter>GameSource\GameObjects\Projectiles\HostileProjectiles</Filter>
     </ClCompile>
     <ClCompile Include="WarpInfo.cpp">
+      <Filter>GameSource\GameObjects\Warp</Filter>
+    </ClCompile>
+    <ClCompile Include="WarpMark.cpp">
+      <Filter>GameSource\GameObjects\Warp</Filter>
+    </ClCompile>
+    <ClCompile Include="WarpEntrance.cpp">
       <Filter>GameSource\GameObjects\Warp</Filter>
     </ClCompile>
   </ItemGroup>

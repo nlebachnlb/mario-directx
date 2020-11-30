@@ -37,6 +37,20 @@ ObjectGroup* ObjectGroup::FromXMLData(TiXmlElement* data)
         if (type != NULL) object->type = type;
         else object->type = "";
 
+        // Get custom properties
+        auto props = node->FirstChildElement("properties");
+        if (props != nullptr)
+        {
+            for (auto prop = props->FirstChildElement("property"); prop != nullptr; prop = prop->NextSiblingElement("property"))
+            {
+                std::string propName = prop->Attribute("name");
+                std::string propValue = prop->Attribute("value");
+
+                object->properties.insert(std::make_pair(propName, propValue));
+                // OutputDebugStringW(ToLPCWSTR("object: " + object->name + ": prop: " + propName + ": " + propValue + "\n"));
+            }
+        }
+
         objectGroup->objects->push_back(object);
     }
 
@@ -56,4 +70,11 @@ int ObjectGroup::GetID()
 std::vector<Object*>* ObjectGroup::GetObjects()
 {
     return this->objects;
+}
+
+std::string Object::GetPropertyValue(std::string propertyName)
+{
+    if (properties.find(propertyName) != properties.end())
+        return properties.at(propertyName);
+    return "";
 }
