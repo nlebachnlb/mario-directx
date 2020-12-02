@@ -32,7 +32,7 @@ void Pipe::Render(Vector2 translation)
 	{
 		if (direction != PipeDirection::Vertical)
 		{
-			auto headOffset = direction == PipeDirection::Up ? 0 : (height - 1);
+			auto headOffset = direction == PipeDirection::Up ? 0 : (height - 1) * size;
 			tileset->SetSourceRect(headSrc[0].x, headSrc[0].y, size, size);
 			tileset->Draw(pos.x + translation.x, pos.y + headOffset + translation.y);
 

@@ -109,7 +109,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 int startX = PIPE_START_X, startY = PIPE_START_Y;
 
                 if (color.compare("green") == 0) startX += 2;
-                if (dir.compare("up") == 0 || dir.compare("down") || dir.compare("vertical") == 0)
+                if (dir.compare("up") == 0 || dir.compare("down") == 0 || dir.compare("vertical") == 0)
                 {
                     startY += 2;
                     pipe->SetHeadSrc(IntPoint{ startX * 48, startY * 48 },
