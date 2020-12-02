@@ -30,7 +30,7 @@ void FireMario::OnKeyDown(int keyCode)
 	CMario::OnKeyDown(keyCode);
 
 	// Process attack key
-	if (keyCode == marioKeySet.Attack && attacking == false)
+	if (keyCode == marioKeySet.Attack && attacking == false && !fireballs.IsEmpty())
 	{
 		auto fireball = fireballs.Instantiate();
 		if (fireball != nullptr)

@@ -401,6 +401,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		case WarpDirection::Down: warpKey = marioKeySet.Crouch; break;
 		}
 
+		if (input == nullptr) input = Game::GetInstance().GetService<InputHandler>();
 		if (input->GetKeyDown(warpKey) && 
 			(warpKey == marioKeySet.HeadUp ? input->GetKeyDown(marioKeySet.Jump) : true))
 		{
