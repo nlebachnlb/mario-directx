@@ -16,6 +16,8 @@
 #include "PlantSpawner.h"
 #include "Pipe.h"
 #include "VenusFireTrap.h"
+#include "WarpEntrance.h"
+#include "WarpMark.h"
 
 GameMap::GameMap()
 {
@@ -146,6 +148,55 @@ void GameMap::Load(std::string filePath, bool manual)
 
                 auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
                 // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+            }
+        }
+
+        if (groupName.compare("Warp") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
+            {
+                std::string name = objects->at(i)->name;
+                std::string type = objects->at(i)->type;
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                Vector2 size(objects->at(i)->width, objects->at(i)->height);
+
+                if (name.compare("warp-entrance") == 0)
+                {
+                    WarpEntrance* warp = Instantiate<WarpEntrance>();
+                    warp->SetPosition(position + (size / 2.0f));
+                    warp->GetColliders()->at(0)->SetBoxSize(size);
+
+                    WarpDirection wDir =
+                        type.compare("down") == 0   ? WarpDirection::Down   :
+                        (type.compare("up") == 0    ? WarpDirection::Up     :
+                        (type.compare("left") == 0  ? WarpDirection::Left   :
+                        (type.compare("right") == 0 ? WarpDirection::Right  :
+                                                      WarpDirection::None)));
+
+                    warp->SetWarpDirection(wDir);
+                    this->gameObjects.push_back(warp);
+                }
+                else if (name.compare("warp-mark") == 0)
+                {
+                    WarpMark* warp = Instantiate<WarpMark>();
+                    warp->SetPosition(position + (size / 2.0f));
+                    warp->GetColliders()->at(0)->SetBoxSize(size);
+
+                    int boundId = stoi(objects->at(i)->GetPropertyValue("camera-bound-id"));
+                    int dstX = stoi(objects->at(i)->GetPropertyValue("dest-x"));
+                    int dstY = stoi(objects->at(i)->GetPropertyValue("dest-y"));
+                    std::string outDir = objects->at(i)->GetPropertyValue("out-direction");
+
+                    WarpDirection oDir =
+                        outDir.compare("down") == 0 ? WarpDirection::Down :
+                        (outDir.compare("up") == 0 ? WarpDirection::Up :
+                            (outDir.compare("left") == 0 ? WarpDirection::Left :
+                                (outDir.compare("right") == 0 ? WarpDirection::Right :
+                                    WarpDirection::None)));
+
+                    warp->SetWarpInfo(boundId, Vector2(dstX, dstY), oDir);
+                    this->gameObjects.push_back(warp);
+                }
             }
         }
 

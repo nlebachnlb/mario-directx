@@ -17,6 +17,7 @@ void VenusFireball::Awake()
 
 	this->rigidbody->SetDynamic(true);
 	this->rigidbody->SetGravity(0);
+	renderOrder = 15;
 }
 
 void VenusFireball::Start()

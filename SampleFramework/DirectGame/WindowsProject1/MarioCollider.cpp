@@ -12,6 +12,8 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 	if (mario == nullptr) 
 		mario = dynamic_cast<CMario*>(gameObject);
 
+	if (mario->IsWarping()) return;
+
 	auto canPassThrough = collisions.size() > 0 &&
 		(TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()) ||
 		TagUtils::PowerupTag(collisions.at(0)->collider->GetGameObject()->GetTag()));
@@ -50,6 +52,12 @@ void MarioCollider::CollisionProcess(std::vector<CollisionEvent*>& collisions,
 
 void MarioCollider::BlockPosition(vector<CollisionEvent*>& collisions, float& min_tx, float& min_ty, float& nx, float& ny)
 {
+	if (mario == nullptr)
+		mario = dynamic_cast<CMario*>(gameObject);
+	if (mario->IsWarping()) {
+		DebugOut(L"warping ...\n");  return;
+	}
+
 	bool canPassThrough = collisions.size() > 0 &&
 		(TagUtils::EnemyTag(collisions.at(0)->collider->GetGameObject()->GetTag()) ||
 		TagUtils::PowerupTag(collisions.at(0)->collider->GetGameObject()->GetTag()));

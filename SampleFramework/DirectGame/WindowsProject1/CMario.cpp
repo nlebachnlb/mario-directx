@@ -6,6 +6,8 @@
 #include "MarioCollider.h"
 #include "QuestionBlock.h"
 #include "KoopasShell.h"
+#include "WarpMark.h"
+#include "WarpEntrance.h"
 
 void CMario::Awake()
 {
@@ -58,11 +60,17 @@ void CMario::Start()
 
 	hold = false;
 	heldInHandsObject = nullptr;
+
+	warp = 0;
+	canWarp = false;
 }
 
 void CMario::Update()
 {
 	if (input == nullptr) input = Game::GetInstance().GetService<InputHandler>();
+
+	WarpProcess();
+	if (warp != 0) return;
 
 	auto velocity = rigidbody->GetVelocity();
 	previousVelocity = velocity;
@@ -185,11 +193,15 @@ void CMario::PreRender()
 	if (!currentState.empty()) 
 		animations.at(currentState)->SetAlpha(visualAlpha);
 
-	// This update will be used for Animation updating
-	if (physicState.jump == JumpingStates::Stand)
-		MovementAnimation();
+	if (warp)
+		WarpAnimation();
 	else
-		JumpingAnimation();
+	{
+		if (physicState.jump == JumpingStates::Stand)
+			MovementAnimation();
+		else
+			JumpingAnimation();
+	}
 
 	SetScale(Vector2(1 * facing, 1));
 }
@@ -291,6 +303,31 @@ void CMario::PassPrivateData(CMario* other, bool moveData)
 	// ResetPrivateData();
 }
 
+void CMario::StartWarping(WarpDirection direction)
+{
+	warp = 1;
+	// rigidbody->SetDynamic(false);
+	rigidbody->SetGravity(0);
+	colliders->at(0)->SetTrigger(true);
+	warpDirection = direction;
+	renderOrder = -5;
+}
+
+void CMario::EndWarping()
+{
+	warp = 0;
+	// rigidbody->SetDynamic(true);
+	rigidbody->SetGravity(MARIO_GRAVITY);
+	colliders->at(0)->SetTrigger(false);
+	warpDirection = WarpDirection::None;
+	renderOrder = 6;
+}
+
+bool CMario::IsWarping()
+{
+	return this->warp > 0;
+}
+
 #pragma region Keyboard
 
 void CMario::OnKeyDown(int keyCode)
@@ -351,6 +388,50 @@ void CMario::OnTriggerEnter(Collider2D* selfCollider, vector<CollisionEvent*> co
 void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 {
 	auto otherTag = other->GetGameObject()->GetTag();
+
+	if (otherTag == ObjectTags::WarpEntrance && warp == 0)
+	{
+		auto entrance = static_cast<WarpEntrance*>(other->GetGameObject());
+		int warpKey;
+		switch (entrance->GetWarpDirection())
+		{
+		case WarpDirection::Left: warpKey = marioKeySet.Left; break;
+		case WarpDirection::Up: warpKey = marioKeySet.HeadUp; break;
+		case WarpDirection::Right: warpKey = marioKeySet.Right; break;
+		case WarpDirection::Down: warpKey = marioKeySet.Crouch; break;
+		}
+
+		if (input->GetKeyDown(warpKey) && 
+			(warpKey == marioKeySet.HeadUp ? input->GetKeyDown(marioKeySet.Jump) : true))
+		{
+			StartWarping(entrance->GetWarpDirection());
+			DebugOut(L"Enter warp: %d\n", warp);
+		}
+	}
+
+	// Warp process
+	if (warp == 1)
+	{
+		auto direction = WarpUtils::ToVector(warpDirection);
+		auto dt = Game::DeltaTime() * Game::GetTimeScale();
+		switch (otherTag)
+		{
+		case ObjectTags::WarpMark:
+		{
+			auto o = static_cast<WarpMark*>(other->GetGameObject());
+			transform.Position = o->GetDestination();
+			warpDirection = o->GetDirection();
+			auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
+			mainCamera->SetBoundary(bset.boundary);
+			mainCamera->SetPosition(bset.position);
+			warp = 2;
+			DebugOut(L"switch: %d\n", warp);
+		}
+			break;
+		}
+		return;
+	}
+
 	if (TagUtils::PowerupTag(otherTag) || TagUtils::ItemTag(otherTag))
 	{
 		switch (otherTag)
@@ -374,7 +455,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		Destroy(other->GetGameObject());
 	}
 
-	if (TagUtils::StaticTag(otherTag))
+	if (TagUtils::StaticTag(otherTag) && warp == 0)
 	{
 		// DebugOut(L"Enter overlap\n");
 		auto selfBox = colliders->at(0)->GetBoundingBox();
@@ -452,7 +533,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		transform.Position.x += pushSide * 0.15f * Game::DeltaTime();
 	}
 
-	if (TagUtils::EnemyTag(otherTag) && other->IsTrigger())
+	if (TagUtils::EnemyTag(otherTag) && other->IsTrigger() && warp == 0)
 	{
 		if (!IsInvincible())
 		{
@@ -461,14 +542,19 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		}
 	}
 
-	if (otherTag == ObjectTags::HostileProjectiles && !IsInvincible())
+	if (otherTag == ObjectTags::HostileProjectiles && !IsInvincible() && warp == 0)
 		OnDamaged(nullptr);
 }
 
 void CMario::OnSolidOverlappedExit()
 {
-	// DebugOut(L"Exit overlap\n");
 	pushSide = 0;
+
+	if (warp == 2)
+	{
+		DebugOut(L"warp = 2, end\n");
+		EndWarping();
+	}
 }
 
 void CMario::OnDamaged(AbstractEnemy* enemy)
@@ -512,6 +598,9 @@ void CMario::InitAnimations()
 	AddAnimation("HoldMove",	animations->Get("ani-big-mario-hold"));
 	AddAnimation("HoldJump",	animations->Get("ani-big-mario-hold-jump"));
 	AddAnimation("Kick",		animations->Get("ani-big-mario-kick"));
+
+	AddAnimation("WarpHor", animations->Get("ani-big-mario-walk"));
+	AddAnimation("WarpVer", animations->Get("ani-big-mario-idle-front"));
 }
 
 void CMario::MovementAnimation()
@@ -559,6 +648,13 @@ void CMario::JumpingAnimation()
 		SetState(hold ? "HoldJump" : "Fall");
 }
 
+void CMario::WarpAnimation()
+{
+	auto vecWDir = WarpUtils::ToVector(warpDirection);
+	if (vecWDir.x != 0 && currentState.compare("WarpHor") != 0) SetState("WarpHor");
+	if (vecWDir.y != 0 && currentState.compare("WarpVer") != 0) SetState("WarpVer");
+}
+
 void CMario::ResetPrivateData()
 {
 	hold = false;
@@ -569,6 +665,18 @@ void CMario::ResetPrivateData()
 
 #pragma region Skid-Crouch-Hold
 
+void CMario::WarpProcess()
+{
+	if (warp > 0)
+	{
+		auto dt = Game::DeltaTime() * Game::GetTimeScale();
+		rigidbody->SetVelocity(&Vector2(0, 0));
+		auto direction = WarpUtils::ToVector(warpDirection);
+		transform.Position += direction * MARIO_WARP_SPEED * dt;
+		// DebugOut(L"Warp: %f, %f, %f, %f, %f\n", direction.x, direction.y, rigidbody->GetVelocity().x, rigidbody->GetVelocity().y, rigidbody->GetGravity());
+	}
+}
+
 void CMario::SkidDetection(Vector2 velocity)
 {
 	skid = Mathf::Sign(velocity.x) * nx < 0;
@@ -576,6 +684,8 @@ void CMario::SkidDetection(Vector2 velocity)
 
 void CMario::CrouchDetection(InputHandler* input)
 {
+	if (warp > 0) return;
+
 	bool exitConditions = 
 	physicState.jump == JumpingStates::Stand && 
 		(input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right));

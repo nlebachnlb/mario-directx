@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "PlayerController.h"
 #include "AbstractEnemy.h"
+#include "WarpUtils.h"
 
 const int	MARIO_MIN_VDISTANCE			= 8; // pixels
 const float MARIO_GRAVITY				= 0.0026f;
@@ -31,14 +32,16 @@ const float MARIO_SKID_ACCELERATION		= 0.001104f * 2;
 const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
 
 const int	MARIO_FLICK_DELTA			= 5; // miliseconds
-const int	MARIO_INVINCIBLE_TIME		= 2000;
+const int	MARIO_INVINCIBLE_TIME		= 1500;
 
 const Vector2 MARIO_BBOX(12 * 3, 26 * 3);
 const Vector2 MARIO_SMALL_BBOX(12 * 3, 14 * 3);
 
+const float MARIO_WARP_SPEED			= 0.12f;
+
 struct MarioKeySet
 {
-	int Left, Right, Jump, LowJump, Attack, Crouch;
+	int Left, Right, Jump, LowJump, Attack, Crouch, HeadUp;
 	// Default Keyset
 	MarioKeySet()
 	{
@@ -48,6 +51,7 @@ struct MarioKeySet
 		Attack	= DIK_A;
 		LowJump = DIK_X;
 		Crouch	= DIK_DOWN;
+		HeadUp	= DIK_UP;
 	}
 };
 
@@ -113,10 +117,15 @@ public:
 	void PassPrivateData(CMario* other, bool moveData = true); 
 	// if moveData, data of this will be reset
 
+	void StartWarping(WarpDirection direction);
+	void EndWarping();
+	bool IsWarping();
+
 protected:
 	virtual void InitAnimations();
 	virtual void MovementAnimation();
 	virtual void JumpingAnimation();
+	virtual void WarpAnimation();
 	void ResetPrivateData();
 	bool canCrouch;
 	MarioKeySet marioKeySet;
@@ -125,6 +134,9 @@ protected:
 	float pMeter;
 	bool maxRun;
 	bool runningRestriction; // If this flag is turned on, run state will be restricted
+	bool canWarp;
+	int warp;
+	WarpDirection warpDirection;
 
 	bool invincible;
 	int flickTimer, visualAlpha;
@@ -137,6 +149,7 @@ protected:
 	PlayerController* controller;
 
 private:
+	void WarpProcess();
 	void SkidDetection(Vector2 velocity);
 	void CrouchDetection(InputHandler* input);
 	void HoldProcess();

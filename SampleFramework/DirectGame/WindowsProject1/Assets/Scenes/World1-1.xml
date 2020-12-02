@@ -4,6 +4,6 @@
   <Scene name="Player" pos_x="64" pos_y="1000"/>
   <Scene name="Camera" start="0" main="1">
     <Boundary id="0" pos_x="0" pos_y="650" left="0" top="0" right="8448" bottom="1296"/>
-    <Boundary id="1" pos_x="5856" pos_y="1392" left="5856" top="1392" right="7392" bottom="1920"/>
+    <Boundary id="1" pos_x="5856" pos_y="1392" left="5856" top="1392" right="7392" bottom="1968"/>
   </Scene> 
 </Scene>

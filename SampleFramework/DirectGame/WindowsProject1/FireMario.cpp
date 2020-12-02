@@ -61,6 +61,9 @@ void FireMario::InitAnimations()
 	AddAnimation("HoldMove", animations->Get("ani-fire-mario-hold"));
 	AddAnimation("HoldJump", animations->Get("ani-fire-mario-hold-jump"));
 	AddAnimation("Kick", animations->Get("ani-fire-mario-kick"));
+
+	AddAnimation("WarpHor", animations->Get("ani-fire-mario-walk"));
+	AddAnimation("WarpVer", animations->Get("ani-fire-mario-idle-front"));
 }
 
 void FireMario::MovementAnimation()

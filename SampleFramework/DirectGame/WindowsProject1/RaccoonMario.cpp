@@ -108,6 +108,9 @@ void RaccoonMario::InitAnimations()
 	AddAnimation("HoldMove", animations->Get("ani-raccoon-mario-hold"));
 	AddAnimation("HoldJump", animations->Get("ani-raccoon-mario-hold-jump"));
 	AddAnimation("Kick", animations->Get("ani-raccoon-mario-kick"));
+
+	AddAnimation("WarpHor", animations->Get("ani-raccoon-mario-walk"));
+	AddAnimation("WarpVer", animations->Get("ani-raccoon-mario-idle-front"));
 }
 
 void RaccoonMario::MovementAnimation()
@@ -146,6 +149,8 @@ void RaccoonMario::JumpingAnimation()
 
 void RaccoonMario::LateUpdate()
 {
+	if (warp) return;
+
 	if (floating)
 	{
 		auto current = GetTickCount();

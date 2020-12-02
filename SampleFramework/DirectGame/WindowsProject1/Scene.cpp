@@ -204,7 +204,9 @@ void Scene::UpdateActiveObjects()
 			}
 
 			o->SetOffScreen(false);
-			updated.push_back(o);
+			auto pos = std::lower_bound(updated.begin(), updated.end(), o, Scene::Comparator);
+			if (pos != updated.end()) updated.insert(pos, o);
+			else updated.push_back(o);
 		}
 	}
 }
