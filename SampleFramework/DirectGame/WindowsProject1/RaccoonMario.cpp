@@ -55,6 +55,7 @@ void RaccoonMario::OnKeyDown(int keyCode)
 		if (feverState == 2 && flying == 0)
 		{
 			// DebugOut(L"[fly] start\n");
+			Jump();
 			flying = 1;
 			lastFlyingTime = GetTickCount();
 		}
@@ -80,6 +81,8 @@ void RaccoonMario::Exit()
 {
 	attackBox->GetColliders()->at(0)->Disable();
 	attackBox->SetActive(false);
+	flying = 0;
+	rigidbody->SetGravity(MARIO_GRAVITY);
 	CMario::Exit();
 }
 
