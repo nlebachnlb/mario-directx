@@ -12,6 +12,7 @@ void DebugOutTitle(const wchar_t* fmt, ...)
 
 void DebugOut(const wchar_t* fmt, ...)
 {
+	// return;
 	va_list argp;
 	va_start(argp, fmt);
 	wchar_t dbg_out[4096];
@@ -22,6 +23,7 @@ void DebugOut(const wchar_t* fmt, ...)
 
 void DebugOut(wchar_t* fmt, ...)
 {
+	// return;
 	va_list argp;
 	va_start(argp, fmt);
 	wchar_t dbg_out[4096];

@@ -12,7 +12,7 @@
 
 const int	MARIO_MIN_VDISTANCE			= 8; // pixels
 const float MARIO_GRAVITY				= 0.0026f;
-const float MARIO_FALL_LIMIT_VEL		= 1.30f;
+const float MARIO_FALL_LIMIT_VEL		= 1.20f;
 const float MARIO_WALK_SPEED			= 0.25f;
 const float MARIO_RUN_SPEED				= 0.65f;
 const float MARIO_JUMP_FORCE			= 0.53f;

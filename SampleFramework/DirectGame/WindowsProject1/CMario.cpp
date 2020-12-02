@@ -202,8 +202,6 @@ void CMario::PreRender()
 		else
 			JumpingAnimation();
 	}
-
-	SetScale(Vector2(1 * facing, 1));
 }
  
 void CMario::Entrance()
@@ -630,10 +628,13 @@ void CMario::MovementAnimation()
 		SetState("Crouch");
 
 	SetVisualRelativePosition(colliders->at(0)->GetLocalPosition());
+	SetScale(Vector2(1 * facing, 1));
 }
 
 void CMario::JumpingAnimation()
 {
+	SetScale(Vector2(1 * nx, 1));
+
 	if (physicState.movement == MovingStates::Crouch) return;
 	if (currentState.compare("Fly") == 0) return;
 
