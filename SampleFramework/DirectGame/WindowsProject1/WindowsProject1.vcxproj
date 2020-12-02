@@ -156,6 +156,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickDebrisFX.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="CMario.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinObtainedFX.h" />
@@ -228,6 +229,7 @@
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="TransformationFX.h" />
+    <ClInclude Include="UIElement.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -258,6 +260,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickDebrisFX.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="CMario.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinObtainedFX.cpp" />
@@ -338,6 +341,7 @@
     <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformationFX.cpp" />
+    <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VenusFireball.cpp" />
     <ClCompile Include="VenusFireTrap.cpp" />

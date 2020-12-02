@@ -9,7 +9,7 @@ Camera::Camera()
 	this->viewportSize = Vector2(configs.screenWidth, configs.screenHeight);
 	this->position = VectorZero();
     this->map = nullptr;
-    this->targetPivot = Vector2(0.5f, 0.3f);
+    this->targetPivot = Vector2(0.5f, 0.5f);
     initialized = false;
 }
 

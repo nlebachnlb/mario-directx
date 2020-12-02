@@ -190,6 +190,9 @@
     <Filter Include="GameSource\GameObjects\Warp">
       <UniqueIdentifier>{f24fc652-9d5f-45f1-99a1-c8df6c224bdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\UI">
+      <UniqueIdentifier>{96d0a7cf-20da-4f0b-b398-d5bd22ca57da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -491,6 +494,12 @@
     </ClInclude>
     <ClInclude Include="WarpUtils.h">
       <Filter>GameSource\GameObjects\Warp</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Framework\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Framework\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -818,6 +827,12 @@
     </ClCompile>
     <ClCompile Include="WarpEntrance.cpp">
       <Filter>GameSource\GameObjects\Warp</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Framework\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Framework\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
