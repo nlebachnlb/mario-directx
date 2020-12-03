@@ -15,7 +15,7 @@ void VenusFireball::Awake()
 	box->SetTrigger(true);
 	this->colliders->push_back(box);
 
-	this->rigidbody->SetDynamic(true);
+	this->rigidbody->SetDynamic(false);
 	this->rigidbody->SetGravity(0);
 	renderOrder = 15;
 }
@@ -29,6 +29,8 @@ void VenusFireball::Start()
 void VenusFireball::Update()
 {
 	// DebugOut(L"Venus-fire-pos: %f, %f\n", transform.Position.x, transform.Position.y);
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
 }
 
 void VenusFireball::OnOffScreen()

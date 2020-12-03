@@ -6,7 +6,7 @@ const Vector2 VENUS_BBOX(16 * 3, 32 * 3);
 const float VENUS_SPEED = 0.13f;
 const float VENUS_HIDE_DISTANCE = 48 * 2;
 const int VENUS_N_POOLED_BULLETS = 2;
-const float VENUS_BULLET_SPEED = 0.22f;
+const float VENUS_BULLET_SPEED = 0.18f;
 const int VENUS_SHOOT_WAIT_TIME = VENUS_WAIT_TIME / 2;
 
 class VenusFireTrap : public Plant

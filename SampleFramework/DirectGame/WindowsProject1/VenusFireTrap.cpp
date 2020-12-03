@@ -58,28 +58,35 @@ void VenusFireTrap::LateUpdate()
 		{
 			shootTimer = 0;
 			targetLocking = false;
-			/*auto temp = bulletPool.Instantiate();
-			if (temp != nullptr)
+			auto bullet = bulletPool.Instantiate();
+			if (bullet != nullptr)
 			{
-				auto bullet = static_cast<VenusFireball*>(temp);
 				auto startPos = transform.Position - Vector2(0, GetBoxSize().y * 0.25f);
 				bullet->SetPosition(startPos);
 
 				Vector2 directionalVector = Mathf::Normalize(player->GetTransform().Position - startPos);
-				auto angle = Mathf::ToAngle(directionalVector);
-				if (Mathf::InRange(Mathf::Abs(angle), Mathf::Deg2Rad(45), Mathf::Deg2Rad(135)))
+				auto angle = Mathf::Rad2Deg(Mathf::ToAngle(directionalVector));
+
+				if (Mathf::InRange(Mathf::Abs(angle), 45, 135))
 				{
-					if (Mathf::Abs(angle) < Mathf::Deg2Rad(90)) angle = Mathf::Sign(angle) * Mathf::Deg2Rad(45);
-					else angle = Mathf::Sign(angle) * Mathf::Deg2Rad(135);
+					if (Mathf::Abs(angle) < 90) angle = Mathf::Sign(angle) * 45;
+					else angle = Mathf::Sign(angle) * 135;
 				}
 
+				/*if (Mathf::InRange(Mathf::Abs(angle), 45, 135))
+				{
+					if (Mathf::Abs(angle) < 90) angle = Mathf::Sign(angle) * 45;
+					else angle = Mathf::Sign(angle) * 135;
+				}*/
+
+				angle = Mathf::Deg2Rad(angle);
 				directionalVector = Mathf::ToDirectionalVector(angle);
 				
 				Vector2 velocity = directionalVector * VENUS_BULLET_SPEED;
 				bullet->GetRigidbody()->SetVelocity(&velocity);
-				auto d = VENUS_BULLET_SPEED * Mathf::ToDirectionalVector(Mathf::ToAngle(velocity));
-				DebugOut(L"Shoot: %f, %f, %f, %f, %f\n", velocity.x, velocity.y, Mathf::Rad2Deg(Mathf::ToAngle(velocity)), d.x, d.y);
-			}*/
+				/*auto d = VENUS_BULLET_SPEED * Mathf::ToDirectionalVector(Mathf::ToAngle(velocity));
+				DebugOut(L"Shoot: %f, %f, %f, %f, %f\n", velocity.x, velocity.y, Mathf::Rad2Deg(Mathf::ToAngle(velocity)), d.x, d.y);*/
+			}
 		}
 	}
 }
