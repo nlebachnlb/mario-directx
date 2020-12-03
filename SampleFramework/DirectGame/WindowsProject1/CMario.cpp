@@ -63,6 +63,8 @@ void CMario::Start()
 
 	warp = 0;
 	canWarp = false;
+
+	nx = 1;
 }
 
 void CMario::Update()
@@ -167,6 +169,7 @@ void CMario::Update()
 	}
 #pragma endregion
 
+	if (physicState.jump != JumpingStates::Stand) facing = nx;
 	if (canCrouch && !hold) CrouchDetection(input);
 	HoldProcess();
 }
@@ -198,9 +201,9 @@ void CMario::PreRender()
 	else
 	{
 		if (physicState.jump == JumpingStates::Stand)
-			MovementAnimation();
+			MovementAnimation(), SetScale(Vector2(1 * facing, 1));
 		else
-			JumpingAnimation();
+			JumpingAnimation(), SetScale(Vector2(1 * nx, 1));
 	}
 }
  
@@ -628,13 +631,10 @@ void CMario::MovementAnimation()
 		SetState("Crouch");
 
 	SetVisualRelativePosition(colliders->at(0)->GetLocalPosition());
-	SetScale(Vector2(1 * facing, 1));
 }
 
 void CMario::JumpingAnimation()
 {
-	SetScale(Vector2(1 * nx, 1));
-
 	if (physicState.movement == MovingStates::Crouch) return;
 	if (currentState.compare("Fly") == 0) return;
 

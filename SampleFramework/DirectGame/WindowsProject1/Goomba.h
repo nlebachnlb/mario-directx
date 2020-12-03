@@ -17,7 +17,6 @@ public:
 	void OnDead(bool oneHit)override;
 	virtual void OnEnabled() override;
 
-	void OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions) override;
 	void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
 
 protected:

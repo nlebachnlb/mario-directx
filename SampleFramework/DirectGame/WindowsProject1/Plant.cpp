@@ -3,6 +3,12 @@
 #include "Mathf.h"
 #include "EffectPool.h"
 
+void Plant::Awake()
+{
+	AbstractEnemy::Awake();
+	rigidbody->SetDynamic(false);
+}
+
 void Plant::Start()
 {
 	state = PlantState::Reveal;

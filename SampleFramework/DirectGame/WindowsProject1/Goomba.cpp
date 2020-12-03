@@ -55,10 +55,6 @@ void Goomba::OnEnabled()
 	rigidbody->SetVelocity(&Vector2(direction * GOOMBA_MOVING_SPEED, 0));
 }
 
-void Goomba::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
-{
-}
-
 void Goomba::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
 	if (otherCollider->GetGameObject()->GetTag() == ObjectTags::MarioAttack)

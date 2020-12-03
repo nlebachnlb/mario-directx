@@ -136,6 +136,7 @@ void CGameObject::Initialize()
 	colliders = new vector<Collider2D*>();
 	effector = Effector2D::Full;
 	visualRelativePosition = VectorZero();
+	transform.Scale = Vector2(1, 1);
 
 	// Step 1: Call event: Awake
 	this->Awake();

@@ -58,12 +58,13 @@ void Camera::Render(std::vector<GameObject>& objs)
 
         for (int u = 0; u <= height + 1; ++u)
         {
+            int yGrid = (int)(tiley + u);
+            if (yGrid >= mapHeight) continue;
+
             for (int v = 0; v <= width + 1; ++v)
             {
                 int xGrid = (int)(tilex + v);
-                int yGrid = (int)(tiley + u);
-
-                if (xGrid >= mapWidth || yGrid >= mapHeight) continue;
+                if (xGrid >= mapWidth) continue;
 
                 int tileId = layer->GetTileID(xGrid, yGrid);
                 int tilesetId = mapData->GetTilesetIdFromTileId(tileId);

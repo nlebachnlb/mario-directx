@@ -10,6 +10,7 @@ enum class PlantState
 class Plant : public AbstractEnemy
 {
 public:
+	virtual void Awake() override;
 	virtual void Start() override;
 	virtual void Movement() override;
 	virtual void OnDead(bool oneHit) override;
