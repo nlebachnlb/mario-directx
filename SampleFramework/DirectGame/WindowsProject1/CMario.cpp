@@ -426,6 +426,8 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
 			mainCamera->SetBoundary(bset.boundary);
 			mainCamera->SetPosition(bset.position);
+			if (o->CameraLock()) mainCamera->LockCamera();
+			else mainCamera->UnlockCamera();
 			warp = 2;
 			DebugOut(L"switch: %d\n", warp);
 		}

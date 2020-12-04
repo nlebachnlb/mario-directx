@@ -10,7 +10,7 @@ Camera::Camera()
 	this->viewportSize = Vector2(configs.screenWidth, configs.screenHeight);
 	this->position = VectorZero();
     this->map = nullptr;
-    this->targetPivot = Vector2(0.5f, 0.5f);
+    this->targetPivot = Vector2(0.5f, 0.65f);
     this->bottomOffset = configs.hudOffset;
     this->followSpeed = 30.0f;
     initialized = false;
@@ -39,15 +39,21 @@ void Camera::Update()
     auto targetOnViewport = WorldToViewport(targetPos);
     
     auto finalPos = Vector2(targetPos.x - viewportSize.x * targetPivot.x, targetPos.y - viewportSize.y * targetPivot.y + bottomOffset);
-    pos.x = Mathf::Lerp(pos.x, finalPos.x, followSpeed * dt);
-    pos.y = Mathf::Lerp(pos.y, finalPos.y, followSpeed * dt);
+    
+    //if (Mathf::Magnitude(finalPos - pos) < 1) 
+        pos = finalPos;
+    //else
+    //{
+    //    pos.x = Mathf::Lerp(pos.x, finalPos.x, followSpeed * dt);
+    //    pos.y = Mathf::Lerp(pos.y, finalPos.y, followSpeed * dt);
+    //}
 
     if (pos.x < boundary.left) pos.x = boundary.left;
     if (pos.x > boundary.right - viewportSize.x) pos.x = boundary.right - viewportSize.x;
     if (pos.y < boundary.top + bottomOffset) pos.y = boundary.top + bottomOffset;
     if (pos.y > boundary.bottom - viewportSize.y + bottomOffset) pos.y = boundary.bottom - viewportSize.y + bottomOffset;
 
-    if (boundaryLocked)
+    if (boundaryLocked > 0)
     {
         auto val = Mathf::Min(lastBoundary.top + bottomOffset, lastBoundary.bottom - viewportSize.y + bottomOffset);
         if (pos.y >= val)
@@ -159,7 +165,7 @@ void Camera::SetTarget(GameObject gameObject)
 
 void Camera::SetBoundary(RectF boundary)
 {
-    if (this->lastBoundary == RectF::Empty()) lastBoundary = boundary;
+    lastBoundary = boundary;
     this->boundary = boundary;
 }
 
@@ -182,9 +188,9 @@ BoundarySet Camera::GetBoundarySet(int id)
 
 void Camera::FreeBoundary()
 {
-    if (boundaryLocked)
+    if (boundaryLocked == 1)
     {
-        boundaryLocked = false;
+        boundaryLocked = 0;
         lastBoundary = boundary;
         boundary.top = 0;
         DebugOut(L"Camera free: %f\n", lastBoundary.top);
@@ -193,11 +199,21 @@ void Camera::FreeBoundary()
 
 void Camera::LockBoundary()
 {
-    if (!boundaryLocked)
+    if (boundaryLocked == 0)
     {
         DebugOut(L"Camera locked: %f\n", lastBoundary.top);
-        boundaryLocked = true;
+        boundaryLocked = 1;
     }
+}
+
+void Camera::LockCamera()
+{
+    boundaryLocked = 2;
+}
+
+void Camera::UnlockCamera()
+{
+    boundaryLocked = 1;
 }
 
 void Camera::Initialize()

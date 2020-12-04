@@ -52,16 +52,14 @@ void RaccoonMario::OnKeyDown(int keyCode)
 
 	if (keyCode == marioKeySet.Jump)
 	{
-		if (feverState == 2 && flying == 0)
+		if (feverState == 2)
 		{
-			DebugOut(L"[fly] start\n");
-			mainCamera->FreeBoundary();
+			// DebugOut(L"[fly] start\n");
+			if (flying <= 1) mainCamera->FreeBoundary();
 			Jump();
 			flying = 1;
 			lastFlyingTime = GetTickCount();
 		}
-		else if (flying == 1)
-			mainCamera->FreeBoundary();
 	}
 
 	// Mario uses his tail to keep him floating on the air

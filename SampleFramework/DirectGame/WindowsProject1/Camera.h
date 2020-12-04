@@ -45,12 +45,15 @@ public:
 	void FreeBoundary();
 	void LockBoundary();
 
+	void LockCamera();
+	void UnlockCamera();
+
 protected:
 	Vector2 position, viewportSize, targetPivot;
 	GameMap* map;
 	std::unordered_map<int, BoundarySet> boundaries;
 	int bottomOffset;
-	bool boundaryLocked;
+	int boundaryLocked;
 	float followSpeed;
 
 private:

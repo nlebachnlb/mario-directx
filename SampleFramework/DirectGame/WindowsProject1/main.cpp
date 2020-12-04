@@ -66,7 +66,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Game::GetInstance().InitDirectX(hWnd, resWidth, resHeight, fps);
     Game::GetInstance().GameInit(hWnd);
 
-    SetWindowPos(hWnd, 0, 0, 0, resWidth * 0.75f, resHeight * 0.75f, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+    SetWindowPos(hWnd, 0, 0, 0, resWidth * 0.8f, resHeight * 0.8f, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
     Game::GetInstance().GameRun(hWnd);
     Game::GetInstance().GameEnd();

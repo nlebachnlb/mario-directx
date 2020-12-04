@@ -79,7 +79,7 @@ void GameMap::Load(std::string filePath, bool manual)
             {
                 Vector2 position(objects->at(i)->x, objects->at(i)->y);
                 Vector2 size(objects->at(i)->width, objects->at(i)->height);
-                DebugOut(L"Solid: %f, %f, %f, %f\n", position.x, position.y, size.x, size.y);
+                // DebugOut(L"Solid: %f, %f, %f, %f\n", position.x, position.y, size.x, size.y);
 
                 SolidBox* solid = Instantiate<SolidBox>();
                 solid->SetPosition(position + (size / 2.0f));
@@ -186,6 +186,7 @@ void GameMap::Load(std::string filePath, bool manual)
                     int dstX = stoi(objects->at(i)->GetPropertyValue("dest-x"));
                     int dstY = stoi(objects->at(i)->GetPropertyValue("dest-y"));
                     std::string outDir = objects->at(i)->GetPropertyValue("out-direction");
+                    int lock = stoi(objects->at(i)->GetPropertyValue("lock"));
 
                     WarpDirection oDir =
                         outDir.compare("down") == 0 ? WarpDirection::Down :
@@ -194,7 +195,7 @@ void GameMap::Load(std::string filePath, bool manual)
                                 (outDir.compare("right") == 0 ? WarpDirection::Right :
                                     WarpDirection::None)));
 
-                    warp->SetWarpInfo(boundId, Vector2(dstX, dstY), oDir);
+                    warp->SetWarpInfo(boundId, Vector2(dstX, dstY), oDir, lock == 1 ? true : false);
                     this->gameObjects.push_back(warp);
                 }
             }

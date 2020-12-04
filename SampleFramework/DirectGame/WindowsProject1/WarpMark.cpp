@@ -11,11 +11,12 @@ void WarpMark::Awake()
 	this->rigidbody->SetDynamic(false);
 }
 
-void WarpMark::SetWarpInfo(int boundId, Vector2 dest, WarpDirection outDir)
+void WarpMark::SetWarpInfo(int boundId, Vector2 dest, WarpDirection outDir, bool lockCamera)
 {
 	this->cameraBoundId = boundId;
 	this->destination = dest;
 	this->outDirection = outDir;
+	this->lockCamera = lockCamera;
 }
 
 int WarpMark::GetCameraBoundId()
@@ -31,4 +32,9 @@ Vector2 WarpMark::GetDestination()
 WarpDirection WarpMark::GetDirection()
 {
 	return outDirection;
+}
+
+bool WarpMark::CameraLock()
+{
+	return this->lockCamera;
 }
