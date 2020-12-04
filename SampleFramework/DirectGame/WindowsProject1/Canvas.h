@@ -10,7 +10,7 @@ typedef UIElement* PUIElement;
 
 struct Cmp
 {
-	bool operator() (const PUIElement& a, const PUIElement& b);
+	bool operator() (const PUIElement& a, const PUIElement& b) const;
 };
 
 class Canvas

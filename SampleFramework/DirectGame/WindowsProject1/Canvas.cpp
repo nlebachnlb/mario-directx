@@ -107,7 +107,7 @@ void Canvas::ProcessRequestsA()
 	{
 		DebugOut(L"Canvas add: %d\n", addRequests.size());
 		for (auto e : addRequests)
-			AddUIElement(e);
+			elements.insert(e);
 		addRequests.clear();
 	}
 }
@@ -127,7 +127,7 @@ void Canvas::AddUIElement(UIElement* uiObj)
 	addRequests.push_back(uiObj);
 }
 
-bool Cmp::operator()(const PUIElement& a, const PUIElement& b)
+bool Cmp::operator()(const PUIElement& a, const PUIElement& b) const
 {
 	return a->GetRenderOrder() < b->GetRenderOrder();
 }
