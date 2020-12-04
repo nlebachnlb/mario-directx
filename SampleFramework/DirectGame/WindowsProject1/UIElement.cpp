@@ -61,3 +61,8 @@ bool UIElement::IsActive()
 {
 	return this->enabled;
 }
+
+int UIElement::GetRenderOrder()
+{
+	return this->renderOrder;
+}

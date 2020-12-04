@@ -17,6 +17,8 @@ public:
 	Animation* GetState(std::string state);
 	void SetActive(bool active);
 	bool IsActive();
+	
+	int GetRenderOrder();
 
 protected:
 	bool enabled;
@@ -28,4 +30,6 @@ protected:
 	std::unordered_map<std::string, Animation*> animations;
 	Vector2 visualRelativePosition;
 };
+
+typedef UIElement* PUIElement;
 
