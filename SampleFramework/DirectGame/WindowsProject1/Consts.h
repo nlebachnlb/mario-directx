@@ -17,6 +17,7 @@
 #define TEXTURE_FIREBALL "tex-fire-ball"
 #define TEXTURE_EFFECT "tex-effect"
 #define TEXTURE_PIPE "tex-pipe"
+#define TEXTURE_HUD "tex-ui"
 
 #define FIREBALL_TRANS_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define DEFAULT_TRANS_COLOR D3DCOLOR_XRGB(254, 254, 254)
@@ -25,11 +26,13 @@
 #define DB_SPRITE_ENEMY "spr-enemy"
 #define DB_SPRITE_MISC "spr-misc"
 #define DB_SPRITE_EFFECT "spr-effect"
+#define DB_SPRITE_HUD "spr-hud"
 
 #define DB_ANIMATION_MARIO "ani-mario"
 #define DB_ANIMATION_ENEMY "ani-enemy"
 #define DB_ANIMATION_MISC "ani-misc"
 #define DB_ANIMATION_EFFECT "ani-effect"
+#define DB_ANIMATION_HUD "ani-hud"
 
 #define SC_WOLRD_1_1 "world-1-1"
 

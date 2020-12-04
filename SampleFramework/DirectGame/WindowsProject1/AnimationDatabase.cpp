@@ -10,6 +10,7 @@ void AnimationDatabase::Initialization()
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_ENEMY));
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_MISC));
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_EFFECT));
+	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_HUD));
 }
 
 bool AnimationDatabase::LoadAnimationFile(string path)
