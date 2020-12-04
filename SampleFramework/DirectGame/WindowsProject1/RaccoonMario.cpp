@@ -56,9 +56,12 @@ void RaccoonMario::OnKeyDown(int keyCode)
 		{
 			// DebugOut(L"[fly] start\n");
 			if (flying <= 1) mainCamera->FreeBoundary();
-			Jump();
-			flying = 1;
-			lastFlyingTime = GetTickCount();
+			if (flying == 0)
+			{
+				flying = 1;
+				lastFlyingTime = GetTickCount();
+				Jump();
+			}
 		}
 	}
 

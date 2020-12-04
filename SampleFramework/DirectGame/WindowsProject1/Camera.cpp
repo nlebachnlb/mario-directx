@@ -39,14 +39,7 @@ void Camera::Update()
     auto targetOnViewport = WorldToViewport(targetPos);
     
     auto finalPos = Vector2(targetPos.x - viewportSize.x * targetPivot.x, targetPos.y - viewportSize.y * targetPivot.y + bottomOffset);
-    
-    //if (Mathf::Magnitude(finalPos - pos) < 1) 
-        pos = finalPos;
-    //else
-    //{
-    //    pos.x = Mathf::Lerp(pos.x, finalPos.x, followSpeed * dt);
-    //    pos.y = Mathf::Lerp(pos.y, finalPos.y, followSpeed * dt);
-    //}
+    pos = finalPos;
 
     if (pos.x < boundary.left) pos.x = boundary.left;
     if (pos.x > boundary.right - viewportSize.x) pos.x = boundary.right - viewportSize.x;

@@ -31,8 +31,8 @@ const float MARIO_RUN_DRAG_FORCE		= 0.0005266f * 2;
 const float MARIO_SKID_ACCELERATION		= 0.001104f * 2;
 const int	MARIO_FEVER_TIME			= 1500; // (miliseconds)
 
-const int	MARIO_FLICK_DELTA			= 5; // miliseconds
-const int	MARIO_INVINCIBLE_TIME		= 1500;
+const int	MARIO_FLICK_DELTA			= 10; // miliseconds
+const int	MARIO_INVINCIBLE_TIME		= 1300;
 
 const Vector2 MARIO_BBOX(12 * 3, 26 * 3);
 const Vector2 MARIO_SMALL_BBOX(12 * 3, 14 * 3);
