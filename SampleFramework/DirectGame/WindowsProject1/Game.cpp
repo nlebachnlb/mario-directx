@@ -3,6 +3,7 @@
 #include "ExampleScene.h"
 #include "AnimationDatabase.h"
 #include "tinyxml.h"
+#include "Canvas.h"
 // #include "GameObject.h"
 
 
@@ -251,6 +252,8 @@ void Game::Request()
 	if (activeScene != nullptr)
 		activeScene->ProcessInstantiateRequests(),
 		activeScene->UpdateActiveObjects();
+
+	Canvas::ProcessAddRequests();
 }
 
 void Game::InputProc()
@@ -265,6 +268,8 @@ void Game::Update()
 
 	if (activeScene != nullptr)
 		activeScene->Update();
+
+	Canvas::UpdateAllCanvases();
 }
 
 void Game::Render()
@@ -279,6 +284,8 @@ void Game::Render()
 		if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
 		if (activeScene != nullptr)
 			activeScene->Render();
+
+		Canvas::RenderAllCanvases();
 
 		spriteHandler->End();
 		d3ddev->EndScene();
@@ -377,4 +384,5 @@ Game::~Game()
 	if (!d3ddev) d3ddev->Release();
 	if (!backBuffer) backBuffer->Release();
 	if (!spriteHandler) spriteHandler->Release();
+	Canvas::Clean();
 }

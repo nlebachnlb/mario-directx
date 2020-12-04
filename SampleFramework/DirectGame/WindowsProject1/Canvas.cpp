@@ -23,6 +23,26 @@ void Canvas::ProcessAddRequests()
 	}
 }
 
+void Canvas::UpdateAllCanvases()
+{
+	for (auto x : canvases)
+	{
+		auto canvas = x.second;
+		if (canvas->IsActive()) 
+			canvas->Update();
+	}
+}
+
+void Canvas::RenderAllCanvases()
+{
+	for (auto x : canvases)
+	{
+		auto canvas = x.second;
+		if (canvas->IsActive())
+			canvas->Update();
+	}
+}
+
 void Canvas::Clean()
 {
 
@@ -74,6 +94,16 @@ void Canvas::ProcessRequestsA()
 			AddUIElement(e);
 		addRequests.clear();
 	}
+}
+
+void Canvas::SetActive(bool active)
+{
+	this->enabled = active;
+}
+
+bool Canvas::IsActive()
+{
+	return this->enabled;
 }
 
 void Canvas::AddUIElement(UIElement* uiObj)

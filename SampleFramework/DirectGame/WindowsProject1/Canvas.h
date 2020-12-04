@@ -19,6 +19,8 @@ public:
 	static void AddCanvas(std::string id, Canvas* canvas);
 	static Canvas* GetCanvas(std::string id);
 	static void ProcessAddRequests();
+	static void UpdateAllCanvases();
+	static void RenderAllCanvases();
 	static void Clean();
 
 	~Canvas();
@@ -30,6 +32,9 @@ public:
 	virtual void Render();
 
 	void ProcessRequestsA();
+
+	void SetActive(bool active);
+	bool IsActive();
 
 	void AddUIElement(UIElement* uiObj);
 

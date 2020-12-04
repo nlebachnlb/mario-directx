@@ -142,6 +142,10 @@ void CMario::Update()
 	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f;
 	if (pushSide == 0) rigidbody->SetVelocity(&velocity);
 
+	if (pushSide != 0)
+	{
+		transform.Position.x += pushSide * 0.15f * dt;
+	}
 #pragma endregion
 
 	FeverProcess();
@@ -488,11 +492,11 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 				if (dist >= self->GetBoxSize().x) break;
 			}
 
-			if (footHits.size() == 0 || headHits.size() <= 1) goLeft = true;
+			if (footHits.size() == 0 || (headHits.size() <= 1 && footHits.size() == 0)) goLeft = true;
 			else
 			{
 				m = footHits[0]->GetBoundingBox();
-				mDist = m.right - headHits[i]->GetBoundingBox().left;
+				mDist = i == headHits.size() - 1 ? -1 : m.right - headHits[i]->GetBoundingBox().left;
 				goLeft = mDist >= 0;
 					//&& mDist <= dist;
 			}
@@ -512,11 +516,11 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 				if (dist >= self->GetBoxSize().x) break;
 			}
 
-			if (footHits.size() == 0 || headHits.size() <= 1) DebugOut(L"Pass RIGHT\n"), goRight = true;
+			if (footHits.size() == 0 || (headHits.size() <= 1 && footHits.size() == 0)) DebugOut(L"Pass RIGHT\n"), goRight = true;
 			else
 			{
 				m = footHits[0]->GetBoundingBox();
-				mDist = m.left - headHits[i + 1]->GetBoundingBox().right;
+				mDist = i == headHits.size() - 1 ? -1 : m.left - headHits[i + 1]->GetBoundingBox().right;
 				goRight = mDist >= 0;
 					// && mDist <= dist;
 			}
@@ -533,8 +537,6 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			DebugOut(L"RIGHT: d=%f, m=%f, size=%d\n", dist, mDist, headHits.size());
 			DebugOut(L"Go left:%d, go right: %d, side: %d\n", goLeft ? 1 : 0, goRight ? 1 : 0, pushSide);*/
 		}
-		
-		transform.Position.x += pushSide * 0.15f * Game::DeltaTime();
 	}
 
 	if (TagUtils::EnemyTag(otherTag) && other->IsTrigger() && warp == 0)
