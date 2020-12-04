@@ -12,7 +12,7 @@
 
 const int	MARIO_MIN_VDISTANCE			= 8; // pixels
 const float MARIO_GRAVITY				= 0.0026f;
-const float MARIO_FALL_LIMIT_VEL		= 1.20f;
+const float MARIO_FALL_LIMIT_VEL		= 0.90f;
 const float MARIO_WALK_SPEED			= 0.25f;
 const float MARIO_RUN_SPEED				= 0.65f;
 const float MARIO_JUMP_FORCE			= 0.53f;
@@ -135,6 +135,7 @@ protected:
 	bool maxRun;
 	bool runningRestriction; // If this flag is turned on, run state will be restricted
 	bool canWarp;
+	bool hold;
 	int warp;
 	WarpDirection warpDirection;
 
@@ -147,6 +148,7 @@ protected:
 	int facing, nx, pushSide;
 	InputHandler* input;
 	PlayerController* controller;
+	Camera* mainCamera;
 
 private:
 	void WarpProcess();
@@ -162,12 +164,11 @@ private:
 	void FeverProcess();
 
 	bool animationKick;
-	bool skid, run, hold;
+	bool skid, run;
 	bool canHighJump, deflect;
 
 	float prevTargetVelocityX, targetVelocityX;
 	float jumpTime;
 	Vector2 previousVelocity, posBeforeJump;
 	Holdable* heldInHandsObject;
-	Camera* mainCamera;
 };

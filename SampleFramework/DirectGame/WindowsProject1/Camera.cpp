@@ -2,6 +2,7 @@
 #include "Consts.h"
 #include "Game.h"
 #include <cmath>
+#include "Mathf.h"
 
 Camera::Camera()
 {
@@ -10,7 +11,10 @@ Camera::Camera()
 	this->position = VectorZero();
     this->map = nullptr;
     this->targetPivot = Vector2(0.5f, 0.5f);
+    this->bottomOffset = configs.hudOffset;
+    this->followSpeed = 30.0f;
     initialized = false;
+    lastBoundary = RectF::Empty();
 }
 
 Camera::Camera(Vector2 startPosition, Vector2 viewportSize)
@@ -28,16 +32,30 @@ Camera::~Camera()
 void Camera::Update()
 {
     if (map == nullptr) map = Game::GetInstance().GetService<GameMap>();
+    auto dt = Game::FixedDeltaTime() * Game::GetTimeScale() * 0.001f;
 
     auto pos = this->position;
+    auto targetPos = target->GetTransform().Position;   
+    auto targetOnViewport = WorldToViewport(targetPos);
     
-    pos.x = target->GetTransform().Position.x - viewportSize.x * targetPivot.x;
-    pos.y = target->GetTransform().Position.y - viewportSize.y * targetPivot.y;
+    auto finalPos = Vector2(targetPos.x - viewportSize.x * targetPivot.x, targetPos.y - viewportSize.y * targetPivot.y + bottomOffset);
+    pos.x = Mathf::Lerp(pos.x, finalPos.x, followSpeed * dt);
+    pos.y = Mathf::Lerp(pos.y, finalPos.y, followSpeed * dt);
 
     if (pos.x < boundary.left) pos.x = boundary.left;
     if (pos.x > boundary.right - viewportSize.x) pos.x = boundary.right - viewportSize.x;
-    if (pos.y < boundary.top) pos.y = boundary.top;
-    if (pos.y > boundary.bottom - viewportSize.y) pos.y = boundary.bottom - viewportSize.y;
+    if (pos.y < boundary.top + bottomOffset) pos.y = boundary.top + bottomOffset;
+    if (pos.y > boundary.bottom - viewportSize.y + bottomOffset) pos.y = boundary.bottom - viewportSize.y + bottomOffset;
+
+    if (boundaryLocked)
+    {
+        auto val = Mathf::Min(lastBoundary.top + bottomOffset, lastBoundary.bottom - viewportSize.y + bottomOffset);
+        if (pos.y >= val)
+        {
+            // DebugOut(L"Cam: %f, %f\n", pos.y, val);
+            boundary = lastBoundary;
+        }
+    }
 
     SetPosition(pos);
 }
@@ -141,6 +159,7 @@ void Camera::SetTarget(GameObject gameObject)
 
 void Camera::SetBoundary(RectF boundary)
 {
+    if (this->lastBoundary == RectF::Empty()) lastBoundary = boundary;
     this->boundary = boundary;
 }
 
@@ -159,6 +178,26 @@ BoundarySet Camera::GetBoundarySet(int id)
     if (boundaries.find(id) != boundaries.end())
         return boundaries.at(id);
     return BoundarySet::Empty();
+}
+
+void Camera::FreeBoundary()
+{
+    if (boundaryLocked)
+    {
+        boundaryLocked = false;
+        lastBoundary = boundary;
+        boundary.top = 0;
+        DebugOut(L"Camera free: %f\n", lastBoundary.top);
+    }
+}
+
+void Camera::LockBoundary()
+{
+    if (!boundaryLocked)
+    {
+        DebugOut(L"Camera locked: %f\n", lastBoundary.top);
+        boundaryLocked = true;
+    }
 }
 
 void Camera::Initialize()

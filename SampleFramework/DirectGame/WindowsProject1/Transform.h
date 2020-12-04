@@ -19,6 +19,14 @@ struct RectF
 	bool TouchOrIntersect(const RectF& other);
 	bool Contains(const RectF& other);
 	bool Contains(const Vector2& point);
+
+	static RectF Empty() { return { 0, 0, 0, 0 }; }
+	bool operator == (const RectF& other) 
+	{ 
+		return
+			this->left == other.left && this->right == other.right &&
+			this->top == other.top && this->bottom == other.bottom; 
+	}
 };
 
 struct IntPoint { int x, y; };

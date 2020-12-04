@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config>
     <Config name="frame-rate" value="120"/>
-    <Config name="resolution" width="600" height="600"/>
+    <Config name="resolution" width="824" height="744"/>
     <Config name="default-scene" value="world-1-1"/>
+    <Config name="hud-offset" value="150"/>
 </Config>

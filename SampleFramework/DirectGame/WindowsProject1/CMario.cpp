@@ -638,7 +638,7 @@ void CMario::JumpingAnimation()
 	if (physicState.movement == MovingStates::Crouch) return;
 	if (currentState.compare("Fly") == 0) return;
 
-	if (feverState == 2 && !hold)
+	if ((feverState == 2 && run) && !hold)
 	{
 		SetState("Fly");
 		return;
@@ -772,6 +772,7 @@ void CMario::HighJumpState()
 	if (velocity.y > 0)
 	{
 		physicState.jump = JumpingStates::Fall;
+		mainCamera->LockBoundary();
 	}
 }
 
@@ -779,7 +780,9 @@ void CMario::FallState()
 {
 	// Fall and land on ground, switch to stand
 	if (onGround)
+	{
 		physicState.jump = JumpingStates::Stand;
+	}
 }
 
 void CMario::StandState()
@@ -791,6 +794,7 @@ void CMario::StandState()
 	{
 		onGround = false;
 		physicState.jump = JumpingStates::Fall;
+		mainCamera->LockBoundary();
 	}
 }
 
@@ -817,7 +821,7 @@ void CMario::FeverProcess()
 		// DebugOut(L"[Fever] start\n");
 	}
 	else if (pMeter > 0 && feverState <= 0)
-		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 2.0f * Game::DeltaTime(), 0.0, PMETER_MAX);
+		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 3.0f * Game::DeltaTime(), 0.0, PMETER_MAX);
 
 	if (feverState == 2)
 	{

@@ -42,10 +42,16 @@ public:
 	void AddBoundarySet(int id, BoundarySet bSet);
 	BoundarySet GetBoundarySet(int id);
 
+	void FreeBoundary();
+	void LockBoundary();
+
 protected:
 	Vector2 position, viewportSize, targetPivot;
 	GameMap* map;
 	std::unordered_map<int, BoundarySet> boundaries;
+	int bottomOffset;
+	bool boundaryLocked;
+	float followSpeed;
 
 private:
 	void Initialize();
@@ -59,5 +65,6 @@ private:
 	int width, height; // Number of tiles on viewport
 	int mapWidth, mapHeight;
 	bool initialized;
+	RectF lastBoundary;
 };
 

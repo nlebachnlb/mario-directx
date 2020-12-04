@@ -26,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Game::GetInstance().ImportConfig();
     auto path = Game::GetInstance().GetSourcePathOf(CATEGORY_CONFIG, CG_GLOBAL_CONFIG);
     int fps;
-    int resWidth, resHeight;
+    int resWidth, resHeight, hudOffset;
 
     TiXmlDocument document(path.c_str());
     if (document.LoadFile() == false)
@@ -46,6 +46,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             element->QueryIntAttribute("width", &resWidth);
             element->QueryIntAttribute("height", &resHeight);
         }
+        else if (name.compare("hud-offset") == 0)
+            element->QueryIntAttribute("value", &hudOffset);
     }
 
     DebugOut(L"conf: %d, %d, %d\n", fps, resWidth, resHeight);
@@ -59,8 +61,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
+    auto c = Game::GetInstance().GetGlobalConfigs(); c.hudOffset = hudOffset;
+    Game::GetInstance().SetGlobalConfigs(c);
     Game::GetInstance().InitDirectX(hWnd, resWidth, resHeight, fps);
     Game::GetInstance().GameInit(hWnd);
+
+    SetWindowPos(hWnd, 0, 0, 0, resWidth * 0.75f, resHeight * 0.75f, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+
     Game::GetInstance().GameRun(hWnd);
     Game::GetInstance().GameEnd();
 

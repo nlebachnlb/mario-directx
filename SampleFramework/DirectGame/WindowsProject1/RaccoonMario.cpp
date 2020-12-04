@@ -54,11 +54,14 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	{
 		if (feverState == 2 && flying == 0)
 		{
-			// DebugOut(L"[fly] start\n");
+			DebugOut(L"[fly] start\n");
+			mainCamera->FreeBoundary();
 			Jump();
 			flying = 1;
 			lastFlyingTime = GetTickCount();
 		}
+		else if (flying == 1)
+			mainCamera->FreeBoundary();
 	}
 
 	// Mario uses his tail to keep him floating on the air
@@ -129,13 +132,13 @@ void RaccoonMario::MovementAnimation()
 
 void RaccoonMario::JumpingAnimation()
 {
-	if (flying == 1)
+	if (flying == 1 && !hold)
 	{
 		if (currentState.compare("FullFly") != 0) SetState("FullFly");
 		return;
 	}
 
-	if (floating)
+	if (floating && !hold)
 	{
 		if (currentState.compare("Float") != 0) SetState("Float");
 		return;

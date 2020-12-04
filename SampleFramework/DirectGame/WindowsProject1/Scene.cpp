@@ -57,13 +57,15 @@ void Scene::Load()
 		}
 		else if (name.compare("Player") == 0)
 		{
-			Vector2 startPosition;
-			element->QueryFloatAttribute("pos_x", &startPosition.x);
-			element->QueryFloatAttribute("pos_y", &startPosition.y);
+			int sx = 0, sy = 0;
+			element->QueryIntAttribute("pos_x", &sx);
+			element->QueryIntAttribute("pos_y", &sy);
+			Vector2 startPosition(sx, sy);
 
 			objMario = Instantiate<PlayerController>();
 			objMario->RegisterToScene(this);
 			objMario->SetPosition(startPosition);
+			objMario->InitStates();
 			AddObject(objMario);
 		}
 		else if (name.compare("Camera") == 0)
@@ -90,6 +92,7 @@ void Scene::Load()
 			camera->SetPosition(startBoundary.position);
 			if(objMario != nullptr) camera->SetTarget(objMario);
 			camera->SetBoundary(startBoundary.boundary);
+			camera->LockBoundary();
 			SetMainCamera(camera);
 		}
 	}
@@ -197,7 +200,8 @@ void Scene::UpdateActiveObjects()
 			if (o == nullptr) continue;
 			if (o->IsDestroyed()) continue;
 			if (o->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 6))
+			if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 6) &&
+				!TagUtils::MarioTag(o->GetTag()))
 			{
 				o->SetOffScreen(true);
 				continue;

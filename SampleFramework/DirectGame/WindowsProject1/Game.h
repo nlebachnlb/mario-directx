@@ -19,6 +19,7 @@ struct GlobalConfigs
 {
 	int fps;
 	int screenWidth, screenHeight;
+	int hudOffset;
 };
 
 class Game : public ServiceLocator

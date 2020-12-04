@@ -12,6 +12,7 @@ public:
 	void Update()	override;
 	void OnKeyDown(int keyCode) override;
 
+	void InitStates();
 	void RegisterToScene(Scene* scene);
 	void SwitchToState(std::string state);
 

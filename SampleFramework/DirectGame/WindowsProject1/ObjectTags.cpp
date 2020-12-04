@@ -2,7 +2,7 @@
 
 bool TagUtils::MarioTag(ObjectTags tag)
 {
-    return tag == ObjectTags::SmallMario || tag == ObjectTags::BigMario || tag == ObjectTags::PowerupMario;
+    return tag == ObjectTags::SmallMario || tag == ObjectTags::BigMario || tag == ObjectTags::PowerupMario || tag == ObjectTags::Player;
 }
 
 bool TagUtils::EnemyTag(ObjectTags tag)

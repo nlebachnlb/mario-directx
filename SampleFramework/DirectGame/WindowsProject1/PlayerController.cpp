@@ -37,12 +37,6 @@ void PlayerController::Awake()
 
 void PlayerController::Start()
 {
-	for (auto x : stateGameObjects)
-	{
-		auto object = x.second;
-		object->SetPosition(this->transform.Position);
-	}
-
 	LinkStates();
 	SwitchToState("BigMario");
 	waiting = false;
@@ -94,6 +88,15 @@ void PlayerController::OnKeyDown(int keyCode)
 		SwitchToState("FireMario");
 	else if (keyCode == DIK_4)
 		SwitchToState("RaccoonMario");
+}
+
+void PlayerController::InitStates()
+{
+	for (auto x : stateGameObjects)
+	{
+		auto object = x.second;
+		object->SetPosition(this->transform.Position);
+	}
 }
 
 void PlayerController::RegisterToScene(Scene* scene)
