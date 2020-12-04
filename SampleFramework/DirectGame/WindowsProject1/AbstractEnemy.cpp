@@ -1,6 +1,7 @@
 #include "AbstractEnemy.h"
 #include "Game.h"
 #include "Mathf.h"
+#include "PhysicConstants.h"
 
 void AbstractEnemy::Awake()
 {
@@ -14,6 +15,7 @@ void AbstractEnemy::Awake()
 	this->colliders->push_back(box);
 
 	rigidbody->SetDynamic(true);
+	rigidbody->SetFallLimitVelocity(DEFAULT_FALL_LIMIT_VEL);
 }
 
 void AbstractEnemy::Update()

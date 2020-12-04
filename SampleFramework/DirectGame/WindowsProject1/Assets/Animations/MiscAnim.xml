@@ -106,7 +106,7 @@
 
 		<!-- BLOCK -->
 		<!-- Question Block -->
-		<Animation aniId="ani-question-block" frameTime="100">
+		<Animation aniId="ani-question-block" frameTime="150">
 			<Sprite id="spr-question-block-0" left="157" top="188"  width="16" height="16"/>
 			<Sprite id="spr-question-block-1" left="176" top="188"  width="16" height="16"/>
 			<Sprite id="spr-question-block-2" left="196" top="188"  width="16" height="16"/>
@@ -124,7 +124,7 @@
 		</Animation>
 		
 		<!-- BRICK -->
-		<Animation aniId="ani-brick" frameTime="100">
+		<Animation aniId="ani-brick" frameTime="200">
 			<Sprite id="spr-brick-0" left="274" top="188"  width="16" height="16"/>
 			<Sprite id="spr-brick-1" left="293" top="188"  width="16" height="16"/>
 			<Sprite id="spr-brick-2" left="312" top="188"  width="16" height="16"/>

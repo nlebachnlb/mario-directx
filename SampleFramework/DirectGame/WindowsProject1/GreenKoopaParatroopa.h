@@ -1,7 +1,7 @@
 #pragma once
 #include "KoopaParatroopa.h"
 
-const float KOOPA_PARATROOPA_JUMP_VEL = 0.7f;
+const float KOOPA_PARATROOPA_JUMP_VEL = 0.6f;
 
 class GreenKoopaParatroopa : public KoopaParatroopa
 {

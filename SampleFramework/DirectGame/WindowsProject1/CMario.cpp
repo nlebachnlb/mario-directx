@@ -758,8 +758,6 @@ void CMario::JumpState()
 		}
 		else
 		{
-			velocity.y = -MARIO_JUMP_FORCE * 0.5f;
-			rigidbody->SetVelocity(&velocity);
 			physicState.jump = JumpingStates::High;
 		}
 	}

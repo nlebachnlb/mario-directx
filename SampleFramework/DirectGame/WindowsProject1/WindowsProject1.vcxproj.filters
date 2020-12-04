@@ -501,6 +501,9 @@
     <ClInclude Include="Canvas.h">
       <Filter>Framework\Game\UI</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicConstants.h">
+      <Filter>Framework\Game\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">

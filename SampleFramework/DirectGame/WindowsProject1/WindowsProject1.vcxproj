@@ -192,6 +192,7 @@
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectTags.h" />
+    <ClInclude Include="PhysicConstants.h" />
     <ClInclude Include="PhysicMaterial.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="PiranhaPlant.h" />
