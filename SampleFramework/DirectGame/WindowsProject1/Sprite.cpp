@@ -26,6 +26,14 @@ void CSprite::Draw(float x, float y, Vector2 scale, float rotation, int alpha)
 	Game::GetInstance().DrawTexture((int)x, (int)y, px, py, texture, left, top, right, bottom, scale, rotation, alpha);
 }
 
+void CSprite::Draw(float x, float y, int px, int py, Vector2 scale, float rotation, int alpha)
+{
+	int right = left + width;
+	int bottom = top + height;
+
+	Game::GetInstance().DrawTexture((int)x, (int)y, px, py, texture, left, top, right, bottom, scale, rotation, alpha);
+}
+
 void CSprite::SetSourceRect(int left, int top, int width, int height)
 {
 	this->left = left;

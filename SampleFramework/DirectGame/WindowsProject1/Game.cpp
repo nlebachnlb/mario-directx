@@ -4,6 +4,7 @@
 #include "AnimationDatabase.h"
 #include "tinyxml.h"
 #include "Canvas.h"
+#include "MainCanvas.h"
 // #include "GameObject.h"
 
 
@@ -189,6 +190,12 @@ void Game::GameInit(HWND hWnd)
 	DebugOut(L"TextureManager service: %d\n", GetService<TextureManager>() != nullptr ? 1 : 0);
 	DebugOut(L"SpriteManager service: %d\n", GetService<SpriteManager>() != nullptr ? 1 : 0);
 	DebugOut(L"SceneManager service: %d\n", GetService<SceneManager>() != nullptr ? 1 : 0);
+#pragma endregion
+
+#pragma region Init Canvas Layout
+	MainCanvas* mainCanvas = new MainCanvas();
+	mainCanvas->Initialize();
+	Canvas::AddCanvas("main", mainCanvas);
 #pragma endregion
 
 	sceneManager->LoadScene(new ExampleScene());

@@ -193,6 +193,15 @@
     <Filter Include="Framework\Game\UI">
       <UniqueIdentifier>{96d0a7cf-20da-4f0b-b398-d5bd22ca57da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\UserInterface">
+      <UniqueIdentifier>{529c4ae8-1ec0-49e9-b163-8205ebc81fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\UserInterface\CanvasLayouts">
+      <UniqueIdentifier>{06972f3a-11cb-45f9-bbc0-d1df79cee9c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\UserInterface\HUD">
+      <UniqueIdentifier>{e7dccec2-cac1-41e4-953d-c924b099ae1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -503,6 +512,12 @@
     </ClInclude>
     <ClInclude Include="PhysicConstants.h">
       <Filter>Framework\Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MainCanvas.h">
+      <Filter>GameSource\UserInterface\CanvasLayouts</Filter>
+    </ClInclude>
+    <ClInclude Include="HudPanel.h">
+      <Filter>GameSource\UserInterface\HUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -836,6 +851,12 @@
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
       <Filter>Framework\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCanvas.cpp">
+      <Filter>GameSource\UserInterface\CanvasLayouts</Filter>
+    </ClCompile>
+    <ClCompile Include="HudPanel.cpp">
+      <Filter>GameSource\UserInterface\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

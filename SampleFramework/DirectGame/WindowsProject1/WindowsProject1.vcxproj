@@ -177,6 +177,7 @@
     <ClInclude Include="HitFX.h" />
     <ClInclude Include="HitStarFX.h" />
     <ClInclude Include="Holdable.h" />
+    <ClInclude Include="HudPanel.h" />
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="ItemInfo.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="KoopaSpawner.h" />
     <ClInclude Include="KoopasShell.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="MainCanvas.h" />
     <ClInclude Include="MapData.h" />
     <ClInclude Include="MarioCollider.h" />
     <ClInclude Include="MarioFireball.h" />
@@ -281,6 +283,7 @@
     <ClCompile Include="HitFX.cpp" />
     <ClCompile Include="HitStarFX.cpp" />
     <ClCompile Include="Holdable.cpp" />
+    <ClCompile Include="HudPanel.cpp" />
     <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="ItemInfo.cpp" />
@@ -288,6 +291,7 @@
     <ClCompile Include="KoopaSpawner.cpp" />
     <ClCompile Include="KoopasShell.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="MainCanvas.cpp" />
     <ClCompile Include="MapData.cpp" />
     <ClCompile Include="MarioCollider.cpp" />
     <ClCompile Include="MarioFireball.cpp" />

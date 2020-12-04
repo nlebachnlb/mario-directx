@@ -31,6 +31,8 @@ public:
 	virtual void PreRender();
 	virtual void Render();
 
+	void Initialize();
+
 	void ProcessRequestsA();
 
 	void SetActive(bool active);

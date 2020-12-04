@@ -1,5 +1,10 @@
 #include "UIElement.h"
 
+UIElement::UIElement()
+{
+	this->enabled = false;
+}
+
 void UIElement::Awake()
 {
 }
@@ -26,6 +31,14 @@ void UIElement::Render()
 	animations.at(currentState)->SetRelativePosition(rectTransform.Position + visualRelativePosition);
 	animations.at(currentState)->SetScale(rectTransform.Scale);
 	animations.at(currentState)->SetRotation(rectTransform.Rotation);
+}
+
+void UIElement::Initialize()
+{
+	enabled = false;
+	Awake();
+	Start();
+	enabled = true;
 }
 
 void UIElement::SetCanvas(Canvas* canvas)

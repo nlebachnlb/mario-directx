@@ -6,12 +6,14 @@ class Canvas;
 class UIElement
 {
 public:
+	UIElement();
 	virtual void Awake();
 	virtual void Start();
 	virtual void Update();
 	virtual void PreRender();
 	virtual void Render();
 
+	void Initialize();
 	void SetCanvas(Canvas* canvas);
 	void SetState(std::string state);
 	Animation* GetState(std::string state);

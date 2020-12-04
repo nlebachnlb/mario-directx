@@ -3,7 +3,7 @@
 
 const float RED_PARAGOOMBA_HIGH_JUMP = 0.6f;
 const float RED_PARAGOOMBA_LOW_JUMP = 0.23f;
-const int RED_PARAGOOMBA_BREAK_TIME = 720; // miliseconds = s / v = 96 / 0.1
+const int RED_PARAGOOMBA_BREAK_TIME = 720; // miliseconds = s / v = 72 / 0.1
 
 class RedParagoomba : public RedGoomba
 {

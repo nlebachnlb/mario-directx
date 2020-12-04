@@ -39,7 +39,14 @@ void Canvas::RenderAllCanvases()
 	{
 		auto canvas = x.second;
 		if (canvas->IsActive())
-			canvas->Update();
+			canvas->PreRender();
+	}
+
+	for (auto x : canvases)
+	{
+		auto canvas = x.second;
+		if (canvas->IsActive())
+			canvas->Render();
 	}
 }
 
@@ -55,14 +62,14 @@ Canvas::~Canvas()
 
 void Canvas::Awake()
 {
-	for (auto e : elements)
-		e->Awake();
+	/*for (auto e : elements)
+		e->Awake();*/
 }
 
 void Canvas::Start()
 {
-	for (auto e : elements)
-		e->Start();
+	/*for (auto e : elements)
+		e->Start();*/
 }
 
 void Canvas::Update()
@@ -86,10 +93,19 @@ void Canvas::Render()
 		e->Render();
 }
 
+void Canvas::Initialize()
+{
+	enabled = false;
+	Awake();
+	Start();
+	enabled = true;
+}
+
 void Canvas::ProcessRequestsA()
 {
 	if (addRequests.size() > 0)
 	{
+		DebugOut(L"Canvas add: %d\n", addRequests.size());
 		for (auto e : addRequests)
 			AddUIElement(e);
 		addRequests.clear();
