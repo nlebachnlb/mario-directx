@@ -560,6 +560,7 @@
     <property name="camera-bound-id" type="int" value="1"/>
     <property name="dest-x" type="int" value="6288"/>
     <property name="dest-y" type="int" value="1440"/>
+    <property name="lock" type="int" value="1"/>
     <property name="out-direction" value="down"/>
    </properties>
   </object>
@@ -569,6 +570,7 @@
     <property name="camera-bound-id" type="int" value="0"/>
     <property name="dest-x" type="int" value="6960"/>
     <property name="dest-y" type="int" value="1200"/>
+    <property name="lock" type="int" value="0"/>
     <property name="out-direction" value="up"/>
    </properties>
   </object>
