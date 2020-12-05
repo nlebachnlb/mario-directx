@@ -198,6 +198,13 @@ void Game::GameInit(HWND hWnd)
 	Canvas::AddCanvas("main", mainCanvas);
 #pragma endregion
 
+#pragma region Init Render Options
+	// Disable ZBuffer, our 2D game already has the renderOrder itself
+	d3ddev->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+	d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, D3DZB_FALSE);
+	d3ddev->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
+#pragma endregion
+
 	sceneManager->LoadScene(new ExampleScene());
 
 	SetTimeScale(1.0f);
