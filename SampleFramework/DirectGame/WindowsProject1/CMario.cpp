@@ -457,6 +457,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			break;
 		case ObjectTags::Coin:
 			// Increase coin data
+			Game::GetInstance().GetData()->ModifyCoin(1, true);
 			break;
 		}
 

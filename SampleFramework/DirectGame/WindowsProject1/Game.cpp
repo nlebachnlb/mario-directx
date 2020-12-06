@@ -206,6 +206,7 @@ void Game::GameInit(HWND hWnd)
 	MainCanvas* mainCanvas = new MainCanvas();
 	mainCanvas->Initialize();
 	GameData* dataNode = new GameData();
+	globalData = dataNode;
 	mainCanvas->SetGameData(dataNode);
 	Canvas::AddCanvas("main", mainCanvas);
 #pragma endregion
@@ -407,6 +408,19 @@ std::string Game::GetSourcePathOf(std::string category, std::string id)
 Font* Game::GetGlobalFont()
 {
 	return this->globalFont;
+}
+
+GameData* Game::GetData()
+{
+	return globalData;
+}
+
+void Game::ModifyData(int world, int score, int life, int coin)
+{
+	if (world != -1) globalData->world = world;
+	if (score != -1) globalData->score = score;
+	if (life != -1) globalData->life = life;
+	if (coin != -1) globalData->coin = coin;
 }
 
 Game::~Game()

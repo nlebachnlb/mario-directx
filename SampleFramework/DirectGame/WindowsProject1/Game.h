@@ -14,6 +14,7 @@
 #include "Raycast.h"
 #include "GlobalConfigs.h"
 #include "Font.h"
+#include "GameData.h"
 
 using namespace std;
 
@@ -55,6 +56,9 @@ public:
 	std::string GetSourcePathOf(std::string category, std::string id);
 	Font* GetGlobalFont();
 
+	GameData* GetData();
+	void ModifyData(int world = -1, int score = -1, int life = -1, int coin = -1);
+
 	~Game();
 
 private:
@@ -77,6 +81,7 @@ private:
 	InputHandler* inputHandler;
 	Raycast* raycast;
 	Font* globalFont;
+	GameData* globalData;
 
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sourcePaths;
 };
