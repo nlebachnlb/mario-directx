@@ -1,9 +1,11 @@
 #include "Text.h"
+#include "Mathf.h"
 
 Text::Text()
 {
 	font = nullptr;
-	spacing = -4;
+	spacing = -3;
+	alignment = TextAlignment::Left;
 }
 
 void Text::PreRender()
@@ -14,12 +16,32 @@ void Text::Render()
 {
 	if (font == nullptr) return;
 
-	int x = 0;
-	for (auto ch : text)
+	int start, end, step;
+	switch (alignment)
 	{
+	case TextAlignment::Left:
+		start = 0, end = text.length() - 1, step = 1;
+		break;
+	case TextAlignment::Right:
+		start = text.length() - 1, end = 0, step = -1;
+		break;
+	}
+
+	int x = 0;
+	for (int i = start; (step > 0 ? i <= end : i >= end); i += step)
+	{
+		auto ch = text.at(i);
 		auto visual = font->GetChar(ch);
-		visual->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
-		x += visual->GetSpriteWidth() + spacing;
+		auto piv = (alignment == TextAlignment::Left ? 0 : visual->GetSpriteWidth());
+		visual->Draw(rectTransform.Position.x + x, rectTransform.Position.y, piv, 0);
+
+		auto charStep = 0;
+		if (alignment == TextAlignment::Left)
+			charStep = (visual->GetSpriteWidth() + spacing);
+		else if (alignment == TextAlignment::Right && i > end)
+			charStep = -(visual->GetSpriteWidth() + spacing);
+
+		x += charStep;
 	}
 }
 
@@ -38,6 +60,11 @@ std::string Text::GetContent()
 void Text::SetSpacing(int spacing)
 {
 	this->spacing = spacing;
+}
+
+void Text::SetAlignment(TextAlignment alignment)
+{
+	this->alignment = alignment;
 }
 
 void Text::SetFont(Font* font)

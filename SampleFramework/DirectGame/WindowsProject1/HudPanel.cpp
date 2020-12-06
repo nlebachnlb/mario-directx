@@ -37,16 +37,19 @@ void HudPanel::Start()
 {
 	world->SetContent("1");
 	life->SetContent("4");
-	score->SetContent("0000000");
-	coin->SetContent("00");
+	score->SetContent("0002340");
+	coin->SetContent("11");
 	timer->SetContent("000");
 
 	// Organize layout
 	world->SetPosition(Vector2(32 + 110, config.screenHeight - config.hudOffset + 24));
 	life->SetPosition(Vector2(32 + 110 - 4, config.screenHeight - config.hudOffset + 48));
 	score->SetPosition(Vector2(32 + 150, config.screenHeight - config.hudOffset + 48));
-	coin->SetPosition(Vector2(32 + 400, config.screenHeight - config.hudOffset + 24));
-	timer->SetPosition(Vector2(32 + 374, config.screenHeight - config.hudOffset + 48));
+
+	coin->SetAlignment(TextAlignment::Right);
+	coin->SetPosition(Vector2(32 + 448, config.screenHeight - config.hudOffset + 24));
+	timer->SetAlignment(TextAlignment::Right);
+	timer->SetPosition(Vector2(32 + 448, config.screenHeight - config.hudOffset + 48));
 }
 
 void HudPanel::Render()
