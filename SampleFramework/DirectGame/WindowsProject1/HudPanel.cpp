@@ -31,6 +31,10 @@ void HudPanel::Awake()
 	score->SetFont(font);
 	coin->SetFont(font);
 	timer->SetFont(font);
+
+	// Power Meter
+	powerMeter = new PowerMeter();
+	powerMeter->Awake();
 }
 
 void HudPanel::Start()
@@ -50,6 +54,9 @@ void HudPanel::Start()
 	coin->SetPosition(Vector2(32 + 448, config.screenHeight - config.hudOffset + 24));
 	timer->SetAlignment(TextAlignment::Right);
 	timer->SetPosition(Vector2(32 + 448, config.screenHeight - config.hudOffset + 48));
+
+	powerMeter->SetPosition(Vector2(32 + 150, config.screenHeight - config.hudOffset + 20));
+	powerMeter->Start();
 }
 
 void HudPanel::Render()
@@ -68,6 +75,8 @@ void HudPanel::Render()
 	score->Render();
 	coin->Render();
 	timer->Render();
+
+	powerMeter->Render();
 }
 
 void HudPanel::DrawCard(ItemCard& card, int x, int y)

@@ -5,6 +5,7 @@
 #include "GlobalConfigs.h"
 #include <vector>
 #include "Text.h"
+#include "PowerMeter.h"
 
 class HudPanel : public UIElement
 {
@@ -21,4 +22,5 @@ private:
 	Sprite cardVisuals[4];
 
 	Text *world, *life, *score, *coin, *timer;
+	PowerMeter* powerMeter;
 };

@@ -40,7 +40,7 @@ bool AnimationDatabase::LoadAnimationFile(string path)
 			// string name = node->Attribute("name");
 			string name = "";
 
-			OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
+			// OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
 			Animation* animation = new Animation(aniId, frameTime);
 
 			// Sprite ref
@@ -53,7 +53,7 @@ bool AnimationDatabase::LoadAnimationFile(string path)
 					detailFrameTime = frameTime;
 				animation->AddFrame(sprite, VectorZero(), detailFrameTime * 0.5f);
 
-				OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime * 0.5f) + '\n'));
+				// OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime * 0.5f) + '\n'));
 			}
 
 			Add(aniId, animation);

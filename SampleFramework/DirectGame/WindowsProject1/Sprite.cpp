@@ -106,7 +106,7 @@ bool SpriteManager::LoadSpriteFile(std::string path)
 			else
 				py *= 3;
 
-			// OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
+			OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
 			Add(spriteID, 3 * left, 3 * top, 3 * width, 3 * height, tex, px, py);
 		}
 	}
