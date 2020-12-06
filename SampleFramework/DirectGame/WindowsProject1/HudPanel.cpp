@@ -79,6 +79,35 @@ void HudPanel::Render()
 	powerMeter->Render();
 }
 
+void HudPanel::SetWorld(int world)
+{
+	this->world->SetContent(to_string(world));
+}
+
+void HudPanel::SetLife(int life)
+{
+	this->life->SetContent(to_string(life));
+}
+
+void HudPanel::SetScore(int score)
+{
+	std::string format = to_string(score);
+	while (format.length() < 7) format = "0" + format;
+	this->score->SetContent(format);
+}
+
+void HudPanel::SetCoin(int coin)
+{
+	this->coin->SetContent(to_string(coin));
+}
+
+void HudPanel::SetTimer(int time)
+{
+	std::string format = std::to_string(time);
+	while (format.length() < 3) format = "0" + format;
+	timer->SetContent(format);
+}
+
 void HudPanel::DrawCard(ItemCard& card, int x, int y)
 {
 	auto visual = cardVisuals[(int)card.item];

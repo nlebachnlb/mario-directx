@@ -14,6 +14,12 @@ public:
 	void Start() override;
 	void Render() override;
 
+	void SetWorld(int world);
+	void SetLife(int life);
+	void SetScore(int score);
+	void SetCoin(int coin);
+	void SetTimer(int time);
+
 private:
 	void DrawCard(ItemCard& card, int x, int y);
 	Sprite panel;

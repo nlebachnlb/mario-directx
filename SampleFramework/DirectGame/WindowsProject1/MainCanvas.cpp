@@ -13,7 +13,11 @@ void MainCanvas::Awake()
 
 void MainCanvas::Start()
 {
-
+	hud->SetWorld(1);
+	hud->SetScore(0);
+	hud->SetCoin(0);
+	hud->SetTimer(0);
+	hud->SetLife(4);
 }
 
 void MainCanvas::Render()
