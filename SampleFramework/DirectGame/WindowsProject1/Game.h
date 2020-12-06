@@ -59,6 +59,8 @@ public:
 	GameData* GetData();
 	void ModifyData(int world = -1, int score = -1, int life = -1, int coin = -1);
 
+	void GainComboChain(Vector2 position);
+
 	~Game();
 
 private:

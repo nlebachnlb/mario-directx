@@ -218,6 +218,7 @@
     <ClInclude Include="RedParagoomba.h" />
     <ClInclude Include="RedVenusFireTrap.h" />
     <ClInclude Include="Rigidbody2D.h" />
+    <ClInclude Include="ScoreFX.h" />
     <ClInclude Include="ShrinkDownFX.h" />
     <ClInclude Include="SmallMario.h" />
     <ClInclude Include="SmokeSpotFX.h" />
@@ -327,6 +328,7 @@
     <ClCompile Include="RedParagoomba.cpp" />
     <ClCompile Include="RedVenusFireTrap.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
+    <ClCompile Include="ScoreFX.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />
     <ClCompile Include="SmallMario.cpp" />
     <ClCompile Include="SmokeSpotFX.cpp" />

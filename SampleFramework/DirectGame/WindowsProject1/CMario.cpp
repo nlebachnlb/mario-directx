@@ -8,6 +8,8 @@
 #include "KoopasShell.h"
 #include "WarpMark.h"
 #include "WarpEntrance.h"
+#include "EffectPool.h"
+#include "ScoreFX.h"
 
 void CMario::Awake()
 {
@@ -364,7 +366,13 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 			if (collision->collisionDirection.y < 0 &&
 				collision->collisionDirection.x <= 0.00001f)
 			{
-				onGround = true;
+				if (!onGround)
+				{
+					auto data = Game::GetInstance().GetData();
+					onGround = true;
+					data->ResetCombo();
+				}
+
 				physicState.jump = JumpingStates::Stand;
 			}
 
@@ -442,6 +450,14 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 	if (TagUtils::PowerupTag(otherTag) || TagUtils::ItemTag(otherTag))
 	{
+		if (otherTag != ObjectTags::Coin)
+		{
+			auto gmap = Game::GetInstance().GetService<GameMap>();
+			auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
+			ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", other->GetGameObject()->GetTransform().Position));
+			fx->SetLevel(Score::S1000);
+		}
+
 		switch (otherTag)
 		{
 		case ObjectTags::RedMushroom:
@@ -458,6 +474,7 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		case ObjectTags::Coin:
 			// Increase coin data
 			Game::GetInstance().GetData()->ModifyCoin(1, true);
+			Game::GetInstance().GetData()->ModifyScore(50, true);
 			break;
 		}
 

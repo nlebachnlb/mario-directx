@@ -1,6 +1,8 @@
 #include "CoinObtainedFX.h"
 #include "Game.h"
 #include "AnimationDatabase.h"
+#include "EffectPool.h"
+#include "ScoreFX.h"
 
 void CoinObtainedFX::Awake()
 {
@@ -27,6 +29,12 @@ void CoinObtainedFX::Start()
 
 void CoinObtainedFX::Update()
 {
-	if (transform.Position.y > startPosition.y - 48 && rigidbody->GetVelocity().y > 0) 
+	if (transform.Position.y > startPosition.y - 48 && rigidbody->GetVelocity().y > 0)
+	{
+		auto gmap = Game::GetInstance().GetService<GameMap>();
+		auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
+		ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", transform.Position));
+		fx->SetLevel(Score::S100);
 		pool->Revoke(this);
+	}
 }

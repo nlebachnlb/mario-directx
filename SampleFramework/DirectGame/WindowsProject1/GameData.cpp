@@ -23,7 +23,22 @@ void GameData::ModifyLife(int life, bool relative)
 	this->life = Mathf::Clamp(this->life, 0, 99);
 }
 
-void GameData::ModifyScore(long score)
+void GameData::ModifyScore(long score, bool relative)
 {
-	this->score = Mathf::Min(score, 9999999);
+	this->score = Mathf::Min(relative ? this->score + score : score, 9999999);
+}
+
+void GameData::ResetCombo()
+{
+	if (combo > -1) combo = -1;
+}
+
+void GameData::GainCombo()
+{
+	combo = Mathf::Clamp(combo + 1, 0, 8);
+}
+
+int GameData::GetCombo()
+{
+	return this->combo;
 }

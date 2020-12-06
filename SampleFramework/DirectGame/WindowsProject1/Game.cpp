@@ -5,6 +5,8 @@
 #include "tinyxml.h"
 #include "Canvas.h"
 #include "MainCanvas.h"
+#include "EffectPool.h"
+#include "ScoreFX.h"
 // #include "GameObject.h"
 
 
@@ -421,6 +423,15 @@ void Game::ModifyData(int world, int score, int life, int coin)
 	if (score != -1) globalData->score = score;
 	if (life != -1) globalData->life = life;
 	if (coin != -1) globalData->coin = coin;
+}
+
+void Game::GainComboChain(Vector2 position)
+{
+	auto gmap = GetService<GameMap>();
+	auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
+	ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", position));
+	globalData->GainCombo();
+	fx->SetLevel((Score)globalData->GetCombo());
 }
 
 Game::~Game()

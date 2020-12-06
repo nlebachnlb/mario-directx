@@ -36,6 +36,8 @@ void RedKoopa::InitAnimations()
 
 void RedKoopa::OnDead(bool oneHit)
 {
+	Game::GetInstance().GainComboChain(transform.Position);
+
 	if (oneHit)
 	{
 		rigidbody->SetGravity(KOOPA_GRAVITY);
