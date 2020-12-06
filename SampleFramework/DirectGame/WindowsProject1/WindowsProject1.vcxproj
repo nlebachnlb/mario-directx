@@ -167,6 +167,7 @@
     <ClInclude Include="FXObject.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="AbstractEnemy.h" />
+    <ClInclude Include="GlobalConfigs.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaSpawner.h" />
     <ClInclude Include="GreenKoopa.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="HitStarFX.h" />
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="HudPanel.h" />
+    <ClInclude Include="HudUtils.h" />
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="ItemInfo.h" />

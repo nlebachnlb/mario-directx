@@ -17,6 +17,8 @@ public:
 	virtual void Draw(float x, float y, int px, int py, Vector2 scale = Vector2(1.0f, 1.0f), float rotation = 0.0f, int alpha = 255);
 	void SetSourceRect(int left, int top, int width, int height);
 	void SetSourceRect(RECT rect);
+	int GetSpriteWidth();
+	int GetSpriteHeight();
 protected:
 	std::string id;
 	int top, left;
