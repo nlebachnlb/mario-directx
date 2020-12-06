@@ -81,7 +81,9 @@ void HudPanel::Render()
 
 void HudPanel::SetWorld(int world)
 {
-	this->world->SetContent(to_string(world));
+	auto str = to_string(world);
+	if (this->world->GetContent().compare(str) == 0) return;
+	this->world->SetContent(str);
 }
 
 void HudPanel::SetLife(int life)
@@ -89,7 +91,7 @@ void HudPanel::SetLife(int life)
 	this->life->SetContent(to_string(life));
 }
 
-void HudPanel::SetScore(int score)
+void HudPanel::SetScore(long score)
 {
 	std::string format = to_string(score);
 	while (format.length() < 7) format = "0" + format;

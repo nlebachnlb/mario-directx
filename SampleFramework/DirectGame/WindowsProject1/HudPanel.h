@@ -16,7 +16,7 @@ public:
 
 	void SetWorld(int world);
 	void SetLife(int life);
-	void SetScore(int score);
+	void SetScore(long score);
 	void SetCoin(int coin);
 	void SetTimer(int time);
 

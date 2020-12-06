@@ -10,6 +10,8 @@ public:
 	void PreRender() override;
 	void Render() override;
 
+	void SetLevel(int level);
+
 private:
 	Sprite arrowOn, powerOn;
 	Sprite arrowOff, powerOff;

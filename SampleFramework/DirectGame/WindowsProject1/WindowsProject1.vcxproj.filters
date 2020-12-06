@@ -537,6 +537,9 @@
     <ClInclude Include="PowerMeter.h">
       <Filter>GameSource\UserInterface\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>GameSource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -884,6 +887,9 @@
     </ClCompile>
     <ClCompile Include="PowerMeter.cpp">
       <Filter>GameSource\UserInterface\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>GameSource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

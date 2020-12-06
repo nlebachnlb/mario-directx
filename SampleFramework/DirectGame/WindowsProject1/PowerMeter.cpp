@@ -1,5 +1,6 @@
 #include "PowerMeter.h"
 #include "Game.h"
+#include "Mathf.h"
 
 void PowerMeter::Awake()
 {
@@ -36,4 +37,13 @@ void PowerMeter::Render()
 	}
 	auto target = active[6] ? powerOn : powerOff;
 	target->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
+}
+
+void PowerMeter::SetLevel(int level)
+{
+	level--;
+	for (int i = 0; i <= Mathf::Min(level, 6); ++i)
+		active[i] = true;
+	for (int i = Mathf::Min(level, 6) + 1; i <= 6; ++i)
+		active[i] = false;
 }

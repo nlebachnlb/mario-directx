@@ -205,6 +205,8 @@ void Game::GameInit(HWND hWnd)
 
 	MainCanvas* mainCanvas = new MainCanvas();
 	mainCanvas->Initialize();
+	GameData* dataNode = new GameData();
+	mainCanvas->SetGameData(dataNode);
 	Canvas::AddCanvas("main", mainCanvas);
 #pragma endregion
 

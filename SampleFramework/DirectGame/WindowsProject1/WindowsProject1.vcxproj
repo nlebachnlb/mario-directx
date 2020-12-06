@@ -166,6 +166,7 @@
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FXObject.h" />
+    <ClInclude Include="GameData.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="AbstractEnemy.h" />
     <ClInclude Include="GlobalConfigs.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FXObject.cpp" />
+    <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="AbstractEnemy.cpp" />
     <ClCompile Include="Goomba.cpp" />
