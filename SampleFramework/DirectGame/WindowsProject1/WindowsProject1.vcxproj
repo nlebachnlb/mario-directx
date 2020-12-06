@@ -164,6 +164,7 @@
     <ClInclude Include="Effector2D.h" />
     <ClInclude Include="EffectPool.h" />
     <ClInclude Include="FireMario.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="FXObject.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="AbstractEnemy.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="SolidBox.h" />
     <ClInclude Include="SpawnerManager.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="ExampleScene.h" />
@@ -272,6 +274,7 @@
     <ClCompile Include="Collider2D.cpp" />
     <ClCompile Include="EffectPool.cpp" />
     <ClCompile Include="FireMario.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="FXObject.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="AbstractEnemy.cpp" />
@@ -326,6 +329,7 @@
     <ClCompile Include="SolidBox.cpp" />
     <ClCompile Include="SpawnerManager.cpp" />
     <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="ExampleScene.cpp" />
     <ClCompile Include="Game.cpp" />

@@ -1,6 +1,8 @@
 #pragma once
 #include "Canvas.h"
 #include "HudPanel.h"
+#include "Text.h"
+
 class MainCanvas : public Canvas
 {
 public:
