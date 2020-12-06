@@ -13,9 +13,12 @@ public:
 	void SetContent(std::string text);
 	std::string GetContent();
 
+	void SetSpacing(int spacing);
+
 	void SetFont(Font* font);
 protected:
 	std::string text;
+	int spacing;
 	Font* font;
 };
 

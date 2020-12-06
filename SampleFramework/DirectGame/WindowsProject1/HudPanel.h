@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "GlobalConfigs.h"
 #include <vector>
+#include "Text.h"
 
 class HudPanel : public UIElement
 {
@@ -18,4 +19,6 @@ private:
 	GlobalConfigs config;
 	std::vector<ItemCard> cards;
 	Sprite cardVisuals[4];
+
+	Text *world, *life, *score, *coin, *timer;
 };

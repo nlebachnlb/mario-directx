@@ -202,7 +202,7 @@
     <Filter Include="GameSource\UserInterface\HUD">
       <UniqueIdentifier>{e7dccec2-cac1-41e4-953d-c924b099ae1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\UserInterface\Font">
+    <Filter Include="Framework\Game\UI\Text">
       <UniqueIdentifier>{f3369e7b-887b-451e-8a3e-1d82b6a57024}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -529,10 +529,10 @@
       <Filter>GameSource\UserInterface\HUD</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>GameSource\UserInterface\Font</Filter>
+      <Filter>Framework\Game\UI\Text</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
-      <Filter>GameSource\UserInterface\Font</Filter>
+      <Filter>Framework\Game\UI\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -874,10 +874,10 @@
       <Filter>GameSource\UserInterface\HUD</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>GameSource\UserInterface\Font</Filter>
+      <Filter>Framework\Game\UI\Text</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
-      <Filter>GameSource\UserInterface\Font</Filter>
+      <Filter>Framework\Game\UI\Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

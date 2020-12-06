@@ -193,6 +193,16 @@ void Game::GameInit(HWND hWnd)
 #pragma endregion
 
 #pragma region Init Canvas Layout
+	// Init game font
+	globalFont = new Font();
+	vector<FontSprite> fontSet;
+	std::string prefix = "spr-font-";
+	for (char c = '0'; c <= '9'; ++c)
+		fontSet.push_back(FontSprite{ c, prefix + c });
+	for (char c = 'A'; c <= 'Z'; ++c)
+		fontSet.push_back(FontSprite{ c, prefix + c });
+	globalFont->Import(fontSet);
+
 	MainCanvas* mainCanvas = new MainCanvas();
 	mainCanvas->Initialize();
 	Canvas::AddCanvas("main", mainCanvas);
@@ -390,6 +400,11 @@ std::string Game::GetSourcePathOf(std::string category, std::string id)
 	}
 
 	return "";
+}
+
+Font* Game::GetGlobalFont()
+{
+	return this->globalFont;
 }
 
 Game::~Game()

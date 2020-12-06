@@ -16,10 +16,37 @@ void HudPanel::Awake()
 	cardVisuals[(int)ItemCardType::Mushroom		] = sprManager->Get("spr-super-mushroom-card-0");
 	cardVisuals[(int)ItemCardType::Fireflower	] = sprManager->Get("spr-fire-flower-card-0");
 	cardVisuals[(int)ItemCardType::Superstar	] = sprManager->Get("spr-star-man-card-0");
+
+	// Init text
+	world	= new Text(); 
+	life	= new Text();
+	score	= new Text();
+	coin	= new Text();
+	timer	= new Text();
+
+	// Assign font
+	auto font = Game::GetInstance().GetGlobalFont();
+	world->SetFont(font);
+	life->SetFont(font);
+	score->SetFont(font);
+	coin->SetFont(font);
+	timer->SetFont(font);
 }
 
 void HudPanel::Start()
 {
+	world->SetContent("1");
+	life->SetContent("4");
+	score->SetContent("0000000");
+	coin->SetContent("00");
+	timer->SetContent("000");
+
+	// Organize layout
+	world->SetPosition(Vector2(32 + 110, config.screenHeight - config.hudOffset + 24));
+	life->SetPosition(Vector2(32 + 110 - 4, config.screenHeight - config.hudOffset + 48));
+	score->SetPosition(Vector2(32 + 150, config.screenHeight - config.hudOffset + 48));
+	coin->SetPosition(Vector2(32 + 400, config.screenHeight - config.hudOffset + 24));
+	timer->SetPosition(Vector2(32 + 374, config.screenHeight - config.hudOffset + 48));
 }
 
 void HudPanel::Render()
@@ -32,6 +59,12 @@ void HudPanel::Render()
 		int y = config.screenHeight - config.hudOffset;
 		DrawCard(cards[i], x - 32, y);
 	}
+
+	world->Render();
+	life->Render(); 
+	score->Render();
+	coin->Render();
+	timer->Render();
 }
 
 void HudPanel::DrawCard(ItemCard& card, int x, int y)

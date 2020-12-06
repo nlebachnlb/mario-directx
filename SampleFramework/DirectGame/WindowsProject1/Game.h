@@ -13,6 +13,7 @@
 #include "InputHandler.h"
 #include "Raycast.h"
 #include "GlobalConfigs.h"
+#include "Font.h"
 
 using namespace std;
 
@@ -52,6 +53,7 @@ public:
 	void DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 
 	std::string GetSourcePathOf(std::string category, std::string id);
+	Font* GetGlobalFont();
 
 	~Game();
 
@@ -74,6 +76,7 @@ private:
 	Scene* activeScene;
 	InputHandler* inputHandler;
 	Raycast* raycast;
+	Font* globalFont;
 
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sourcePaths;
 };
