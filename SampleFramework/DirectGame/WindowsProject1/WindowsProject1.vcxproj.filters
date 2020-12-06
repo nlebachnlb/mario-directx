@@ -519,6 +519,12 @@
     <ClInclude Include="HudPanel.h">
       <Filter>GameSource\UserInterface\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalConfigs.h">
+      <Filter>Framework\Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="HudUtils.h">
+      <Filter>GameSource\UserInterface\HUD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">

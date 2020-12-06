@@ -12,15 +12,9 @@
 #include "Sprite.h"
 #include "InputHandler.h"
 #include "Raycast.h"
+#include "GlobalConfigs.h"
 
 using namespace std;
-
-struct GlobalConfigs
-{
-	int fps;
-	int screenWidth, screenHeight;
-	int hudOffset;
-};
 
 class Game : public ServiceLocator
 {

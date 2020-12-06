@@ -47,6 +47,16 @@ void CSprite::SetSourceRect(RECT rect)
 	SetSourceRect(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 }
 
+int CSprite::GetSpriteWidth()
+{
+	return width;
+}
+
+int CSprite::GetSpriteHeight()
+{
+	return height;
+}
+
 void SpriteManager::Initialization()
 {
 	// Load mario sprites
