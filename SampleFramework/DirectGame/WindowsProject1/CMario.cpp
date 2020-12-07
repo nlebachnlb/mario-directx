@@ -87,7 +87,7 @@ void CMario::Update()
 	if (pushSide == 0 && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right)))
 	{
 		// Accelerate velocity based on moving states
-		if (input->GetKeyDown(marioKeySet.Attack) && runningRestriction == false)
+		if (input->GetKeyDown(marioKeySet.Attack))
 		{
 			physicState.movement = MovingStates::Run;
 			rigidbody->SetAcceleration(skid ? MARIO_SKID_ACCELERATION : MARIO_RUN_ACCELERATION);
@@ -100,7 +100,10 @@ void CMario::Update()
 			rigidbody->SetDrag(Vector2(MARIO_WALK_DRAG_FORCE, rigidbody->GetDrag().y));
 		}
 
-		auto constSpeed = physicState.movement == MovingStates::Run ? MARIO_RUN_SPEED : MARIO_WALK_SPEED;
+		auto constSpeed = 
+			physicState.movement == MovingStates::Run ? 
+			MARIO_RUN_SPEED * (runningRestriction ? 0.675f : 1.0f) : 
+			MARIO_WALK_SPEED;
 		targetVelocityX = constSpeed;
 		
 		if (input->GetKeyDown(marioKeySet.Left) && pushSide == 0)

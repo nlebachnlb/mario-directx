@@ -68,14 +68,11 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	// Mario uses his tail to keep him floating on the air
 	if (keyCode == marioKeySet.Jump && onGround == false)
 	{
-		if (flying == 1 && (physicState.jump == JumpingStates::High))
-			pushing = true, lastPushingTime = GetTickCount();
-
-		if (physicState.jump == JumpingStates::Fall)
+		if (physicState.jump == JumpingStates::Fall || physicState.jump == JumpingStates::High)
 		{
 			if (flying == 1)
 				pushing = true, lastPushingTime = GetTickCount();
-			else
+			else if (rigidbody->GetVelocity().y > 0)
 				floating = true, lastFloatingTime = GetTickCount();
 		}
 	}
@@ -162,9 +159,9 @@ void RaccoonMario::LateUpdate()
 	{
 		auto current = GetTickCount();
 		if (current - lastFloatingTime > RACCOON_FLOAT_TIME)
-			floating = false, this->rigidbody->SetGravity(MARIO_GRAVITY);
+			floating = false, this->rigidbody->SetFallLimitVelocity(MARIO_FALL_LIMIT_VEL);
 		else
-			this->rigidbody->SetGravity(0.0f);
+			this->rigidbody->SetFallLimitVelocity(0.25f * MARIO_FALL_LIMIT_VEL);
 	}
 
 	if (flying == 1 && GetTickCount() - lastFlyingTime > RACCOON_FLY_TIME)
@@ -204,7 +201,7 @@ void RaccoonMario::LateUpdate()
 			pMeter = 0;
 	}
 
-	runningRestriction = flying != 0;
+	runningRestriction = flying != 0 || floating;
 
 	if (physicalAttacking)
 	{
