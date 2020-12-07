@@ -1,6 +1,7 @@
 #include "MainCanvas.h"
 #include "Game.h"
 #include "Consts.h"
+#include "Mathf.h"
 
 void MainCanvas::Awake()
 {
@@ -18,6 +19,28 @@ void MainCanvas::Start()
 	hud->SetCoin(0);
 	hud->SetTimer(0);
 	hud->SetLife(4);
+}
+
+void MainCanvas::Update()
+{
+	if (gameStarted)
+	{
+		if (player == nullptr)
+		{
+			auto obj = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player);
+			if (obj != nullptr) player = static_cast<PlayerController*>(obj);
+			else return;
+		}
+
+		auto mario = player->GetMario();
+		auto vel = mario->GetRigidbody()->GetVelocity();
+
+		// Convert to percents
+		//double percent = Mathf::Abs(vel.x) / MARIO_RUN_SPEED;
+		auto percent = mario->GetPMeter();
+		int powerLevel = (int)(percent);
+		hud->SetPowerMeter(powerLevel);
+	}
 }
 
 void MainCanvas::PreRender()

@@ -19,6 +19,7 @@ public:
 	void SetScore(long score);
 	void SetCoin(int coin);
 	void SetTimer(int time);
+	void SetPowerMeter(int level);
 
 private:
 	void DrawCard(ItemCard& card, int x, int y);

@@ -140,8 +140,8 @@ void CMario::Update()
 		velocity.x = facing * curVelocity;
 	}
 
-	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.92f;
-	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f;
+	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.92f && feverState > 0;
+	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f && feverState > 0;
 	if (pushSide == 0) rigidbody->SetVelocity(&velocity);
 
 	if (pushSide != 0)
@@ -292,6 +292,11 @@ bool CMario::IsInvincible()
 void CMario::SetInvincible(bool invincible)
 {
 	this->invincible = invincible;
+}
+
+float CMario::GetPMeter()
+{
+	return this->pMeter;
 }
 
 void CMario::PassPrivateData(CMario* other, bool moveData)
@@ -821,34 +826,75 @@ void CMario::StandState()
 void CMario::FeverProcess()
 {
 	auto velocity = rigidbody->GetVelocity();
-	// If Mario runs at max curVelocity, the P Meter starts increasing
-	if (physicState.movement == MovingStates::Run && Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.15f &&
-		pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand &&
-		feverState != 2)
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	switch (feverState)
 	{
-		pMeter = Mathf::Clamp(pMeter + PMETER_STEP * Game::DeltaTime(), 0.0f, PMETER_MAX + 1);
-		if (feverState != -1) feverState = 1;
-		// DebugOut(L"[Fever] --power: %f\n", pMeter);
-	}
-	else if (feverState != 2 && feverState != -1)
-		feverState = 0;
-
-	// Fever mode processing
-	if (pMeter >= PMETER_MAX && feverState == 1)
+	case 0:
 	{
-		feverState = 2;
-		lastFeverTime = GetTickCount();
-		// DebugOut(L"[Fever] start\n");
-	}
-	else if (pMeter > 0 && feverState <= 0)
-		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 3.0f * Game::DeltaTime(), 0.0, PMETER_MAX);
+		if (physicState.movement == MovingStates::Run &&
+			Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.35f &&
+			pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand)
+		{
+			pMeter = Mathf::Clamp(pMeter + PMETER_STEP * dt, 0.0f, PMETER_MAX + 1);
 
-	if (feverState == 2)
+			if (pMeter >= PMETER_MAX) feverState = 1;
+		}
+		else
+		{
+			pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 1.2f * dt, 0.0, PMETER_MAX);
+		}
+	}
+	break;
+	case 1:
 	{
 		pMeter = PMETER_MAX;
-		if (GetTickCount() - lastFeverTime > feverTime || physicState.movement != MovingStates::Run)
-			feverState = 0;
+		feverTime = MARIO_FEVER_TIME;
+		feverState = 2;
 	}
+	break;
+	case 2:
+	{
+		feverTime -= dt;
+		auto breakCond = (physicState.movement != MovingStates::Run ||
+			Mathf::Abs(velocity.x) < MARIO_RUN_SPEED * 0.92f);
+
+		if (feverTime <= 0 || breakCond)
+		{
+			feverTime = 0;
+			feverState = 0;
+		}
+	}
+	break;
+	}
+	//// If Mario runs at max curVelocity, the P Meter starts increasing
+	//if (physicState.movement == MovingStates::Run && 
+	//	Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.35f &&
+	//	pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand &&
+	//	feverState != 2)
+	//{
+	//	pMeter = Mathf::Clamp(pMeter + PMETER_STEP * dt, 0.0f, PMETER_MAX + 1);
+	//	if (feverState != -1) feverState = 1;
+	//}
+	//else if (feverState != 2 && feverState != -1)
+	//	feverState = 0;
+
+	//// Fever mode processing
+	//if (pMeter >= PMETER_MAX && feverState == 1)
+	//{
+	//	feverState = 2;
+	//	lastFeverTime = GetTickCount();
+	//	pMeter = PMETER_MAX;
+	//	// DebugOut(L"[Fever] start\n");
+	//}
+	//else if (pMeter > 0 && feverState <= 0)
+	//	pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 1.2f * dt, 0.0, PMETER_MAX);
+
+	//if (feverState == 2)
+	//{
+	//	pMeter = PMETER_MAX;
+	//	if (GetTickCount() - lastFeverTime > feverTime || physicState.movement != MovingStates::Run)
+	//		feverState = 0;
+	//}
 }
 
 #pragma endregion

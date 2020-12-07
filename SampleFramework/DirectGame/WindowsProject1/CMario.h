@@ -114,6 +114,8 @@ public:
 	bool IsInvincible();
 	void SetInvincible(bool invincible);
 
+	float GetPMeter();
+
 	void PassPrivateData(CMario* other, bool moveData = true); 
 	// if moveData, data of this will be reset
 

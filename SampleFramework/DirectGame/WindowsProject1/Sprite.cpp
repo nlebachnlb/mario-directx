@@ -121,10 +121,9 @@ Sprite SpriteManager::Add(string id, int left, int top, int width, int height, T
 
 Sprite SpriteManager::Get(string id)
 {
-	
 	if (sprites.find(id) != sprites.end())
 	{
-		DebugOut(L"-Get sprite-");
+		OutputDebugStringW(ToLPCWSTR("Get sprite-" + id + "\n"));
 		return sprites.at(id);
 	}
 	else

@@ -15,6 +15,7 @@ void PowerMeter::Awake()
 void PowerMeter::Start()
 {
 	for (int i = 0; i < 7; ++i) active[i] = false;
+	DebugOut(L"PMeter: %d, %d\n", powerOn != nullptr ? 1 : 0, powerOff != nullptr ? 1 : 0);
 }
 
 void PowerMeter::PreRender()
@@ -26,24 +27,40 @@ void PowerMeter::Render()
 {
 	if (arrowOn == nullptr) return;
 	if (arrowOff == nullptr) return;
+	if (powerOn == nullptr) return;
+	if (powerOff == nullptr) return;
 
 	// Draw arrow
 	int x = 0;
-	for (int i = 0; i < 5; i++)
+	int w = arrowOn->GetSpriteWidth();
+	for (int i = 1; i <= 6; i++)
 	{
-		auto target = active[i] ? arrowOn : arrowOff;
-		target->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
-		x += target->GetSpriteWidth() + spacing;
+		arrowOff->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
+		x += w + spacing;
 	}
-	auto target = active[6] ? powerOn : powerOff;
-	target->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
+	powerOff->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
+
+	x = 0;
+	w = arrowOn->GetSpriteWidth();
+	for (int i = 1; i <= Mathf::Min(this->level, 6); i++)
+	{
+		arrowOn->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
+		x += w + spacing;
+	}
+	if (this->level == 7) 
+		powerOn->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
+
+
+	/*auto target = active[6] ? powerOn : powerOff;
+	if (target != nullptr) target->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);*/
 }
 
 void PowerMeter::SetLevel(int level)
 {
-	level--;
+	/*level--;
 	for (int i = 0; i <= Mathf::Min(level, 6); ++i)
 		active[i] = true;
 	for (int i = Mathf::Min(level, 6) + 1; i <= 6; ++i)
-		active[i] = false;
+		active[i] = false;*/
+	this->level = Mathf::Clamp(level, 0, 7);
 }

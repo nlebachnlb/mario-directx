@@ -18,6 +18,8 @@ public:
 
 	void ContinueSwitchingState();
 
+	CMario* GetMario();
+
 private:
 	void LinkStates();
 

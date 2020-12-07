@@ -34,6 +34,7 @@ void HudPanel::Awake()
 
 	// Power Meter
 	powerMeter = new PowerMeter();
+	powerMeter->SetActive(false);
 	powerMeter->Awake();
 }
 
@@ -57,6 +58,7 @@ void HudPanel::Start()
 
 	powerMeter->SetPosition(Vector2(32 + 150, config.screenHeight - config.hudOffset + 20));
 	powerMeter->Start();
+	powerMeter->SetActive(true);
 }
 
 void HudPanel::Render()
@@ -108,6 +110,11 @@ void HudPanel::SetTimer(int time)
 	std::string format = std::to_string(time);
 	while (format.length() < 3) format = "0" + format;
 	timer->SetContent(format);
+}
+
+void HudPanel::SetPowerMeter(int level)
+{
+	powerMeter->SetLevel(level);
 }
 
 void HudPanel::DrawCard(ItemCard& card, int x, int y)

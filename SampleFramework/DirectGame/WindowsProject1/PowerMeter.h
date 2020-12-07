@@ -17,4 +17,5 @@ private:
 	Sprite arrowOff, powerOff;
 	bool active[7];
 	int spacing;
+	int level;
 };

@@ -3,12 +3,14 @@
 #include "HudPanel.h"
 #include "Text.h"
 #include "GameData.h"
+#include "PlayerController.h"
 
 class MainCanvas : public Canvas
 {
 public:
 	void Awake() override;
 	void Start() override;
+	void Update() override;
 	void PreRender() override;
 	void Render() override;
 
@@ -22,5 +24,6 @@ private:
 	GameData* gameData;
 	int time;
 	bool gameStarted;
+	PlayerController* player;
 };
 
