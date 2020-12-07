@@ -1,6 +1,7 @@
 #pragma once
 #include "UIElement.h"
 // #include "Sprite.h"
+const float BLINK_TIME = 50;
 
 class PowerMeter : public UIElement
 {
@@ -15,7 +16,7 @@ public:
 private:
 	Sprite arrowOn, powerOn;
 	Sprite arrowOff, powerOff;
-	bool active[7];
 	int spacing;
+	int blink;
 	int level;
 };

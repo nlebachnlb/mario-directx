@@ -54,6 +54,7 @@ void MainCanvas::PreRender()
 	time -= dt * 1.5f;
 
 	hud->SetTimer((int)((float)time * 0.001f));
+	hud->PreRender();
 }
 
 void MainCanvas::Render()

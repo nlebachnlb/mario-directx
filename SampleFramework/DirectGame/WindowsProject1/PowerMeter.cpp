@@ -14,13 +14,14 @@ void PowerMeter::Awake()
 
 void PowerMeter::Start()
 {
-	for (int i = 0; i < 7; ++i) active[i] = false;
-	DebugOut(L"PMeter: %d, %d\n", powerOn != nullptr ? 1 : 0, powerOff != nullptr ? 1 : 0);
+	blink = 0;
+	// DebugOut(L"PMeter: %d, %d\n", powerOn != nullptr ? 1 : 0, powerOff != nullptr ? 1 : 0);
 }
 
 void PowerMeter::PreRender()
 {
-	
+	if (this->level == 7) blink += Game::DeltaTime() * Game::GetTimeScale();
+	if (blink > BLINK_TIME) blink = 0;
 }
 
 void PowerMeter::Render()
@@ -47,12 +48,8 @@ void PowerMeter::Render()
 		arrowOn->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
 		x += w + spacing;
 	}
-	if (this->level == 7) 
+	if (this->level == 7 && blink > BLINK_TIME * 0.5f) 
 		powerOn->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);
-
-
-	/*auto target = active[6] ? powerOn : powerOff;
-	if (target != nullptr) target->Draw(rectTransform.Position.x + x, rectTransform.Position.y, 0, 0);*/
 }
 
 void PowerMeter::SetLevel(int level)

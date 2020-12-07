@@ -12,6 +12,7 @@ class HudPanel : public UIElement
 public:
 	void Awake() override;
 	void Start() override;
+	void PreRender() override;
 	void Render() override;
 
 	void SetWorld(int world);

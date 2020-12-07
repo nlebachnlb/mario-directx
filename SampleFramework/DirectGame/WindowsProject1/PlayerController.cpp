@@ -38,7 +38,7 @@ void PlayerController::Awake()
 void PlayerController::Start()
 {
 	LinkStates();
-	SwitchToState("BigMario");
+	SwitchToState(Game::GetInstance().GetData()->GetPowerup());
 	waiting = false;
 }
 

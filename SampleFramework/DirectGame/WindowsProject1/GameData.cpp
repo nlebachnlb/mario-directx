@@ -42,3 +42,14 @@ int GameData::GetCombo()
 {
 	return this->combo;
 }
+
+void GameData::SetPowerup(std::string powerup)
+{
+	this->marioPowerup = powerup;
+}
+
+std::string GameData::GetPowerup()
+{
+	if (marioPowerup.empty()) marioPowerup = "SmallMario";
+	return marioPowerup;
+}

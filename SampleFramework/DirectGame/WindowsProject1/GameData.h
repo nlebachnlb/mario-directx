@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 const int GAME_TIME = 300 * 1000;
 
 struct GameData
@@ -13,10 +14,14 @@ struct GameData
 	void GainCombo();
 	int GetCombo();
 
+	void SetPowerup(std::string powerup);
+	std::string GetPowerup();
+
 	int world, life, coin;
 	long score;
 
 private:
 	int combo;
+	std::string marioPowerup;
 };
 

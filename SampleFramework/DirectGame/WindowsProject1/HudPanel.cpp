@@ -61,6 +61,11 @@ void HudPanel::Start()
 	powerMeter->SetActive(true);
 }
 
+void HudPanel::PreRender()
+{
+	powerMeter->PreRender();
+}
+
 void HudPanel::Render()
 {
 	panel->Draw(0 + 32, config.screenHeight - config.hudOffset, 0, 0);
