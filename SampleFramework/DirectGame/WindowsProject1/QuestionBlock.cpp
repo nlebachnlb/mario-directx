@@ -62,6 +62,7 @@ void QuestionBlock::Bounce(GameObject obj)
 			auto gmap = Game::GetInstance().GetService<GameMap>();
 			auto spawner = gmap->GetSpawnerManager();
 			spawner->GetService<EffectPool>()->CreateFX("fx-coin-obtained", transform.Position);
+			Game::GetInstance().GetData()->ModifyCoin(1, true);
 		}
 		break;
 		case ItemTags::Leaf:

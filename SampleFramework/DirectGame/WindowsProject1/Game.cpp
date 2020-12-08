@@ -5,6 +5,8 @@
 #include "tinyxml.h"
 #include "Canvas.h"
 #include "MainCanvas.h"
+#include "EffectPool.h"
+#include "ScoreFX.h"
 // #include "GameObject.h"
 
 
@@ -193,8 +195,21 @@ void Game::GameInit(HWND hWnd)
 #pragma endregion
 
 #pragma region Init Canvas Layout
+	// Init game font
+	globalFont = new Font();
+	vector<FontSprite> fontSet;
+	std::string prefix = "spr-font-";
+	for (char c = '0'; c <= '9'; ++c)
+		fontSet.push_back(FontSprite{ c, prefix + c });
+	for (char c = 'A'; c <= 'Z'; ++c)
+		fontSet.push_back(FontSprite{ c, prefix + c });
+	globalFont->Import(fontSet);
+
 	MainCanvas* mainCanvas = new MainCanvas();
 	mainCanvas->Initialize();
+	GameData* dataNode = new GameData();
+	globalData = dataNode;
+	mainCanvas->SetGameData(dataNode);
 	Canvas::AddCanvas("main", mainCanvas);
 #pragma endregion
 
@@ -390,6 +405,33 @@ std::string Game::GetSourcePathOf(std::string category, std::string id)
 	}
 
 	return "";
+}
+
+Font* Game::GetGlobalFont()
+{
+	return this->globalFont;
+}
+
+GameData* Game::GetData()
+{
+	return globalData;
+}
+
+void Game::ModifyData(int world, int score, int life, int coin)
+{
+	if (world != -1) globalData->world = world;
+	if (score != -1) globalData->score = score;
+	if (life != -1) globalData->life = life;
+	if (coin != -1) globalData->coin = coin;
+}
+
+void Game::GainComboChain(Vector2 position)
+{
+	auto gmap = GetService<GameMap>();
+	auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
+	ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", position));
+	globalData->GainCombo();
+	fx->SetLevel((Score)globalData->GetCombo());
 }
 
 Game::~Game()

@@ -13,6 +13,9 @@ public:
 	virtual void PreRender();
 	virtual void Render();
 
+	void SetPosition(Vector2 position);
+	Transform GetTransform();
+
 	void Initialize();
 	void SetCanvas(Canvas* canvas);
 	void SetState(std::string state);

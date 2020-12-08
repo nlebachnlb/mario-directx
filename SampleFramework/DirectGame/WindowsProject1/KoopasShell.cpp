@@ -50,6 +50,7 @@ void KoopasShell::OnDead(bool oneHit)
 		rigidbody->SetVelocity(&Vector2(-facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 		dead = true;
+		Game::GetInstance().GainComboChain(transform.Position);
 	}
 	else
 	{

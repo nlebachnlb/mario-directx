@@ -164,7 +164,9 @@
     <ClInclude Include="Effector2D.h" />
     <ClInclude Include="EffectPool.h" />
     <ClInclude Include="FireMario.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="FXObject.h" />
+    <ClInclude Include="GameData.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="AbstractEnemy.h" />
     <ClInclude Include="GlobalConfigs.h" />
@@ -203,6 +205,7 @@
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PlantSpawner.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="PowerMeter.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RaccoonAttackBox.h" />
     <ClInclude Include="RaccoonLeaf.h" />
@@ -215,12 +218,14 @@
     <ClInclude Include="RedParagoomba.h" />
     <ClInclude Include="RedVenusFireTrap.h" />
     <ClInclude Include="Rigidbody2D.h" />
+    <ClInclude Include="ScoreFX.h" />
     <ClInclude Include="ShrinkDownFX.h" />
     <ClInclude Include="SmallMario.h" />
     <ClInclude Include="SmokeSpotFX.h" />
     <ClInclude Include="SolidBox.h" />
     <ClInclude Include="SpawnerManager.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="ExampleScene.h" />
@@ -272,7 +277,9 @@
     <ClCompile Include="Collider2D.cpp" />
     <ClCompile Include="EffectPool.cpp" />
     <ClCompile Include="FireMario.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="FXObject.cpp" />
+    <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="AbstractEnemy.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -308,6 +315,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PlantSpawner.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="PowerMeter.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonAttackBox.cpp" />
     <ClCompile Include="RaccoonLeaf.cpp" />
@@ -320,12 +328,14 @@
     <ClCompile Include="RedParagoomba.cpp" />
     <ClCompile Include="RedVenusFireTrap.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
+    <ClCompile Include="ScoreFX.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />
     <ClCompile Include="SmallMario.cpp" />
     <ClCompile Include="SmokeSpotFX.cpp" />
     <ClCompile Include="SolidBox.cpp" />
     <ClCompile Include="SpawnerManager.cpp" />
     <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="ExampleScene.cpp" />
     <ClCompile Include="Game.cpp" />

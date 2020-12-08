@@ -33,6 +33,16 @@ void UIElement::Render()
 	animations.at(currentState)->SetRotation(rectTransform.Rotation);
 }
 
+void UIElement::SetPosition(Vector2 position)
+{
+	this->rectTransform.Position = position;
+}
+
+Transform UIElement::GetTransform()
+{
+	return this->rectTransform;
+}
+
 void UIElement::Initialize()
 {
 	enabled = false;

@@ -6,6 +6,8 @@ void KoopaParatroopa::OnDead(bool oneHit)
 {
 	if (dead) return;
 
+	Game::GetInstance().GainComboChain(transform.Position);
+
 	if (oneHit)
 	{
 		rigidbody->SetGravity(KOOPA_PARATROOPA_GRAVITY);

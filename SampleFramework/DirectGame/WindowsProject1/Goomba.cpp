@@ -29,6 +29,7 @@ void Goomba::InitAnimations()
 
 void Goomba::OnDead(bool oneHit)
 {
+	Game::GetInstance().GainComboChain(transform.Position);
 	if (oneHit)
 	{
 		time = GOOMBA_DEAD_TIME * 2;

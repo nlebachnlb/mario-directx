@@ -106,7 +106,7 @@ bool SpriteManager::LoadSpriteFile(std::string path)
 			else
 				py *= 3;
 
-			// OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
+			OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + '\n'));
 			Add(spriteID, 3 * left, 3 * top, 3 * width, 3 * height, tex, px, py);
 		}
 	}
@@ -121,10 +121,9 @@ Sprite SpriteManager::Add(string id, int left, int top, int width, int height, T
 
 Sprite SpriteManager::Get(string id)
 {
-	
 	if (sprites.find(id) != sprites.end())
 	{
-		DebugOut(L"-Get sprite-");
+		OutputDebugStringW(ToLPCWSTR("Get sprite-" + id + "\n"));
 		return sprites.at(id);
 	}
 	else

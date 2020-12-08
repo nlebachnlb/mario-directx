@@ -94,6 +94,8 @@ void Plant::OnDead(bool oneHit)
 		fxPool->CreateFX("fx-smoke-spot", transform.Position);
 		dead = true;
 		time = -1;
+
+		Game::GetInstance().GainComboChain(transform.Position);
 	}
 }
 

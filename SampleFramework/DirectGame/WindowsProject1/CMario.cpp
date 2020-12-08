@@ -8,6 +8,8 @@
 #include "KoopasShell.h"
 #include "WarpMark.h"
 #include "WarpEntrance.h"
+#include "EffectPool.h"
+#include "ScoreFX.h"
 
 void CMario::Awake()
 {
@@ -85,7 +87,7 @@ void CMario::Update()
 	if (pushSide == 0 && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right)))
 	{
 		// Accelerate velocity based on moving states
-		if (input->GetKeyDown(marioKeySet.Attack) && runningRestriction == false)
+		if (input->GetKeyDown(marioKeySet.Attack))
 		{
 			physicState.movement = MovingStates::Run;
 			rigidbody->SetAcceleration(skid ? MARIO_SKID_ACCELERATION : MARIO_RUN_ACCELERATION);
@@ -98,7 +100,10 @@ void CMario::Update()
 			rigidbody->SetDrag(Vector2(MARIO_WALK_DRAG_FORCE, rigidbody->GetDrag().y));
 		}
 
-		auto constSpeed = physicState.movement == MovingStates::Run ? MARIO_RUN_SPEED : MARIO_WALK_SPEED;
+		auto constSpeed = 
+			physicState.movement == MovingStates::Run ? 
+			MARIO_RUN_SPEED * (runningRestriction ? 0.675f : 1.0f) : 
+			MARIO_WALK_SPEED;
 		targetVelocityX = constSpeed;
 		
 		if (input->GetKeyDown(marioKeySet.Left) && pushSide == 0)
@@ -138,8 +143,8 @@ void CMario::Update()
 		velocity.x = facing * curVelocity;
 	}
 
-	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.92f;
-	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f;
+	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.92f && feverState > 0;
+	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f && feverState > 0;
 	if (pushSide == 0) rigidbody->SetVelocity(&velocity);
 
 	if (pushSide != 0)
@@ -292,6 +297,11 @@ void CMario::SetInvincible(bool invincible)
 	this->invincible = invincible;
 }
 
+float CMario::GetPMeter()
+{
+	return this->pMeter;
+}
+
 void CMario::PassPrivateData(CMario* other, bool moveData)
 {
 	other->posBeforeJump = posBeforeJump;
@@ -364,7 +374,13 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 			if (collision->collisionDirection.y < 0 &&
 				collision->collisionDirection.x <= 0.00001f)
 			{
-				onGround = true;
+				if (!onGround)
+				{
+					auto data = Game::GetInstance().GetData();
+					onGround = true;
+					data->ResetCombo();
+				}
+
 				physicState.jump = JumpingStates::Stand;
 			}
 
@@ -442,6 +458,14 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 	if (TagUtils::PowerupTag(otherTag) || TagUtils::ItemTag(otherTag))
 	{
+		if (otherTag != ObjectTags::Coin)
+		{
+			auto gmap = Game::GetInstance().GetService<GameMap>();
+			auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
+			ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", other->GetGameObject()->GetTransform().Position));
+			fx->SetLevel(Score::S1000);
+		}
+
 		switch (otherTag)
 		{
 		case ObjectTags::RedMushroom:
@@ -457,6 +481,8 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			break;
 		case ObjectTags::Coin:
 			// Increase coin data
+			Game::GetInstance().GetData()->ModifyCoin(1, true);
+			Game::GetInstance().GetData()->ModifyScore(50, true);
 			break;
 		}
 
@@ -803,34 +829,75 @@ void CMario::StandState()
 void CMario::FeverProcess()
 {
 	auto velocity = rigidbody->GetVelocity();
-	// If Mario runs at max curVelocity, the P Meter starts increasing
-	if (physicState.movement == MovingStates::Run && Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.15f &&
-		pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand &&
-		feverState != 2)
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	switch (feverState)
 	{
-		pMeter = Mathf::Clamp(pMeter + PMETER_STEP * Game::DeltaTime(), 0.0f, PMETER_MAX + 1);
-		if (feverState != -1) feverState = 1;
-		// DebugOut(L"[Fever] --power: %f\n", pMeter);
-	}
-	else if (feverState != 2 && feverState != -1)
-		feverState = 0;
-
-	// Fever mode processing
-	if (pMeter >= PMETER_MAX && feverState == 1)
+	case 0:
 	{
-		feverState = 2;
-		lastFeverTime = GetTickCount();
-		// DebugOut(L"[Fever] start\n");
-	}
-	else if (pMeter > 0 && feverState <= 0)
-		pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 3.0f * Game::DeltaTime(), 0.0, PMETER_MAX);
+		if (physicState.movement == MovingStates::Run &&
+			Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.35f &&
+			pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand)
+		{
+			pMeter = Mathf::Clamp(pMeter + PMETER_STEP * dt, 0.0f, PMETER_MAX + 1);
 
-	if (feverState == 2)
+			if (pMeter >= PMETER_MAX) feverState = 1;
+		}
+		else
+		{
+			pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 1.2f * dt, 0.0, PMETER_MAX);
+		}
+	}
+	break;
+	case 1:
 	{
 		pMeter = PMETER_MAX;
-		if (GetTickCount() - lastFeverTime > feverTime || physicState.movement != MovingStates::Run)
-			feverState = 0;
+		feverTime = MARIO_FEVER_TIME;
+		feverState = 2;
 	}
+	break;
+	case 2:
+	{
+		feverTime -= dt;
+		auto breakCond = (physicState.movement != MovingStates::Run ||
+			Mathf::Abs(velocity.x) < MARIO_RUN_SPEED * 0.92f);
+
+		if (feverTime <= 0 || breakCond)
+		{
+			feverTime = 0;
+			feverState = 0;
+		}
+	}
+	break;
+	}
+	//// If Mario runs at max curVelocity, the P Meter starts increasing
+	//if (physicState.movement == MovingStates::Run && 
+	//	Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.35f &&
+	//	pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand &&
+	//	feverState != 2)
+	//{
+	//	pMeter = Mathf::Clamp(pMeter + PMETER_STEP * dt, 0.0f, PMETER_MAX + 1);
+	//	if (feverState != -1) feverState = 1;
+	//}
+	//else if (feverState != 2 && feverState != -1)
+	//	feverState = 0;
+
+	//// Fever mode processing
+	//if (pMeter >= PMETER_MAX && feverState == 1)
+	//{
+	//	feverState = 2;
+	//	lastFeverTime = GetTickCount();
+	//	pMeter = PMETER_MAX;
+	//	// DebugOut(L"[Fever] start\n");
+	//}
+	//else if (pMeter > 0 && feverState <= 0)
+	//	pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 1.2f * dt, 0.0, PMETER_MAX);
+
+	//if (feverState == 2)
+	//{
+	//	pMeter = PMETER_MAX;
+	//	if (GetTickCount() - lastFeverTime > feverTime || physicState.movement != MovingStates::Run)
+	//		feverState = 0;
+	//}
 }
 
 #pragma endregion

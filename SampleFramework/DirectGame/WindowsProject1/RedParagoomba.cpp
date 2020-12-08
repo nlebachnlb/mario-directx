@@ -86,6 +86,7 @@ void RedParagoomba::PreRender()
 
 void RedParagoomba::OnDead(bool oneHit)
 {
+	Game::GetInstance().GainComboChain(transform.Position);
 	if (oneHit)
 	{
 		time = GOOMBA_DEAD_TIME * 2;

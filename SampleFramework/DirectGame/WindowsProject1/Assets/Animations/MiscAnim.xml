@@ -106,7 +106,7 @@
 
 		<!-- BLOCK -->
 		<!-- Question Block -->
-		<Animation aniId="ani-question-block" frameTime="150">
+		<Animation aniId="ani-question-block" frameTime="200">
 			<Sprite id="spr-question-block-0" left="157" top="188"  width="16" height="16"/>
 			<Sprite id="spr-question-block-1" left="176" top="188"  width="16" height="16"/>
 			<Sprite id="spr-question-block-2" left="196" top="188"  width="16" height="16"/>

@@ -38,7 +38,7 @@ void PlayerController::Awake()
 void PlayerController::Start()
 {
 	LinkStates();
-	SwitchToState("BigMario");
+	SwitchToState(Game::GetInstance().GetData()->GetPowerup());
 	waiting = false;
 }
 
@@ -174,12 +174,25 @@ void PlayerController::ContinueSwitchingState()
 		stateGameObjects.at(state)->HoldObject(currentStateObject->GetInHandObject());
 	}
 
+	bool shrink = false;
+	if (currentStateObject != nullptr && stateGameObjects.at(state) != nullptr)
+		shrink = (int)currentStateObject->GetTag() > (int)stateGameObjects.at(state)->GetTag();
 	currentStateObject = stateGameObjects.at(state);
 	curState = targetState;
-	invincible = true;
-	invincibleTime = 0;
-	currentStateObject->SetInvincible(true);
+	
+	if (shrink)
+	{
+		invincible = true;
+		invincibleTime = 0;
+		currentStateObject->SetInvincible(true);
+	}
+
 	SwitchState(playerStates.at(state));
+}
+
+CMario* PlayerController::GetMario()
+{
+	return this->currentStateObject;
 }
 
 void PlayerController::LinkStates()

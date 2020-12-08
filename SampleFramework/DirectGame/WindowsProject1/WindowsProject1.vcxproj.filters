@@ -16,15 +16,6 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{eb0851cf-d86d-4dce-8a99-7474ed8dd9b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Patterns">
-      <UniqueIdentifier>{d90599c5-4f2b-41a2-9b48-b4c326d9f605}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Patterns\ServiceLocator">
-      <UniqueIdentifier>{25c20b0b-4e59-4951-bd17-0723ccda9b86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Patterns\Singleton">
-      <UniqueIdentifier>{ca870334-8943-4ef9-8370-a2c111f0ff6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Game">
       <UniqueIdentifier>{103705b6-9fa0-4102-8435-e43325e4fd1a}</UniqueIdentifier>
     </Filter>
@@ -58,12 +49,6 @@
     <Filter Include="GameSource\GameObjects">
       <UniqueIdentifier>{328def16-2e94-4f63-b3a2-41ce71799b97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Patterns\Component">
-      <UniqueIdentifier>{2e567f27-b85b-45f3-a22c-dd5e32c6a76e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Patterns\StateMachine">
-      <UniqueIdentifier>{be3da7b4-33d2-41fb-b943-4e65c1acc0ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Game\Input">
       <UniqueIdentifier>{29a764d9-a3a8-41da-a552-76444bbad3fa}</UniqueIdentifier>
     </Filter>
@@ -78,27 +63,6 @@
     </Filter>
     <Filter Include="Framework\Game\Map\MapLoader">
       <UniqueIdentifier>{68f9d2b9-0a35-4b64-ab8d-3e6ae01e9e0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Patterns\ObjectPool">
-      <UniqueIdentifier>{bda6414b-85e9-4dcd-bf71-21e05988405f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\Assets">
-      <UniqueIdentifier>{c4ce03fa-921f-4041-84f2-42eeff3cb431}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\Assets\Animations">
-      <UniqueIdentifier>{86fd5a3e-f91e-4561-a48f-74c995449751}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\Assets\Maps">
-      <UniqueIdentifier>{8041dd6b-fc26-4601-b936-e0fb87f1562c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\Assets\Sprites">
-      <UniqueIdentifier>{8a14085f-3ba1-4af1-83c4-6ac7d95bf9e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\Assets\Sprites\SpriteDatabases">
-      <UniqueIdentifier>{9437b2e3-ff45-4b52-b844-c2491f853e9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameSource\Assets\Scenes">
-      <UniqueIdentifier>{5bc09247-cbb2-4bed-a027-93513f8d4bcb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\TinyXML">
       <UniqueIdentifier>{9a7025ec-1610-4b9d-a519-47c78f1647aa}</UniqueIdentifier>
@@ -202,6 +166,48 @@
     <Filter Include="GameSource\UserInterface\HUD">
       <UniqueIdentifier>{e7dccec2-cac1-41e4-953d-c924b099ae1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\UI\Text">
+      <UniqueIdentifier>{f3369e7b-887b-451e-8a3e-1d82b6a57024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\Effects\ScoreFX">
+      <UniqueIdentifier>{7cef1d40-20aa-4307-ae1a-7d23576f1808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets">
+      <UniqueIdentifier>{c4ce03fa-921f-4041-84f2-42eeff3cb431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Animations">
+      <UniqueIdentifier>{86fd5a3e-f91e-4561-a48f-74c995449751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Maps">
+      <UniqueIdentifier>{8041dd6b-fc26-4601-b936-e0fb87f1562c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Sprites">
+      <UniqueIdentifier>{8a14085f-3ba1-4af1-83c4-6ac7d95bf9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Sprites\SpriteDatabases">
+      <UniqueIdentifier>{9437b2e3-ff45-4b52-b844-c2491f853e9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Scenes">
+      <UniqueIdentifier>{5bc09247-cbb2-4bed-a027-93513f8d4bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Patterns">
+      <UniqueIdentifier>{d90599c5-4f2b-41a2-9b48-b4c326d9f605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Patterns\ServiceLocator">
+      <UniqueIdentifier>{25c20b0b-4e59-4951-bd17-0723ccda9b86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Patterns\Singleton">
+      <UniqueIdentifier>{ca870334-8943-4ef9-8370-a2c111f0ff6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Patterns\Component">
+      <UniqueIdentifier>{2e567f27-b85b-45f3-a22c-dd5e32c6a76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Patterns\StateMachine">
+      <UniqueIdentifier>{be3da7b4-33d2-41fb-b943-4e65c1acc0ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Patterns\ObjectPool">
+      <UniqueIdentifier>{bda6414b-85e9-4dcd-bf71-21e05988405f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -217,13 +223,13 @@
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="Service.h">
-      <Filter>Framework\Patterns\ServiceLocator</Filter>
+      <Filter>Framework\Game\Patterns\ServiceLocator</Filter>
     </ClInclude>
     <ClInclude Include="ServiceLocator.h">
-      <Filter>Framework\Patterns\ServiceLocator</Filter>
+      <Filter>Framework\Game\Patterns\ServiceLocator</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Framework\Patterns\Singleton</Filter>
+      <Filter>Framework\Game\Patterns\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Framework\Game\Texture</Filter>
@@ -298,10 +304,10 @@
       <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClInclude>
     <ClInclude Include="IState.h">
-      <Filter>Framework\Patterns\StateMachine</Filter>
+      <Filter>Framework\Game\Patterns\StateMachine</Filter>
     </ClInclude>
     <ClInclude Include="StateMachine.h">
-      <Filter>Framework\Patterns\StateMachine</Filter>
+      <Filter>Framework\Game\Patterns\StateMachine</Filter>
     </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>GameSource\GameObjects</Filter>
@@ -337,10 +343,10 @@
       <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClInclude>
     <ClInclude Include="IPooled.h">
-      <Filter>Framework\Patterns\ObjectPool</Filter>
+      <Filter>Framework\Game\Patterns\ObjectPool</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
-      <Filter>Framework\Patterns\ObjectPool</Filter>
+      <Filter>Framework\Game\Patterns\ObjectPool</Filter>
     </ClInclude>
     <ClInclude Include="tinystr.h">
       <Filter>Framework\TinyXML</Filter>
@@ -432,9 +438,6 @@
     <ClInclude Include="Coin.h">
       <Filter>GameSource\GameObjects\Items\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="EffectPool.h">
-      <Filter>GameSource\GameObjects\Items</Filter>
-    </ClInclude>
     <ClInclude Include="ItemInfo.h">
       <Filter>GameSource\GameObjects\Items</Filter>
     </ClInclude>
@@ -525,6 +528,24 @@
     <ClInclude Include="HudUtils.h">
       <Filter>GameSource\UserInterface\HUD</Filter>
     </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Framework\Game\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Framework\Game\UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerMeter.h">
+      <Filter>GameSource\UserInterface\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>GameSource</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreFX.h">
+      <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPool.h">
+      <Filter>GameSource\GameObjects\Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -571,13 +592,13 @@
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="Service.cpp">
-      <Filter>Framework\Patterns\ServiceLocator</Filter>
+      <Filter>Framework\Game\Patterns\ServiceLocator</Filter>
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
-      <Filter>Framework\Patterns\ServiceLocator</Filter>
+      <Filter>Framework\Game\Patterns\ServiceLocator</Filter>
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
-      <Filter>Framework\Patterns\Singleton</Filter>
+      <Filter>Framework\Game\Patterns\Singleton</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
       <Filter>Framework\Game\Texture</Filter>
@@ -646,10 +667,10 @@
       <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClCompile>
     <ClCompile Include="IState.cpp">
-      <Filter>Framework\Patterns\StateMachine</Filter>
+      <Filter>Framework\Game\Patterns\StateMachine</Filter>
     </ClCompile>
     <ClCompile Include="StateMachine.cpp">
-      <Filter>Framework\Patterns\StateMachine</Filter>
+      <Filter>Framework\Game\Patterns\StateMachine</Filter>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>GameSource\GameObjects</Filter>
@@ -682,10 +703,10 @@
       <Filter>GameSource\GameObjects\Mario\MarioStates</Filter>
     </ClCompile>
     <ClCompile Include="IPooled.cpp">
-      <Filter>Framework\Patterns\ObjectPool</Filter>
+      <Filter>Framework\Game\Patterns\ObjectPool</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
-      <Filter>Framework\Patterns\ObjectPool</Filter>
+      <Filter>Framework\Game\Patterns\ObjectPool</Filter>
     </ClCompile>
     <ClCompile Include="tinystr.cpp">
       <Filter>Framework\TinyXML</Filter>
@@ -863,6 +884,21 @@
     </ClCompile>
     <ClCompile Include="HudPanel.cpp">
       <Filter>GameSource\UserInterface\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Framework\Game\UI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Framework\Game\UI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerMeter.cpp">
+      <Filter>GameSource\UserInterface\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>GameSource</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
