@@ -9,10 +9,10 @@
 #include "SpawnerManager.h"
 
 const int PIPE_TILESET_ID = 100;
-const int PIPE_START_X = 17;
-const int PIPE_START_Y = 1;
-const int PIPE_HEIGHT = 3;
-const int PIPE_WIDTH = 12;
+const int PIPE_START_X = 0;
+const int PIPE_START_Y = 0;
+const int PIPE_HEIGHT = 192;
+const int PIPE_WIDTH = 672;
 
 class GameMap : public Service
 {

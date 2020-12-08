@@ -78,6 +78,15 @@ void RaccoonMario::OnKeyDown(int keyCode)
 	}
 }
 
+void RaccoonMario::Entrance()
+{
+	CMario::Entrance();
+	attackBox->SetPosition(transform.Position +
+		Vector2((MARIO_BBOX.x + RACCOON_ATTACK_BOX.x) * 0.5f * facing, RACCOON_ATTACK_BOX.y * 0.4f));
+	attackBox->GetColliders()->at(0)->Disable();
+	attackBox->SetActive(false);
+}
+
 void RaccoonMario::Exit()
 {
 	attackBox->GetColliders()->at(0)->Disable();
