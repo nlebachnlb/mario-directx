@@ -4,6 +4,7 @@
 #include "EffectPool.h"
 #include "KoopasShell.h"
 #include "Mathf.h"
+#include "AbstractBlock.h"
 
 void RaccoonAttackBox::Awake()
 {
@@ -32,6 +33,15 @@ void RaccoonAttackBox::OnCollisionEnter(Collider2D* selfCollider, std::vector<Co
 void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)
 {
 	auto otherTag = otherCollider->GetGameObject()->GetTag();
+
+	if (otherTag == ObjectTags::Block)
+	{
+		auto block = static_cast<AbstractBlock*>(otherCollider->GetGameObject());
+		block->Bounce(this);
+		SetActive(false);
+		selfCollider->Disable();
+	}
+
 	if (TagUtils::EnemyTag(otherTag))
 	{
 		auto gmap = Game::GetInstance().GetService<GameMap>();
