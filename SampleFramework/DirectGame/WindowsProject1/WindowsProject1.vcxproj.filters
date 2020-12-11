@@ -37,9 +37,6 @@
     <Filter Include="Framework\Game\Utils">
       <UniqueIdentifier>{087b2aba-4873-4ee5-ad52-dcbddf3fe52f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\Scene">
-      <UniqueIdentifier>{13f2f45b-1311-41aa-a42e-3fc51c7f8231}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameSource">
       <UniqueIdentifier>{4b1b6114-867a-48b7-bbcf-79e4c2174663}</UniqueIdentifier>
     </Filter>
@@ -208,6 +205,9 @@
     <Filter Include="Framework\Game\Patterns\ObjectPool">
       <UniqueIdentifier>{bda6414b-85e9-4dcd-bf71-21e05988405f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Misc\Scene">
+      <UniqueIdentifier>{13f2f45b-1311-41aa-a42e-3fc51c7f8231}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -253,10 +253,10 @@
       <Filter>Framework\Game\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Framework\Game\Scene</Filter>
+      <Filter>GameSource\GameObjects\Misc\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Framework\Game\Scene</Filter>
+      <Filter>GameSource\GameObjects\Misc\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Framework\Game\Utils</Filter>
@@ -547,7 +547,7 @@
       <Filter>GameSource\GameObjects\Effects</Filter>
     </ClInclude>
     <ClInclude Include="PSwitch.h">
-      <Filter>Header Files</Filter>
+      <Filter>GameSource\GameObjects\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -622,10 +622,10 @@
       <Filter>Framework\Game\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Framework\Game\Scene</Filter>
+      <Filter>GameSource\GameObjects\Misc\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Framework\Game\Scene</Filter>
+      <Filter>GameSource\GameObjects\Misc\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Framework\Game\Utils</Filter>
@@ -904,7 +904,7 @@
       <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
     </ClCompile>
     <ClCompile Include="PSwitch.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GameSource\GameObjects\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

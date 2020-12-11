@@ -35,7 +35,7 @@ void VenusFireball::Update()
 
 void VenusFireball::OnOffScreen()
 {
-	DebugOut(L"Offscreen venus fireball\n");
+	// DebugOut(L"Offscreen venus fireball\n");
 	pool->Revoke(this);
 }
 
