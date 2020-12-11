@@ -9,6 +9,7 @@
 #include "PlayerController.h"
 #include "AbstractEnemy.h"
 #include "WarpUtils.h"
+#include "WarpMark.h"
 
 const int	MARIO_MIN_VDISTANCE			= 8; // pixels
 const float MARIO_GRAVITY				= 0.0026f;
@@ -120,6 +121,8 @@ public:
 	// if moveData, data of this will be reset
 
 	void StartWarping(WarpDirection direction);
+	void Warp();
+	void WarpOut();
 	void EndWarping();
 	bool IsWarping();
 
@@ -173,4 +176,5 @@ private:
 	float jumpTime;
 	Vector2 previousVelocity, posBeforeJump;
 	Holdable* heldInHandsObject;
+	WarpMark* mark;
 };

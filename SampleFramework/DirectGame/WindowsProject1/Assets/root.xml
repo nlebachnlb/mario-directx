@@ -6,7 +6,7 @@
     <Texture id="tex-misc" source="Assets/Sprites/misc_x3.png"/>
     <Texture id="tex-fire-ball" source="Assets/Sprites/fire-ball-white.png"/>
     <Texture id="tex-effect" source="Assets/Sprites/effect_white_254_x3.png"/>
-    <Texture id="tex-pipe" source="Assets/Maps/world-1-1.png"/>
+    <Texture id="tex-pipe" source="Assets/Sprites/pipe.png"/>
     <Texture id="tex-ui" source="Assets/Sprites/ui_x3.png"/>
     <Texture id="tex-box" source="Assets/Sprites/box-small.png"/>
   </Root>

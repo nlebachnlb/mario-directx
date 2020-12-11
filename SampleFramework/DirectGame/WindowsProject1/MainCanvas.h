@@ -5,6 +5,8 @@
 #include "GameData.h"
 #include "PlayerController.h"
 
+const int TRANSITION_TIME = 500;
+
 class MainCanvas : public Canvas
 {
 public:
@@ -18,12 +20,15 @@ public:
 	void ResetTimer();
 
 	void StartGame();
+	void StartTransition();
 private:
 	HudPanel* hud;
 	Texture2D mask;
 	GameData* gameData;
 	int time;
+	float alpha;
 	bool gameStarted;
+	int transition;
 	PlayerController* player;
 };
 

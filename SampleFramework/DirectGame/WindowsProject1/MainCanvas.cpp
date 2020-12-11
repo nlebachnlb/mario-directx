@@ -19,6 +19,8 @@ void MainCanvas::Start()
 	hud->SetCoin(0);
 	hud->SetTimer(0);
 	hud->SetLife(4);
+	transition = 0;
+	alpha = 0;
 }
 
 void MainCanvas::Update()
@@ -33,13 +35,42 @@ void MainCanvas::Update()
 		}
 
 		auto mario = player->GetMario();
-		auto vel = mario->GetRigidbody()->GetVelocity();
-
-		// Convert to percents
-		//double percent = Mathf::Abs(vel.x) / MARIO_RUN_SPEED;
 		auto percent = mario->GetPMeter();
 		int powerLevel = (int)(percent);
 		hud->SetPowerMeter(powerLevel);
+		auto dt = Game::DeltaTime();
+
+		switch (transition)
+		{
+		case 1:
+		{
+			alpha += (255.0f / (float)TRANSITION_TIME) * dt;
+			if (alpha >= 255)
+			{
+				alpha = 255;
+				transition = 2;
+				mario->Warp();
+			}
+		}
+		break;
+		case 2:
+		{
+			alpha -= (255.0f / (float)TRANSITION_TIME) * dt;
+			if (alpha <= 1)
+			{
+				alpha = 0;
+				transition = 3;
+				mario->WarpOut();
+			}
+		}
+		break;
+		case 3:
+		{
+			alpha = 0;
+			transition = 0;
+		}
+		break;
+		}
 	}
 }
 
@@ -61,6 +92,11 @@ void MainCanvas::Render()
 {
 	Game::GetInstance().DrawTexture(0, 594, 0, 0, mask, 0, 0, 824, 150);
 	Canvas::Render();
+	if (alpha > 0)
+	{
+		auto conf = Game::GetInstance().GetGlobalConfigs();
+		Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+	}
 }
 
 void MainCanvas::SetGameData(GameData* data)
@@ -77,4 +113,10 @@ void MainCanvas::StartGame()
 {
 	gameStarted = true;
 	ResetTimer();
+}
+
+void MainCanvas::StartTransition()
+{
+	transition = 1;
+	DebugOut(L"Canvas Start transition: %d\n", alpha);
 }

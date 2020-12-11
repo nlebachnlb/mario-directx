@@ -2,6 +2,7 @@
 #include "AnimationDatabase.h"
 #include "Game.h"
 #include "PhysicConstants.h"
+#include "Mathf.h"
 
 void BrickDebrisFX::Awake()
 {
@@ -9,14 +10,8 @@ void BrickDebrisFX::Awake()
 
 	AddAnimation("Default", animations->Get("ani-brick-debris"));
 
-	Collider2D* box = new Collider2D();
-	box->SetBoxSize(VectorZero());
-	box->AttachToEntity(this);
-	box->Disable();
-	this->colliders->push_back(box);
-
-	rigidbody->SetDynamic(true);
-	SetScale(Vector2(0.65f, 0.65f));
+	rigidbody->SetDynamic(false);
+	SetScale(Vector2(0.70f, 0.70f));
 
 	renderOrder = 10;
 }
@@ -37,4 +32,12 @@ void BrickDebrisFX::Update()
 
 	if (!mainCamera->PointInsideCameraView(transform.Position, 48 * 2))
 		pool->Revoke(this);
+
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+
+	auto vel = rigidbody->GetVelocity();
+	vel.y += rigidbody->GetGravity() * dt;
+	vel.y = Mathf::Min(vel.y, DEFAULT_FALL_LIMIT_VEL);
+	rigidbody->SetVelocity(&vel);
 }

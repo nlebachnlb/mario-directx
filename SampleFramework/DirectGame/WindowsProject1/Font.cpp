@@ -11,5 +11,6 @@ void Font::Import(std::vector<FontSprite> fontSprites)
 
 Sprite Font::GetChar(char c)
 {
+    if (!('0' <= c && c <= '9') && !('A' <= c && c <= 'Z')) return nullptr;
     return dictionary.at(c);
 }

@@ -6,10 +6,10 @@
 #include "MarioCollider.h"
 #include "QuestionBlock.h"
 #include "KoopasShell.h"
-#include "WarpMark.h"
 #include "WarpEntrance.h"
 #include "EffectPool.h"
 #include "ScoreFX.h"
+#include "MainCanvas.h"
 
 void CMario::Awake()
 {
@@ -328,9 +328,30 @@ void CMario::StartWarping(WarpDirection direction)
 	renderOrder = -5;
 }
 
+void CMario::Warp()
+{
+	if (!IsWarping()) return;
+	if (mark == nullptr) return;
+
+	auto o = mark;
+	transform.Position = o->GetDestination();
+	warpDirection = o->GetDirection();
+	auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
+	mainCamera->SetBoundary(bset.boundary);
+	mainCamera->SetPosition(bset.position);
+	if (o->CameraLock()) mainCamera->LockCamera();
+	else mainCamera->UnlockCamera();
+}
+
+void CMario::WarpOut()
+{
+	warp = 3;
+}
+
 void CMario::EndWarping()
 {
 	warp = 0;
+	mark = nullptr;
 	// rigidbody->SetDynamic(true);
 	rigidbody->SetGravity(MARIO_GRAVITY);
 	colliders->at(0)->SetTrigger(false);
@@ -441,14 +462,10 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		case ObjectTags::WarpMark:
 		{
 			auto o = static_cast<WarpMark*>(other->GetGameObject());
-			transform.Position = o->GetDestination();
-			warpDirection = o->GetDirection();
-			auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
-			mainCamera->SetBoundary(bset.boundary);
-			mainCamera->SetPosition(bset.position);
-			if (o->CameraLock()) mainCamera->LockCamera();
-			else mainCamera->UnlockCamera();
+			mark = o;
 			warp = 2;
+			auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+			canvas->StartTransition();
 			DebugOut(L"switch: %d\n", warp);
 		}
 			break;
@@ -582,9 +599,9 @@ void CMario::OnSolidOverlappedExit()
 {
 	pushSide = 0;
 
-	if (warp == 2)
+	if (warp == 3)
 	{
-		DebugOut(L"warp = 2, end\n");
+		DebugOut(L"warp = 3, end\n");
 		EndWarping();
 	}
 }
@@ -701,10 +718,13 @@ void CMario::WarpProcess()
 {
 	if (warp > 0)
 	{
-		auto dt = Game::DeltaTime() * Game::GetTimeScale();
-		rigidbody->SetVelocity(&Vector2(0, 0));
-		auto direction = WarpUtils::ToVector(warpDirection);
-		transform.Position += direction * MARIO_WARP_SPEED * dt;
+		if (warp != 2)
+		{
+			auto dt = Game::DeltaTime() * Game::GetTimeScale();
+			rigidbody->SetVelocity(&Vector2(0, 0));
+			auto direction = WarpUtils::ToVector(warpDirection);
+			transform.Position += direction * MARIO_WARP_SPEED * dt;
+		}
 		// DebugOut(L"Warp: %f, %f, %f, %f, %f\n", direction.x, direction.y, rigidbody->GetVelocity().x, rigidbody->GetVelocity().y, rigidbody->GetGravity());
 	}
 }
@@ -869,35 +889,6 @@ void CMario::FeverProcess()
 	}
 	break;
 	}
-	//// If Mario runs at max curVelocity, the P Meter starts increasing
-	//if (physicState.movement == MovingStates::Run && 
-	//	Mathf::Abs(velocity.x) > MARIO_RUN_SPEED * 0.35f &&
-	//	pMeter < PMETER_MAX + 1 && physicState.jump == JumpingStates::Stand &&
-	//	feverState != 2)
-	//{
-	//	pMeter = Mathf::Clamp(pMeter + PMETER_STEP * dt, 0.0f, PMETER_MAX + 1);
-	//	if (feverState != -1) feverState = 1;
-	//}
-	//else if (feverState != 2 && feverState != -1)
-	//	feverState = 0;
-
-	//// Fever mode processing
-	//if (pMeter >= PMETER_MAX && feverState == 1)
-	//{
-	//	feverState = 2;
-	//	lastFeverTime = GetTickCount();
-	//	pMeter = PMETER_MAX;
-	//	// DebugOut(L"[Fever] start\n");
-	//}
-	//else if (pMeter > 0 && feverState <= 0)
-	//	pMeter = Mathf::Clamp(pMeter - PMETER_STEP * 1.2f * dt, 0.0, PMETER_MAX);
-
-	//if (feverState == 2)
-	//{
-	//	pMeter = PMETER_MAX;
-	//	if (GetTickCount() - lastFeverTime > feverTime || physicState.movement != MovingStates::Run)
-	//		feverState = 0;
-	//}
 }
 
 #pragma endregion

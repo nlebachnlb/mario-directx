@@ -48,16 +48,6 @@ void Brick::Bounce(GameObject obj)
 		Explode();
 }
 
-void Brick::OnOverlapped(Collider2D* self, Collider2D* other)
-{
-	if (other->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
-	{
-		Bounce(other->GetGameObject());
-		other->GetGameObject()->SetActive(false);
-		other->GetGameObject()->GetColliders()->at(0)->Disable();
-	}
-}
-
 void Brick::Explode()
 {
 	auto gmap = Game::GetInstance().GetService<GameMap>();
@@ -70,7 +60,7 @@ void Brick::Explode()
 	for (int i = 0; i < 4; ++i)
 	{
 		auto debris = fxPool->CreateFX("fx-brick-debris", transform.Position);
-		debris->GetRigidbody()->SetVelocity(new Vector2(velx[i], vely[i]));
+		debris->GetRigidbody()->SetVelocity(new Vector2(velx[i] * 1.25f, vely[i] * 1.25f));
 	}
 
 	Destroy(this);

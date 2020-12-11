@@ -3,6 +3,8 @@
 #include "AnimationDatabase.h"
 #include "EffectPool.h"
 #include "ScoreFX.h"
+#include "PhysicConstants.h"
+#include "Mathf.h"
 
 void CoinObtainedFX::Awake()
 {
@@ -16,7 +18,7 @@ void CoinObtainedFX::Awake()
 	box->Disable();
 	this->colliders->push_back(box);
 
-	rigidbody->SetDynamic(true);
+	rigidbody->SetDynamic(false);
 }
 
 void CoinObtainedFX::Start()
@@ -37,4 +39,12 @@ void CoinObtainedFX::Update()
 		fx->SetLevel(Score::S100);
 		pool->Revoke(this);
 	}
+
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+
+	auto vel = rigidbody->GetVelocity();
+	vel.y += rigidbody->GetGravity() * dt;
+	vel.y = Mathf::Min(vel.y, DEFAULT_FALL_LIMIT_VEL);
+	rigidbody->SetVelocity(&vel);
 }

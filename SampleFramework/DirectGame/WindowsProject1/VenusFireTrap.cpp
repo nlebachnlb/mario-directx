@@ -65,19 +65,24 @@ void VenusFireTrap::LateUpdate()
 				bullet->SetPosition(startPos);
 
 				Vector2 directionalVector = Mathf::Normalize(player->GetTransform().Position - startPos);
-				auto angle = Mathf::Rad2Deg(Mathf::ToAngle(directionalVector));
+				
+				#pragma region This codeblock enables Venus to shoot absolutely precious to Mario
+				/*auto angle = Mathf::Rad2Deg(Mathf::ToAngle(directionalVector));
 
 				if (Mathf::InRange(Mathf::Abs(angle), 45, 135))
 				{
 					if (Mathf::Abs(angle) < 90) angle = Mathf::Sign(angle) * 45;
 					else angle = Mathf::Sign(angle) * 135;
-				}
-
-				/*if (Mathf::InRange(Mathf::Abs(angle), 45, 135))
-				{
-					if (Mathf::Abs(angle) < 90) angle = Mathf::Sign(angle) * 45;
-					else angle = Mathf::Sign(angle) * 135;
 				}*/
+				#pragma endregion
+				
+				float angle = 0;
+				auto distance = player->GetTransform().Position - startPos;
+
+				if (Mathf::Abs(distance.x) > 48 * 6 || Mathf::InRange(Mathf::Abs(distance.y), 0, 48 * 2))
+					angle = (distance.x > 0 ? 25 : 155) * Mathf::Sign(distance.y);
+				else 
+					angle = (distance.x > 0 ? 45 : 135) * Mathf::Sign(distance.y);
 
 				angle = Mathf::Deg2Rad(angle);
 				directionalVector = Mathf::ToDirectionalVector(angle);

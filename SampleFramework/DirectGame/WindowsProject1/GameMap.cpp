@@ -59,7 +59,7 @@ void GameMap::Load(std::string filePath, bool manual)
     Tile tile = new CTile(
         "pipe",
         PIPE_START_X, PIPE_START_Y,
-        PIPE_WIDTH * 48, PIPE_HEIGHT * 48,
+        PIPE_WIDTH, PIPE_HEIGHT,
         texManager->GetTexture(TEXTURE_PIPE)
     );
     this->tilesets.insert(make_pair(PIPE_TILESET_ID, tile));

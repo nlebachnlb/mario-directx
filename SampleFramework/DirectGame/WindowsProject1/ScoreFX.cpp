@@ -13,6 +13,7 @@ void ScoreFX::Awake()
 		scoreLevel[i] = sprMng->Get(prefix + suffix[i]);
 
 	rigidbody->SetDynamic(false);
+	renderOrder = 20;
 }
 
 void ScoreFX::Start()
