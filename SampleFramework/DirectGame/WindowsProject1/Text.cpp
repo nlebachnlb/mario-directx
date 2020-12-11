@@ -32,6 +32,9 @@ void Text::Render()
 	{
 		auto ch = text.at(i);
 		auto visual = font->GetChar(ch);
+
+		if (visual == nullptr) continue;
+
 		auto piv = (alignment == TextAlignment::Left ? 0 : visual->GetSpriteWidth());
 		visual->Draw(rectTransform.Position.x + x, rectTransform.Position.y, piv, 0);
 

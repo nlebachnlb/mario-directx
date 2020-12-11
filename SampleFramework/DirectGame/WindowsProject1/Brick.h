@@ -7,7 +7,6 @@ public:
 	void InitAnimation() override;
 	void PreRender() override;
 	void Bounce(GameObject obj) override;
-	void OnOverlapped(Collider2D*, Collider2D*);
 
 private:
 	void Explode();
