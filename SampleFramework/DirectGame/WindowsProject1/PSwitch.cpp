@@ -3,6 +3,7 @@
 #include "AnimationDatabase.h"
 #include "Brick.h"
 #include "Coin.h"
+#include "MainCanvas.h"
 
 void PSwitch::Awake()
 {
@@ -34,29 +35,9 @@ void PSwitch::OnOverlapped(Collider2D* self, Collider2D* other)
 		pressed = true;
 		visualRelativePosition.y = 20;
 		self->Disable();
-
-		auto bricks = Game::GetInstance().FindGameObjectsOfType<Brick>();
-		auto coins = Game::GetInstance().FindGameObjectsOfType<Coin>();
-		auto sceneManager = Game::GetInstance().GetService<SceneManager>();
-		auto scene = sceneManager->GetActiveScene();
-
-		for (auto brick : bricks)
-		{
-			// DebugOut(L"brick\n");
-			auto coin = Instantiate<Coin>();
-			coin->SetPosition(brick->GetTransform().Position);
-			scene->AddObject(coin);
-			Destroy(brick);
-		}
-
-		for (auto coin : coins)
-		{
-			// DebugOut(L"brick\n");
-			auto brick = Instantiate<Brick>();
-			brick->SetPosition(coin->GetTransform().Position);
-			scene->AddObject(brick);
-			Destroy(coin);
-		}
+		auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+		canvas->SwitchCoinBrick(true);
+		canvas->StartSwitchTimer();
 	}
 }
 

@@ -15,6 +15,16 @@ void QuestionBlock::Start()
 
 void QuestionBlock::PreRender()
 {
+	if (containedItem.quantity > 0)
+	{
+		if (timeFreeze)
+		{
+			if (currentState.compare("Freeze") != 0) SetState("Freeze");
+		}
+		else if (currentState.compare("Sealed") != 0) SetState("Sealed");
+	}
+	else if (currentState.compare("Empty") != 0) SetState("Empty");
+
 	switch (bouncingState)
 	{
 	case 1:
@@ -89,7 +99,6 @@ void QuestionBlock::Bounce(GameObject obj)
 		if (containedItem.quantity <= 0)
 		{
 			if (containedItem.quantity < 0) containedItem.quantity = 0;
-			if (currentState.compare("Empty") != 0) SetState("Empty");
 		}
 	}
 }
@@ -103,5 +112,6 @@ void QuestionBlock::InitAnimation()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Sealed", animations->Get("ani-question-block"));
+	AddAnimation("Freeze", animations->Get("ani-question-block-time-freeze"));
 	AddAnimation("Empty", animations->Get("ani-empty-block"));
 }

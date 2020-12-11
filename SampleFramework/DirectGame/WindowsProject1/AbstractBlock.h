@@ -11,8 +11,10 @@ class AbstractBlock : public CGameObject
 public:
 	void Awake() override;
 	virtual void Bounce(GameObject obj) = 0;
+	void SetFreeze(bool value);
 
 protected:
 	virtual void InitAnimation() = 0;
+	bool timeFreeze;
 };
 

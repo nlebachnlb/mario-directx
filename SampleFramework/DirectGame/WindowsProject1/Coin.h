@@ -7,5 +7,10 @@ public:
 	void Start() override;
 	void LateUpdate() override;
 	void PreRender() override;
+
+	void SetFreeze(bool value);
+
+protected:
+	bool timeFreeze;
 };
 
