@@ -91,6 +91,12 @@ void QuestionBlock::Bounce(GameObject obj)
 			pSwitch->SetPosition(transform.Position - Vector2(0, 48));
 			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 			scene->AddObject(pSwitch);
+
+			auto gmap = Game::GetInstance().GetService<GameMap>();
+			auto spawner = gmap->GetSpawnerManager();
+			auto fxPool = spawner->GetService<EffectPool>();
+
+			fxPool->CreateFX("fx-smoke-spot", transform.Position - Vector2(0, 48));
 		}
 		break;
 		}
