@@ -73,7 +73,7 @@ void Camera::Render(std::vector<GameObject>& objs)
         auto layer = l_data.second;
         if (layer->IsVisible() == false) continue;
 
-        for (int u = 0; u <= height - 4 + 1; ++u)
+        for (int u = 0; u <= height - 4 + 2; ++u)
         {
             int yGrid = (int)(tiley + u);
             if (yGrid >= mapHeight) continue;
