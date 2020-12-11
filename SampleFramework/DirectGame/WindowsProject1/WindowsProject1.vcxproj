@@ -184,6 +184,7 @@
     <ClInclude Include="HudUtils.h" />
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
+    <ClInclude Include="ItemBrick.h" />
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="KoopaParatroopa.h" />
     <ClInclude Include="KoopaSpawner.h" />
@@ -296,6 +297,7 @@
     <ClCompile Include="HudPanel.cpp" />
     <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
+    <ClCompile Include="ItemBrick.cpp" />
     <ClCompile Include="ItemInfo.cpp" />
     <ClCompile Include="KoopaParatroopa.cpp" />
     <ClCompile Include="KoopaSpawner.cpp" />

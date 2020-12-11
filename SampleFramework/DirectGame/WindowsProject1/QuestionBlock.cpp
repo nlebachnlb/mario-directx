@@ -4,6 +4,7 @@
 #include "EffectPool.h"
 #include "RedMushroom.h"
 #include "RaccoonLeaf.h"
+#include "PSwitch.h"
 
 void QuestionBlock::Start()
 {
@@ -72,6 +73,14 @@ void QuestionBlock::Bounce(GameObject obj)
 			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 			scene->AddObject(leaf);
 			leaf->SproutOut();
+		}
+		break;
+		case ItemTags::PSwitch:
+		{
+			auto pSwitch = Instantiate<PSwitch>();
+			pSwitch->SetPosition(transform.Position - Vector2(0, 48));
+			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+			scene->AddObject(pSwitch);
 		}
 		break;
 		}

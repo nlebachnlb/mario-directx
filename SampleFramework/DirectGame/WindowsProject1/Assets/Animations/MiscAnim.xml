@@ -56,15 +56,14 @@
 		</Animation>
 		
 		<!-- SWITCH BLOCK -->
-		<!-- Switch block blue -->
-		<Animation aniId="ani-switch-block-blue" frameTime="100">
+		<!-- Switch block -->
+		<Animation aniId="ani-switch-block" frameTime="200">
 			<Sprite id="spr-switch-block-blue-0" left="156" top="144"  width="16" height="16"/>
-			<Sprite id="spr-switch-block-blue-1" left="200" top="153"  width="16" height="7"/>
+			<Sprite id="spr-switch-block-green-0" left="200" top="153"  width="16" height="7"/>
 		</Animation>
 		
-		<!-- Switch block green -->
-		<Animation aniId="ani-switch-block-green" frameTime="100">
-			<Sprite id="spr-switch-block-green-0" left="178" top="144"  width="16" height="16"/>
+		<!-- Switch block pressed -->
+		<Animation aniId="ani-switch-block-pressed" frameTime="100">
 			<Sprite id="spr-switch-block-green-1" left="200" top="153"  width="16" height="7"/>
 		</Animation>
 		

@@ -11,7 +11,7 @@ public:
 	void SetItem(ItemInfo item);
 
 protected:
-	void InitAnimation() override;
+	virtual void InitAnimation() override;
 
 private:
 	int bouncingState;

@@ -4,7 +4,8 @@ enum class ItemTags
 	Coin,
 	Mushroom,
 	Fireplant,
-	Leaf
+	Leaf,
+	PSwitch
 };
 
 struct ItemInfo
