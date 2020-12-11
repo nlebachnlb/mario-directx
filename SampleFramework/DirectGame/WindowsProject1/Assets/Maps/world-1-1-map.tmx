@@ -530,7 +530,7 @@
   <object id="71" x="6024" y="1128">
    <point/>
   </object>
-  <object id="72" x="6072" y="1128">
+  <object id="72" name="item" type="p-switch" x="6072" y="1128">
    <point/>
   </object>
   <object id="73" x="6264" y="1176">
