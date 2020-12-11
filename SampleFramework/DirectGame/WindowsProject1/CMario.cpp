@@ -462,14 +462,6 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		case ObjectTags::WarpMark:
 		{
 			auto o = static_cast<WarpMark*>(other->GetGameObject());
-			/*transform.Position = o->GetDestination();
-			warpDirection = o->GetDirection();
-			auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
-			mainCamera->SetBoundary(bset.boundary);
-			mainCamera->SetPosition(bset.position);
-			if (o->CameraLock()) mainCamera->LockCamera();
-			else mainCamera->UnlockCamera();*/
-
 			mark = o;
 			warp = 2;
 			auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));

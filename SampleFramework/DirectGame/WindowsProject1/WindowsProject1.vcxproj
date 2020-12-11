@@ -206,6 +206,7 @@
     <ClInclude Include="PlantSpawner.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PowerMeter.h" />
+    <ClInclude Include="PSwitch.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RaccoonAttackBox.h" />
     <ClInclude Include="RaccoonLeaf.h" />
@@ -316,6 +317,7 @@
     <ClCompile Include="PlantSpawner.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PowerMeter.cpp" />
+    <ClCompile Include="PSwitch.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonAttackBox.cpp" />
     <ClCompile Include="RaccoonLeaf.cpp" />

@@ -200,11 +200,24 @@ void Scene::UpdateActiveObjects()
 			if (o == nullptr) continue;
 			if (o->IsDestroyed()) continue;
 			if (o->IsEnabled() == false) continue;
-			if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 6) &&
-				!TagUtils::MarioTag(o->GetTag()))
+			if (!TagUtils::MarioTag(o->GetTag()))
 			{
-				o->SetOffScreen(true);
-				continue;
+				if (TagUtils::StaticTag(o->GetTag()))
+				{
+					if (!mainCamera->RectInsideCameraView(o->GetColliders()->at(0)->GetBoundingBox()))
+					{
+						o->SetOffScreen(true);
+						continue;
+					}
+				}
+				else
+				{
+					if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 3))
+					{
+						o->SetOffScreen(true);
+						continue;
+					}
+				}
 			}
 
 			o->SetOffScreen(false);

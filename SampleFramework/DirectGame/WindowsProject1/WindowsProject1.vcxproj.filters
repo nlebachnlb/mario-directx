@@ -546,6 +546,9 @@
     <ClInclude Include="EffectPool.h">
       <Filter>GameSource\GameObjects\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="PSwitch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -899,6 +902,9 @@
     </ClCompile>
     <ClCompile Include="ScoreFX.cpp">
       <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
+    </ClCompile>
+    <ClCompile Include="PSwitch.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

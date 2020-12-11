@@ -73,11 +73,11 @@ void MarioFireball::LateUpdate()
 		auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 		mainCamera = scene->GetMainCamera();
 	}
+}
 
-	if (Mathf::InRange(transform.Position.x, mainCamera->GetPosition().x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x) == false)
-	{
-		pool->Revoke(this);
-	}
+void MarioFireball::OnOffScreen()
+{
+	pool->Revoke(this);
 }
 
 void MarioFireball::LinkToPool(ObjectPool* pool)
