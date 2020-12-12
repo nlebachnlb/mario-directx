@@ -63,7 +63,11 @@ void MarioFireball::OnOverlapped(Collider2D* selfCollider, Collider2D* otherColl
 		pool->Revoke(this);
 
 	if (TagUtils::EnemyTag(otherCollider->GetGameObject()->GetTag()))
-		static_cast<AbstractEnemy*>(otherCollider->GetGameObject())->OnDead(true), Explode();
+	{
+		auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
+		if (!enemy->IsDead())
+			enemy->OnDead(true), Explode();
+	}
 }
 
 void MarioFireball::LateUpdate()

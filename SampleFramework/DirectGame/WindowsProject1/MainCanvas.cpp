@@ -258,15 +258,25 @@ void MainCanvas::GameFinish()
 	break;
 	case 2:
 	{
-		if (time > 99 * 1000 * dt)
-			time -= 10 * 1000 * dt * 10;
-		else if (time > 0)
-			time -= dt * 10;
-		else
+		finishTimer += dt;
+		if (finishTimer > 1000)
+			finishTimer = 0, finishStep = 3;
+	}
+	break;
+	case 3:
+	{
+		finishTimer += dt;
+
+		if (finishTimer > 30)
 		{
-			if (time < 0) time = 0;
-			// Done
-			gameState = GameState::Ready;
+			finishTimer = 0;
+			if (time > 99 * 1000) time -= 10 * 1000;
+			else if (time > 0) time -= 1000;
+			else
+			{
+				finishTimer = 0;
+				finishStep = 4;
+			}
 		}
 	}
 	break;
