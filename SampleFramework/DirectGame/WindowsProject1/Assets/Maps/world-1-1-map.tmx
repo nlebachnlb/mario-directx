@@ -291,7 +291,7 @@
   <object id="127" x="4992" y="1152" width="48" height="96"/>
   <object id="128" x="5040" y="1200" width="48" height="48"/>
   <object id="129" x="4944" y="1248" width="1728" height="48"/>
-  <object id="130" x="6720" y="1248" width="1728" height="48"/>
+  <object id="130" x="6720" y="1248" width="1824" height="48"/>
   <object id="133" x="7008" y="1392" width="384" height="576"/>
   <object id="134" x="5856" y="1392" width="384" height="576"/>
   <object id="135" x="6240" y="1872" width="768" height="96"/>
