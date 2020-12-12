@@ -8,6 +8,17 @@
 const int TRANSITION_TIME = 500;
 const int PSWITCH_TIME = 8000;
 
+const std::string COURSE_CLEAR = "COURSE CLEAR ";
+const std::string CARD_REWARD = "YOU GOT A CARD ";
+
+enum class GameState
+{
+	Ready,
+	Waiting,
+	Run,
+	Finish
+};
+
 class MainCanvas : public Canvas
 {
 public:
@@ -21,19 +32,28 @@ public:
 	void ResetTimer();
 
 	void StartGame();
+	void FinishGame();
 	void StartTransition();
 
 	bool IsSwitchTime();
 	void SwitchCoinBrick(bool freeze = false);
 	void StartSwitchTimer();
 private:
+	void GameRun();
+	void GameFinish();
+
 	HudPanel* hud;
 	Texture2D mask;
 	GameData* gameData;
 	int time, pSwitchTimer;
 	float alpha;
-	bool gameStarted, timeFreeze;
+	bool timeFreeze;
+	GameState gameState;
 	int transition;
 	PlayerController* player;
+
+	Text* courseClear, *reward;
+	int finishStep;
+	int finishTimer;
 };
 

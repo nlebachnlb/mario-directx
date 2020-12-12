@@ -3,6 +3,7 @@
 #include "CMario.h"
 #include "EffectPool.h"
 #include "RewardFX.h"
+#include "MainCanvas.h"
 
 void LevelReward::Awake()
 {
@@ -53,6 +54,9 @@ void LevelReward::OnOverlapped(Collider2D* self, Collider2D* other)
 		auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
 		RewardFX* fx = static_cast<RewardFX*>(fxPool->CreateFX("fx-reward", transform.Position));
 		fx->SetReward(reward);
+
+		auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+		canvas->FinishGame();
 
 		Destroy(this);
 	}

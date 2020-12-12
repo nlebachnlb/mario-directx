@@ -12,6 +12,21 @@ void MainCanvas::Awake()
 	AddUIElement(hud);
 
 	mask = Game::GetInstance().GetService<TextureManager>()->GetTexture(TEXTURE_BOX);
+
+	courseClear = new Text();
+	reward		= new Text();
+
+	auto font = Game::GetInstance().GetGlobalFont();
+	courseClear->SetFont(font);
+	reward->SetFont(font);
+
+	courseClear->SetSpacing(0);
+	reward->SetSpacing(0);
+
+	/*AddUIElement(courseClear);
+	AddUIElement(reward);*/
+
+	gameState = GameState::Ready;
 }
 
 void MainCanvas::Start()
@@ -23,70 +38,24 @@ void MainCanvas::Start()
 	hud->SetLife(4);
 	transition = 0;
 	alpha = 0;
+
+	courseClear->SetPosition(Vector2(240, 120));
+	reward->SetPosition(Vector2(200, 216));
+
+	courseClear->SetContent("");
+	reward->SetContent("");
 }
 
 void MainCanvas::Update()
 {
-	if (gameStarted)
+	switch (gameState)
 	{
-		if (player == nullptr)
-		{
-			auto obj = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player);
-			if (obj != nullptr) player = static_cast<PlayerController*>(obj);
-			else return;
-		}
-
-		auto mario = player->GetMario();
-		auto percent = mario->GetPMeter();
-		int powerLevel = (int)(percent);
-		hud->SetPowerMeter(powerLevel);
-		auto dt = Game::DeltaTime();
-
-		auto dtScaled = Game::DeltaTime() * Game::GetTimeScale();
-		time -= dtScaled * 1.5f;
-
-		if (timeFreeze)
-		{
-			pSwitchTimer -= dtScaled;
-			if (pSwitchTimer <= 0)
-			{
-				pSwitchTimer = 0;
-				timeFreeze = false;
-				SwitchCoinBrick(false);
-			}
-		}
-
-		switch (transition)
-		{
-		case 1:
-		{
-			alpha += (255.0f / (float)TRANSITION_TIME) * dt;
-			if (alpha >= 255)
-			{
-				alpha = 255;
-				transition = 2;
-				mario->Warp();
-			}
-		}
+	case GameState::Run:
+		GameRun();
 		break;
-		case 2:
-		{
-			alpha -= (255.0f / (float)TRANSITION_TIME) * dt;
-			if (alpha <= 1)
-			{
-				alpha = 0;
-				transition = 3;
-				mario->WarpOut();
-			}
-		}
+	case GameState::Finish:
+		GameFinish();
 		break;
-		case 3:
-		{
-			alpha = 0;
-			transition = 0;
-		}
-		break;
-		}
 	}
 }
 
@@ -105,6 +74,12 @@ void MainCanvas::Render()
 {
 	Game::GetInstance().DrawTexture(0, 594, 0, 0, mask, 0, 0, 824, 150);
 	Canvas::Render();
+	if (gameState == GameState::Finish)
+	{
+		courseClear->Render();
+		reward->Render();
+	}
+
 	if (alpha > 0)
 	{
 		auto conf = Game::GetInstance().GetGlobalConfigs();
@@ -124,8 +99,15 @@ void MainCanvas::ResetTimer()
 
 void MainCanvas::StartGame()
 {
-	gameStarted = true;
+	gameState = GameState::Run;
 	ResetTimer();
+}
+
+void MainCanvas::FinishGame()
+{
+	finishTimer = 0;
+	finishStep = 0;
+	gameState = GameState::Finish;
 }
 
 void MainCanvas::StartTransition()
@@ -171,4 +153,122 @@ void MainCanvas::StartSwitchTimer()
 {
 	pSwitchTimer = PSWITCH_TIME;
 	timeFreeze = true;
+}
+
+void MainCanvas::GameRun()
+{
+	if (player == nullptr)
+	{
+		auto obj = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player);
+		if (obj != nullptr) player = static_cast<PlayerController*>(obj);
+		else return;
+	}
+
+	auto mario = player->GetMario();
+	auto percent = mario->GetPMeter();
+	int powerLevel = (int)(percent);
+	hud->SetPowerMeter(powerLevel);
+	auto dt = Game::DeltaTime();
+
+	auto dtScaled = Game::DeltaTime() * Game::GetTimeScale();
+	time -= dtScaled * 1.5f;
+
+	if (timeFreeze)
+	{
+		pSwitchTimer -= dtScaled;
+		if (pSwitchTimer <= 0)
+		{
+			pSwitchTimer = 0;
+			timeFreeze = false;
+			SwitchCoinBrick(false);
+		}
+	}
+
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)TRANSITION_TIME) * dt;
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			mario->Warp();
+		}
+	}
+	break;
+	case 2:
+	{
+		alpha -= (255.0f / (float)TRANSITION_TIME) * dt;
+		if (alpha <= 1)
+		{
+			alpha = 0;
+			transition = 3;
+			mario->WarpOut();
+		}
+	}
+	break;
+	case 3:
+	{
+		alpha = 0;
+		transition = 0;
+	}
+	break;
+	}
+}
+
+void MainCanvas::GameFinish()
+{
+	hud->SetPowerMeter(0);
+	// DebugOut(L"Game state\n");
+
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+
+	switch (finishStep)
+	{
+	case 0:
+	{
+		finishTimer += dt;
+		if (finishTimer > 2000)
+		{
+			// Show COURSE CLEAR text
+			DebugOut(L"COURSE CLEAR\n");
+			finishTimer = 0;
+			courseClear->SetContent(COURSE_CLEAR);
+			finishStep = 1;
+		}
+	}
+	break;
+	case 1:
+	{
+		finishTimer += dt;
+		if (finishTimer > 700)
+		{
+			// Show reward: YOU GOT A CARD
+			DebugOut(L"YOU GOT A CARD\n");
+			finishTimer = 0;
+			reward->SetContent(CARD_REWARD);
+			// Show card
+
+			// Blink card in HUD
+
+			finishStep = 2;
+		}
+	}
+	break;
+	case 2:
+	{
+		if (time > 99 * 1000 * dt)
+			time -= 10 * 1000 * dt * 10;
+		else if (time > 0)
+			time -= dt * 10;
+		else
+		{
+			if (time < 0) time = 0;
+			// Done
+			gameState = GameState::Ready;
+		}
+	}
+	break;
+	}
 }
