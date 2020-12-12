@@ -190,6 +190,7 @@
     <ClInclude Include="KoopaSpawner.h" />
     <ClInclude Include="KoopasShell.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="LevelReward.h" />
     <ClInclude Include="MainCanvas.h" />
     <ClInclude Include="MapData.h" />
     <ClInclude Include="MarioCollider.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="RedGoomba.h" />
     <ClInclude Include="RedParagoomba.h" />
     <ClInclude Include="RedVenusFireTrap.h" />
+    <ClInclude Include="RewardFX.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="ScoreFX.h" />
     <ClInclude Include="ShrinkDownFX.h" />
@@ -303,6 +305,7 @@
     <ClCompile Include="KoopaSpawner.cpp" />
     <ClCompile Include="KoopasShell.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="LevelReward.cpp" />
     <ClCompile Include="MainCanvas.cpp" />
     <ClCompile Include="MapData.cpp" />
     <ClCompile Include="MarioCollider.cpp" />
@@ -331,6 +334,7 @@
     <ClCompile Include="RedGoomba.cpp" />
     <ClCompile Include="RedParagoomba.cpp" />
     <ClCompile Include="RedVenusFireTrap.cpp" />
+    <ClCompile Include="RewardFX.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
     <ClCompile Include="ScoreFX.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />

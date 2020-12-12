@@ -208,6 +208,9 @@
     <Filter Include="GameSource\GameObjects\Misc\Scene">
       <UniqueIdentifier>{13f2f45b-1311-41aa-a42e-3fc51c7f8231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Items\LevelReward">
+      <UniqueIdentifier>{55c9cc1c-9bae-46ad-89f2-373d34539e72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -551,6 +554,12 @@
     </ClInclude>
     <ClInclude Include="ItemBrick.h">
       <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelReward.h">
+      <Filter>GameSource\GameObjects\Items\LevelReward</Filter>
+    </ClInclude>
+    <ClInclude Include="RewardFX.h">
+      <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -911,6 +920,12 @@
     </ClCompile>
     <ClCompile Include="ItemBrick.cpp">
       <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelReward.cpp">
+      <Filter>GameSource\GameObjects\Items\LevelReward</Filter>
+    </ClCompile>
+    <ClCompile Include="RewardFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

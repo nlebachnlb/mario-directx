@@ -19,6 +19,7 @@
 #include "WarpEntrance.h"
 #include "WarpMark.h"
 #include "ItemBrick.h"
+#include "LevelReward.h"
 
 GameMap::GameMap()
 {
@@ -265,6 +266,12 @@ void GameMap::Load(std::string filePath, bool manual)
                         coin->SetPosition(position);
                         this->gameObjects.push_back(coin);
                     }
+                }
+                else if (name.compare("reward") == 0)
+                {
+                    auto reward = Instantiate<LevelReward>();
+                    reward->SetPosition(position);
+                    this->gameObjects.push_back(reward);
                 }
             }
         }

@@ -14,7 +14,8 @@
 		<Sprite id="spr-star-man-0" left="201" top="121"  width="16" height="16"/>
 		<Sprite id="spr-star-man-1" left="222" top="121"  width="16" height="16"/>
 		<Sprite id="spr-star-man-2" left="245" top="121"  width="16" height="16"/>
-		<Sprite id="spr-fire-flower-0" left="286" top="121"  width="16" height="16"/>
+		<Sprite id="spr-fire-flower-0" left="370" top="121"  width="16" height="16"/>
+		<Sprite id="spr-fire-flower-1" left="309" top="121"  width="16" height="16"/>
 		<Sprite id="spr-magic-wing-0" left="330" top="121"  width="14" height="16"/>
 		<Sprite id="spr-hammer-0" left="350" top="121"  width="16" height="16"/>
 		<Sprite id="spr-switch-block-blue-0" left="156" top="144"  width="16" height="16"/>
