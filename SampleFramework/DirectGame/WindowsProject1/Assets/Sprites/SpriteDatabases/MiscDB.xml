@@ -50,11 +50,22 @@
         <Sprite id="spr-debris-3" left="192" top="352"  width="13" height="11"/>
 
 	</Textures>
+    
 	<Textures textureId="tex-fire-ball">
 		<Sprite id="spr-fire-ball-0" left="0" top="1"  width="8" height="8"/>
 		<Sprite id="spr-fire-ball-1" left="11" top="0"  width="8" height="9"/>
 		<Sprite id="spr-fire-ball-2" left="22" top="1"  width="8" height="8"/>
 		<Sprite id="spr-fire-ball-3" left="33" top="0"  width="8" height="9"/>
 	</Textures>
+    
+    <Textures textureId="tex-reward">
+        <Sprite id="spr-goal-mushroom-0" left="5" top="7" width="16" height="16"/>
+        <Sprite id="spr-goal-mushroom-1" left="67" top="29" width="10" height="15"/>
+        <Sprite id="spr-goal-mushroom-2" left="111" top="28" width="1" height="16"/>
+        <Sprite id="spr-goal-flower-0" left="25" top="28" width="16" height="16"/>
+        <Sprite id="spr-goal-flower-1" left="80" top="29" width="10" height="16"/>
+        <Sprite id="spr-goal-star-0" left="45" top="27" width="16" height="16"/>
+        <Sprite id="spr-goal-star-1" left="95" top="28" width="10" height="16"/>
+    </Textures>
 
 </Textures>
