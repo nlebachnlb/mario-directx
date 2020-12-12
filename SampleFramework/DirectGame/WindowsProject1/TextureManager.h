@@ -7,6 +7,7 @@
 #include "Debug.h"
 
 #define DEFAULT_TRANSPARENT_COLOR D3DCOLOR_XRGB(255, 255, 255)
+#define REWARD_TRANSPARENT_COLOR D3DCOLOR_XRGB(31, 183, 236)
 
 class TextureManager : public Service
 {

@@ -19,6 +19,7 @@
 #define TEXTURE_PIPE "tex-pipe"
 #define TEXTURE_HUD "tex-ui"
 #define TEXTURE_BOX "tex-box"
+#define TEXTURE_REWARD "tex-reward"
 
 #define FIREBALL_TRANS_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define DEFAULT_TRANS_COLOR D3DCOLOR_XRGB(254, 254, 254)
