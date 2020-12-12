@@ -1,6 +1,7 @@
 #include "HudPanel.h"
 #include "AnimationDatabase.h"
 #include "Game.h"
+#include "Mathf.h"
 
 void HudPanel::Awake()
 {
@@ -64,6 +65,31 @@ void HudPanel::Start()
 void HudPanel::PreRender()
 {
 	powerMeter->PreRender();
+	auto data = Game::GetInstance().GetData();
+
+	if (data->GetCards()->size() > 0)
+	{
+		for (int i = 0; i < Mathf::Min(cards.size() - 1, data->GetCards()->size() - 1); ++i)
+			cards.at(i).item = (ItemCardType)(data->GetCards()->at(i));
+	}
+
+	for (int i = Mathf::Max(0, Mathf::Min(cards.size() - blinkLastCard, data->GetCards()->size() - blinkLastCard) + 1); 
+		i < cards.size(); ++i)
+		cards.at(i).item = ItemCardType::Empty;
+
+	if (blinkLastCard && data->GetCards()->size() > 0)
+	{
+		blinkTimer += Game::DeltaTime();
+		if (blinkTimer > 200)
+		{
+			blinkTimer = 0;
+			auto pos = (int)min(cards.size() - 1, data->GetCards()->size() - 1);
+			if (cards.at(pos).item == ItemCardType::Empty)
+				cards.at(pos).item = (ItemCardType)(data->GetCards()->at(pos));
+			else
+				cards.at(pos).item = ItemCardType::Empty;
+		}
+	}
 }
 
 void HudPanel::Render()
@@ -120,6 +146,17 @@ void HudPanel::SetTimer(int time)
 void HudPanel::SetPowerMeter(int level)
 {
 	powerMeter->SetLevel(level);
+}
+
+void HudPanel::StartBlinkingLastCard()
+{
+	blinkLastCard = true;
+	blinkTimer = 0;
+}
+
+void HudPanel::StopBlinkingLastCard()
+{
+	blinkLastCard = false;
 }
 
 void HudPanel::DrawCard(ItemCard& card, int x, int y)

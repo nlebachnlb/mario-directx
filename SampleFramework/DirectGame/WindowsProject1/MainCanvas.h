@@ -32,7 +32,7 @@ public:
 	void ResetTimer();
 
 	void StartGame();
-	void FinishGame();
+	void FinishGame(int card);
 	void StartTransition();
 
 	bool IsSwitchTime();
@@ -53,7 +53,8 @@ private:
 	PlayerController* player;
 
 	Text* courseClear, *reward;
-	int finishStep;
-	int finishTimer;
+	int finishStep, finishTimer;
+	int card;
+	Sprite cardVisuals[3];
 };
 

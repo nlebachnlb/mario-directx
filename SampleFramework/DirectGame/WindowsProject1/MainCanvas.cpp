@@ -25,6 +25,10 @@ void MainCanvas::Awake()
 
 	/*AddUIElement(courseClear);
 	AddUIElement(reward);*/
+	auto sprManager = Game::GetInstance().GetService<SpriteManager>();
+	cardVisuals[0] = sprManager->Get("spr-super-mushroom-card-0");
+	cardVisuals[1] = sprManager->Get("spr-fire-flower-card-0");
+	cardVisuals[2] = sprManager->Get("spr-star-man-card-0");
 
 	gameState = GameState::Ready;
 }
@@ -40,7 +44,7 @@ void MainCanvas::Start()
 	alpha = 0;
 
 	courseClear->SetPosition(Vector2(240, 120));
-	reward->SetPosition(Vector2(200, 216));
+	reward->SetPosition(Vector2(200, 192));
 
 	courseClear->SetContent("");
 	reward->SetContent("");
@@ -77,7 +81,13 @@ void MainCanvas::Render()
 	if (gameState == GameState::Finish)
 	{
 		courseClear->Render();
-		reward->Render();
+
+		if (finishStep >= 1)
+		{
+			reward->Render();
+			if (finishStep >= 2) 
+				cardVisuals[card]->Draw(576, 192 - 32, 0, 0);
+		}
 	}
 
 	if (alpha > 0)
@@ -103,11 +113,12 @@ void MainCanvas::StartGame()
 	ResetTimer();
 }
 
-void MainCanvas::FinishGame()
+void MainCanvas::FinishGame(int card)
 {
 	finishTimer = 0;
 	finishStep = 0;
 	gameState = GameState::Finish;
+	this->card = card;
 }
 
 void MainCanvas::StartTransition()
@@ -242,7 +253,7 @@ void MainCanvas::GameFinish()
 	case 1:
 	{
 		finishTimer += dt;
-		if (finishTimer > 700)
+		if (finishTimer > 900)
 		{
 			// Show reward: YOU GOT A CARD
 			DebugOut(L"YOU GOT A CARD\n");
@@ -251,7 +262,8 @@ void MainCanvas::GameFinish()
 			// Show card
 
 			// Blink card in HUD
-
+			Game::GetInstance().GetData()->GetCards()->push_back(card + 1);
+			hud->StartBlinkingLastCard();
 			finishStep = 2;
 		}
 	}
@@ -269,9 +281,10 @@ void MainCanvas::GameFinish()
 
 		if (finishTimer > 30)
 		{
+			auto data = Game::GetInstance().GetData();
 			finishTimer = 0;
-			if (time > 99 * 1000) time -= 10 * 1000;
-			else if (time > 0) time -= 1000;
+			if (time > 99 * 1000) time -= 10 * 1000, data->ModifyScore(500, true);
+			else if (time > 0) time -= 1000, data->ModifyScore(50, true);
 			else
 			{
 				finishTimer = 0;

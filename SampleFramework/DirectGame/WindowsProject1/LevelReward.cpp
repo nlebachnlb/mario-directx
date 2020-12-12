@@ -56,7 +56,7 @@ void LevelReward::OnOverlapped(Collider2D* self, Collider2D* other)
 		fx->SetReward(reward);
 
 		auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
-		canvas->FinishGame();
+		canvas->FinishGame(reward);
 
 		Destroy(this);
 	}

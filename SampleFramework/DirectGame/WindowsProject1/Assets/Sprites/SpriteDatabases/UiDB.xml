@@ -52,7 +52,7 @@
         <Sprite id="spr-p-icon-1" left="100" top="161"  width="16" height="9"/>
         <Sprite id="spr-arrow-0" left="64" top="161" width="9" height="9"/>
         <Sprite id="spr-arrow-1" left="91" top="161" width="9" height="9"/>
-        <Sprite id="spr-empty-card-0" left="139" top="158"  width="24" height="29"/>
+        <Sprite id="spr-empty-card-0" left="140" top="158"  width="24" height="29"/>
         <Sprite id="spr-super-mushroom-card-0" left="171" top="158"  width="24" height="29"/>
         <Sprite id="spr-fire-flower-card-0" left="202" top="158"  width="24" height="29"/>
         <Sprite id="spr-star-man-card-0" left="232" top="158"  width="24" height="30"/>
