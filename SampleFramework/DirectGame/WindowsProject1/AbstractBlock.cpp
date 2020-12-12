@@ -12,3 +12,8 @@ void AbstractBlock::Awake()
 
 	InitAnimation();
 }
+
+void AbstractBlock::SetFreeze(bool value)
+{
+	timeFreeze = value;
+}

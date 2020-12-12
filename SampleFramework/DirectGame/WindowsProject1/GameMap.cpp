@@ -18,6 +18,7 @@
 #include "VenusFireTrap.h"
 #include "WarpEntrance.h"
 #include "WarpMark.h"
+#include "ItemBrick.h"
 
 GameMap::GameMap()
 {
@@ -226,8 +227,22 @@ void GameMap::Load(std::string filePath, bool manual)
         {
             for (int i = 0; i < objects->size(); ++i)
             {
+                auto name = objects->at(i)->name;
+
                 Vector2 position(objects->at(i)->x, objects->at(i)->y);
-                Brick* solid = Instantiate<Brick>();
+
+                GameObject solid = nullptr;
+                if (name.compare("item") == 0)
+                {
+                    auto itemBrick = Instantiate<ItemBrick>();
+                    solid = itemBrick;
+                    auto type = objects->at(i)->type;
+                    if (type.compare("p-switch") == 0)
+                        itemBrick->SetItem({ ItemTags::PSwitch, 1 });
+                }
+                else 
+                    solid = Instantiate<Brick>();
+
                 solid->SetPosition(position);
                 this->gameObjects.push_back(solid);
             }

@@ -30,6 +30,9 @@ public:
 	Raycast* Raycast2D();
 	GameObject FindGameObjectWithTag(ObjectTags tag, bool inactiveIncluded = false);
 
+	template<typename T>
+	std::vector<T*> FindGameObjectsOfType();
+
 	void SetGlobalConfigs(GlobalConfigs conf);
 	GlobalConfigs GetGlobalConfigs();
 	
@@ -88,3 +91,26 @@ private:
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sourcePaths;
 };
 #endif
+
+template<typename T>
+inline std::vector<T*> Game::FindGameObjectsOfType()
+{
+	std::vector<T*> result;
+
+	if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
+	if (sceneManager == nullptr) return result;
+	auto scene = sceneManager->GetActiveScene();
+	if (scene == nullptr)
+	{
+		DebugOut(L"SceneNULL"); return result;
+	}
+
+	auto searchPool = *scene->GetSceneObjects();
+	for (auto o : searchPool)
+	{
+		T* cast = dynamic_cast<T*>(o);
+		if (cast != nullptr && !o->IsDestroyed()) result.push_back(cast);
+	}
+
+	return result;
+}

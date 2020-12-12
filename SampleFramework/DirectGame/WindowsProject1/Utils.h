@@ -32,8 +32,18 @@ LPCWSTR ToLPCWSTR(string st);
 
 typedef LPDIRECT3DTEXTURE9 Texture2D;
 
+template<typename Type, typename DataType>
+bool Is(const DataType& data);
+
 enum RotationUnits
 {
 	Degree,
 	Radian
 };
+
+template<typename Type, typename DataType>
+inline bool Is(const DataType& data)
+{
+	if (&data == NULL) return false;
+	return typeid(data) == typeid(Type);
+}

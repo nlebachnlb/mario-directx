@@ -8,7 +8,7 @@ void KoopasShell::Awake()
 {
 	AbstractEnemy::Awake();
 	SetTag(ObjectTags::KoopasShell);
-	renderOrder = 10;
+	renderOrder = 5;
 	rigidbody->SetDrag(Vector2(KOOPAS_SHELL_DRAG_FORCE, 0));
 }
 

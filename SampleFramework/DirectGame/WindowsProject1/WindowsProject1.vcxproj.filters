@@ -549,6 +549,9 @@
     <ClInclude Include="PSwitch.h">
       <Filter>GameSource\GameObjects\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="ItemBrick.h">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -905,6 +908,9 @@
     </ClCompile>
     <ClCompile Include="PSwitch.cpp">
       <Filter>GameSource\GameObjects\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBrick.cpp">
+      <Filter>GameSource\GameObjects\Blocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

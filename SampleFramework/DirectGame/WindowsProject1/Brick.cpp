@@ -13,10 +13,14 @@ void Brick::InitAnimation()
 {
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Default", animations->Get("ani-brick"));
+	AddAnimation("Freeze", animations->Get("ani-brick-time-freeze"));
 }
 
 void Brick::PreRender()
 {
+	if (timeFreeze) { if (currentState.compare("Freeze") != 0) SetState("Freeze"); }
+	else if (currentState.compare("Default") != 0) SetState("Default");
+
 	switch (bouncingState)
 	{
 	case 1:

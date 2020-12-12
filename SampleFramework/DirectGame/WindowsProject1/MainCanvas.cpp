@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Consts.h"
 #include "Mathf.h"
+#include "Brick.h"
+#include "Coin.h"
 
 void MainCanvas::Awake()
 {
@@ -39,6 +41,20 @@ void MainCanvas::Update()
 		int powerLevel = (int)(percent);
 		hud->SetPowerMeter(powerLevel);
 		auto dt = Game::DeltaTime();
+
+		auto dtScaled = Game::DeltaTime() * Game::GetTimeScale();
+		time -= dtScaled * 1.5f;
+
+		if (timeFreeze)
+		{
+			pSwitchTimer -= dtScaled;
+			if (pSwitchTimer <= 0)
+			{
+				pSwitchTimer = 0;
+				timeFreeze = false;
+				SwitchCoinBrick(false);
+			}
+		}
 
 		switch (transition)
 		{
@@ -81,9 +97,6 @@ void MainCanvas::PreRender()
 	hud->SetScore(gameData->score);
 	hud->SetCoin(gameData->coin);
 
-	auto dt = Game::DeltaTime() * Game::GetTimeScale();
-	time -= dt * 1.5f;
-
 	hud->SetTimer((int)((float)time * 0.001f));
 	hud->PreRender();
 }
@@ -119,4 +132,43 @@ void MainCanvas::StartTransition()
 {
 	transition = 1;
 	DebugOut(L"Canvas Start transition: %d\n", alpha);
+}
+
+bool MainCanvas::IsSwitchTime()
+{
+	return pSwitchTimer > 0;
+}
+
+void MainCanvas::SwitchCoinBrick(bool freeze)
+{
+	auto bricks = Game::GetInstance().FindGameObjectsOfType<Brick>();
+	auto coins = Game::GetInstance().FindGameObjectsOfType<Coin>();
+	auto sceneManager = Game::GetInstance().GetService<SceneManager>();
+	auto scene = sceneManager->GetActiveScene();
+
+	for (auto brick : bricks)
+	{
+		// DebugOut(L"brick\n");
+		auto coin = Instantiate<Coin>();
+		coin->SetPosition(brick->GetTransform().Position);
+		coin->SetFreeze(freeze);
+		scene->AddObject(coin);
+		Destroy(brick);
+	}
+
+	for (auto coin : coins)
+	{
+		// DebugOut(L"brick\n");
+		auto brick = Instantiate<Brick>();
+		brick->SetPosition(coin->GetTransform().Position);
+		brick->SetFreeze(freeze);
+		scene->AddObject(brick);
+		Destroy(coin);
+	}
+}
+
+void MainCanvas::StartSwitchTimer()
+{
+	pSwitchTimer = PSWITCH_TIME;
+	timeFreeze = true;
 }

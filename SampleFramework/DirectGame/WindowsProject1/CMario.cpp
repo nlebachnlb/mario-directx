@@ -53,6 +53,8 @@ void CMario::Start()
 	invincible = false;
 	flickTimer = 0;
 
+	renderOrder = 6;
+
 	pMeter = 0.0f;
 	runningRestriction = false;
 
@@ -769,7 +771,11 @@ void CMario::HoldProcess()
 		if (input->GetKeyDown(marioKeySet.Attack))
 		{
 			auto delta = 0.4f * (heldInHandsObject->GetColliderBox() + MARIO_BBOX);
-			heldInHandsObject->SetHoldablePosition(Vector2(transform.Position.x + Mathf::Abs(delta.x) * facing, transform.Position.y));
+			heldInHandsObject->SetHoldablePosition(
+				Vector2(transform.Position.x + Mathf::Abs(delta.x) * facing, 
+					transform.Position.y + (tag == ObjectTags::SmallMario ? 0 : 14) 
+				)
+			);
 			heldInHandsObject->SetHoldableFacing(facing);
 		}
 		else
