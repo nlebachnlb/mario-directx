@@ -7,8 +7,8 @@ void SceneManager::Initialization()
 
 bool SceneManager::LoadScene(Scene* scene)
 {
+    UnloadCurrentScene();
     loadRequests.push_back(scene);
-
     DebugOut(L"Loading scene");
     
     return true;
@@ -51,12 +51,11 @@ void SceneManager::ProcessUnloadRequests()
         for (auto req : unloadRequests)
         {
             auto scene = loadedScenes.at(req);
-            // loadedScenes.erase(req);
-            // loadedScenes[id] = nullptr;
+            loadedScenes.erase(req);
             scene->Unload();
             // loadedScenes.at(id) = nullptr;
-            // delete scene;
-            // activeSceneID = "";
+            delete scene;
+            activeSceneID = "";
         }
 
         unloadRequests.clear();

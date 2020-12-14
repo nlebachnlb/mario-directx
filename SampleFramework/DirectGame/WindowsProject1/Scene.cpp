@@ -1,4 +1,4 @@
- #include "Scene.h"
+#include "Scene.h"
 #include "Game.h"
 #include "CMario.h"
 #include "tinyxml.h"
@@ -21,7 +21,7 @@ Scene::Scene(std::string filePath)
 
 Scene::~Scene()
 {
-	if (mainCamera != nullptr) delete mainCamera;
+
 }
 
 void Scene::Load()
@@ -44,7 +44,7 @@ void Scene::Load()
 	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
 	{
 		string name = element->Attribute("name");
-		
+
 		if (name.compare("Map") == 0)
 		{
 			auto source = element->Attribute("source");
@@ -88,10 +88,10 @@ void Scene::Load()
 				bound->QueryFloatAttribute("bottom", &bSet.boundary.bottom);
 				camera->AddBoundarySet(id, bSet);
 			}
-			
+
 			BoundarySet startBoundary = camera->GetBoundarySet(start);
 			camera->SetPosition(startBoundary.position);
-			if(objMario != nullptr) camera->SetTarget(objMario);
+			if (objMario != nullptr) camera->SetTarget(objMario);
 			camera->SetBoundary(startBoundary.boundary);
 			camera->LockBoundary();
 			SetMainCamera(camera);
@@ -132,9 +132,15 @@ void Scene::Unload()
 	for (auto o : *objects)
 		delete o;
 
-	 objects->clear();
-	 delete objects;
-	 objects = nullptr;
+	objects->clear();
+	delete objects;
+	objects = nullptr;
+
+	if (mainCamera != nullptr)
+	{
+		delete mainCamera;
+		mainCamera = nullptr;
+	}
 
 	Game::GetInstance().GetService<GameMap>()->Unload();
 }
@@ -151,7 +157,7 @@ void Scene::Update()
 
 	for (auto o : updated)
 		if (o->IsEnabled()) o->LateUpdate();
-	
+
 	if (mainCamera != nullptr) mainCamera->Update();
 }
 

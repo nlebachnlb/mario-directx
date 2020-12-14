@@ -240,7 +240,7 @@ void Game::GameRun(HWND hWnd)
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)
-				done = true;
+				sceneManager->UnloadCurrentScene(), done = true;
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -280,6 +280,11 @@ void Game::GameRun(HWND hWnd)
 
 void Game::GameEnd()
 {
+	if (!d3d) d3d->Release();
+	if (!d3ddev) d3ddev->Release();
+	if (!backBuffer) backBuffer->Release();
+	if (!spriteHandler) spriteHandler->Release();
+	Canvas::Clean();
 }
 
 void Game::Request()
@@ -444,9 +449,5 @@ void Game::GainComboChain(Vector2 position)
 
 Game::~Game()
 {
-	if (!d3d) d3d->Release();
-	if (!d3ddev) d3ddev->Release();
-	if (!backBuffer) backBuffer->Release();
-	if (!spriteHandler) spriteHandler->Release();
-	Canvas::Clean();
+	
 }

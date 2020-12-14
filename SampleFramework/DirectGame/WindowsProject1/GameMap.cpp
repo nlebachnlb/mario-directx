@@ -287,12 +287,14 @@ void GameMap::Unload()
         delete x.second;
         x.second = nullptr;
     }
+    tilesets.clear();
 
     for (auto texture : textures)
     {
         texture->Release();
         texture = nullptr;
     }
+    textures.clear();
 
     if (mapData != nullptr) delete mapData;
     mapData = nullptr;
@@ -450,7 +452,8 @@ SpawnerManager* GameMap::GetSpawnerManager()
 
 GameMap::~GameMap()
 {
-    if (mapData != nullptr) delete mapData;
+    DebugOut(L"Gamemap Destroyed");
+    /*if (mapData != nullptr) delete mapData;
     spawnerManager->ClearServices();
-    delete spawnerManager;
+    delete spawnerManager;*/
 }

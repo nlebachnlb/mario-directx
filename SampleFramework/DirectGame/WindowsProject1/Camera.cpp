@@ -26,7 +26,7 @@ Camera::Camera(Vector2 startPosition, Vector2 viewportSize)
 
 Camera::~Camera()
 {
-    if (map != nullptr) delete map;
+
 }
 
 void Camera::Update()
