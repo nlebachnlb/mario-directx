@@ -13,6 +13,7 @@ const std::string CARD_REWARD = "YOU GOT A CARD ";
 
 enum class GameState
 {
+	Unload,
 	Ready,
 	Waiting,
 	Run,
@@ -27,6 +28,7 @@ public:
 	void Update() override;
 	void PreRender() override;
 	void Render() override;
+	void OnSceneUnload() override;
 
 	void SetGameData(GameData* data);
 	void ResetTimer();

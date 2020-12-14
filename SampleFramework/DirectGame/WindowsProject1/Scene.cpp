@@ -5,6 +5,7 @@
 #include "PlayerController.h"
 #include "EffectPool.h"
 #include <algorithm>
+#include "Canvas.h"
 
 Scene::Scene()
 {
@@ -125,10 +126,17 @@ void Scene::Init()
 void Scene::Unload()
 {
 	loaded = false;
-	for (auto object : *objects)
-		delete object;
-	objects->clear();
-	delete objects;
+
+	Canvas::OnSceneUnloadedEvent();
+
+	for (auto o : *objects)
+		delete o;
+
+	 objects->clear();
+	 delete objects;
+	 objects = nullptr;
+
+	Game::GetInstance().GetService<GameMap>()->Unload();
 }
 
 void Scene::Update()
@@ -159,6 +167,8 @@ void Scene::Render()
 
 void Scene::CleanDestroyedObjects()
 {
+	if (loaded == false) return;
+
 	if (destroyed.size() > 0)
 	{
 		for (auto o : destroyed)
@@ -176,6 +186,8 @@ void Scene::CleanDestroyedObjects()
 
 void Scene::ProcessInstantiateRequests()
 {
+	if (loaded == false) return;
+
 	if (instantiated.size() > 0)
 	{
 		for (auto o : instantiated)

@@ -88,6 +88,8 @@ void PlayerController::OnKeyDown(int keyCode)
 		SwitchToState("FireMario");
 	else if (keyCode == DIK_4)
 		SwitchToState("RaccoonMario");
+	else if (keyCode == DIK_SPACE)
+		Game::GetInstance().GetService<SceneManager>()->UnloadCurrentScene();
 }
 
 void PlayerController::InitStates()

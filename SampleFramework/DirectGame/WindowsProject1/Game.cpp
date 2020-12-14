@@ -254,6 +254,11 @@ void Game::GameRun(HWND hWnd)
 		{
 			frameStart = now;
 
+			if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
+
+			// Process load scene requests first
+			sceneManager->ProcessLoadRequests();
+
 			// Process instantiate requests at last frame
 			Request();
 			// Process input
@@ -264,6 +269,9 @@ void Game::GameRun(HWND hWnd)
 			Render();
 			// Clean destroyed objects
 			Clean();
+
+			// Process unload scene requests first
+			sceneManager->ProcessUnloadRequests();
 		}
 		else
 			Sleep(tickPerFrame - deltaTime);
@@ -287,13 +295,14 @@ void Game::Request()
 
 void Game::InputProc()
 {
+	if (sceneManager->GetActiveScene() == nullptr) return;
 	if (inputHandler == nullptr) inputHandler = GetService<InputHandler>();
 	inputHandler->ProcessKeyboard();
 }
 
 void Game::Update()
 {
-	if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
+	auto activeScene = sceneManager->GetActiveScene();
 
 	if (activeScene != nullptr)
 		activeScene->Update();
@@ -309,8 +318,7 @@ void Game::Render()
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
-		if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
+		auto activeScene = sceneManager->GetActiveScene();
 		if (activeScene != nullptr)
 			activeScene->Render();
 

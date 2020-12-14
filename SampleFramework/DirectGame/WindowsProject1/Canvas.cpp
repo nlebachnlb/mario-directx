@@ -50,6 +50,15 @@ void Canvas::RenderAllCanvases()
 	}
 }
 
+void Canvas::OnSceneUnloadedEvent()
+{
+	for (auto x : canvases)
+	{
+		auto canvas = x.second;
+		canvas->OnSceneUnload();
+	}
+}
+
 void Canvas::Clean()
 {
 
@@ -91,6 +100,10 @@ void Canvas::Render()
 	if (!enabled) return;
 	for (auto e : elements)
 		e->Render();
+}
+
+void Canvas::OnSceneUnload()
+{
 }
 
 void Canvas::Initialize()

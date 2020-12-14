@@ -97,6 +97,12 @@ void MainCanvas::Render()
 	}
 }
 
+void MainCanvas::OnSceneUnload()
+{
+	gameState = GameState::Unload;
+	player = nullptr;
+}
+
 void MainCanvas::SetGameData(GameData* data)
 {
 	this->gameData = data;

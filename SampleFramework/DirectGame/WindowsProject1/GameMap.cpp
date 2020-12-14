@@ -48,6 +48,7 @@ void GameMap::Load(std::string filePath, bool manual)
     {
         auto tileset = x.second;
         auto tilesetTexture = texManager->LoadTexture(ToLPCWSTR(tileset->GetSource()));
+        textures.push_back(tilesetTexture);
 
         Tile tile = new CTile(
             "map-tileset",
@@ -277,6 +278,28 @@ void GameMap::Load(std::string filePath, bool manual)
         }
     }
     return;
+}
+
+void GameMap::Unload()
+{
+    for (auto x : tilesets)
+    {
+        delete x.second;
+        x.second = nullptr;
+    }
+
+    for (auto texture : textures)
+    {
+        texture->Release();
+        texture = nullptr;
+    }
+
+    if (mapData != nullptr) delete mapData;
+    mapData = nullptr;
+    spawnerManager->ClearServices();
+    delete spawnerManager;
+    spawnerManager = nullptr;
+    gameObjects.clear();
 }
 
 void GameMap::LoadEnemy()
