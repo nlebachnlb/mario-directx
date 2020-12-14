@@ -126,6 +126,9 @@ public:
 	void EndWarping();
 	bool IsWarping();
 
+	bool CanControl();
+	void FinishLevel();
+
 protected:
 	virtual void InitAnimations();
 	virtual void MovementAnimation();
@@ -170,7 +173,7 @@ private:
 
 	bool animationKick;
 	bool skid, run;
-	bool canHighJump, deflect;
+	bool canHighJump, deflect, autoControl;
 
 	float prevTargetVelocityX, targetVelocityX;
 	float jumpTime;

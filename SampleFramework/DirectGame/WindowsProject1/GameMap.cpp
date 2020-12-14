@@ -19,6 +19,7 @@
 #include "WarpEntrance.h"
 #include "WarpMark.h"
 #include "ItemBrick.h"
+#include "LevelReward.h"
 
 GameMap::GameMap()
 {
@@ -47,6 +48,7 @@ void GameMap::Load(std::string filePath, bool manual)
     {
         auto tileset = x.second;
         auto tilesetTexture = texManager->LoadTexture(ToLPCWSTR(tileset->GetSource()));
+        textures.push_back(tilesetTexture);
 
         Tile tile = new CTile(
             "map-tileset",
@@ -266,10 +268,40 @@ void GameMap::Load(std::string filePath, bool manual)
                         this->gameObjects.push_back(coin);
                     }
                 }
+                else if (name.compare("reward") == 0)
+                {
+                    auto reward = Instantiate<LevelReward>();
+                    reward->SetPosition(position);
+                    this->gameObjects.push_back(reward);
+                }
             }
         }
     }
     return;
+}
+
+void GameMap::Unload()
+{
+    for (auto x : tilesets)
+    {
+        delete x.second;
+        x.second = nullptr;
+    }
+    tilesets.clear();
+
+    for (auto texture : textures)
+    {
+        texture->Release();
+        texture = nullptr;
+    }
+    textures.clear();
+
+    if (mapData != nullptr) delete mapData;
+    mapData = nullptr;
+    spawnerManager->ClearServices();
+    delete spawnerManager;
+    spawnerManager = nullptr;
+    gameObjects.clear();
 }
 
 void GameMap::LoadEnemy()
@@ -420,7 +452,8 @@ SpawnerManager* GameMap::GetSpawnerManager()
 
 GameMap::~GameMap()
 {
-    if (mapData != nullptr) delete mapData;
+    DebugOut(L"Gamemap Destroyed");
+    /*if (mapData != nullptr) delete mapData;
     spawnerManager->ClearServices();
-    delete spawnerManager;
+    delete spawnerManager;*/
 }

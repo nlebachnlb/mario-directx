@@ -4,6 +4,12 @@
 GameData::GameData()
 {
 	world = 1; life = 5; coin = 0; score = 0;
+	cards = new std::vector<int>();
+}
+
+GameData::~GameData()
+{
+	delete cards;
 }
 
 void GameData::ModifyCoin(int coin, bool relative)
@@ -42,6 +48,12 @@ int GameData::GetCombo()
 {
 	return this->combo;
 }
+
+std::vector<int>* GameData::GetCards()
+{
+	return cards;
+}
+
 
 void GameData::SetPowerup(std::string powerup)
 {

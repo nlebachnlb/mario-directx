@@ -21,6 +21,7 @@ public:
 	static void ProcessAddRequests();
 	static void UpdateAllCanvases();
 	static void RenderAllCanvases();
+	static void OnSceneUnloadedEvent();
 	static void Clean();
 
 	~Canvas();
@@ -30,6 +31,7 @@ public:
 	virtual void Update();
 	virtual void PreRender();
 	virtual void Render();
+	virtual void OnSceneUnload();
 
 	void Initialize();
 

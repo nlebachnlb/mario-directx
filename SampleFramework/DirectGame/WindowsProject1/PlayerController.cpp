@@ -5,6 +5,7 @@
 #include "RaccoonMario.h"
 #include "EffectPool.h"
 #include "MarioFX.h"
+#include "ExampleScene.h"
 
 void PlayerController::Awake()
 {
@@ -88,6 +89,10 @@ void PlayerController::OnKeyDown(int keyCode)
 		SwitchToState("FireMario");
 	else if (keyCode == DIK_4)
 		SwitchToState("RaccoonMario");
+	else if (keyCode == DIK_SPACE)
+	{
+		Game::GetInstance().GetService<SceneManager>()->LoadScene(new ExampleScene());
+	}
 }
 
 void PlayerController::InitStates()

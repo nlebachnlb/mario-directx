@@ -8,6 +8,7 @@
 #include "HitStarFX.h"
 #include "SmokeSpotFX.h"
 #include "ScoreFX.h"
+#include "RewardFX.h"
 
 void EffectPool::Initialization()
 {
@@ -48,6 +49,8 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position, bool expand
 			fx = Instantiate<SmokeSpotFX>();
 		else if (fxName.compare("fx-score") == 0)
 			fx = Instantiate<ScoreFX>();
+		else if (fxName.compare("fx-reward") == 0)
+			fx = Instantiate<RewardFX>();
 		
 		DebugOut(L"New spawn\n");
 

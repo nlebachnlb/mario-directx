@@ -31,6 +31,13 @@ void Text::Render()
 	for (int i = start; (step > 0 ? i <= end : i >= end); i += step)
 	{
 		auto ch = text.at(i);
+
+		if (ch == ' ')
+		{
+			x += font->GetSpaceWidth() * (alignment == TextAlignment::Left ? 1 : -1);
+			continue;
+		}
+
 		auto visual = font->GetChar(ch);
 
 		if (visual == nullptr) continue;

@@ -240,7 +240,7 @@ void Game::GameRun(HWND hWnd)
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)
-				done = true;
+				sceneManager->UnloadCurrentScene(), done = true;
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -254,6 +254,11 @@ void Game::GameRun(HWND hWnd)
 		{
 			frameStart = now;
 
+			if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
+
+			// Process load scene requests first
+			sceneManager->ProcessLoadRequests();
+
 			// Process instantiate requests at last frame
 			Request();
 			// Process input
@@ -264,6 +269,9 @@ void Game::GameRun(HWND hWnd)
 			Render();
 			// Clean destroyed objects
 			Clean();
+
+			// Process unload scene requests first
+			sceneManager->ProcessUnloadRequests();
 		}
 		else
 			Sleep(tickPerFrame - deltaTime);
@@ -272,6 +280,11 @@ void Game::GameRun(HWND hWnd)
 
 void Game::GameEnd()
 {
+	if (!d3d) d3d->Release();
+	if (!d3ddev) d3ddev->Release();
+	if (!backBuffer) backBuffer->Release();
+	if (!spriteHandler) spriteHandler->Release();
+	Canvas::Clean();
 }
 
 void Game::Request()
@@ -287,13 +300,14 @@ void Game::Request()
 
 void Game::InputProc()
 {
+	if (sceneManager->GetActiveScene() == nullptr) return;
 	if (inputHandler == nullptr) inputHandler = GetService<InputHandler>();
 	inputHandler->ProcessKeyboard();
 }
 
 void Game::Update()
 {
-	if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
+	auto activeScene = sceneManager->GetActiveScene();
 
 	if (activeScene != nullptr)
 		activeScene->Update();
@@ -309,8 +323,7 @@ void Game::Render()
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
-		if (activeScene == nullptr) activeScene = sceneManager->GetActiveScene();
+		auto activeScene = sceneManager->GetActiveScene();
 		if (activeScene != nullptr)
 			activeScene->Render();
 
@@ -436,9 +449,5 @@ void Game::GainComboChain(Vector2 position)
 
 Game::~Game()
 {
-	if (!d3d) d3d->Release();
-	if (!d3ddev) d3ddev->Release();
-	if (!backBuffer) backBuffer->Release();
-	if (!spriteHandler) spriteHandler->Release();
-	Canvas::Clean();
+	
 }

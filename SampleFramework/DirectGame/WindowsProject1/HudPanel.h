@@ -22,6 +22,9 @@ public:
 	void SetTimer(int time);
 	void SetPowerMeter(int level);
 
+	void StartBlinkingLastCard();
+	void StopBlinkingLastCard();
+
 private:
 	void DrawCard(ItemCard& card, int x, int y);
 	Sprite panel;
@@ -31,4 +34,8 @@ private:
 
 	Text *world, *life, *score, *coin, *timer;
 	PowerMeter* powerMeter;
+
+	int blinkTimer;
+	bool blinkLastCard;
+	ItemCardType lastCard;
 };

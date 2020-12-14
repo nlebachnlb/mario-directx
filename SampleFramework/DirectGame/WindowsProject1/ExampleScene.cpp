@@ -7,6 +7,7 @@
 
 void ExampleScene::Load()
 {
+	DebugOut(L"Example scene\n");
 	this->id = "ExampleScene";
 	this->filePath = Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, SC_WOLRD_1_1);
 	Scene::Load();

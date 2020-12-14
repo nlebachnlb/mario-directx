@@ -164,6 +164,9 @@ CollisionEvent* Collider2D::SweptAABBEx(Collider2D* other)
 void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<CollisionEvent*>& coEvents)
 {
 	vector<CollisionEvent*> temp;
+
+	if (!enabled) return;
+
 	bool solid = false;
 	for (int i = 0; i < coObjects->size(); ++i)
 	{
@@ -171,6 +174,7 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 		if (coObjects->at(i)->GetColliders() == nullptr) continue;
 		if (coObjects->at(i)->GetColliders()->size() == 0) continue;
 		if (coObjects->at(i)->GetColliders()->at(0) == this) continue;
+		if (coObjects->at(i)->GetColliders()->at(0)->enabled == false) continue;
 		if (coObjects->at(i)->IsEnabled() == false) continue;
 
 		/*auto selfBox = GetBoundingBox();
@@ -391,6 +395,7 @@ void Collider2D::FilterCollision(vector<CollisionEvent*>& coEvents, vector<Colli
 
 void Collider2D::CalcOverlappedCollisions(vector<GameObject>* coObjects)
 {
+	if (!enabled) return;
 	bool solid = false;
 	for (int i = 0; i < coObjects->size(); ++i)
 	{
@@ -398,6 +403,7 @@ void Collider2D::CalcOverlappedCollisions(vector<GameObject>* coObjects)
 		if (coObjects->at(i)->GetColliders() == nullptr) continue;
 		if (coObjects->at(i)->GetColliders()->size() == 0) continue;
 		if (coObjects->at(i)->GetColliders()->at(0) == this) continue;
+		if (coObjects->at(i)->GetColliders()->at(0)->enabled == false) continue;
 		if (coObjects->at(i)->IsEnabled() == false) continue;
 
 		auto selfBox = GetBoundingBox();
@@ -558,10 +564,11 @@ std::string Collider2D::GetName()
 
 RectF Collider2D::GetBoundingBox()
 {
-	if (gameObject->IsEnabled() == false || enabled == false)
-		return RectF{ 0, 0, 0, 0 };
+	auto pos = GetWorldPosition();
 
-    auto pos = GetWorldPosition();
+	if (gameObject->IsEnabled() == false || enabled == false)
+		return RectF{ pos.x, pos.y, pos.x, pos.y };
+
     RectF RectF;
     RectF.left   = pos.x - boxSize.x * 0.5f;
     RectF.right  = pos.x + boxSize.x * 0.5f;

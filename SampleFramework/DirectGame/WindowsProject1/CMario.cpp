@@ -86,10 +86,11 @@ void CMario::Update()
 
 #pragma region Horizontal Movement
 	auto curVelocity = velocity.x;
-	if (pushSide == 0 && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right)))
+	if (autoControl || 
+		(CanControl() && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))))
 	{
 		// Accelerate velocity based on moving states
-		if (input->GetKeyDown(marioKeySet.Attack))
+		if (input->GetKeyDown(marioKeySet.Attack) && !autoControl)
 		{
 			physicState.movement = MovingStates::Run;
 			rigidbody->SetAcceleration(skid ? MARIO_SKID_ACCELERATION : MARIO_RUN_ACCELERATION);
@@ -108,10 +109,17 @@ void CMario::Update()
 			MARIO_WALK_SPEED;
 		targetVelocityX = constSpeed;
 		
-		if (input->GetKeyDown(marioKeySet.Left) && pushSide == 0)
-			targetVelocityX = -1 * constSpeed, nx = -1;
-		else if (input->GetKeyDown(marioKeySet.Right) && pushSide == 0)
+		if (autoControl)
+		{
 			targetVelocityX = +1 * constSpeed, nx = +1;
+		}
+		else
+		{
+			if (input->GetKeyDown(marioKeySet.Left) && CanControl())
+				targetVelocityX = -1 * constSpeed, nx = -1;
+			else if (input->GetKeyDown(marioKeySet.Right) && CanControl())
+				targetVelocityX = +1 * constSpeed, nx = +1;
+		}
 		
 		if (Mathf::Abs(curVelocity - targetVelocityX) > rigidbody->GetAcceleration() * dt)
 		{
@@ -148,11 +156,8 @@ void CMario::Update()
 	run = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.92f && feverState > 0;
 	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f && feverState > 0;
 	if (pushSide == 0) rigidbody->SetVelocity(&velocity);
-
-	if (pushSide != 0)
-	{
+	else if (pushSide != 0)
 		transform.Position.x += pushSide * 0.15f * dt;
-	}
 #pragma endregion
 
 	FeverProcess();
@@ -160,7 +165,7 @@ void CMario::Update()
 	// Keep Mario inside Camera bounds
 	if (mainCamera == nullptr)
 		mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
-	transform.Position.x = Mathf::Clamp(transform.Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x - MARIO_BBOX.x);
+	transform.Position.x = Mathf::Clamp(transform.Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x + (autoControl ? 48 : -MARIO_BBOX.x));
 
 #pragma region Vertical Movement
 	switch (physicState.jump)
@@ -244,6 +249,7 @@ int CMario::SetFacing(int facing)
 
 void CMario::Jump(float force, bool deflect)
 {
+	if (autoControl) return;
 	rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, -force));
 	physicState.jump = JumpingStates::Jump;
 	posBeforeJump = transform.Position;
@@ -366,11 +372,21 @@ bool CMario::IsWarping()
 	return this->warp > 0;
 }
 
+bool CMario::CanControl()
+{
+	return pushSide == 0 && warp == 0;
+}
+
+void CMario::FinishLevel()
+{
+	autoControl = true;
+}
+
 #pragma region Keyboard
 
 void CMario::OnKeyDown(int keyCode)
 {
-	if (pushSide != 0) return;
+	if (!CanControl()) return;
 	if (keyCode == marioKeySet.Jump && onGround && physicState.jump == JumpingStates::Stand)
 		Jump(MARIO_JUMP_FORCE * 0.3f);
 }

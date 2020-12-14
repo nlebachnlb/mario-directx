@@ -20,6 +20,7 @@ public:
 	GameMap();
 	GameMap(std::string filePath);
 	void Load(std::string filePath = "", bool manual = true);
+	void Unload();
 	void LoadEnemy();
 
 	void Initialization() override;
@@ -42,6 +43,7 @@ private:
 	std::string filePath;
 	MapData* mapData;
 	std::unordered_map<int, Tile> tilesets;
+	std::vector<Texture2D> textures;
 	std::vector<GameObject> gameObjects;
 	SpawnerManager* spawnerManager;
 };

@@ -1,10 +1,11 @@
- #include "Scene.h"
+#include "Scene.h"
 #include "Game.h"
 #include "CMario.h"
 #include "tinyxml.h"
 #include "PlayerController.h"
 #include "EffectPool.h"
 #include <algorithm>
+#include "Canvas.h"
 
 Scene::Scene()
 {
@@ -20,7 +21,7 @@ Scene::Scene(std::string filePath)
 
 Scene::~Scene()
 {
-	if (mainCamera != nullptr) delete mainCamera;
+
 }
 
 void Scene::Load()
@@ -43,7 +44,7 @@ void Scene::Load()
 	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
 	{
 		string name = element->Attribute("name");
-		
+
 		if (name.compare("Map") == 0)
 		{
 			auto source = element->Attribute("source");
@@ -87,10 +88,10 @@ void Scene::Load()
 				bound->QueryFloatAttribute("bottom", &bSet.boundary.bottom);
 				camera->AddBoundarySet(id, bSet);
 			}
-			
+
 			BoundarySet startBoundary = camera->GetBoundarySet(start);
 			camera->SetPosition(startBoundary.position);
-			if(objMario != nullptr) camera->SetTarget(objMario);
+			if (objMario != nullptr) camera->SetTarget(objMario);
 			camera->SetBoundary(startBoundary.boundary);
 			camera->LockBoundary();
 			SetMainCamera(camera);
@@ -125,10 +126,23 @@ void Scene::Init()
 void Scene::Unload()
 {
 	loaded = false;
-	for (auto object : *objects)
-		delete object;
+
+	Canvas::OnSceneUnloadedEvent();
+
+	for (auto o : *objects)
+		delete o;
+
 	objects->clear();
 	delete objects;
+	objects = nullptr;
+
+	if (mainCamera != nullptr)
+	{
+		delete mainCamera;
+		mainCamera = nullptr;
+	}
+
+	Game::GetInstance().GetService<GameMap>()->Unload();
 }
 
 void Scene::Update()
@@ -143,7 +157,7 @@ void Scene::Update()
 
 	for (auto o : updated)
 		if (o->IsEnabled()) o->LateUpdate();
-	
+
 	if (mainCamera != nullptr) mainCamera->Update();
 }
 
@@ -159,6 +173,8 @@ void Scene::Render()
 
 void Scene::CleanDestroyedObjects()
 {
+	if (loaded == false) return;
+
 	if (destroyed.size() > 0)
 	{
 		for (auto o : destroyed)
@@ -176,6 +192,8 @@ void Scene::CleanDestroyedObjects()
 
 void Scene::ProcessInstantiateRequests()
 {
+	if (loaded == false) return;
+
 	if (instantiated.size() > 0)
 	{
 		for (auto o : instantiated)
