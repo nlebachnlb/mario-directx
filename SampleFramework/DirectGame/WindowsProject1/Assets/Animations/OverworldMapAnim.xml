@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Textures>
+	<Textures gameObjectId=0 textureId=0>
+		<Animation aniId="ani-castle" frameTime="100">
+			<Sprite id="spr-castle-0" left="52" top="1"  width="16" height="15"/>
+			<Sprite id="spr-castle-1" left="69" top="17"  width="16" height="15"/>
+		</Animation>
+		<Animation aniId="ani-ship" frameTime="100">
+			<Sprite id="spr-ship-0" left="86" top="1"  width="16" height="15"/>
+	    	<Sprite id="spr-ship-1" left="103" top="17"  width="16" height="15"/>
+		</Animation>
+		<Animation aniId="ani-tree" frameTime="100">
+			<Sprite id="spr-tree-0" left="1" top="17"  width="16" height="15"/>
+			<Sprite id="spr-tree-1" left="18" top="17"  width="16" height="15"/>
+			<Sprite id="spr-tree-2" left="35" top="17"  width="16" height="15"/>
+			<Sprite id="spr-tree-3" left="52" top="17"  width="16" height="15"/>
+		</Animation>
+		<Animation aniId="ani-slave" frameTime="100">
+			<Sprite id="spr-slave-0" left="103" top="17"  width="16" height="15"/>
+	    	<Sprite id="spr-slave-1" left="120" top="18"  width="16" height="14"/>
+		</Animation>
+    </Textures>
+</Textures>

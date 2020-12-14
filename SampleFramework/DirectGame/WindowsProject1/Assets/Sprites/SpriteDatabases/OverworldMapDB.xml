@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Textures>
+	<Textures gameObjectId=0 textureId="tex-map-selection">
+	    <Sprite id="spr-help-bubble-0" left="1" top="2"  width="16" height="13"/>
+	    <Sprite id="spr-M-0" left="18" top="0"  width="16" height="16"/>
+	    <Sprite id="spr-M-1" left="35" top="0"  width="16" height="16"/>
+	    <Sprite id="spr-castle-0" left="52" top="1"  width="16" height="15"/>
+	    <Sprite id="spr-castle-1" left="69" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-ship-0" left="86" top="1"  width="16" height="15"/>
+	    <Sprite id="spr-ship-1" left="103" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-tree-0" left="1" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-tree-1" left="18" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-tree-2" left="35" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-tree-3" left="52" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-mushroom-gate-0" left="69" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-domed-gate-0" left="86" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-slave-0" left="103" top="17"  width="16" height="15"/>
+	    <Sprite id="spr-slave-1" left="120" top="18"  width="16" height="14"/>
+	    <Sprite id="spr-start-0" left="1" top="33"  width="16" height="16"/>
+	    <Sprite id="spr-bridge-0" left="18" top="33"  width="16" height="16"/>
+	    <Sprite id="spr-gate-1" left="35" top="33"  width="16" height="15"/>
+	    <Sprite id="spr-gate-2" left="52" top="33"  width="16" height="15"/>
+	    <Sprite id="spr-gate-3" left="69" top="33"  width="16" height="15"/>
+	    <Sprite id="spr-gate-4" left="86" top="33"  width="16" height="15"/>
+	    <Sprite id="spr-gate-5" left="103" top="33"  width="16" height="15"/>
+	    <Sprite id="spr-gate-6" left="120" top="33"  width="16" height="15"/>
+	    <Sprite id="spr-spade-0" left="120" top="0"  width="16" height="15"/>
+	    <Sprite id="spr-spade-1" left="137" top="0"  width="16" height="16"/>
+    </Textures>
+</Textures>
