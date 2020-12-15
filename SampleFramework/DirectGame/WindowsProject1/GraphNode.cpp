@@ -1,8 +1,9 @@
 #include "GraphNode.h"
 
-GraphNode::GraphNode()
+GraphNode::GraphNode(int id)
 {
-    adjacentNodes = new std::vector<GraphNode*>();
+    this->nodeID = id;
+    adjacentNodes = new std::vector<Edge>();
 }
 
 GraphNode::~GraphNode()
@@ -16,12 +17,7 @@ int GraphNode::GetNodeID()
     return nodeID;
 }
 
-Weight GraphNode::GetWeight()
-{
-    return weight;
-}
-
-std::vector<GraphNode*>* GraphNode::GetAdjacentList()
+std::vector<Edge>* GraphNode::GetAdjacentList()
 {
     return adjacentNodes;
 }
