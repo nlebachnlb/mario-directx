@@ -195,11 +195,13 @@
     <ClInclude Include="LevelReward.h" />
     <ClInclude Include="MainCanvas.h" />
     <ClInclude Include="MapData.h" />
+    <ClInclude Include="MapNode.h" />
     <ClInclude Include="MapTree.h" />
     <ClInclude Include="MarioCollider.h" />
     <ClInclude Include="MarioFireball.h" />
     <ClInclude Include="MarioFX.h" />
     <ClInclude Include="Mathf.h" />
+    <ClInclude Include="Gate.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectTags.h" />
@@ -314,11 +316,13 @@
     <ClCompile Include="LevelReward.cpp" />
     <ClCompile Include="MainCanvas.cpp" />
     <ClCompile Include="MapData.cpp" />
+    <ClCompile Include="MapNode.cpp" />
     <ClCompile Include="MapTree.cpp" />
     <ClCompile Include="MarioCollider.cpp" />
     <ClCompile Include="MarioFireball.cpp" />
     <ClCompile Include="MarioFX.cpp" />
     <ClCompile Include="Mathf.cpp" />
+    <ClCompile Include="Gate.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectTags.cpp" />

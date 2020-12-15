@@ -240,7 +240,7 @@ void Game::GameRun(HWND hWnd)
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)
-				sceneManager->UnloadCurrentScene(), done = true;
+				done = true;
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
