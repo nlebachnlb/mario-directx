@@ -230,7 +230,7 @@
    </properties>
    <point/>
   </object>
-  <object id="2" name="node-0" type="src-start" x="120" y="168">
+  <object id="2" name="node-0" type="num-0" x="120" y="168">
    <properties>
     <property name="adjacent_list" value="1"/>
     <property name="adjacent_weight" value="r"/>
