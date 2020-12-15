@@ -585,7 +585,7 @@
     <ClInclude Include="MapNode.h">
       <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
     </ClInclude>
-    <ClInclude Include="NumberedGate.h">
+    <ClInclude Include="Gate.h">
       <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -972,7 +972,7 @@
     <ClCompile Include="MapNode.cpp">
       <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
     </ClCompile>
-    <ClCompile Include="NumberedGate.cpp">
+    <ClCompile Include="Gate.cpp">
       <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
     </ClCompile>
   </ItemGroup>

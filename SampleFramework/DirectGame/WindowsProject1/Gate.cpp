@@ -1,9 +1,9 @@
-#include "NumberedGate.h"
+#include "Gate.h"
 #include "Game.h"
 #include "Sprite.h"
 #include "Mathf.h"
 
-void NumberedGate::InitAnimations()
+void Gate::InitAnimations()
 {
 	auto sprMng = Game::GetInstance().GetService<SpriteManager>();
 
@@ -14,17 +14,23 @@ void NumberedGate::InitAnimations()
 	gates[4] = sprMng->Get("spr-gate-4");
 	gates[5] = sprMng->Get("spr-gate-5");
 	gates[6] = sprMng->Get("spr-gate-6");
+	gates[7] = sprMng->Get("spr-spade-0");
 
 	number = 0;
 }
 
-void NumberedGate::Render(Vector2 translation)
+void Gate::Render(Vector2 translation)
 {
-	if (!Mathf::InRange(number, 0, 6)) return;
+	if (!Mathf::InRange(number, 0, 7)) return;
 	gates[number]->Draw(transform.Position.x + translation.x, transform.Position.y + translation.y);
 }
 
-void NumberedGate::SetNumber(int value)
+void Gate::SetNumber(int value)
 {
 	number = value;
+}
+
+void Gate::SetScene(std::string id)
+{
+	sceneID = id;
 }

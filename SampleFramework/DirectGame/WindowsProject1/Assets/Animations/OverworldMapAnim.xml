@@ -9,7 +9,7 @@
 			<Sprite id="spr-ship-0" left="86" top="1"  width="16" height="15"/>
 	    	<Sprite id="spr-ship-1" left="103" top="17"  width="16" height="15"/>
 		</Animation>
-		<Animation aniId="ani-tree" frameTime="400">
+		<Animation aniId="ani-tree" frameTime="500">
 			<Sprite id="spr-tree-0" left="1" top="17"  width="16" height="15"/>
 			<Sprite id="spr-tree-1" left="18" top="17"  width="16" height="15"/>
 			<Sprite id="spr-tree-2" left="35" top="17"  width="16" height="15"/>

@@ -22,7 +22,7 @@
 #include "LevelReward.h"
 #include "MapTree.h"
 #include "MapNode.h"
-#include "NumberedGate.h"
+#include "Gate.h"
 
 GameMap::GameMap()
 {
@@ -319,9 +319,18 @@ void GameMap::Load(std::string filePath, bool manual)
                 if (type.at(0).compare("num") == 0)
                 {
                     int number = stoi(type.at(1));
-                    auto numberedGate = Instantiate<NumberedGate>();
+                    auto numberedGate = Instantiate<Gate>();
                     numberedGate->SetNumber(number);
                     obj = numberedGate;
+                }
+                else if (type.at(0).compare("bonus") == 0)
+                {
+                    if (type.at(1).compare("slot") == 0)
+                    {
+                        auto numberedGate = Instantiate<Gate>();
+                        numberedGate->SetNumber(7);
+                        obj = numberedGate;
+                    }
                 }
 
                 if (obj != nullptr)

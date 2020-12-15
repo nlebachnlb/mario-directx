@@ -201,7 +201,7 @@
     <ClInclude Include="MarioFireball.h" />
     <ClInclude Include="MarioFX.h" />
     <ClInclude Include="Mathf.h" />
-    <ClInclude Include="NumberedGate.h" />
+    <ClInclude Include="Gate.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectTags.h" />
@@ -322,7 +322,7 @@
     <ClCompile Include="MarioFireball.cpp" />
     <ClCompile Include="MarioFX.cpp" />
     <ClCompile Include="Mathf.cpp" />
-    <ClCompile Include="NumberedGate.cpp" />
+    <ClCompile Include="Gate.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectTags.cpp" />
