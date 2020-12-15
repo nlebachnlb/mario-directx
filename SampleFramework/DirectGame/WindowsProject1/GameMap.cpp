@@ -21,6 +21,8 @@
 #include "ItemBrick.h"
 #include "LevelReward.h"
 #include "MapTree.h"
+#include "MapNode.h"
+#include "NumberedGate.h"
 
 GameMap::GameMap()
 {
@@ -279,7 +281,7 @@ void GameMap::Load(std::string filePath, bool manual)
             }
         }
 
-        // MAP---
+#pragma region World Map
         if (groupName.compare("AnimatedBG") == 0)
         {
             for (int i = 0; i < objects->size(); ++i)
@@ -299,7 +301,39 @@ void GameMap::Load(std::string filePath, bool manual)
                 }
             }
         }
+
+        if (groupName.compare("WorldGraph") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
+            {
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                auto name = objects->at(i)->name;
+                auto type = split(objects->at(i)->type, "-");
+
+                int nodeId = stoi(objects->at(i)->GetPropertyValue("node_id"));
+                auto adj = split(objects->at(i)->GetPropertyValue("adjacent_list"), ",");
+                auto weight = split(objects->at(i)->GetPropertyValue("adjacent_weight"), ",");
+
+                MapNode* obj = nullptr;
+
+                if (type.at(0).compare("num") == 0)
+                {
+                    int number = stoi(type.at(1));
+                    auto numberedGate = Instantiate<NumberedGate>();
+                    numberedGate->SetNumber(number);
+                    obj = numberedGate;
+                }
+
+                if (obj != nullptr)
+                {
+                    obj->SetPosition(position);
+                    this->gameObjects.push_back(obj);
+                }
+            }
+        }
+#pragma endregion
     }
+
     return;
 }
 

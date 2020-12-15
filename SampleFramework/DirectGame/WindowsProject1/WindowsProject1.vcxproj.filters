@@ -217,6 +217,9 @@
     <Filter Include="GameSource\GameObjects\WorldMap\Graph">
       <UniqueIdentifier>{6914ce74-6652-4502-b158-5b09693c463b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\WorldMap\MapNodes">
+      <UniqueIdentifier>{771b4e6c-c549-429e-99d4-3cd576ee98bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -578,6 +581,12 @@
     </ClInclude>
     <ClInclude Include="Graph.h">
       <Filter>GameSource\GameObjects\WorldMap\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="MapNode.h">
+      <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberedGate.h">
+      <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -959,6 +968,12 @@
     </ClCompile>
     <ClCompile Include="Graph.cpp">
       <Filter>GameSource\GameObjects\WorldMap\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="MapNode.cpp">
+      <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberedGate.cpp">
+      <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
