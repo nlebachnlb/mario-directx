@@ -172,6 +172,8 @@
     <ClInclude Include="GlobalConfigs.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaSpawner.h" />
+    <ClInclude Include="Graph.h" />
+    <ClInclude Include="GraphNode.h" />
     <ClInclude Include="GreenKoopa.h" />
     <ClInclude Include="GreenKoopaParatroopa.h" />
     <ClInclude Include="GreenKoopasShell.h" />
@@ -290,6 +292,8 @@
     <ClCompile Include="AbstractEnemy.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="GoombaSpawner.cpp" />
+    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="GraphNode.cpp" />
     <ClCompile Include="GreenKoopa.cpp" />
     <ClCompile Include="GreenKoopaParatroopa.cpp" />
     <ClCompile Include="GreenKoopasShell.cpp" />

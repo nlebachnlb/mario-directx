@@ -211,6 +211,12 @@
     <Filter Include="Framework\Game\Scene">
       <UniqueIdentifier>{13f2f45b-1311-41aa-a42e-3fc51c7f8231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\WorldMap">
+      <UniqueIdentifier>{7520176b-15b5-45f5-a77b-e2f1e39ee380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\GameObjects\WorldMap\Graph">
+      <UniqueIdentifier>{6914ce74-6652-4502-b158-5b09693c463b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -566,6 +572,12 @@
     </ClInclude>
     <ClInclude Include="MapTree.h">
       <Filter>GameSource\GameObjects\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphNode.h">
+      <Filter>GameSource\GameObjects\WorldMap\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>GameSource\GameObjects\WorldMap\Graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -941,6 +953,12 @@
     </ClCompile>
     <ClCompile Include="MapTree.cpp">
       <Filter>GameSource\GameObjects\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphNode.cpp">
+      <Filter>GameSource\GameObjects\WorldMap\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>GameSource\GameObjects\WorldMap\Graph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
