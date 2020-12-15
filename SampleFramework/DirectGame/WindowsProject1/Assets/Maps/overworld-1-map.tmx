@@ -360,8 +360,8 @@
   </object>
   <object id="18" name="node-17" x="408" y="360">
    <properties>
-    <property name="adjacent_list" value="18,19"/>
-    <property name="adjacent_weight" value="l,r"/>
+    <property name="adjacent_list" value="18,19,16"/>
+    <property name="adjacent_weight" value="l,r,d"/>
     <property name="node_id" type="int" value="17"/>
    </properties>
    <point/>
