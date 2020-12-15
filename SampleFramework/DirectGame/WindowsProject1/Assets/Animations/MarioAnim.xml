@@ -5,7 +5,7 @@
 
 		<!--Small Mario-->
     <!-- Animation MAP-->
-    <Animation aniId="ani-small-mario-map" frameTime="200" name="IDLE-FRONT">
+    <Animation aniId="ani-small-mario-map" frameTime="500" name="IDLE-FRONT">
       <Sprite id="spr-small-mario-map-0" left="397" top="8"  width="16" height="16" frameTime="100"/>
       <Sprite id="spr-small-mario-map-1" left="397" top="8"  width="16" height="16" frameTime="100"/>
     </Animation>
@@ -82,7 +82,7 @@
 
 		<!--Big Mario-->
     <!-- Animation MAP-->
-    <Animation aniId="ani-big-mario-map" frameTime="200" name="IDLE-FRONT">
+    <Animation aniId="ani-big-mario-map" frameTime="400" name="IDLE-FRONT">
       <Sprite id="spr-big-mario-map-0" left="397" top="8"  width="16" height="16" frameTime="100"/>
       <Sprite id="spr-big-mario-map-1" left="397" top="8"  width="16" height="16" frameTime="100"/>
     </Animation>
@@ -189,7 +189,7 @@
 
 		<!--Raccoon Mario-->
     <!-- Animation MAP-->
-    <Animation aniId="ani-raccoon-mario-map" frameTime="200" name="IDLE-FRONT">
+    <Animation aniId="ani-raccoon-mario-map" frameTime="400" name="IDLE-FRONT">
       <Sprite id="spr-raccoon-mario-map-0" left="397" top="8"  width="16" height="16" frameTime="100"/>
       <Sprite id="spr-raccoon-mario-map-1" left="397" top="8"  width="16" height="16" frameTime="100"/>
     </Animation>
@@ -309,7 +309,7 @@
 
 		<!--Fire Mario-->
 		<!-- Animation MAP -->
-		<Animation aniId="ani-fire-mario-map" frameTime="200" name="FIRE">
+		<Animation aniId="ani-fire-mario-map" frameTime="400" name="FIRE">
 			<Sprite id="spr-fire-mario-map-0" left="124" top="115"  width="16" height="21" frameTime="100"/>
 			<Sprite id="spr-fire-mario-map-1" left="143" top="115"  width="16" height="21" frameTime="100"/>
 		</Animation>

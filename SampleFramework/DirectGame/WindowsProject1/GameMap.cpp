@@ -23,6 +23,8 @@
 #include "MapTree.h"
 #include "MapNode.h"
 #include "Gate.h"
+#include "Graph.h"
+#include "WorldMapScene.h"
 
 GameMap::GameMap()
 {
@@ -304,6 +306,8 @@ void GameMap::Load(std::string filePath, bool manual)
 
         if (groupName.compare("WorldGraph") == 0)
         {
+            Graph* mapGraph = new Graph();
+
             for (int i = 0; i < objects->size(); ++i)
             {
                 Vector2 position(objects->at(i)->x, objects->at(i)->y);
@@ -313,6 +317,25 @@ void GameMap::Load(std::string filePath, bool manual)
                 int nodeId = stoi(objects->at(i)->GetPropertyValue("node_id"));
                 auto adj = split(objects->at(i)->GetPropertyValue("adjacent_list"), ",");
                 auto weight = split(objects->at(i)->GetPropertyValue("adjacent_weight"), ",");
+
+                GraphNode* node = new GraphNode(nodeId);
+                node->SetPosition(position);
+                auto adjList = node->GetAdjacentList();
+                for (int i = 0; i < adj.size(); ++i)
+                {
+                    auto id = stoi(adj[i]);
+                    Edge edge;
+                    edge.nodeID = id; 
+                    Weight w = Weight::None;
+                    if (weight[i].compare("l") == 0) w = Weight::Left;
+                    else if (weight[i].compare("r") == 0) w = Weight::Right;
+                    else if (weight[i].compare("u") == 0) w = Weight::Up;
+                    else if (weight[i].compare("d") == 0) w = Weight::Down;
+                    edge.weight = w;
+                    adjList->push_back(edge);
+                }
+
+                mapGraph->InsertNode(node);
 
                 MapNode* obj = nullptr;
 
@@ -337,6 +360,16 @@ void GameMap::Load(std::string filePath, bool manual)
                 {
                     obj->SetPosition(position);
                     this->gameObjects.push_back(obj);
+                }
+
+                Scene* scene = Game::GetInstance().GetService<SceneManager>()->GetBeingLoadedScene();
+                if (scene != nullptr)
+                {
+                    WorldMapScene* worldMapScene = dynamic_cast<WorldMapScene*>(scene);
+                    if (worldMapScene != nullptr)
+                    {
+                        worldMapScene->GetMarioLocator()->SetMap(mapGraph);
+                    }
                 }
             }
         }

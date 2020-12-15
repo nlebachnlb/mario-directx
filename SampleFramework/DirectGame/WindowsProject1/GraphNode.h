@@ -20,6 +20,8 @@ public:
 	~GraphNode();
 
 	int GetNodeID();
+	void SetPosition(Vector2 position);
+	Vector2 GetPosition();
 
 	std::vector<Edge>* GetAdjacentList();
 private:

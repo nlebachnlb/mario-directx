@@ -33,11 +33,13 @@ void SceneManager::ProcessLoadRequests()
     {
         for (auto scene : loadRequests)
         {
+            beingLoadedScene = scene;
             scene->Load();
             // loadedScenes.insert(make_pair(scene->GetID(), scene));
             loadedScenes[scene->GetID()] = scene;
             activeSceneID = scene->GetID();
             scene->Init();
+            beingLoadedScene = nullptr;
         }
 
         loadRequests.clear();
@@ -69,4 +71,9 @@ Scene* SceneManager::GetActiveScene()
         return loadedScenes.at(activeSceneID);
     else
         return nullptr;
+}
+
+Scene* SceneManager::GetBeingLoadedScene()
+{
+    return beingLoadedScene;
 }

@@ -17,6 +17,16 @@ int GraphNode::GetNodeID()
     return nodeID;
 }
 
+void GraphNode::SetPosition(Vector2 position)
+{
+    this->position = position;
+}
+
+Vector2 GraphNode::GetPosition()
+{
+    return position;
+}
+
 std::vector<Edge>* GraphNode::GetAdjacentList()
 {
     return adjacentNodes;

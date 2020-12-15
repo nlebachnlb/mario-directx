@@ -588,6 +588,9 @@
     <ClInclude Include="Gate.h">
       <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
     </ClInclude>
+    <ClInclude Include="MarioLocator.h">
+      <Filter>GameSource\GameObjects\WorldMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -974,6 +977,9 @@
     </ClCompile>
     <ClCompile Include="Gate.cpp">
       <Filter>GameSource\GameObjects\WorldMap\MapNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioLocator.cpp">
+      <Filter>GameSource\GameObjects\WorldMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
