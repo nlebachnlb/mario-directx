@@ -227,6 +227,7 @@
     <property name="adjacent_list" value="1,3"/>
     <property name="adjacent_weight" value="d,r"/>
     <property name="node_id" type="int" value="2"/>
+    <property name="scene" value="world-1-1"/>
    </properties>
    <point/>
   </object>
@@ -235,6 +236,7 @@
     <property name="adjacent_list" value="1"/>
     <property name="adjacent_weight" value="r"/>
     <property name="node_id" type="int" value="0"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -243,6 +245,7 @@
     <property name="adjacent_list" value="0,2"/>
     <property name="adjacent_weight" value="l,u"/>
     <property name="node_id" type="int" value="1"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -251,6 +254,7 @@
     <property name="adjacent_list" value="2,4"/>
     <property name="adjacent_weight" value="l,r"/>
     <property name="node_id" type="int" value="3"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -259,6 +263,7 @@
     <property name="adjacent_list" value="4,6"/>
     <property name="adjacent_weight" value="l,r"/>
     <property name="node_id" type="int" value="5"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -267,6 +272,7 @@
     <property name="adjacent_list" value="3,5,9"/>
     <property name="adjacent_weight" value="l,r,d"/>
     <property name="node_id" type="int" value="4"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -275,6 +281,7 @@
     <property name="adjacent_list" value="5,7"/>
     <property name="adjacent_weight" value="l,d"/>
     <property name="node_id" type="int" value="6"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -283,6 +290,7 @@
     <property name="adjacent_list" value="6,8"/>
     <property name="adjacent_weight" value="u,l"/>
     <property name="node_id" type="int" value="7"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -291,6 +299,7 @@
     <property name="adjacent_list" value="9,7"/>
     <property name="adjacent_weight" value="l,r"/>
     <property name="node_id" type="int" value="8"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -299,6 +308,7 @@
     <property name="adjacent_list" value="4,8,10"/>
     <property name="adjacent_weight" value="u,r,d"/>
     <property name="node_id" type="int" value="9"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -307,6 +317,7 @@
     <property name="adjacent_list" value="9,11"/>
     <property name="adjacent_weight" value="u,l"/>
     <property name="node_id" type="int" value="10"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -315,6 +326,7 @@
     <property name="adjacent_list" value="12,10"/>
     <property name="adjacent_weight" value="l,r"/>
     <property name="node_id" type="int" value="11"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -323,6 +335,7 @@
     <property name="adjacent_list" value="11,13"/>
     <property name="adjacent_weight" value="r,d"/>
     <property name="node_id" type="int" value="12"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -331,6 +344,7 @@
     <property name="adjacent_list" value="12,14"/>
     <property name="adjacent_weight" value="u,d"/>
     <property name="node_id" type="int" value="13"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -339,6 +353,7 @@
     <property name="adjacent_list" value="13,15"/>
     <property name="adjacent_weight" value="u,r"/>
     <property name="node_id" type="int" value="14"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -347,6 +362,7 @@
     <property name="adjacent_list" value="14,16"/>
     <property name="adjacent_weight" value="l,r"/>
     <property name="node_id" type="int" value="15"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -355,6 +371,7 @@
     <property name="adjacent_list" value="15,17"/>
     <property name="adjacent_weight" value="l,u"/>
     <property name="node_id" type="int" value="16"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -363,6 +380,7 @@
     <property name="adjacent_list" value="18,19,16"/>
     <property name="adjacent_weight" value="l,r,d"/>
     <property name="node_id" type="int" value="17"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -371,6 +389,7 @@
     <property name="adjacent_list" value="17"/>
     <property name="adjacent_weight" value="r"/>
     <property name="node_id" type="int" value="18"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
@@ -379,6 +398,7 @@
     <property name="adjacent_list" value="17"/>
     <property name="adjacent_weight" value="l"/>
     <property name="node_id" type="int" value="19"/>
+    <property name="scene" value=""/>
    </properties>
    <point/>
   </object>
