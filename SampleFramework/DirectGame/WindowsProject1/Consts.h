@@ -3,7 +3,7 @@
 #include "resource.h"
 #include <string>
 
-#define TITLE L"Mario"
+#define TITLE L"Super Mario Bros. 3 (NES)"
 
 #define CATEGORY_TEXTURE "Textures"
 #define CATEGORY_SPRITE "Sprites"
@@ -20,6 +20,7 @@
 #define TEXTURE_HUD "tex-ui"
 #define TEXTURE_BOX "tex-box"
 #define TEXTURE_REWARD "tex-reward"
+#define TEXTURE_OVERWORLD_MAP "tex-overworld"
 
 #define FIREBALL_TRANS_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define DEFAULT_TRANS_COLOR D3DCOLOR_XRGB(254, 254, 254)
@@ -29,12 +30,14 @@
 #define DB_SPRITE_MISC "spr-misc"
 #define DB_SPRITE_EFFECT "spr-effect"
 #define DB_SPRITE_HUD "spr-hud"
+#define DB_SPRITE_OVERWORLD_MAP "spr-overworld"
 
 #define DB_ANIMATION_MARIO "ani-mario"
 #define DB_ANIMATION_ENEMY "ani-enemy"
 #define DB_ANIMATION_MISC "ani-misc"
 #define DB_ANIMATION_EFFECT "ani-effect"
 #define DB_ANIMATION_HUD "ani-hud"
+#define DB_ANIMATION_OVERWORLD_MAP "ani-overworld"
 
 #define SC_OVERWORLD_MAP_1 "overworld-1"
 #define SC_WOLRD_1_1 "world-1-1"

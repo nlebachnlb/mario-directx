@@ -20,6 +20,7 @@
 #include "WarpMark.h"
 #include "ItemBrick.h"
 #include "LevelReward.h"
+#include "MapTree.h"
 
 GameMap::GameMap()
 {
@@ -274,6 +275,27 @@ void GameMap::Load(std::string filePath, bool manual)
                     auto reward = Instantiate<LevelReward>();
                     reward->SetPosition(position);
                     this->gameObjects.push_back(reward);
+                }
+            }
+        }
+
+        // MAP---
+        if (groupName.compare("AnimatedBG") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
+            {
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                auto name = objects->at(i)->name;
+
+                GameObject obj = nullptr;
+
+                if (name.compare("tree") == 0)
+                    obj = Instantiate<MapTree>();
+
+                if (obj != nullptr)
+                {
+                    obj->SetPosition(position);
+                    this->gameObjects.push_back(obj);
                 }
             }
         }

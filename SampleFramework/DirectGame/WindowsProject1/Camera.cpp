@@ -111,7 +111,7 @@ void Camera::Render(std::vector<GameObject>& objs)
     }
 
     for (auto o : objs)
-        if (o->IsEnabled()) o->Render(-(GetPosition() + renderOffset));
+        if (o->IsEnabled()) o->Render(-(GetPosition() - renderOffset));
 }
 
 bool Camera::RectInsideCameraView(RectF rect)

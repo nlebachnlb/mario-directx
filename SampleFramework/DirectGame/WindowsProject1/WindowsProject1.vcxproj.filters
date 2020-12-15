@@ -564,6 +564,9 @@
     <ClInclude Include="WorldMapScene.h">
       <Filter>GameSource\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="MapTree.h">
+      <Filter>GameSource\GameObjects\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -935,6 +938,9 @@
     </ClCompile>
     <ClCompile Include="WorldMapScene.cpp">
       <Filter>GameSource\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MapTree.cpp">
+      <Filter>GameSource\GameObjects\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

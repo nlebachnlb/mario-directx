@@ -193,6 +193,7 @@
     <ClInclude Include="LevelReward.h" />
     <ClInclude Include="MainCanvas.h" />
     <ClInclude Include="MapData.h" />
+    <ClInclude Include="MapTree.h" />
     <ClInclude Include="MarioCollider.h" />
     <ClInclude Include="MarioFireball.h" />
     <ClInclude Include="MarioFX.h" />
@@ -309,6 +310,7 @@
     <ClCompile Include="LevelReward.cpp" />
     <ClCompile Include="MainCanvas.cpp" />
     <ClCompile Include="MapData.cpp" />
+    <ClCompile Include="MapTree.cpp" />
     <ClCompile Include="MarioCollider.cpp" />
     <ClCompile Include="MarioFireball.cpp" />
     <ClCompile Include="MarioFX.cpp" />

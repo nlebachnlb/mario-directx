@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
-	<Textures gameObjectId=0 textureId="tex-map-selection">
+	<Textures gameObjectId="0" textureId="tex-overworld">
 	    <Sprite id="spr-help-bubble-0" left="1" top="2"  width="16" height="13"/>
 	    <Sprite id="spr-M-0" left="18" top="0"  width="16" height="16"/>
 	    <Sprite id="spr-M-1" left="35" top="0"  width="16" height="16"/>
