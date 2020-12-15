@@ -21,7 +21,8 @@ Scene::Scene(std::string filePath)
 
 Scene::~Scene()
 {
-
+	delete objects;
+	objects = nullptr;
 }
 
 void Scene::Load()
@@ -129,12 +130,15 @@ void Scene::Unload()
 
 	Canvas::OnSceneUnloadedEvent();
 
-	for (auto o : *objects)
-		delete o;
+	/*for (auto o : *objects)
+		delete o;*/
 
-	objects->clear();
+	for (auto o : *objects) 
+		Destroy(o);
+
+	/*objects->clear();
 	delete objects;
-	objects = nullptr;
+	objects = nullptr;*/
 
 	if (mainCamera != nullptr)
 	{
@@ -173,7 +177,7 @@ void Scene::Render()
 
 void Scene::CleanDestroyedObjects()
 {
-	if (loaded == false) return;
+	//if (loaded == false) return;
 
 	if (destroyed.size() > 0)
 	{
@@ -244,6 +248,11 @@ void Scene::UpdateActiveObjects()
 			else updated.push_back(o);
 		}
 	}
+}
+
+void Scene::SetFilePath(std::string path)
+{
+	this->filePath = path;
 }
 
 void Scene::AddObject(GameObject gameObject)

@@ -317,9 +317,11 @@ void GameMap::Load(std::string filePath, bool manual)
                 int nodeId = stoi(objects->at(i)->GetPropertyValue("node_id"));
                 auto adj = split(objects->at(i)->GetPropertyValue("adjacent_list"), ",");
                 auto weight = split(objects->at(i)->GetPropertyValue("adjacent_weight"), ",");
+                auto linkedScene = objects->at(i)->GetPropertyValue("scene");
 
                 GraphNode* node = new GraphNode(nodeId);
                 node->SetPosition(position);
+                node->SetSceneID(linkedScene);
                 auto adjList = node->GetAdjacentList();
                 for (int i = 0; i < adj.size(); ++i)
                 {
@@ -337,39 +339,33 @@ void GameMap::Load(std::string filePath, bool manual)
 
                 mapGraph->InsertNode(node);
 
-                MapNode* obj = nullptr;
-
                 if (type.at(0).compare("num") == 0)
                 {
                     int number = stoi(type.at(1));
-                    auto numberedGate = Instantiate<Gate>();
-                    numberedGate->SetNumber(number);
-                    obj = numberedGate;
+                    auto gate = Instantiate<Gate>();
+                    gate->SetNumber(number);
+                    gate->SetPosition(position);
+                    this->gameObjects.push_back(gate);
                 }
                 else if (type.at(0).compare("bonus") == 0)
                 {
                     if (type.at(1).compare("slot") == 0)
                     {
-                        auto numberedGate = Instantiate<Gate>();
-                        numberedGate->SetNumber(7);
-                        obj = numberedGate;
+                        auto gate = Instantiate<Gate>();
+                        gate->SetNumber(7);
+                        gate->SetPosition(position);
+                        this->gameObjects.push_back(gate);
                     }
                 }
+            }
 
-                if (obj != nullptr)
+            Scene* scene = Game::GetInstance().GetService<SceneManager>()->GetBeingLoadedScene();
+            if (scene != nullptr)
+            {
+                WorldMapScene* worldMapScene = dynamic_cast<WorldMapScene*>(scene);
+                if (worldMapScene != nullptr)
                 {
-                    obj->SetPosition(position);
-                    this->gameObjects.push_back(obj);
-                }
-
-                Scene* scene = Game::GetInstance().GetService<SceneManager>()->GetBeingLoadedScene();
-                if (scene != nullptr)
-                {
-                    WorldMapScene* worldMapScene = dynamic_cast<WorldMapScene*>(scene);
-                    if (worldMapScene != nullptr)
-                    {
-                        worldMapScene->GetMarioLocator()->SetMap(mapGraph);
-                    }
+                    worldMapScene->GetMarioLocator()->SetMap(mapGraph);
                 }
             }
         }

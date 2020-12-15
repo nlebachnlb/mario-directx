@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "AnimationDatabase.h"
 #include "Mathf.h"
+#include "MainCanvas.h"
 
 void MarioLocator::Awake()
 {
@@ -29,7 +30,7 @@ void MarioLocator::Update()
 		auto normalized = Mathf::Normalize(delta);
 		transform.Position = transform.Position + normalized * MOVE_SPEED * dt;
 	}
-	else if (onGoing)
+	else if (onGoing == 1)
 	{
 		onGoing = 0;
 		transform.Position = destination;
@@ -42,6 +43,19 @@ void MarioLocator::OnKeyDown(int keyCode)
 	if (onGoing) return;
 
 	auto node = map->GetNode(currentNode);
+	if (keyCode == DIK_A)
+	{
+		if (Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, node->GetSceneID()).empty())
+			return;
+
+		MainCanvas* canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+		canvas->SetTargetScene(node->GetSceneID());
+		canvas->GetGameReady();
+		canvas->StartTransition();
+		onGoing = 2;
+		return;
+	}
+
 	int acceptedKey;
 	for (auto adj : *node->GetAdjacentList())
 	{

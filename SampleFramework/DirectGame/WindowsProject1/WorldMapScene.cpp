@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "MainCanvas.h";
 
-
 void WorldMapScene::Load()
 {
 	DebugOut(L"World map\n");

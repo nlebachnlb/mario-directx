@@ -34,13 +34,17 @@ public:
 	void ResetTimer();
 
 	void StartGame();
+	void GetGameReady();
 	void FinishGame(int card);
 	void StartTransition();
 
 	bool IsSwitchTime();
 	void SwitchCoinBrick(bool freeze = false);
 	void StartSwitchTimer();
+
+	void SetTargetScene(std::string id);
 private:
+	void GameReady();
 	void GameRun();
 	void GameFinish();
 
@@ -51,7 +55,11 @@ private:
 	float alpha;
 	bool timeFreeze;
 	GameState gameState;
-	int transition;
+
+	int transition, transTimer;
+	Vector2 wipePosition;
+	std::string targetSceneID;
+
 	PlayerController* player;
 
 	Text* courseClear, *reward;
