@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene bgcolor_r="0" bgcolor_g="0" bgcolor_b="0">
+  <Scene name="Map" source="Assets/Maps/overworld-1-map.tmx"/>
+  <Scene name="Player" pos_x="64" pos_y="1000"/>
+  <Scene name="Camera" start="0" main="0">
+    <Boundary id="0" pos_x="0" pos_y="0" left="0" top="0" right="824" bottom="744"/>
+  </Scene>
+</Scene>

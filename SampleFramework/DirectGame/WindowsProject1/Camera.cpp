@@ -32,6 +32,8 @@ Camera::~Camera()
 void Camera::Update()
 {
     if (map == nullptr) map = Game::GetInstance().GetService<GameMap>();
+    if (target == nullptr) return;
+
     auto dt = Game::FixedDeltaTime() * Game::GetTimeScale() * 0.001f;
 
     auto pos = this->position;

@@ -598,6 +598,9 @@
     <Image Include="Assets\Sprites\effect_white_254_x3.png">
       <Filter>GameSource\Assets\Sprites</Filter>
     </Image>
+    <Image Include="Assets\Maps\overworld-1.png">
+      <Filter>GameSource\Assets\Maps</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -935,6 +938,9 @@
     <None Include="Assets\Maps\world-1-1-map.tmx">
       <Filter>GameSource\Assets\Maps</Filter>
     </None>
+    <None Include="Assets\Maps\overworld-1-map.tmx">
+      <Filter>GameSource\Assets\Maps</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Scenes\World1-1.xml">
@@ -978,6 +984,15 @@
     </Xml>
     <Xml Include="Assets\Sprites\SpriteDatabases\EffectDB.xml">
       <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
+    </Xml>
+    <Xml Include="Assets\Animations\OverworldMapAnim.xml">
+      <Filter>GameSource\Assets\Animations</Filter>
+    </Xml>
+    <Xml Include="Assets\Sprites\SpriteDatabases\OverworldMapDB.xml">
+      <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
+    </Xml>
+    <Xml Include="Overworld1.xml">
+      <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
   </ItemGroup>
 </Project>

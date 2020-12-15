@@ -379,6 +379,7 @@
     <ResourceCompile Include="WindowsProject1.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Maps\overworld-1.png" />
     <Image Include="Assets\Maps\world-1-1.png" />
     <Image Include="Assets\Sprites\effect_white_254_x3.png" />
     <Image Include="Assets\Sprites\enemy.png" />
@@ -391,6 +392,7 @@
     <Image Include="WindowsProject1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Maps\overworld-1-map.tmx" />
     <None Include="Assets\Maps\world-1-1-map.tmx" />
     <None Include="Assets\root.xml" />
   </ItemGroup>
@@ -400,6 +402,7 @@
     <Xml Include="Assets\Animations\IntroAnim.xml" />
     <Xml Include="Assets\Animations\MarioAnim.xml" />
     <Xml Include="Assets\Animations\MiscAnim.xml" />
+    <Xml Include="Assets\Animations\OverworldMapAnim.xml" />
     <Xml Include="Assets\Animations\UiAnim.xml" />
     <Xml Include="Assets\config.xml" />
     <Xml Include="Assets\Scenes\World1-1.xml" />
@@ -408,7 +411,9 @@
     <Xml Include="Assets\Sprites\SpriteDatabases\IntroDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\MarioDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\MiscDB.xml" />
+    <Xml Include="Assets\Sprites\SpriteDatabases\OverworldMapDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\UiDB.xml" />
+    <Xml Include="Overworld1.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
