@@ -16,11 +16,13 @@ public:
 
 	std::string GetActiveSceneID() { return activeSceneID; }
 	Scene* GetActiveScene();
+	Scene* GetBeingLoadedScene();
 	Scene* Get(std::string id) { return loadedScenes.at(id); }
 private:
 	unordered_map<std::string, Scene*> loadedScenes;
 	std::string activeSceneID;
 	std::vector<std::string> unloadRequests;
 	std::vector<Scene*> loadRequests;
+	Scene* beingLoadedScene;
 };
 

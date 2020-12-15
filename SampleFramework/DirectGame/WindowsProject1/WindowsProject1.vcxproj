@@ -200,6 +200,7 @@
     <ClInclude Include="MarioCollider.h" />
     <ClInclude Include="MarioFireball.h" />
     <ClInclude Include="MarioFX.h" />
+    <ClInclude Include="MarioLocator.h" />
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="ObjectGroup.h" />
@@ -321,6 +322,7 @@
     <ClCompile Include="MarioCollider.cpp" />
     <ClCompile Include="MarioFireball.cpp" />
     <ClCompile Include="MarioFX.cpp" />
+    <ClCompile Include="MarioLocator.cpp" />
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />

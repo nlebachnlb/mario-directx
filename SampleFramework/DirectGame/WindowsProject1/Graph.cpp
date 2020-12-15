@@ -7,5 +7,6 @@ void Graph::InsertNode(GraphNode* node)
 
 GraphNode* Graph::GetNode(int id)
 {
+	if (nodes.find(id) == nodes.end()) return nullptr;
 	return nodes[id];
 }
