@@ -36,6 +36,7 @@
 #define DB_ANIMATION_EFFECT "ani-effect"
 #define DB_ANIMATION_HUD "ani-hud"
 
+#define SC_OVERWORLD_MAP_1 "overworld-1"
 #define SC_WOLRD_1_1 "world-1-1"
 
 #define CG_GLOBAL_CONFIG "global-config"

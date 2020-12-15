@@ -41,6 +41,7 @@ void GameMap::Load(std::string filePath, bool manual)
 
     auto fxPool = new EffectPool();
     spawnerManager->AddService(fxPool);
+    DebugOut(L"Add FX Pool\n");
 
     auto tilesets = mapData->GetTilesets();
     auto texManager = Game::GetInstance().GetService<TextureManager>();
@@ -299,8 +300,7 @@ void GameMap::Unload()
     if (mapData != nullptr) delete mapData;
     mapData = nullptr;
     spawnerManager->ClearServices();
-    delete spawnerManager;
-    spawnerManager = nullptr;
+
     gameObjects.clear();
 }
 

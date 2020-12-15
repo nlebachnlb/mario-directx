@@ -263,6 +263,7 @@
     <ClInclude Include="WarpInfo.h" />
     <ClInclude Include="WarpMark.h" />
     <ClInclude Include="WarpUtils.h" />
+    <ClInclude Include="WorldMapScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractBlock.cpp" />
@@ -374,6 +375,7 @@
     <ClCompile Include="WarpEntrance.cpp" />
     <ClCompile Include="WarpInfo.cpp" />
     <ClCompile Include="WarpMark.cpp" />
+    <ClCompile Include="WorldMapScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc" />
@@ -405,6 +407,7 @@
     <Xml Include="Assets\Animations\OverworldMapAnim.xml" />
     <Xml Include="Assets\Animations\UiAnim.xml" />
     <Xml Include="Assets\config.xml" />
+    <Xml Include="Assets\Scenes\Overworld1.xml" />
     <Xml Include="Assets\Scenes\World1-1.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\EffectDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\EnemyDB.xml" />
@@ -413,7 +416,6 @@
     <Xml Include="Assets\Sprites\SpriteDatabases\MiscDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\OverworldMapDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\UiDB.xml" />
-    <Xml Include="Overworld1.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

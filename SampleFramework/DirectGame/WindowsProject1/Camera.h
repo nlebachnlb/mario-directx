@@ -37,6 +37,7 @@ public:
 
 	void SetTarget(GameObject gameObject);
 	void SetBoundary(RectF boundary);
+	void SetRenderOffset(Vector2 offset);
 
 	void AddBoundarySet(int id, Vector2 position, RectF boundary);
 	void AddBoundarySet(int id, BoundarySet bSet);
@@ -69,5 +70,6 @@ private:
 	int mapWidth, mapHeight;
 	bool initialized;
 	RectF lastBoundary;
+	Vector2 renderOffset;
 };
 

@@ -15,6 +15,7 @@ Camera::Camera()
     this->followSpeed = 30.0f;
     initialized = false;
     lastBoundary = RectF::Empty();
+    renderOffset = VectorZero();
 }
 
 Camera::Camera(Vector2 startPosition, Vector2 viewportSize)
@@ -103,14 +104,14 @@ void Camera::Render(std::vector<GameObject>& objs)
                 tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
 
                 Vector2 finalPosition(xGrid * tileWidth, yGrid * tileHeight);
-                finalPosition = finalPosition + translation;
+                finalPosition = finalPosition + translation + renderOffset;
                 tile->Draw(finalPosition.x, finalPosition.y);
             }
         }
     }
 
     for (auto o : objs)
-        if (o->IsEnabled()) o->Render(-GetPosition());
+        if (o->IsEnabled()) o->Render(-(GetPosition() + renderOffset));
 }
 
 bool Camera::RectInsideCameraView(RectF rect)
@@ -162,6 +163,11 @@ void Camera::SetBoundary(RectF boundary)
 {
     lastBoundary = boundary;
     this->boundary = boundary;
+}
+
+void Camera::SetRenderOffset(Vector2 offset)
+{
+    renderOffset = offset;
 }
 
 void Camera::AddBoundarySet(int id, Vector2 position, RectF boundary)

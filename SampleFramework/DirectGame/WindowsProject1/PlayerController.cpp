@@ -6,6 +6,7 @@
 #include "EffectPool.h"
 #include "MarioFX.h"
 #include "ExampleScene.h"
+#include "WorldMapScene.h"
 
 void PlayerController::Awake()
 {
@@ -91,7 +92,7 @@ void PlayerController::OnKeyDown(int keyCode)
 		SwitchToState("RaccoonMario");
 	else if (keyCode == DIK_SPACE)
 	{
-		Game::GetInstance().GetService<SceneManager>()->LoadScene(new ExampleScene());
+		Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 	}
 }
 

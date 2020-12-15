@@ -561,6 +561,9 @@
     <ClInclude Include="RewardFX.h">
       <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMapScene.h">
+      <Filter>GameSource\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -930,6 +933,9 @@
     <ClCompile Include="RewardFX.cpp">
       <Filter>GameSource\GameObjects\Effects\ScoreFX</Filter>
     </ClCompile>
+    <ClCompile Include="WorldMapScene.cpp">
+      <Filter>GameSource\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\root.xml">
@@ -991,7 +997,7 @@
     <Xml Include="Assets\Sprites\SpriteDatabases\OverworldMapDB.xml">
       <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
-    <Xml Include="Overworld1.xml">
+    <Xml Include="Assets\Scenes\Overworld1.xml">
       <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
   </ItemGroup>
