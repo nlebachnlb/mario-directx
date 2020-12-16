@@ -3,6 +3,18 @@
 #include <vector>
 const int GAME_TIME = 300 * 1000;
 
+enum class GameplayStatus
+{
+	None, Lose, Victory
+};
+
+struct WorldMapTempData
+{
+	int lastNodeID, currentNodeID;
+	GameplayStatus status;
+	WorldMapTempData() { lastNodeID = currentNodeID = 0; status = GameplayStatus::None; }
+};
+
 struct GameData
 {
 	GameData();
@@ -11,10 +23,13 @@ struct GameData
 	void ModifyCoin(int coin, bool relative = false);
 	void ModifyLife(int life, bool relative = false);
 	void ModifyScore(long score, bool relative = false);
-	
+
 	void ResetCombo();
 	void GainCombo();
 	int GetCombo();
+
+	WorldMapTempData GetWorldMapTempData();
+	void SetWorldMapTempData(WorldMapTempData data);
 
 	std::vector<int>* GetCards();
 
@@ -28,5 +43,7 @@ private:
 	int combo;
 	std::string marioPowerup;
 	std::vector<int>* cards;
+
+	WorldMapTempData tempData;
 };
 

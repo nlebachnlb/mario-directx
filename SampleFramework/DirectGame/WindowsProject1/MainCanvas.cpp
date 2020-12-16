@@ -122,10 +122,18 @@ void MainCanvas::Render()
 		{
 			auto graphics = Game::GetInstance();
 			auto conf = Game::GetInstance().GetGlobalConfigs();
-			graphics.DrawTexture(wipePosition.x - conf.screenWidth, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
-			graphics.DrawTexture(conf.screenWidth - wipePosition.x, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
-			graphics.DrawTexture(0, wipePosition.y - conf.screenHeight, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
-			graphics.DrawTexture(0, conf.screenHeight - wipePosition.y, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+
+			if (transition >= 2)
+			{
+				graphics.DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+			}
+			else
+			{
+				graphics.DrawTexture(wipePosition.x - conf.screenWidth, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+				graphics.DrawTexture(conf.screenWidth - wipePosition.x, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+				graphics.DrawTexture(0, wipePosition.y - conf.screenHeight, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+				graphics.DrawTexture(0, conf.screenHeight - wipePosition.y, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+			}
 		}
 	}
 	break;
@@ -159,6 +167,8 @@ void MainCanvas::StartGame()
 
 void MainCanvas::GetGameReady()
 {
+	courseClear->SetContent("");
+	reward->SetContent("");
 	gameState = GameState::Ready;
 }
 
@@ -235,9 +245,9 @@ void MainCanvas::GameReady()
 	case 1:
 	{
 		auto config = Game::GetInstance().GetGlobalConfigs();
-		int duration = 700; // 1.5s
+		int duration = 700; // 0.7s
 		int delay = 300;
-		int dx = config.screenWidth * 0.5f;
+		int dx = config.screenWidth * 0.35f;
 		int dy = config.screenHeight * 0.5f;
 		float vx = (float)dx / (float)duration;
 		float vy = (float)dy / (float)duration;
@@ -419,11 +429,14 @@ void MainCanvas::GameFinish()
 			transition = 1;
 			finishTimer = 0;
 			finishStep = 5;
+			auto data = Game::GetInstance().GetData();
+			auto temp = data->GetWorldMapTempData();
+			temp.status = GameplayStatus::Victory;
+			data->SetWorldMapTempData(temp);
 		}
 	}
 	break;
 	}
-
 
 	switch (transition)
 	{
@@ -435,6 +448,8 @@ void MainCanvas::GameFinish()
 			alpha = 255;
 			transition = 2;
 			GetGameReady();
+			finishTimer = 0;
+			finishStep = 0;
 			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 		}
 	}

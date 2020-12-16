@@ -79,7 +79,8 @@ void WorldMapScene::Load()
 	mainCamera->SetRenderOffset(Vector2(28, 0));
 	DebugOut(L"WORLD: %f, %f\n", mainCamera->GetPosition().x, mainCamera->GetPosition().y);
 
-	objMario->SetCurrentNode(0);
+	auto data = Game::GetInstance().GetData();
+	objMario->SetCurrentNode(data->GetWorldMapTempData().currentNodeID);
 	objMario->SetActive(true);
 
 	/*auto mainCanvas = dynamic_cast<MainCanvas*>(Canvas::GetCanvas("main"));

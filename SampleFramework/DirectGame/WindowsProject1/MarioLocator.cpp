@@ -15,7 +15,7 @@ void MarioLocator::Start()
 {
 	auto data = Game::GetInstance().GetData();
 	SetState(data->GetPowerup());
-	currentNode = 0;
+	currentNode = data->GetWorldMapTempData().currentNodeID;
 	onGoing = 0;
 }
 
@@ -24,6 +24,43 @@ void MarioLocator::Update()
 	if (map->GetNode(currentNode) == nullptr) return;
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+
+	switch (recover)
+	{
+	case 1:
+	{
+		timer += dt;
+		if (timer > 500)
+		{
+			recover = 2;
+			timer = 0;
+			onGoing = 1;
+		}
+	}
+	break;
+	case 2:
+	{
+		if (onGoing == 0)
+		{
+			transform.Scale = VectorZero();
+			timer = 0;
+			recover = 3;
+		}
+	}
+	break;
+	case 3:
+	{
+		timer += dt;
+		if (timer > 500)
+		{
+			timer = 0;
+			recover = 0;
+			transform.Scale = Vector2(1, 1);
+		}
+	}
+	break;
+	}
+
 	auto delta = destination - transform.Position;
 	if (Mathf::Magnitude(delta) > MOVE_SPEED * dt && onGoing)
 	{ 
@@ -40,13 +77,18 @@ void MarioLocator::Update()
 void MarioLocator::OnKeyDown(int keyCode)
 {
 	if (map->GetNode(currentNode) == nullptr) return;
-	if (onGoing) return;
+	if (onGoing || recover) return;
 
 	auto node = map->GetNode(currentNode);
 	if (keyCode == DIK_A)
 	{
 		if (Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, node->GetSceneID()).empty())
 			return;
+
+		auto data = Game::GetInstance().GetData();
+		auto temp = data->GetWorldMapTempData();
+		temp.currentNodeID = currentNode;
+		data->SetWorldMapTempData(temp);
 
 		MainCanvas* canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
 		canvas->SetTargetScene(node->GetSceneID());
@@ -98,9 +140,32 @@ void MarioLocator::SetMap(Graph* m)
 void MarioLocator::SetCurrentNode(int id)
 {
 	currentNode = id;
+	DebugOut(L"NODE: %d\n", currentNode);
 	auto node = map->GetNode(id);
 	if (node == nullptr) return;
 	transform.Position = node->GetPosition();
+
+	auto tempData = Game::GetInstance().GetData()->GetWorldMapTempData();
+	if (tempData.status != GameplayStatus::None)
+	{
+		switch (tempData.status)
+		{
+		case GameplayStatus::Lose:
+		{
+			auto lastNode = map->GetNode(tempData.lastNodeID);
+			destination = lastNode ? lastNode->GetPosition() : node->GetPosition();
+			recover = 1;
+		}
+		break;
+		case GameplayStatus::Victory:
+		{
+			tempData.lastNodeID = tempData.currentNodeID;
+		}
+		break;
+		}
+
+		tempData.status = GameplayStatus::None;
+	}
 }
 
 Graph* MarioLocator::Map()

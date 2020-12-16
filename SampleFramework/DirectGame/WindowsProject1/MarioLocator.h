@@ -23,4 +23,5 @@ private:
 	int currentNode;
 	Vector2 destination;
 	int onGoing;
+	int recover, timer;
 };
