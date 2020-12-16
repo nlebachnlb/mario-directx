@@ -13,3 +13,16 @@ My project in the subject "Introduction to Game Development" at my university us
 * AABB: for detecting overlapped collisions
 * Raycast: for asynchronous line collision checking calls
 * Grid: for space partitioning
+## Control
+### Main Menu
+* Select options: Up/Down arrow key
+* Decision: Enter/Return key
+### Overworld Map
+* Movement (select level): Arrow keys (left, right, up, down)
+* Enter level: "S" key
+### In Game
+* Ground movement: Left/Right arrow
+* Run: Hold "A" key and move
+* Jump: Press "S" for low jump, hold "S" for high jump (longer, higher)
+* Duck (crouch): Down arrow
+* Warp to Pipes: An Arrow key on a respective direction (left, right, up, down)
