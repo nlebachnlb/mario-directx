@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Graph.h"
 
-const float MOVE_SPEED = 0.5f;
+const float MOVE_SPEED = 0.45f;
 
 class MarioLocator : public CGameObject
 {

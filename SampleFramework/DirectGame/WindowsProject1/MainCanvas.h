@@ -16,6 +16,7 @@ enum class GameState
 	Unload,
 	Ready,
 	Waiting,
+	Die,
 	Run,
 	Finish
 };
@@ -35,6 +36,7 @@ public:
 
 	void StartGame();
 	void GetGameReady();
+	void LoseGame();
 	void FinishGame(int card);
 	void StartTransition();
 
@@ -47,6 +49,7 @@ private:
 	void GameReady();
 	void GameRun();
 	void GameFinish();
+	void GameLose();
 
 	HudPanel* hud;
 	Texture2D mask;

@@ -3,7 +3,7 @@
 
 GameData::GameData()
 {
-	world = 1; life = 5; coin = 0; score = 0;
+	world = 1; life = 4; coin = 0; score = 0;
 	cards = new std::vector<int>();
 	tempData.lastNodeID = 0;
 	tempData.currentNodeID = 0;

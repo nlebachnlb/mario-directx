@@ -68,6 +68,9 @@ void MainCanvas::Update()
 	case GameState::Ready:
 		GameReady();
 		break;
+	case GameState::Die:
+		GameLose();
+		break;
 	}
 }
 
@@ -100,6 +103,15 @@ void MainCanvas::Render()
 				cardVisuals[card]->Draw(576, 192 - 32, 0, 0);
 		}
 
+		if (alpha > 0)
+		{
+			auto conf = Game::GetInstance().GetGlobalConfigs();
+			Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+		}
+	}
+	break;
+	case GameState::Die:
+	{
 		if (alpha > 0)
 		{
 			auto conf = Game::GetInstance().GetGlobalConfigs();
@@ -172,6 +184,26 @@ void MainCanvas::GetGameReady()
 	gameState = GameState::Ready;
 }
 
+void MainCanvas::LoseGame()
+{
+	DebugOut(L"LOSE\n");
+	finishTimer = 0;
+	finishStep = 0;
+
+	if (timeFreeze)
+	{
+		pSwitchTimer = 0;
+		timeFreeze = false;
+	}
+
+	gameState = GameState::Die;
+
+	auto data = Game::GetInstance().GetData();
+	auto temp = data->GetWorldMapTempData();
+	temp.status = GameplayStatus::Lose;
+	data->SetWorldMapTempData(temp);
+}
+
 void MainCanvas::FinishGame(int card)
 {
 	finishTimer = 0;
@@ -181,7 +213,6 @@ void MainCanvas::FinishGame(int card)
 	{
 		pSwitchTimer = 0;
 		timeFreeze = false;
-		SwitchCoinBrick(false);
 	}
 
 	gameState = GameState::Finish;
@@ -349,6 +380,7 @@ void MainCanvas::GameRun()
 	{
 		alpha = 0;
 		transition = 0;
+		Game::GetInstance().SetTimeScale(1);
 	}
 	break;
 	}
@@ -451,6 +483,43 @@ void MainCanvas::GameFinish()
 			finishTimer = 0;
 			finishStep = 0;
 			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
+		}
+	}
+	break;
+	}
+}
+
+void MainCanvas::GameLose()
+{
+	auto dt = Game::DeltaTime();
+	switch (finishStep)
+	{
+	case 0:
+	{
+		finishTimer += dt;
+		if (finishTimer > 3000)
+		{
+			finishTimer = 0;
+			StartTransition();
+			finishStep = 1;
+		}
+	}
+	break;
+	}
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)1000) * dt;
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			GetGameReady();
+			finishTimer = 0;
+			finishStep = 0;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
+			Game::GetInstance().GetData()->ModifyLife(-1, true);
 		}
 	}
 	break;

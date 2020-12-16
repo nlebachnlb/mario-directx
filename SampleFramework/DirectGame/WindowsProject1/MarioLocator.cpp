@@ -154,6 +154,7 @@ void MarioLocator::SetCurrentNode(int id)
 		{
 			auto lastNode = map->GetNode(tempData.lastNodeID);
 			destination = lastNode ? lastNode->GetPosition() : node->GetPosition();
+			currentNode = tempData.currentNodeID = tempData.lastNodeID;
 			recover = 1;
 		}
 		break;

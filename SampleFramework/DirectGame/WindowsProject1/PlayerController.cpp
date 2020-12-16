@@ -7,6 +7,7 @@
 #include "MarioFX.h"
 #include "ExampleScene.h"
 #include "WorldMapScene.h"
+#include "MainCanvas.h"
 
 void PlayerController::Awake()
 {
@@ -116,7 +117,26 @@ void PlayerController::RegisterToScene(Scene* scene)
 void PlayerController::SwitchToState(std::string state)
 {
 	if (waiting) return;
+
+	if (state.compare("Die") == 0)
+	{
+		auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+		auto gmap = Game::GetInstance().GetService<GameMap>();
+		auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
+
+		waiting = true;
+		SwitchState(nullptr);
+
+		Game::SetTimeScale(0);
+		auto fx = fxPool->CreateFX("fx-mario-die", transform.Position);
+		auto castFx = static_cast<MarioFX*>(fx);
+		castFx->SetController(this);
+		canvas->LoseGame();
+		return;
+	}
+
 	targetState = state;
+	Game::GetInstance().GetData()->SetPowerup(state);
 
 	auto gmap = Game::GetInstance().GetService<GameMap>();
 	if (gmap == nullptr)
@@ -147,6 +167,8 @@ void PlayerController::SwitchToState(std::string state)
 		fxName, 
 		transform.Position - (grow ? 0.5f * delta : VectorZero())
 	);
+	
+	Game::SetTimeScale(0);
 
 	waiting = true;
 	SwitchState(nullptr);
