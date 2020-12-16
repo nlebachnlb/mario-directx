@@ -5,6 +5,7 @@
 #include "Brick.h"
 #include "Coin.h"
 #include "ExampleScene.h"
+#include "WorldMapScene.h"
 
 void MainCanvas::Awake()
 {
@@ -41,10 +42,11 @@ void MainCanvas::Start()
 	hud->SetWorld(1);
 	hud->SetScore(0);
 	hud->SetCoin(0);
-	hud->SetTimer(0);
+	hud->SetTimer(300);
 	hud->SetLife(4);
 	transition = 0;
 	alpha = 0;
+	time = GAME_TIME;
 
 	courseClear->SetPosition(Vector2(240, 120));
 	reward->SetPosition(Vector2(200, 192));
@@ -97,6 +99,12 @@ void MainCanvas::Render()
 			if (finishStep >= 2)
 				cardVisuals[card]->Draw(576, 192 - 32, 0, 0);
 		}
+
+		if (alpha > 0)
+		{
+			auto conf = Game::GetInstance().GetGlobalConfigs();
+			Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+		}
 	}
 	break;
 	case GameState::Run:
@@ -114,10 +122,10 @@ void MainCanvas::Render()
 		{
 			auto graphics = Game::GetInstance();
 			auto conf = Game::GetInstance().GetGlobalConfigs();
-			graphics.DrawTexture(wipePosition.x - conf.screenWidth, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, alpha);
-			graphics.DrawTexture(conf.screenWidth - wipePosition.x, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, alpha);
-			graphics.DrawTexture(0, wipePosition.y - conf.screenHeight, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, alpha);
-			graphics.DrawTexture(0, conf.screenHeight - wipePosition.y, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, alpha);
+			graphics.DrawTexture(wipePosition.x - conf.screenWidth, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+			graphics.DrawTexture(conf.screenWidth - wipePosition.x, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+			graphics.DrawTexture(0, wipePosition.y - conf.screenHeight, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+			graphics.DrawTexture(0, conf.screenHeight - wipePosition.y, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
 		}
 	}
 	break;
@@ -127,6 +135,8 @@ void MainCanvas::Render()
 void MainCanvas::OnSceneUnload()
 {
 	gameState = GameState::Unload;
+	Game::GetInstance().SetTimeScale(1);
+	ResetTimer();
 	player = nullptr;
 }
 
@@ -142,8 +152,9 @@ void MainCanvas::ResetTimer()
 
 void MainCanvas::StartGame()
 {
-	gameState = GameState::Run;
+	DebugOut(L"GAME START\n");
 	ResetTimer();
+	gameState = GameState::Run;
 }
 
 void MainCanvas::GetGameReady()
@@ -155,6 +166,14 @@ void MainCanvas::FinishGame(int card)
 {
 	finishTimer = 0;
 	finishStep = 0;
+
+	if (timeFreeze)
+	{
+		pSwitchTimer = 0;
+		timeFreeze = false;
+		SwitchCoinBrick(false);
+	}
+
 	gameState = GameState::Finish;
 	this->card = card;
 }
@@ -217,6 +236,7 @@ void MainCanvas::GameReady()
 	{
 		auto config = Game::GetInstance().GetGlobalConfigs();
 		int duration = 700; // 1.5s
+		int delay = 300;
 		int dx = config.screenWidth * 0.5f;
 		int dy = config.screenHeight * 0.5f;
 		float vx = (float)dx / (float)duration;
@@ -226,15 +246,15 @@ void MainCanvas::GameReady()
 		alpha = 255;
 
 		transTimer += Game::DeltaTime();
-		if (transTimer > duration)
+		if (transTimer > duration + delay)
 		{
 			transTimer = 0;
 			auto gameplayScene = new ExampleScene();
 			std::string path = Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, targetSceneID);
 			// OutputDebugStringW(ToLPCWSTR(path + "\n"));
 			gameplayScene->SetFilePath(path);
+			transition = 10;
 			Game::GetInstance().GetService<SceneManager>()->LoadScene(gameplayScene);
-			transition = 2;
 		}
 	}
 	break;
@@ -246,7 +266,6 @@ void MainCanvas::GameReady()
 			alpha = 0;
 			wipePosition = VectorZero();
 			transition = 3;
-			StartGame();
 		}
 	}
 	break;
@@ -275,7 +294,7 @@ void MainCanvas::GameRun()
 	auto dt = Game::DeltaTime();
 
 	auto dtScaled = Game::DeltaTime() * Game::GetTimeScale();
-	time -= dtScaled * 1.5f;
+	time -= dtScaled * 1.0f;
 
 	if (timeFreeze)
 	{
@@ -302,13 +321,17 @@ void MainCanvas::GameRun()
 	}
 	break;
 	case 2:
+	case 10:
 	{
 		alpha -= (255.0f / (float)TRANSITION_TIME) * dt;
 		if (alpha <= 1)
 		{
 			alpha = 0;
+			if (transition == 10)
+				wipePosition = VectorZero();
+			else 
+				mario->WarpOut();
 			transition = 3;
-			mario->WarpOut();
 		}
 	}
 	break;
@@ -326,7 +349,7 @@ void MainCanvas::GameFinish()
 	hud->SetPowerMeter(0);
 	// DebugOut(L"Game state\n");
 
-	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	auto dt = Game::DeltaTime();
 
 	switch (finishStep)
 	{
@@ -380,9 +403,39 @@ void MainCanvas::GameFinish()
 			else if (time > 0) time -= 1000, data->ModifyScore(50, true);
 			else
 			{
+				alpha = 0;
 				finishTimer = 0;
 				finishStep = 4;
+				hud->StopBlinkingLastCard();
 			}
+		}
+	}
+	break;
+	case 4:
+	{
+		finishTimer += dt;
+		if (finishTimer > 1000)
+		{
+			transition = 1;
+			finishTimer = 0;
+			finishStep = 5;
+		}
+	}
+	break;
+	}
+
+
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)1000) * dt;
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			GetGameReady();
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 		}
 	}
 	break;

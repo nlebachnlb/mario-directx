@@ -11,6 +11,6 @@ void ExampleScene::Load()
 	this->id = "ExampleScene";
 	// this->filePath = Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, SC_WOLRD_1_1);
 	Scene::Load();
-	//auto mainCanvas = dynamic_cast<MainCanvas*>(Canvas::GetCanvas("main"));
-	//if (mainCanvas != nullptr) mainCanvas->StartGame();
+	auto mainCanvas = dynamic_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+	if (mainCanvas != nullptr) mainCanvas->StartGame();
 }

@@ -77,18 +77,23 @@ void HudPanel::PreRender()
 		i < cards.size(); ++i)
 		cards.at(i).item = ItemCardType::Empty;
 
-	if (blinkLastCard && data->GetCards()->size() > 0)
+	if (data->GetCards()->size() > 0)
 	{
-		blinkTimer += Game::DeltaTime();
-		if (blinkTimer > 200)
+		auto pos = (int)min(cards.size() - 1, data->GetCards()->size() - 1);
+		if (blinkLastCard)
 		{
-			blinkTimer = 0;
-			auto pos = (int)min(cards.size() - 1, data->GetCards()->size() - 1);
-			if (cards.at(pos).item == ItemCardType::Empty)
-				cards.at(pos).item = (ItemCardType)(data->GetCards()->at(pos));
-			else
-				cards.at(pos).item = ItemCardType::Empty;
+			blinkTimer += Game::DeltaTime();
+			if (blinkTimer > 200)
+			{
+				blinkTimer = 0;
+				if (cards.at(pos).item == ItemCardType::Empty)
+					cards.at(pos).item = (ItemCardType)(data->GetCards()->at(pos));
+				else
+					cards.at(pos).item = ItemCardType::Empty;
+			}
 		}
+		else if (cards.at(pos).item != (ItemCardType)(data->GetCards()->at(pos)))
+			cards.at(pos).item = (ItemCardType)(data->GetCards()->at(pos));
 	}
 }
 
