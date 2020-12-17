@@ -11,6 +11,7 @@ void AnimationDatabase::Initialization()
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_MISC));
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_EFFECT));
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_HUD));
+	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_MENU));
 	LoadAnimationFile(root.GetSourcePathOf(CATEGORY_ANIMATION, DB_ANIMATION_OVERWORLD_MAP));
 }
 

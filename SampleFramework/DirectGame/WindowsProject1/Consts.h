@@ -21,6 +21,7 @@
 #define TEXTURE_BOX "tex-box"
 #define TEXTURE_REWARD "tex-reward"
 #define TEXTURE_OVERWORLD_MAP "tex-overworld"
+#define TEXTURE_MENU "tex-menu"
 
 #define FIREBALL_TRANS_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define DEFAULT_TRANS_COLOR D3DCOLOR_XRGB(254, 254, 254)
@@ -31,6 +32,7 @@
 #define DB_SPRITE_EFFECT "spr-effect"
 #define DB_SPRITE_HUD "spr-hud"
 #define DB_SPRITE_OVERWORLD_MAP "spr-overworld"
+#define DB_SPRITE_MENU "spr-menu"
 
 #define DB_ANIMATION_MARIO "ani-mario"
 #define DB_ANIMATION_ENEMY "ani-enemy"
@@ -38,9 +40,11 @@
 #define DB_ANIMATION_EFFECT "ani-effect"
 #define DB_ANIMATION_HUD "ani-hud"
 #define DB_ANIMATION_OVERWORLD_MAP "ani-overworld"
+#define DB_ANIMATION_MENU "ani-menu"
 
 #define SC_OVERWORLD_MAP_1 "overworld-1"
 #define SC_WOLRD_1_1 "world-1-1"
+#define SC_MENU "main-menu"
 
 #define CG_GLOBAL_CONFIG "global-config"
 

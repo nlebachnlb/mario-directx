@@ -14,6 +14,7 @@ const std::string CARD_REWARD = "YOU GOT A CARD ";
 enum class GameState
 {
 	Unload,
+	Menu,
 	Ready,
 	Waiting,
 	Die,
@@ -39,6 +40,7 @@ public:
 	void LoseGame();
 	void FinishGame(int card);
 	void StartTransition();
+	void StartMenu();
 
 	bool IsSwitchTime();
 	void SwitchCoinBrick(bool freeze = false);

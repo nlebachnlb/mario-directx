@@ -400,6 +400,7 @@ void GameMap::Unload()
 
 void GameMap::LoadEnemy()
 {
+    if (mapData == nullptr) return;
     auto objectGroups = mapData->GetObjectGroups();
     for (auto x : *objectGroups)
     {

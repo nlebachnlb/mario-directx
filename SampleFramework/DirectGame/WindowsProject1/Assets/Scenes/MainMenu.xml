@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene bgcolor_r="255" bgcolor_g="216" bgcolor_b="154">
+  <Scene name="MenuBackground">
+    <Sprite id="spr-tree-left" x="0" y="702" px="0" py="192"/>
+    <Sprite id="spr-tree-right" x="635" y="702" px="0" py="288"/>
+    <Sprite id="spr-intro-ground-0" x="0" y="702" px="0" py="0"/>
+    <Sprite id="spr-bottom-curtain-0" x="0" y="0" px="0" py="0"/>
+  </Scene>
+  <Scene name="Camera" start="0" main="0">
+    <Boundary id="0" pos_x="0" pos_y="0" left="0" top="0" right="824" bottom="744"/>
+  </Scene>
+</Scene>

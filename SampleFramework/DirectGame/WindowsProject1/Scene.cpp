@@ -107,9 +107,14 @@ void Scene::Init()
 {
 	auto gmap = Game::GetInstance().GetService<GameMap>();
 	auto spawner = gmap->GetSpawnerManager();
-	auto fxPool = spawner->GetService<EffectPool>();
-	fxPool->Initialization();
-	gmap->LoadEnemy();
+
+	if (spawner != nullptr)
+	{
+		auto fxPool = spawner->GetService<EffectPool>();
+		fxPool->Initialization();
+	}
+
+	if (gmap != nullptr) gmap->LoadEnemy();
 
 	ProcessInstantiateRequests();
 	for (auto o : *objects)

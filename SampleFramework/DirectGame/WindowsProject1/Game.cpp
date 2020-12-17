@@ -8,6 +8,7 @@
 #include "MainCanvas.h"
 #include "EffectPool.h"
 #include "ScoreFX.h"
+#include "MainMenuScene.h"
 // #include "GameObject.h"
 
 
@@ -221,7 +222,7 @@ void Game::GameInit(HWND hWnd)
 	d3ddev->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
 #pragma endregion
 
-	sceneManager->LoadScene(new WorldMapScene());
+	sceneManager->LoadScene(new MainMenuScene());
 
 	SetTimeScale(1.0f);
 }

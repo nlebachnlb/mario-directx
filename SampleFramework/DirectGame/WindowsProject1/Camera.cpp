@@ -65,47 +65,49 @@ void Camera::Update()
 void Camera::Render(std::vector<GameObject>& objs)
 {
     if (!initialized) Initialize();
-    
-    Vector2 translation = -1 * GetPosition();
-    auto camPos = GetPosition();
-    int tilex = (int)(camPos.x / tileWidth);
-    int tiley = (int)(camPos.y / tileHeight);
-
-    for (auto l_data : *layers)
+    if (mapData != nullptr)
     {
-        auto layer = l_data.second;
-        if (layer->IsVisible() == false) continue;
+        Vector2 translation = -1 * GetPosition();
+        auto camPos = GetPosition();
+        int tilex = (int)(camPos.x / tileWidth);
+        int tiley = (int)(camPos.y / tileHeight);
 
-        for (int u = 0; u <= height - 4 + 2; ++u)
+        for (auto l_data : *layers)
         {
-            int yGrid = (int)(tiley + u);
-            if (yGrid >= mapHeight) continue;
+            auto layer = l_data.second;
+            if (layer->IsVisible() == false) continue;
 
-            for (int v = 0; v <= width + 1; ++v)
+            for (int u = 0; u <= height - 4 + 2; ++u)
             {
-                int xGrid = (int)(tilex + v);
-                if (xGrid >= mapWidth) continue;
+                int yGrid = (int)(tiley + u);
+                if (yGrid >= mapHeight) continue;
 
-                int tileId = layer->GetTileID(xGrid, yGrid);
-                int tilesetId = mapData->GetTilesetIdFromTileId(tileId);
+                for (int v = 0; v <= width + 1; ++v)
+                {
+                    int xGrid = (int)(tilex + v);
+                    if (xGrid >= mapWidth) continue;
 
-                if (tilesetId == -1) continue;
+                    int tileId = layer->GetTileID(xGrid, yGrid);
+                    int tilesetId = mapData->GetTilesetIdFromTileId(tileId);
 
-                auto tileset = tilesets->at(tilesetId);
+                    if (tilesetId == -1) continue;
 
-                int tilesetWidth = tileset->GetImageWidth() / tileWidth;
-                int tilesetHeight = tileset->GetImageHeight() / tileHeight;
+                    auto tileset = tilesets->at(tilesetId);
 
-                int temp = tileId - tilesetId;
-                int y = temp / tilesetWidth; 
-                int x = temp - y * tilesetWidth;
+                    int tilesetWidth = tileset->GetImageWidth() / tileWidth;
+                    int tilesetHeight = tileset->GetImageHeight() / tileHeight;
 
-                Tile tile = map->GetTileset(tilesetId);
-                tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                    int temp = tileId - tilesetId;
+                    int y = temp / tilesetWidth;
+                    int x = temp - y * tilesetWidth;
 
-                Vector2 finalPosition(xGrid * tileWidth, yGrid * tileHeight);
-                finalPosition = finalPosition + translation + renderOffset;
-                tile->Draw(finalPosition.x, finalPosition.y);
+                    Tile tile = map->GetTileset(tilesetId);
+                    tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+
+                    Vector2 finalPosition(xGrid * tileWidth, yGrid * tileHeight);
+                    finalPosition = finalPosition + translation + renderOffset;
+                    tile->Draw(finalPosition.x, finalPosition.y);
+                }
             }
         }
     }
@@ -221,7 +223,7 @@ void Camera::Initialize()
 {
     if (initialized) return;
     mapData = map->GetMapData();
-    if (map == nullptr) { initialized = false; return; }
+    if (mapData == nullptr) { initialized = false; return; }
 
     layers = mapData->GetLayers();
     tilesets = mapData->GetTilesets();

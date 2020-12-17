@@ -13,6 +13,7 @@ class TextureManager : public Service
 {
 public:
 	LPDIRECT3DTEXTURE9 Add(std::string id, LPCWSTR texPath, D3DCOLOR transparentColor);
+	void Release(std::string id);
 	LPDIRECT3DTEXTURE9 GetTexture(std::string id);
 	LPDIRECT3DTEXTURE9 LoadTexture(LPCWSTR texPath, D3DCOLOR transparentColor = DEFAULT_TRANSPARENT_COLOR);
 	void Initialization();

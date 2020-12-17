@@ -9,9 +9,19 @@ LPDIRECT3DTEXTURE9 TextureManager::Add(std::string id, LPCWSTR texPath, D3DCOLOR
 	return texture;
 }
 
+void TextureManager::Release(std::string id)
+{
+	auto tex = GetTexture(id);
+	if (tex != nullptr)
+	{
+		tex->Release();
+		textures.erase(id);
+	}
+}
+
 LPDIRECT3DTEXTURE9 TextureManager::GetTexture(std::string id)
 {
-	return textures.at(id);
+	return textures[id];
 }
 
 LPDIRECT3DTEXTURE9 TextureManager::LoadTexture(LPCWSTR texPath, D3DCOLOR transparentColor)
@@ -51,4 +61,5 @@ void TextureManager::Initialization()
 	Add(TEXTURE_BOX,		ToLPCWSTR(root.GetSourcePathOf(CATEGORY_TEXTURE, TEXTURE_BOX)), D3DCOLOR_XRGB(255, 255, 255));
 	Add(TEXTURE_REWARD,		ToLPCWSTR(root.GetSourcePathOf(CATEGORY_TEXTURE, TEXTURE_REWARD)), DEFAULT_TRANSPARENT_COLOR);
 	Add(TEXTURE_OVERWORLD_MAP,		ToLPCWSTR(root.GetSourcePathOf(CATEGORY_TEXTURE, TEXTURE_OVERWORLD_MAP)), DEFAULT_TRANSPARENT_COLOR);
+	Add(TEXTURE_MENU,		ToLPCWSTR(root.GetSourcePathOf(CATEGORY_TEXTURE, TEXTURE_MENU)), DEFAULT_TRANSPARENT_COLOR);
 }

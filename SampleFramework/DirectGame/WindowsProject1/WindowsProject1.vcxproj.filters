@@ -220,6 +220,9 @@
     <Filter Include="GameSource\GameObjects\WorldMap\MapNodes">
       <UniqueIdentifier>{771b4e6c-c549-429e-99d4-3cd576ee98bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\MainMenu">
+      <UniqueIdentifier>{cb2f08e7-1853-409b-b560-768b2ee4b9bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -593,6 +596,12 @@
     </ClInclude>
     <ClInclude Include="DieFX.h">
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBackground.h">
+      <Filter>GameSource\GameObjects\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>GameSource\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -987,6 +996,12 @@
     <ClCompile Include="DieFX.cpp">
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClCompile>
+    <ClCompile Include="MenuBackground.cpp">
+      <Filter>GameSource\GameObjects\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>GameSource\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\root.xml">
@@ -1049,6 +1064,9 @@
       <Filter>GameSource\Assets\Sprites\SpriteDatabases</Filter>
     </Xml>
     <Xml Include="Assets\Scenes\Overworld1.xml">
+      <Filter>GameSource\Assets\Scenes</Filter>
+    </Xml>
+    <Xml Include="Assets\Scenes\MainMenu.xml">
       <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
   </ItemGroup>
