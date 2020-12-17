@@ -606,6 +606,9 @@
     <ClInclude Include="MenuVersionFX.h">
       <Filter>GameSource\UserInterface\MainMenu</Filter>
     </ClInclude>
+    <ClInclude Include="MenuKoopa.h">
+      <Filter>GameSource\UserInterface\MainMenu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -1006,6 +1009,9 @@
       <Filter>GameSource\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="MenuVersionFX.cpp">
+      <Filter>GameSource\UserInterface\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuKoopa.cpp">
       <Filter>GameSource\UserInterface\MainMenu</Filter>
     </ClCompile>
   </ItemGroup>

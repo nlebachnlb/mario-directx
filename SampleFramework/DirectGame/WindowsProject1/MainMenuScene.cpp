@@ -3,6 +3,7 @@
 #include "MenuBackground.h"
 #include "MainCanvas.h"
 #include "MenuVersionFX.h"
+#include "MenuKoopa.h"
 
 void MainMenuScene::Load()
 {
@@ -37,9 +38,17 @@ void MainMenuScene::Load()
 				std::string id = elm->Attribute("id");
 				elm->QueryIntAttribute("x", &x);
 				elm->QueryIntAttribute("y", &y);
-				elm->QueryIntAttribute("px", &px);
-				elm->QueryIntAttribute("py", &py);
-				obj->AddElement({ id, Vector2(x, y), Vector2(px, py) });
+
+				if (id.compare("menu-option") == 0)
+				{
+					obj->AddOption(Vector2(x, y));
+				}
+				else
+				{
+					elm->QueryIntAttribute("px", &px);
+					elm->QueryIntAttribute("py", &py);
+					obj->AddElement({ id, Vector2(x, y), Vector2(px, py) });
+				}
 			}
 
 			AddObject(obj);
@@ -54,6 +63,12 @@ void MainMenuScene::Load()
 				if (name.compare("menu-version") == 0)
 				{
 					auto object = Instantiate<MenuVersionFX>();
+					object->SetPosition(Vector2(x, y));
+					AddObject(object);
+				}
+				else if (name.compare("menu-koopa") == 0)
+				{
+					auto object = Instantiate<MenuKoopa>();
 					object->SetPosition(Vector2(x, y));
 					AddObject(object);
 				}

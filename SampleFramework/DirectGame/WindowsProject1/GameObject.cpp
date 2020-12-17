@@ -131,6 +131,7 @@ void CGameObject::Initialize()
 {
 	destroyed = false;
 	offscreen = false;
+	alwaysUpdate = false;
 	
 	rigidbody = new Rigidbody2D();
 	colliders = new vector<Collider2D*>();
@@ -229,6 +230,16 @@ void CGameObject::SetVisualRelativePosition(Vector2 position)
 Vector2 CGameObject::GetVisualRelativePosition()
 {
 	return this->visualRelativePosition;
+}
+
+void CGameObject::SetAlwaysUpdate(bool value)
+{
+	alwaysUpdate = value;
+}
+
+bool CGameObject::IsAlwaysUpdated()
+{
+	return alwaysUpdate;
 }
 
 bool CGameObject::IsEnabled()
