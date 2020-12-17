@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Transform.h"
 
 enum class Weight
@@ -23,10 +24,14 @@ public:
 	void SetPosition(Vector2 position);
 	Vector2 GetPosition();
 
+	void SetSceneID(std::string id);
+	std::string GetSceneID();
+
 	std::vector<Edge>* GetAdjacentList();
 private:
 	int nodeID;
 	Vector2 position;
+	std::string sceneID;
 	std::vector<Edge>* adjacentNodes;
 };
 

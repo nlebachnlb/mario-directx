@@ -55,6 +55,7 @@ void SceneManager::ProcessUnloadRequests()
             auto scene = loadedScenes.at(req);
             loadedScenes.erase(req);
             scene->Unload();
+            scene->CleanDestroyedObjects();
             // loadedScenes.at(id) = nullptr;
             delete scene;
             activeSceneID = "";

@@ -14,7 +14,6 @@ void TransformationFX::Start()
 {
 	SetState("Default");
 	animations.at("Default")->SetUnscaledTime(true);
-	Game::SetTimeScale(0);
 }
 
 void TransformationFX::OnAnimationEnd()

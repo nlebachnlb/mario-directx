@@ -3,8 +3,11 @@
 
 GameData::GameData()
 {
-	world = 1; life = 5; coin = 0; score = 0;
+	world = 1; life = 4; coin = 0; score = 0;
 	cards = new std::vector<int>();
+	tempData.lastNodeID = 0;
+	tempData.currentNodeID = 0;
+	tempData.status = GameplayStatus::None;
 }
 
 GameData::~GameData()
@@ -47,6 +50,16 @@ void GameData::GainCombo()
 int GameData::GetCombo()
 {
 	return this->combo;
+}
+
+WorldMapTempData GameData::GetWorldMapTempData()
+{
+	return tempData;
+}
+
+void GameData::SetWorldMapTempData(WorldMapTempData data)
+{
+	this->tempData = data;
 }
 
 std::vector<int>* GameData::GetCards()

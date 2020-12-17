@@ -4,9 +4,13 @@
 #include "Mathf.h"
 #include "Brick.h"
 #include "Coin.h"
+#include "ExampleScene.h"
+#include "WorldMapScene.h"
 
 void MainCanvas::Awake()
 {
+	wipePosition = VectorZero();
+
 	hud = new HudPanel();
 	hud->Initialize();
 	AddUIElement(hud);
@@ -38,10 +42,11 @@ void MainCanvas::Start()
 	hud->SetWorld(1);
 	hud->SetScore(0);
 	hud->SetCoin(0);
-	hud->SetTimer(0);
+	hud->SetTimer(300);
 	hud->SetLife(4);
 	transition = 0;
 	alpha = 0;
+	time = GAME_TIME;
 
 	courseClear->SetPosition(Vector2(240, 120));
 	reward->SetPosition(Vector2(200, 192));
@@ -59,6 +64,12 @@ void MainCanvas::Update()
 		break;
 	case GameState::Finish:
 		GameFinish();
+		break;
+	case GameState::Ready:
+		GameReady();
+		break;
+	case GameState::Die:
+		GameLose();
 		break;
 	}
 }
@@ -78,28 +89,74 @@ void MainCanvas::Render()
 {
 	Game::GetInstance().DrawTexture(0, 594, 0, 0, mask, 0, 0, 824, 150);
 	Canvas::Render();
-	if (gameState == GameState::Finish)
+
+	switch (gameState)
+	{
+	case GameState::Finish:
 	{
 		courseClear->Render();
 
 		if (finishStep >= 1)
 		{
 			reward->Render();
-			if (finishStep >= 2) 
+			if (finishStep >= 2)
 				cardVisuals[card]->Draw(576, 192 - 32, 0, 0);
 		}
-	}
 
-	if (alpha > 0)
+		if (alpha > 0)
+		{
+			auto conf = Game::GetInstance().GetGlobalConfigs();
+			Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+		}
+	}
+	break;
+	case GameState::Die:
 	{
-		auto conf = Game::GetInstance().GetGlobalConfigs();
-		Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+		if (alpha > 0)
+		{
+			auto conf = Game::GetInstance().GetGlobalConfigs();
+			Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+		}
+	}
+	break;
+	case GameState::Run:
+	{
+		if (alpha > 0)
+		{
+			auto conf = Game::GetInstance().GetGlobalConfigs();
+			Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+		}
+	}
+	break;
+	case GameState::Ready:
+	{
+		if (transition > 0)
+		{
+			auto graphics = Game::GetInstance();
+			auto conf = Game::GetInstance().GetGlobalConfigs();
+
+			if (transition >= 2)
+			{
+				graphics.DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+			}
+			else
+			{
+				graphics.DrawTexture(wipePosition.x - conf.screenWidth, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+				graphics.DrawTexture(conf.screenWidth - wipePosition.x, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+				graphics.DrawTexture(0, wipePosition.y - conf.screenHeight, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+				graphics.DrawTexture(0, conf.screenHeight - wipePosition.y, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
+			}
+		}
+	}
+	break;
 	}
 }
 
 void MainCanvas::OnSceneUnload()
 {
 	gameState = GameState::Unload;
+	Game::GetInstance().SetTimeScale(1);
+	ResetTimer();
 	player = nullptr;
 }
 
@@ -115,14 +172,49 @@ void MainCanvas::ResetTimer()
 
 void MainCanvas::StartGame()
 {
-	gameState = GameState::Run;
+	DebugOut(L"GAME START\n");
 	ResetTimer();
+	gameState = GameState::Run;
+}
+
+void MainCanvas::GetGameReady()
+{
+	courseClear->SetContent("");
+	reward->SetContent("");
+	gameState = GameState::Ready;
+}
+
+void MainCanvas::LoseGame()
+{
+	DebugOut(L"LOSE\n");
+	finishTimer = 0;
+	finishStep = 0;
+
+	if (timeFreeze)
+	{
+		pSwitchTimer = 0;
+		timeFreeze = false;
+	}
+
+	gameState = GameState::Die;
+
+	auto data = Game::GetInstance().GetData();
+	auto temp = data->GetWorldMapTempData();
+	temp.status = GameplayStatus::Lose;
+	data->SetWorldMapTempData(temp);
 }
 
 void MainCanvas::FinishGame(int card)
 {
 	finishTimer = 0;
 	finishStep = 0;
+
+	if (timeFreeze)
+	{
+		pSwitchTimer = 0;
+		timeFreeze = false;
+	}
+
 	gameState = GameState::Finish;
 	this->card = card;
 }
@@ -172,6 +264,61 @@ void MainCanvas::StartSwitchTimer()
 	timeFreeze = true;
 }
 
+void MainCanvas::SetTargetScene(std::string id)
+{
+	targetSceneID = id;
+}
+
+void MainCanvas::GameReady()
+{
+	switch (transition)
+	{
+	case 1:
+	{
+		auto config = Game::GetInstance().GetGlobalConfigs();
+		int duration = 700; // 0.7s
+		int delay = 300;
+		int dx = config.screenWidth * 0.35f;
+		int dy = config.screenHeight * 0.5f;
+		float vx = (float)dx / (float)duration;
+		float vy = (float)dy / (float)duration;
+		wipePosition.x += vx * Game::DeltaTime();
+		wipePosition.y += vy * Game::DeltaTime();
+		alpha = 255;
+
+		transTimer += Game::DeltaTime();
+		if (transTimer > duration + delay)
+		{
+			transTimer = 0;
+			auto gameplayScene = new ExampleScene();
+			std::string path = Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, targetSceneID);
+			// OutputDebugStringW(ToLPCWSTR(path + "\n"));
+			gameplayScene->SetFilePath(path);
+			transition = 10;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(gameplayScene);
+		}
+	}
+	break;
+	case 2:
+	{
+		alpha -= (255.0f / (float)TRANSITION_TIME) * Game::DeltaTime();
+		if (alpha <= 0)
+		{
+			alpha = 0;
+			wipePosition = VectorZero();
+			transition = 3;
+		}
+	}
+	break;
+	case 3:
+	{
+		alpha = 0;
+		transition = 0;
+	}
+	break;
+	}
+}
+
 void MainCanvas::GameRun()
 {
 	if (player == nullptr)
@@ -188,7 +335,7 @@ void MainCanvas::GameRun()
 	auto dt = Game::DeltaTime();
 
 	auto dtScaled = Game::DeltaTime() * Game::GetTimeScale();
-	time -= dtScaled * 1.5f;
+	time -= dtScaled * 1.0f;
 
 	if (timeFreeze)
 	{
@@ -215,13 +362,17 @@ void MainCanvas::GameRun()
 	}
 	break;
 	case 2:
+	case 10:
 	{
 		alpha -= (255.0f / (float)TRANSITION_TIME) * dt;
 		if (alpha <= 1)
 		{
 			alpha = 0;
+			if (transition == 10)
+				wipePosition = VectorZero();
+			else 
+				mario->WarpOut();
 			transition = 3;
-			mario->WarpOut();
 		}
 	}
 	break;
@@ -229,6 +380,7 @@ void MainCanvas::GameRun()
 	{
 		alpha = 0;
 		transition = 0;
+		Game::GetInstance().SetTimeScale(1);
 	}
 	break;
 	}
@@ -239,7 +391,7 @@ void MainCanvas::GameFinish()
 	hud->SetPowerMeter(0);
 	// DebugOut(L"Game state\n");
 
-	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	auto dt = Game::DeltaTime();
 
 	switch (finishStep)
 	{
@@ -293,9 +445,81 @@ void MainCanvas::GameFinish()
 			else if (time > 0) time -= 1000, data->ModifyScore(50, true);
 			else
 			{
+				alpha = 0;
 				finishTimer = 0;
 				finishStep = 4;
+				hud->StopBlinkingLastCard();
 			}
+		}
+	}
+	break;
+	case 4:
+	{
+		finishTimer += dt;
+		if (finishTimer > 1000)
+		{
+			transition = 1;
+			finishTimer = 0;
+			finishStep = 5;
+			auto data = Game::GetInstance().GetData();
+			auto temp = data->GetWorldMapTempData();
+			temp.status = GameplayStatus::Victory;
+			data->SetWorldMapTempData(temp);
+		}
+	}
+	break;
+	}
+
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)1000) * dt;
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			GetGameReady();
+			finishTimer = 0;
+			finishStep = 0;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
+		}
+	}
+	break;
+	}
+}
+
+void MainCanvas::GameLose()
+{
+	auto dt = Game::DeltaTime();
+	switch (finishStep)
+	{
+	case 0:
+	{
+		finishTimer += dt;
+		if (finishTimer > 3000)
+		{
+			finishTimer = 0;
+			StartTransition();
+			finishStep = 1;
+		}
+	}
+	break;
+	}
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)1000) * dt;
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			GetGameReady();
+			finishTimer = 0;
+			finishStep = 0;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
+			Game::GetInstance().GetData()->ModifyLife(-1, true);
 		}
 	}
 	break;

@@ -414,9 +414,6 @@
     <ClInclude Include="CoinObtainedFX.h">
       <Filter>GameSource\GameObjects\Effects\MiscFX</Filter>
     </ClInclude>
-    <ClInclude Include="MarioFX.h">
-      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
-    </ClInclude>
     <ClInclude Include="TransformationFX.h">
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClInclude>
@@ -590,6 +587,12 @@
     </ClInclude>
     <ClInclude Include="MarioLocator.h">
       <Filter>GameSource\GameObjects\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioFX.h">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
+    </ClInclude>
+    <ClInclude Include="DieFX.h">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -980,6 +983,9 @@
     </ClCompile>
     <ClCompile Include="MarioLocator.cpp">
       <Filter>GameSource\GameObjects\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="DieFX.cpp">
+      <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

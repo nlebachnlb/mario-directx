@@ -161,6 +161,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinObtainedFX.h" />
     <ClInclude Include="Collider2D.h" />
+    <ClInclude Include="DieFX.h" />
     <ClInclude Include="Effector2D.h" />
     <ClInclude Include="EffectPool.h" />
     <ClInclude Include="FireMario.h" />
@@ -286,6 +287,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinObtainedFX.cpp" />
     <ClCompile Include="Collider2D.cpp" />
+    <ClCompile Include="DieFX.cpp" />
     <ClCompile Include="EffectPool.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Font.cpp" />

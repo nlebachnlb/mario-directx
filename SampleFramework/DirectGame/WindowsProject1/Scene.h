@@ -21,6 +21,7 @@ public:
 	void ProcessInstantiateRequests();
 	void UpdateActiveObjects();
 
+	void SetFilePath(std::string path);
 	std::string GetID() { return id; }
 	void AddObject(GameObject gameObject);
 	void RemoveObject(GameObject gameObject);

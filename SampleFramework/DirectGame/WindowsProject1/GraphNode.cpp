@@ -27,6 +27,16 @@ Vector2 GraphNode::GetPosition()
     return position;
 }
 
+void GraphNode::SetSceneID(std::string id)
+{
+    sceneID = id;
+}
+
+std::string GraphNode::GetSceneID()
+{
+    return sceneID;
+}
+
 std::vector<Edge>* GraphNode::GetAdjacentList()
 {
     return adjacentNodes;

@@ -633,7 +633,7 @@ void CMario::OnDamaged(AbstractEnemy* enemy)
 	switch (tag)
 	{
 	case ObjectTags::SmallMario:
-		// Dead event here
+		controller->SwitchToState("Die");
 		break;
 	case ObjectTags::BigMario:
 		controller->SwitchToState("SmallMario");

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Utils.h"
 #include "ExampleScene.h"
+#include "WorldMapScene.h"
 #include "AnimationDatabase.h"
 #include "tinyxml.h"
 #include "Canvas.h"
@@ -220,7 +221,7 @@ void Game::GameInit(HWND hWnd)
 	d3ddev->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
 #pragma endregion
 
-	sceneManager->LoadScene(new ExampleScene());
+	sceneManager->LoadScene(new WorldMapScene());
 
 	SetTimeScale(1.0f);
 }

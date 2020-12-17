@@ -9,6 +9,7 @@
 #include "SmokeSpotFX.h"
 #include "ScoreFX.h"
 #include "RewardFX.h"
+#include "DieFX.h"
 
 void EffectPool::Initialization()
 {
@@ -41,6 +42,8 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position, bool expand
 			fx = Instantiate<GrowUpFX>();
 		else if (fxName.compare("fx-mario-shrink-down") == 0)
 			fx = Instantiate<ShrinkDownFX>();
+		else if (fxName.compare("fx-mario-die") == 0)
+			fx = Instantiate<DieFX>();
 		else if (fxName.compare("fx-brick-debris") == 0)
 			fx = Instantiate<BrickDebrisFX>();
 		else if (fxName.compare("fx-hit-star") == 0)

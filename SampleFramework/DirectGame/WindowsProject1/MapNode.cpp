@@ -6,13 +6,3 @@ void MapNode::Awake()
 
 	InitAnimations();
 }
-
-void MapNode::LinkData(GraphNode* node)
-{
-	linkedDataNode = node;
-}
-
-GraphNode* MapNode::GetData()
-{
-	return linkedDataNode;
-}
