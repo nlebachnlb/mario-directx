@@ -6,6 +6,12 @@
 #include "RaccoonLeaf.h"
 #include "PSwitch.h"
 
+void QuestionBlock::OnEnabled()
+{
+	auto go = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player, true);
+	if (go != nullptr) player = static_cast<PlayerController*>(go);
+}
+
 void QuestionBlock::Start()
 {
 	SetTag(ObjectTags::Block);
@@ -13,7 +19,7 @@ void QuestionBlock::Start()
 	bouncingState = 0;
 }
 
-void QuestionBlock::PreRender()
+void QuestionBlock::LateUpdate()
 {
 	if (containedItem.quantity > 0)
 	{
@@ -78,11 +84,18 @@ void QuestionBlock::Bounce(GameObject obj)
 		break;
 		case ItemTags::Leaf:
 		{
-			auto leaf = Instantiate<RaccoonLeaf>();
-			leaf->SetPosition(transform.Position);
-			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
-			scene->AddObject(leaf);
-			leaf->SproutOut();
+			if (player->GetMario()->GetTag() == ObjectTags::SmallMario)
+			{
+				containedItem.type = ItemTags::Mushroom;
+			}
+			else
+			{
+				auto leaf = Instantiate<RaccoonLeaf>();
+				leaf->SetPosition(transform.Position - Vector2(0, 48));
+				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+				scene->AddObject(leaf);
+				leaf->SproutOut();
+			}
 		}
 		break;
 		case ItemTags::PSwitch:

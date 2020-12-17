@@ -1,12 +1,14 @@
 #pragma once
 #include "AbstractBlock.h"
 #include "ItemInfo.h"
+#include "PlayerController.h"
 
 class QuestionBlock : public AbstractBlock
 {
 public:
+	void OnEnabled() override;
 	void Start() override;
-	void PreRender() override;
+	void LateUpdate() override;
 	void Bounce(GameObject obj) override;
 	void SetItem(ItemInfo item);
 
@@ -17,5 +19,7 @@ private:
 	int bouncingState;
 	int lastTick;
 	ItemInfo containedItem;
+	PlayerController* player;
+
 };
 
