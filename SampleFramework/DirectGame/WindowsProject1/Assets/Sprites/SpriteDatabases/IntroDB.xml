@@ -3,10 +3,18 @@
 	<Textures textureId="tex-intro">
 		<Sprite id="spr-full-curtain-0" left="15" top="19"  width="240" height="194"/>
 		<Sprite id="spr-side-curtain-0" left="275" top="19"  width="16" height="194"/>
-		<Sprite id="spr-bottom-curtain-0" left="15" top="229"  width="240" height="14"/>
+		<Sprite id="spr-bottom-curtain-0" left="0" top="229"  width="271" height="14"/>
 		<Sprite id="spr-intro-ground-0" left="24" top="317"  width="24" height="34"/>
 		<Sprite id="spr-tree-right" left="340" top="132"  width="63" height="96"/>
 		<Sprite id="spr-tree-left" left="332" top="324"  width="64" height="64"/>
-		<Sprite id="spr-title-0" left="55" top="371"  width="181" height="113"/>
+		<Sprite id="spr-title-0" left="55" top="371"  width="179" height="80"/>
+        
+        <Sprite id="spr-version-0" left="56" top="455"  width="42" height="41"/>
+        <Sprite id="spr-version-1" left="102" top="455"  width="42" height="41"/>
+        <Sprite id="spr-version-2" left="149" top="455"  width="42" height="41"/>
+        <Sprite id="spr-version-3" left="195" top="455"  width="42" height="41"/>
+        
+        <Sprite id="spr-options-0" left="72" top="248"  width="104" height="40"/>
+        <Sprite id="spr-menu-arrow-0" left="64" top="248"  width="7" height="8"/>
 	</Textures>
 </Textures>
