@@ -13,7 +13,7 @@ void MenuKoopa::Awake()
 
 void MenuKoopa::Update()
 {
-	transform.Position.x += KOOPA_SPEED * Game::DeltaTime();
+	transform.Position.x += KOOPA_SPEED * Game::DeltaTime() * Game::GetTimeScale();
 	auto conf = Game::GetInstance().GetGlobalConfigs();
 	if (transform.Position.x > conf.screenWidth + 300)
 		transform.Position.x = -192;

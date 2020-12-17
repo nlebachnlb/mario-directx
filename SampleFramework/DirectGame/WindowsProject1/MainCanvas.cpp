@@ -71,6 +71,9 @@ void MainCanvas::Update()
 	case GameState::Die:
 		GameLose();
 		break;
+	case GameState::Menu:
+		GameMenu();
+		break;
 	}
 }
 
@@ -113,6 +116,7 @@ void MainCanvas::Render()
 	}
 	break;
 	case GameState::Die:
+	case GameState::Menu:
 	{
 		if (alpha > 0)
 		{
@@ -233,6 +237,11 @@ void MainCanvas::StartMenu()
 	gameState = GameState::Menu;
 	hud->SetActive(false);
 	DebugOut(L"Gamestate: %d\n", gameState == GameState::Menu ? 1 : 0);
+}
+
+void MainCanvas::CloseMenu()
+{
+	finishStep = 1;
 }
 
 bool MainCanvas::IsSwitchTime()
@@ -516,6 +525,7 @@ void MainCanvas::GameLose()
 	}
 	break;
 	}
+
 	switch (transition)
 	{
 	case 1:
@@ -530,6 +540,44 @@ void MainCanvas::GameLose()
 			finishStep = 0;
 			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 			Game::GetInstance().GetData()->ModifyLife(-1, true);
+		}
+	}
+	break;
+	}
+}
+
+void MainCanvas::GameMenu()
+{
+	auto dt = Game::DeltaTime();
+
+	switch (finishStep)
+	{
+	case 1:
+	{
+		finishTimer += dt;
+		if (finishTimer > 1000)
+		{
+			finishTimer = 0;
+			StartTransition();
+			finishStep = 0;
+		}
+	}
+	break;
+	}
+
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)500) * dt;
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			GetGameReady();
+			finishTimer = 0;
+			finishStep = 0;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 		}
 	}
 	break;

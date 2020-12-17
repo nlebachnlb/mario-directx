@@ -41,6 +41,7 @@ public:
 	void FinishGame(int card);
 	void StartTransition();
 	void StartMenu();
+	void CloseMenu();
 
 	bool IsSwitchTime();
 	void SwitchCoinBrick(bool freeze = false);
@@ -52,6 +53,7 @@ private:
 	void GameRun();
 	void GameFinish();
 	void GameLose();
+	void GameMenu();
 
 	HudPanel* hud;
 	Texture2D mask;

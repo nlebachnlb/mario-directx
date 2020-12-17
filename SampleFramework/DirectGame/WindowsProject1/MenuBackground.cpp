@@ -1,5 +1,6 @@
 #include "MenuBackground.h"
 #include "Game.h"
+#include "MainCanvas.h"
 
 void MenuBackground::Awake()
 {
@@ -25,6 +26,15 @@ void MenuBackground::AddOption(Vector2 opt)
 	options.push_back(opt);
 }
 
+void MenuBackground::LateUpdate()
+{
+	if (blink)
+	{
+		timer += Game::DeltaTime();
+		if (timer > MENU_BLINK_TIME) timer = 0;
+	}
+}
+
 void MenuBackground::Render(Vector2 translation)
 {
 	for (int i = 0; i < elements.size(); ++i)
@@ -33,10 +43,34 @@ void MenuBackground::Render(Vector2 translation)
 			elements.at(i).pivot.x, elements.at(i).pivot.y);
 
 	if (currentOption < options.size())
-		arrow->Draw(options.at(currentOption).x, options.at(currentOption).y);
+	{
+		if ((blink && timer > MENU_BLINK_TIME * 0.5f) || !blink)
+			arrow->Draw(options.at(currentOption).x, options.at(currentOption).y);
+	}
 }
 
 void MenuBackground::OnKeyDown(int keyCode)
 {
-	currentOption = (currentOption + 1) % options.size();
+	if (blink) return;
+
+	switch (keyCode)
+	{
+	case DIK_DOWN:
+		currentOption = (currentOption + 1) % options.size();
+		break;
+	case DIK_UP:
+		currentOption = currentOption - 1 < 0 ? options.size() - 1 : currentOption - 1;
+		break;
+	case DIK_RETURN:
+	{
+		if (currentOption == 0)
+		{
+			blink = true;
+			Game::GetInstance().SetTimeScale(0);
+			auto mainCanvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+			if (mainCanvas != nullptr) mainCanvas->CloseMenu();
+		}
+	}
+	break;
+	}
 }

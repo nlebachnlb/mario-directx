@@ -393,7 +393,7 @@ void GameMap::Unload()
 
     if (mapData != nullptr) delete mapData;
     mapData = nullptr;
-    spawnerManager->ClearServices();
+    if (spawnerManager != nullptr) spawnerManager->ClearServices();
 
     gameObjects.clear();
 }
