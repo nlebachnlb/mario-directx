@@ -1,12 +1,12 @@
-#include "MapTree.h"
+#include "MenuVersionFX.h"
 #include "Game.h"
 #include "AnimationDatabase.h"
 
-void MapTree::Awake()
+void MenuVersionFX::Awake()
 {
 	rigidbody->SetDynamic(false);
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
-	AddAnimation("Default", animations->Get("ani-tree"));
+	AddAnimation("Default", animations->Get("ani-version"));
 
 	SetState("Default");
 }

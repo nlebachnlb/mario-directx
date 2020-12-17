@@ -206,6 +206,7 @@
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="MenuBackground.h" />
+    <ClInclude Include="MenuVersionFX.h" />
     <ClInclude Include="ObjectGroup.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectTags.h" />
@@ -331,6 +332,7 @@
     <ClCompile Include="Mathf.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="MenuBackground.cpp" />
+    <ClCompile Include="MenuVersionFX.cpp" />
     <ClCompile Include="ObjectGroup.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectTags.cpp" />

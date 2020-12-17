@@ -20,12 +20,11 @@
 		<Animation aniId="ani-title" frameTime="100">
 			<Sprite id="spr-title-0" left="55" top="371"  width="181" height="113"/>
 		</Animation>
-    <Animation aniId="ani-version" frameTime="100">
+    <Animation aniId="ani-version" frameTime="200">
       <Sprite id="spr-version-0"/>
       <Sprite id="spr-version-1"/>
       <Sprite id="spr-version-2"/>
       <Sprite id="spr-version-3"/>
-      <Sprite id="spr-version-2"/>
       <Sprite id="spr-version-1"/>
     </Animation>
 	</Textures>

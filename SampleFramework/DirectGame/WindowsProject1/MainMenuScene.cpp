@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "MenuBackground.h"
 #include "MainCanvas.h"
+#include "MenuVersionFX.h"
 
 void MainMenuScene::Load()
 {
@@ -42,6 +43,21 @@ void MainMenuScene::Load()
 			}
 
 			AddObject(obj);
+
+			for (auto elm = element->FirstChildElement("Object"); elm != nullptr; elm = elm->NextSiblingElement("Object"))
+			{
+				int x, y;
+				std::string name = elm->Attribute("name");
+				elm->QueryIntAttribute("x", &x);
+				elm->QueryIntAttribute("y", &y);
+
+				if (name.compare("menu-version") == 0)
+				{
+					auto object = Instantiate<MenuVersionFX>();
+					object->SetPosition(Vector2(x, y));
+					AddObject(object);
+				}
+			}
 		}
 		else if (name.compare("Camera") == 0)
 		{

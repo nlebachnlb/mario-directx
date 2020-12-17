@@ -220,7 +220,7 @@
     <Filter Include="GameSource\GameObjects\WorldMap\MapNodes">
       <UniqueIdentifier>{771b4e6c-c549-429e-99d4-3cd576ee98bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\GameObjects\MainMenu">
+    <Filter Include="GameSource\UserInterface\MainMenu">
       <UniqueIdentifier>{cb2f08e7-1853-409b-b560-768b2ee4b9bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -598,10 +598,13 @@
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClInclude>
     <ClInclude Include="MenuBackground.h">
-      <Filter>GameSource\GameObjects\MainMenu</Filter>
+      <Filter>GameSource\UserInterface\MainMenu</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuScene.h">
       <Filter>GameSource\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuVersionFX.h">
+      <Filter>GameSource\UserInterface\MainMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -997,10 +1000,13 @@
       <Filter>GameSource\GameObjects\Effects\MarioFX</Filter>
     </ClCompile>
     <ClCompile Include="MenuBackground.cpp">
-      <Filter>GameSource\GameObjects\MainMenu</Filter>
+      <Filter>GameSource\UserInterface\MainMenu</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuScene.cpp">
       <Filter>GameSource\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuVersionFX.cpp">
+      <Filter>GameSource\UserInterface\MainMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

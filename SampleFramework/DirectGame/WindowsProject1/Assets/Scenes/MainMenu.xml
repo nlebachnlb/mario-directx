@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Scene bgcolor_r="255" bgcolor_g="216" bgcolor_b="154">
+<Scene bgcolor_r="247" bgcolor_g="220" bgcolor_b="176">
   <Scene name="MenuBackground">
-    <Sprite id="spr-tree-left" x="0" y="702" px="0" py="192"/>
-    <Sprite id="spr-tree-right" x="635" y="702" px="0" py="288"/>
-    <Sprite id="spr-intro-ground-0" x="0" y="702" px="0" py="0"/>
+    <Sprite id="spr-tree-left" x="0" y="642" px="0" py="192"/>
+    <Sprite id="spr-tree-right" x="635" y="642" px="0" py="288"/>
+    
+    <Sprite id="spr-big-cloud-0" x="48" y="142" px="0" py="0"/>
+    <Sprite id="spr-big-cloud-0" x="660" y="96" px="0" py="0"/>
+    <Sprite id="spr-small-cloud-0" x="24" y="262" px="0" py="0"/>
+    
+    <Sprite id="spr-intro-ground-0" x="0" y="642" px="0" py="0"/>
+    <Sprite id="spr-intro-ground-1" x="768" y="642" px="0" py="0"/>
+    <Sprite id="spr-intro-ground-2" x="816" y="642" px="0" py="0"/>
     <Sprite id="spr-bottom-curtain-0" x="0" y="0" px="0" py="0"/>
+    <Sprite id="spr-title-0" x="412" y="200" px="268" py="120"/>
+    <Sprite id="spr-options-0" x="412" y="508" px="156" py="60"/>
+    
+    <Object name="menu-version" x="426" y="356"/>
   </Scene>
   <Scene name="Camera" start="0" main="0">
     <Boundary id="0" pos_x="0" pos_y="0" left="0" top="0" right="824" bottom="744"/>
