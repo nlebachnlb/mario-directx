@@ -57,4 +57,9 @@
         <Sprite id="spr-fire-flower-card-0" left="202" top="158"  width="24" height="29"/>
         <Sprite id="spr-star-man-card-0" left="232" top="158"  width="24" height="30"/>
 	</Textures>
+    
+    <Textures textureId="tex-dialog">
+        <Sprite id="spr-dialog-gameover-0" left="0" top="0"  width="128" height="64"/>
+        <Sprite id="spr-dialog-mario-0" left="133" top="0"  width="128" height="55"/>
+    </Textures>
 </Textures>
