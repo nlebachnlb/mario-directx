@@ -37,6 +37,7 @@ public:
 
 	void SetTarget(GameObject gameObject);
 	void SetBoundary(RectF boundary);
+	RectF GetCurrentBoundary();
 	void SetRenderOffset(Vector2 offset);
 
 	void AddBoundarySet(int id, Vector2 position, RectF boundary);

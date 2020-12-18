@@ -393,13 +393,14 @@ void GameMap::Unload()
 
     if (mapData != nullptr) delete mapData;
     mapData = nullptr;
-    spawnerManager->ClearServices();
+    if (spawnerManager != nullptr) spawnerManager->ClearServices();
 
     gameObjects.clear();
 }
 
 void GameMap::LoadEnemy()
 {
+    if (mapData == nullptr) return;
     auto objectGroups = mapData->GetObjectGroups();
     for (auto x : *objectGroups)
     {

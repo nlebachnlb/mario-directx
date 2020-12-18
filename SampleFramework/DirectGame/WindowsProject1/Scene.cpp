@@ -107,9 +107,14 @@ void Scene::Init()
 {
 	auto gmap = Game::GetInstance().GetService<GameMap>();
 	auto spawner = gmap->GetSpawnerManager();
-	auto fxPool = spawner->GetService<EffectPool>();
-	fxPool->Initialization();
-	gmap->LoadEnemy();
+
+	if (spawner != nullptr)
+	{
+		auto fxPool = spawner->GetService<EffectPool>();
+		fxPool->Initialization();
+	}
+
+	if (gmap != nullptr) gmap->LoadEnemy();
 
 	ProcessInstantiateRequests();
 	for (auto o : *objects)
@@ -234,7 +239,7 @@ void Scene::UpdateActiveObjects()
 				}
 				else
 				{
-					if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 3))
+					if (!o->IsAlwaysUpdated() && !mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 3))
 					{
 						o->SetOffScreen(true);
 						continue;

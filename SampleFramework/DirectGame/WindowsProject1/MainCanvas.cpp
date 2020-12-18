@@ -71,6 +71,9 @@ void MainCanvas::Update()
 	case GameState::Die:
 		GameLose();
 		break;
+	case GameState::Menu:
+		GameMenu();
+		break;
 	}
 }
 
@@ -87,7 +90,9 @@ void MainCanvas::PreRender()
 
 void MainCanvas::Render()
 {
-	Game::GetInstance().DrawTexture(0, 594, 0, 0, mask, 0, 0, 824, 150);
+	if (gameState != GameState::Menu) 
+		Game::GetInstance().DrawTexture(0, 594, 0, 0, mask, 0, 0, 824, 150);
+	
 	Canvas::Render();
 
 	switch (gameState)
@@ -111,6 +116,7 @@ void MainCanvas::Render()
 	}
 	break;
 	case GameState::Die:
+	case GameState::Menu:
 	{
 		if (alpha > 0)
 		{
@@ -182,6 +188,7 @@ void MainCanvas::GetGameReady()
 	courseClear->SetContent("");
 	reward->SetContent("");
 	gameState = GameState::Ready;
+	hud->SetActive(true);
 }
 
 void MainCanvas::LoseGame()
@@ -223,6 +230,18 @@ void MainCanvas::StartTransition()
 {
 	transition = 1;
 	DebugOut(L"Canvas Start transition: %d\n", alpha);
+}
+
+void MainCanvas::StartMenu()
+{
+	gameState = GameState::Menu;
+	hud->SetActive(false);
+	DebugOut(L"Gamestate: %d\n", gameState == GameState::Menu ? 1 : 0);
+}
+
+void MainCanvas::CloseMenu()
+{
+	finishStep = 1;
 }
 
 bool MainCanvas::IsSwitchTime()
@@ -336,6 +355,13 @@ void MainCanvas::GameRun()
 
 	auto dtScaled = Game::DeltaTime() * Game::GetTimeScale();
 	time -= dtScaled * 1.0f;
+
+	// Time's Up 
+	if (time <= 1)
+	{
+		time = 0;
+		player->SwitchToState("Die");
+	}
 
 	if (timeFreeze)
 	{
@@ -506,6 +532,7 @@ void MainCanvas::GameLose()
 	}
 	break;
 	}
+
 	switch (transition)
 	{
 	case 1:
@@ -520,6 +547,44 @@ void MainCanvas::GameLose()
 			finishStep = 0;
 			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 			Game::GetInstance().GetData()->ModifyLife(-1, true);
+		}
+	}
+	break;
+	}
+}
+
+void MainCanvas::GameMenu()
+{
+	auto dt = Game::DeltaTime();
+
+	switch (finishStep)
+	{
+	case 1:
+	{
+		finishTimer += dt;
+		if (finishTimer > 1000)
+		{
+			finishTimer = 0;
+			StartTransition();
+			finishStep = 0;
+		}
+	}
+	break;
+	}
+
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)500) * dt;
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			GetGameReady();
+			finishTimer = 0;
+			finishStep = 0;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 		}
 	}
 	break;

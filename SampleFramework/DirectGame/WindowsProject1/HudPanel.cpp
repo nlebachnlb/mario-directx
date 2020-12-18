@@ -99,6 +99,7 @@ void HudPanel::PreRender()
 
 void HudPanel::Render()
 {
+	if (!IsActive()) return;
 	panel->Draw(0 + 32, config.screenHeight - config.hudOffset, 0, 0);
 
 	for (int i = cards.size() - 1; i >= 0; --i)

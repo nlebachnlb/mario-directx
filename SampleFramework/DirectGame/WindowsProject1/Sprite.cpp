@@ -65,6 +65,7 @@ void SpriteManager::Initialization()
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_MISC));
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_EFFECT));
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_HUD));
+	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_MENU));
 	LoadSpriteFile(Game::GetInstance().GetSourcePathOf(CATEGORY_SPRITE, DB_SPRITE_OVERWORLD_MAP));
 }
 

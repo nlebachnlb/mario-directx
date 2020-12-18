@@ -82,6 +82,8 @@ public:
 	void SetVisualRelativePosition(Vector2 position);
 	Vector2 GetVisualRelativePosition();
 
+	void SetAlwaysUpdate(bool value);
+	bool IsAlwaysUpdated();
 	bool IsEnabled();
 	bool IsDestroyed();
 	void SetDestroyed();
@@ -103,7 +105,7 @@ protected:
 	std::unordered_map<std::string, Animation*> animations;
 
 	int renderOrder;
-	bool enabled, destroyed, offscreen;
+	bool enabled, destroyed, offscreen, alwaysUpdate;
 	ObjectTags tag;
 	Effector2D effector;
 
