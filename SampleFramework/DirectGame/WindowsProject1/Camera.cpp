@@ -167,6 +167,11 @@ void Camera::SetBoundary(RectF boundary)
     this->boundary = boundary;
 }
 
+RectF Camera::GetCurrentBoundary()
+{
+    return boundary;
+}
+
 void Camera::SetRenderOffset(Vector2 offset)
 {
     renderOffset = offset;

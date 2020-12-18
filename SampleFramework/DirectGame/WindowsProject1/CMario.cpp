@@ -188,6 +188,10 @@ void CMario::Update()
 	if (physicState.jump != JumpingStates::Stand) facing = nx;
 	if (canCrouch && !hold) CrouchDetection(input);
 	HoldProcess();
+
+	if (mainCamera != nullptr && 
+		transform.Position.y > mainCamera->GetCurrentBoundary().bottom + 48)
+		controller->SwitchToState("Die");
 }
 
 void CMario::LateUpdate()
