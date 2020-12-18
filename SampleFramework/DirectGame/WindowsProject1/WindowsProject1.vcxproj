@@ -274,6 +274,7 @@
     <ClInclude Include="WarpInfo.h" />
     <ClInclude Include="WarpMark.h" />
     <ClInclude Include="WarpUtils.h" />
+    <ClInclude Include="WorldDialog.h" />
     <ClInclude Include="WorldMapScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +398,7 @@
     <ClCompile Include="WarpEntrance.cpp" />
     <ClCompile Include="WarpInfo.cpp" />
     <ClCompile Include="WarpMark.cpp" />
+    <ClCompile Include="WorldDialog.cpp" />
     <ClCompile Include="WorldMapScene.cpp" />
   </ItemGroup>
   <ItemGroup>

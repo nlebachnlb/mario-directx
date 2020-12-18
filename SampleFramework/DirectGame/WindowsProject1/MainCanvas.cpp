@@ -15,10 +15,13 @@ void MainCanvas::Awake()
 	hud->Initialize();
 	AddUIElement(hud);
 
+	worldDialog = new WorldDialog();
+	worldDialog->Initialize();
+
 	mask = Game::GetInstance().GetService<TextureManager>()->GetTexture(TEXTURE_BOX);
 
 	courseClear = new Text();
-	reward		= new Text();
+	reward = new Text();
 
 	auto font = Game::GetInstance().GetGlobalFont();
 	courseClear->SetFont(font);
@@ -34,7 +37,7 @@ void MainCanvas::Awake()
 	cardVisuals[1] = sprManager->Get("spr-fire-flower-card-0");
 	cardVisuals[2] = sprManager->Get("spr-star-man-card-0");
 
-	gameState = GameState::Ready;
+	gameState = GameState::Menu;
 }
 
 void MainCanvas::Start()
@@ -53,10 +56,17 @@ void MainCanvas::Start()
 
 	courseClear->SetContent("");
 	reward->SetContent("");
+
+	auto config = Game::GetInstance().GetGlobalConfigs();
+	worldDialog->SetPosition(Vector2(config.screenWidth * 0.5f - 192, config.screenHeight * 0.5f - 96 - 96));
+	worldDialog->SetActive(false);
+
+	gameState = GameState::Menu;
 }
 
 void MainCanvas::Update()
 {
+	// DebugOut(L"GAME STATE %d\n", gameState == GameState::Unload ? 1 : 0);
 	switch (gameState)
 	{
 	case GameState::Run:
@@ -74,6 +84,9 @@ void MainCanvas::Update()
 	case GameState::Menu:
 		GameMenu();
 		break;
+	case GameState::WorldStart:
+		GameWorldStart();
+		break;
 	}
 }
 
@@ -86,14 +99,17 @@ void MainCanvas::PreRender()
 
 	hud->SetTimer((int)((float)time * 0.001f));
 	hud->PreRender();
+
+	worldDialog->PreRender();
 }
 
 void MainCanvas::Render()
 {
-	if (gameState != GameState::Menu) 
+	if (gameState != GameState::Menu)
 		Game::GetInstance().DrawTexture(0, 594, 0, 0, mask, 0, 0, 824, 150);
-	
+
 	Canvas::Render();
+	worldDialog->Render();
 
 	switch (gameState)
 	{
@@ -160,7 +176,7 @@ void MainCanvas::Render()
 
 void MainCanvas::OnSceneUnload()
 {
-	gameState = GameState::Unload;
+	// gameState = GameState::Unload;
 	Game::GetInstance().SetTimeScale(1);
 	ResetTimer();
 	player = nullptr;
@@ -244,6 +260,14 @@ void MainCanvas::CloseMenu()
 	finishStep = 1;
 }
 
+void MainCanvas::WorldIntro()
+{
+	if (gameState != GameState::Menu) return;
+
+	OpenWorldDialog();
+	gameState = GameState::WorldStart;
+}
+
 bool MainCanvas::IsSwitchTime()
 {
 	return pSwitchTimer > 0;
@@ -281,6 +305,23 @@ void MainCanvas::StartSwitchTimer()
 {
 	pSwitchTimer = PSWITCH_TIME;
 	timeFreeze = true;
+}
+
+bool MainCanvas::IsDialogOpening()
+{
+	return dialogOpening;
+}
+
+void MainCanvas::OpenWorldDialog()
+{
+	worldDialog->SetActive(true);
+	dialogOpening = true;
+}
+
+void MainCanvas::CloseWorldDialog()
+{
+	worldDialog->SetActive(false);
+	dialogOpening = false;
 }
 
 void MainCanvas::SetTargetScene(std::string id)
@@ -396,7 +437,7 @@ void MainCanvas::GameRun()
 			alpha = 0;
 			if (transition == 10)
 				wipePosition = VectorZero();
-			else 
+			else
 				mario->WarpOut();
 			transition = 3;
 		}
@@ -581,11 +622,43 @@ void MainCanvas::GameMenu()
 		{
 			alpha = 255;
 			transition = 2;
-			GetGameReady();
 			finishTimer = 0;
 			finishStep = 0;
+			hud->SetActive(true);
 			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
 		}
+	}
+	break;
+	}
+}
+
+void MainCanvas::GameWorldStart()
+{
+	auto dt = Game::DeltaTime();
+	finishTimer += dt;
+	if (finishTimer > 2000)
+	{
+		finishTimer = 0;
+		CloseWorldDialog();
+		GetGameReady();
+	}
+
+	switch (transition)
+	{
+	case 2:
+	{
+		alpha -= (255.0f / (float)TRANSITION_TIME) * Game::DeltaTime();
+		if (alpha <= 1)
+		{
+			alpha = 0;
+			transition = 3;
+		}
+	}
+	break;
+	case 3:
+	{
+		alpha = 0;
+		transition = 0;
 	}
 	break;
 	}

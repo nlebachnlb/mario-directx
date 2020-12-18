@@ -12,6 +12,7 @@
     <Texture id="tex-reward" source="Assets/Sprites/reward_x3.png"/>
     <Texture id="tex-overworld" source="Assets/Sprites/overworld_x3.png"/>
     <Texture id="tex-menu" source="Assets/Sprites/intro_x3.png"/>
+    <Texture id="tex-dialog" source="Assets/Sprites/dialogs_x3.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Assets/Sprites/SpriteDatabases/MarioDB.xml"/>

@@ -9,6 +9,7 @@ void MarioLocator::Awake()
 	InitAnimations();
 	map = new Graph();
 	renderOrder = 6;
+	controllable = true;
 }
 
 void MarioLocator::Start()
@@ -77,6 +78,9 @@ void MarioLocator::Update()
 void MarioLocator::OnKeyDown(int keyCode)
 {
 	if (map->GetNode(currentNode) == nullptr) return;
+	auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+	if (canvas->IsDialogOpening()) return;
+
 	if (onGoing || recover) return;
 
 	auto node = map->GetNode(currentNode);
@@ -167,6 +171,16 @@ void MarioLocator::SetCurrentNode(int id)
 
 		tempData.status = GameplayStatus::None;
 	}
+}
+
+void MarioLocator::SetControllable(bool value)
+{
+	controllable = value;
+}
+
+bool MarioLocator::IsControllable()
+{
+	return controllable && !(onGoing || recover);
 }
 
 Graph* MarioLocator::Map()

@@ -17,6 +17,9 @@ public:
 	void SetMap(Graph* m);
 	void SetCurrentNode(int id);
 
+	void SetControllable(bool value);
+	bool IsControllable();
+
 	Graph* Map();
 private:
 	Graph* map;
@@ -24,4 +27,5 @@ private:
 	Vector2 destination;
 	int onGoing;
 	int recover, timer;
+	bool controllable;
 };
