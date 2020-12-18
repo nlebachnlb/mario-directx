@@ -356,6 +356,13 @@ void MainCanvas::GameRun()
 	auto dtScaled = Game::DeltaTime() * Game::GetTimeScale();
 	time -= dtScaled * 1.0f;
 
+	// Time's Up 
+	if (time <= 1)
+	{
+		time = 0;
+		player->SwitchToState("Die");
+	}
+
 	if (timeFreeze)
 	{
 		pSwitchTimer -= dtScaled;

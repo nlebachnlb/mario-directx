@@ -132,6 +132,7 @@ void PlayerController::SwitchToState(std::string state)
 		auto castFx = static_cast<MarioFX*>(fx);
 		castFx->SetController(this);
 		canvas->LoseGame();
+		Game::GetInstance().GetData()->SetPowerup("SmallMario");
 		return;
 	}
 
