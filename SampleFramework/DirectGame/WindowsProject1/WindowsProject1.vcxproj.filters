@@ -612,6 +612,9 @@
     <ClInclude Include="WorldDialog.h">
       <Filter>GameSource\UserInterface\Layouts</Filter>
     </ClInclude>
+    <ClInclude Include="GameOverDialog.h">
+      <Filter>GameSource\UserInterface\Layouts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -1018,6 +1021,9 @@
       <Filter>GameSource\UserInterface\MainMenu</Filter>
     </ClCompile>
     <ClCompile Include="WorldDialog.cpp">
+      <Filter>GameSource\UserInterface\Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverDialog.cpp">
       <Filter>GameSource\UserInterface\Layouts</Filter>
     </ClCompile>
   </ItemGroup>

@@ -22,6 +22,7 @@ public:
 	static void UpdateAllCanvases();
 	static void RenderAllCanvases();
 	static void OnSceneUnloadedEvent();
+	static void NotifyOnKeyDown(int keyCode);
 	static void Clean();
 
 	~Canvas();
@@ -32,6 +33,7 @@ public:
 	virtual void PreRender();
 	virtual void Render();
 	virtual void OnSceneUnload();
+	virtual void OnKeyDown(int keyCode);
 
 	void Initialize();
 
@@ -44,7 +46,7 @@ public:
 
 protected:
 	bool enabled;
-	std::set<UIElement*, Cmp> elements;
+	std::multiset<UIElement*, Cmp> elements;
 	std::vector<UIElement*> addRequests;
 	std::string id;
 

@@ -1,5 +1,6 @@
 #include "KeyEventHandler.h"
 #include "Game.h"
+#include "Canvas.h"
 
 void CGlobalKeyEventHandler::KeyState(BYTE* state)
 {
@@ -7,6 +8,7 @@ void CGlobalKeyEventHandler::KeyState(BYTE* state)
 
 void CGlobalKeyEventHandler::OnKeyDown(int KeyCode)
 {
+	Canvas::NotifyOnKeyDown(KeyCode);
 	//DebugOut(L"Keydown\n");
 	auto sceneManager = Game::GetInstance().GetService<SceneManager>();
 	Scene* activeScene = sceneManager->GetActiveScene();

@@ -111,7 +111,7 @@ void Scene::Init()
 	if (spawner != nullptr)
 	{
 		auto fxPool = spawner->GetService<EffectPool>();
-		fxPool->Initialization();
+		if (fxPool != nullptr) fxPool->Initialization();
 	}
 
 	if (gmap != nullptr) gmap->LoadEnemy();

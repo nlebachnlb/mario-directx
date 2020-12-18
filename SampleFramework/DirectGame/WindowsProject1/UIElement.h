@@ -12,6 +12,7 @@ public:
 	virtual void Update();
 	virtual void PreRender();
 	virtual void Render();
+	virtual void OnKeyDown(int keyCode);
 
 	void SetPosition(Vector2 position);
 	Transform GetTransform();

@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "PlayerController.h"
 #include "WorldDialog.h"
+#include "GameOverDialog.h"
 
 const int TRANSITION_TIME = 500;
 const int PSWITCH_TIME = 8000;
@@ -21,7 +22,8 @@ enum class GameState
 	Waiting,
 	Die,
 	Run,
-	Finish
+	Finish,
+	GameOver
 };
 
 class MainCanvas : public Canvas
@@ -44,7 +46,7 @@ public:
 	void StartTransition();
 	void StartMenu();
 	void CloseMenu();
-	void WorldIntro();
+	void WorldIntro(bool restartWorld = false);
 
 	bool IsSwitchTime();
 	void SwitchCoinBrick(bool freeze = false);
@@ -54,6 +56,12 @@ public:
 	void OpenWorldDialog();
 	void CloseWorldDialog();
 
+	void OpenGameOverDialog();
+	void CloseGameOverDialog();
+
+	void OnGameOver();
+	void RestartWorld();
+
 	void SetTargetScene(std::string id);
 private:
 	void GameReady();
@@ -62,6 +70,7 @@ private:
 	void GameLose();
 	void GameMenu();
 	void GameWorldStart();
+	void GameOver();
 
 	HudPanel* hud;
 	Texture2D mask;
@@ -86,6 +95,7 @@ private:
 
 	#pragma region Dialogs
 	WorldDialog* worldDialog;
+	GameOverDialog* gameOverDialog;
 	bool dialogOpening;
 	#pragma endregion
 };

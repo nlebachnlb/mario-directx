@@ -6,6 +6,7 @@
 #include "Coin.h"
 #include "ExampleScene.h"
 #include "WorldMapScene.h"
+#include "MainMenuScene.h"
 
 void MainCanvas::Awake()
 {
@@ -17,6 +18,11 @@ void MainCanvas::Awake()
 
 	worldDialog = new WorldDialog();
 	worldDialog->Initialize();
+	AddUIElement(worldDialog);
+
+	gameOverDialog = new GameOverDialog();
+	gameOverDialog->Initialize();
+	AddUIElement(gameOverDialog);
 
 	mask = Game::GetInstance().GetService<TextureManager>()->GetTexture(TEXTURE_BOX);
 
@@ -61,6 +67,9 @@ void MainCanvas::Start()
 	worldDialog->SetPosition(Vector2(config.screenWidth * 0.5f - 192, config.screenHeight * 0.5f - 96 - 96));
 	worldDialog->SetActive(false);
 
+	gameOverDialog->SetPosition(Vector2(config.screenWidth * 0.5f - 192, config.screenHeight * 0.5f - 96 - 96));
+	gameOverDialog->SetActive(false);
+
 	gameState = GameState::Menu;
 }
 
@@ -87,6 +96,9 @@ void MainCanvas::Update()
 	case GameState::WorldStart:
 		GameWorldStart();
 		break;
+	case GameState::GameOver:
+		GameOver();
+		break;
 	}
 }
 
@@ -109,7 +121,6 @@ void MainCanvas::Render()
 		Game::GetInstance().DrawTexture(0, 594, 0, 0, mask, 0, 0, 824, 150);
 
 	Canvas::Render();
-	worldDialog->Render();
 
 	switch (gameState)
 	{
@@ -133,6 +144,7 @@ void MainCanvas::Render()
 	break;
 	case GameState::Die:
 	case GameState::Menu:
+	case GameState::GameOver:
 	{
 		if (alpha > 0)
 		{
@@ -260,9 +272,11 @@ void MainCanvas::CloseMenu()
 	finishStep = 1;
 }
 
-void MainCanvas::WorldIntro()
+void MainCanvas::WorldIntro(bool restartWorld)
 {
-	if (gameState != GameState::Menu) return;
+	if (gameState != GameState::Menu && !restartWorld) return;
+
+	gameOverDialog->SetActive(false);
 
 	OpenWorldDialog();
 	gameState = GameState::WorldStart;
@@ -322,6 +336,32 @@ void MainCanvas::CloseWorldDialog()
 {
 	worldDialog->SetActive(false);
 	dialogOpening = false;
+}
+
+void MainCanvas::OpenGameOverDialog()
+{
+	gameOverDialog->SetActive(true);
+	dialogOpening = true;
+}
+
+void MainCanvas::CloseGameOverDialog()
+{
+	gameOverDialog->SetActive(false);
+	dialogOpening = false;
+}
+
+void MainCanvas::OnGameOver()
+{
+	OpenGameOverDialog();
+	gameState = GameState::GameOver;
+}
+
+void MainCanvas::RestartWorld()
+{
+	// StartMenu();
+	gameState = GameState::Menu;
+	Game::GetInstance().GetData()->ResetData();
+	StartTransition();
 }
 
 void MainCanvas::SetTargetScene(std::string id)
@@ -587,7 +627,11 @@ void MainCanvas::GameLose()
 			finishTimer = 0;
 			finishStep = 0;
 			Game::GetInstance().GetService<SceneManager>()->LoadScene(new WorldMapScene());
-			Game::GetInstance().GetData()->ModifyLife(-1, true);
+
+			auto data = Game::GetInstance().GetData();
+			if (data->life == 0)
+				OnGameOver();
+			data->ModifyLife(-1, true);
 		}
 	}
 	break;
@@ -629,6 +673,16 @@ void MainCanvas::GameMenu()
 		}
 	}
 	break;
+	case 2:
+	{
+		alpha -= (255.0f / (float)TRANSITION_TIME) * Game::DeltaTime();
+		if (alpha <= 1)
+		{
+			alpha = 0;
+			transition = 0;
+		}
+	}
+	break;
 	}
 }
 
@@ -659,6 +713,35 @@ void MainCanvas::GameWorldStart()
 	{
 		alpha = 0;
 		transition = 0;
+	}
+	break;
+	}
+}
+
+void MainCanvas::GameOver()
+{
+	Game::SetTimeScale(0);
+	switch (transition)
+	{
+	case 1:
+	{
+		alpha += (255.0f / (float)TRANSITION_TIME) * Game::DeltaTime();
+		if (alpha >= 255)
+		{
+			alpha = 255;
+			transition = 2;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new MainMenuScene());
+		}
+	}
+	break;
+	case 2:
+	{
+		alpha -= (255.0f / (float)TRANSITION_TIME) * Game::DeltaTime();
+		if (alpha <= 1)
+		{
+			alpha = 0;
+			transition = 0;
+		}
 	}
 	break;
 	}

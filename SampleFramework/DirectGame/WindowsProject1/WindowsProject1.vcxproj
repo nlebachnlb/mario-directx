@@ -168,6 +168,7 @@
     <ClInclude Include="Font.h" />
     <ClInclude Include="FXObject.h" />
     <ClInclude Include="GameData.h" />
+    <ClInclude Include="GameOverDialog.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="AbstractEnemy.h" />
     <ClInclude Include="GlobalConfigs.h" />
@@ -298,6 +299,7 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FXObject.cpp" />
     <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="GameOverDialog.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="AbstractEnemy.cpp" />
     <ClCompile Include="Goomba.cpp" />

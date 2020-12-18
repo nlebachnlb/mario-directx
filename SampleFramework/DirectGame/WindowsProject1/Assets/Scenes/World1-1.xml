@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Scene bgcolor_r="156" bgcolor_g="252" bgcolor_b="240">
+<Scene bgcolor_r="190" bgcolor_g="237" bgcolor_b="243">
   <Scene name="Map" source="Assets/Maps/world-1-1-map.tmx"/>
-  <Scene name="Player" pos_x="64" pos_y="1000"/>
+  <Scene name="Player" pos_x="64" pos_y="1168"/>
   <Scene name="Camera" start="0" main="1">
     <Boundary id="0" pos_x="0" pos_y="650" left="0" top="672" right="8448" bottom="1296"/>
     <Boundary id="2" pos_x="0" pos_y="650" left="0" top="0" right="8448" bottom="1296"/>
