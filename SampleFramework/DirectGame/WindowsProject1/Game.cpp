@@ -81,13 +81,17 @@ void Game::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
 	d3dpp.BackBufferWidth = configs.screenWidth = scrWidth;
 	d3dpp.BackBufferHeight = configs.screenHeight = scrHeight;
+	d3dpp.Flags = 0;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+	d3dpp.MultiSampleQuality = 0;
 	d3dpp.BackBufferCount = 1;
-	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
-	d3dpp.SwapEffect = D3DSWAPEFFECT_COPY;
+	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.Windowed = true;
 	d3dpp.hDeviceWindow = hWnd;
 
-	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING,
 		&d3dpp, &d3ddev);
 
 	if (!d3ddev)
@@ -247,36 +251,40 @@ void Game::GameRun(HWND hWnd)
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
-		auto now = GetTickCount();
-		deltaTime = (now - frameStart);
-
-		// Update & Render in limited fps
-		if (deltaTime >= tickPerFrame)
-		{
-			frameStart = now;
-
-			if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
-
-			// Process load scene requests first
-			sceneManager->ProcessLoadRequests();
-
-			// Process instantiate requests at last frame
-			Request();
-			// Process input
-			InputProc();
-			// Start updating new frame
-			Update();
-			// Render new frame
-			Render();
-			// Clean destroyed objects
-			Clean();
-
-			// Process unload scene requests first
-			sceneManager->ProcessUnloadRequests();
-		}
 		else
-			Sleep(tickPerFrame - deltaTime);
+		{
+			auto now = GetTickCount();
+			deltaTime = (now - frameStart);
+
+			// Update & Render in limited fps
+			if (deltaTime >= tickPerFrame)
+			{
+				frameStart = now;
+
+				if (sceneManager == nullptr) sceneManager = GetService<SceneManager>();
+
+				// Process load scene requests first
+				sceneManager->ProcessLoadRequests();
+
+				// Process instantiate requests at last frame
+				Request();
+				// Process input
+				InputProc();
+				// Start updating new frame
+				Update();
+				// Render new frame
+				Render();
+				// Clean destroyed objects
+				Clean();
+
+				// Process unload scene requests first
+				sceneManager->ProcessUnloadRequests();
+
+				Sleep(0);
+			}
+			else
+				Sleep(tickPerFrame - deltaTime);
+		}
 	}
 }
 
@@ -321,7 +329,8 @@ void Game::Render()
 {
 	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, clearColor, 1.0f, 0);
 
-	if (d3ddev->BeginScene())
+	// if (SUCCEEDED(d3ddev->BeginScene()))
+	if (d3ddev->BeginScene() == D3D_OK)
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 

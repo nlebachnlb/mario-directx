@@ -8,7 +8,7 @@ enum class Score
 };
 
 const float FLOATING_SPEED = 0.55f;
-const float DRAG = 0.02f;
+const float DRAG = 0.0015f;
 
 class ScoreFX : public FXObject
 {

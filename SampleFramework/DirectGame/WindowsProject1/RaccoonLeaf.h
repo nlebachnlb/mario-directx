@@ -3,8 +3,8 @@
 #include "Camera.h"
 
 const int LEAF_AMPLITUDE = 48; // px
-const int LEAF_ROUNDTRIP_TIME = 500;
-const float LEAF_REVEAL_DISTANCE = 48 * 2.5f; // px
+const int LEAF_ROUNDTRIP_TIME = 800;
+const float LEAF_REVEAL_DISTANCE = 48 * 2.0f; // px
 const float LEAF_REVEAL_FORCE = 0.4f;
 const float LEAF_GRAVITY = 0.0012f;
 const float LEAF_FALLING_VEL = 0.065f;

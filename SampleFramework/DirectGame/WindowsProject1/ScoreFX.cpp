@@ -23,7 +23,7 @@ void ScoreFX::Start()
 
 void ScoreFX::PreRender()
 {
-	speed -= DRAG;
+	speed -= DRAG * Game::DeltaTime();
 	if (speed <= 0)
 	{
 		pool->Revoke(this);

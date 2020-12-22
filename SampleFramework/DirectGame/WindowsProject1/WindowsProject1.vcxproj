@@ -94,6 +94,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <CallingConvention>StdCall</CallingConvention>
+      <DisableSpecificWarnings>4005;4996;4244;4018;4305;4101;4715;4067;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
