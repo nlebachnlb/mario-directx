@@ -84,9 +84,9 @@ void Game::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 	d3dpp.Flags = 0;
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
-	d3dpp.MultiSampleQuality = 0;
+	d3dpp.MultiSampleQuality = NULL;
 	d3dpp.BackBufferCount = 1;
-	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.Windowed = true;
 	d3dpp.hDeviceWindow = hWnd;
@@ -330,19 +330,19 @@ void Game::Render()
 	d3ddev->Clear(0, NULL, D3DCLEAR_TARGET, clearColor, 1.0f, 0);
 
 	// if (SUCCEEDED(d3ddev->BeginScene()))
-	if (d3ddev->BeginScene() == D3D_OK)
+	d3ddev->BeginScene();
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+		{
+			auto activeScene = sceneManager->GetActiveScene();
+			if (activeScene != nullptr)
+				activeScene->Render();
 
-		auto activeScene = sceneManager->GetActiveScene();
-		if (activeScene != nullptr)
-			activeScene->Render();
-
-		Canvas::RenderAllCanvases();
-
+			Canvas::RenderAllCanvases();
+		}
 		spriteHandler->End();
-		d3ddev->EndScene();
 	}
+	d3ddev->EndScene();
 
 	d3ddev->Present(NULL, NULL, NULL, NULL);
 }
