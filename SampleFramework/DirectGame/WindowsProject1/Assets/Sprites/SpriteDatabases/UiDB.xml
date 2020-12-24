@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
 	<Textures textureId="tex-ui">
-        <Sprite id="spr-font-0" left="31" top="24"  width="9" height="8"/>
-        <Sprite id="spr-font-1" left="54" top="24"  width="7" height="7"/>
-        <Sprite id="spr-font-2" left="71" top="24"  width="9" height="8"/>
-        <Sprite id="spr-font-3" left="90" top="24"  width="8" height="7"/>
-        <Sprite id="spr-font-4" left="108" top="24"  width="8" height="7"/>
+        <Sprite id="spr-font-0" left="32" top="24"  width="8" height="8"/>
+        <Sprite id="spr-font-1" left="54" top="24"  width="6" height="8"/>
+        <Sprite id="spr-font-2" left="71" top="24"  width="8" height="8"/>
+        <Sprite id="spr-font-3" left="90" top="24"  width="8" height="8"/>
+        <Sprite id="spr-font-4" left="108" top="24"  width="8" height="8"/>
         <Sprite id="spr-font-5" left="127" top="24"  width="8" height="8"/>
-        <Sprite id="spr-font-6" left="145" top="24"  width="8" height="7"/>
+        <Sprite id="spr-font-6" left="145" top="24"  width="8" height="8"/>
         <Sprite id="spr-font-7" left="162" top="24"  width="8" height="8"/>
-        <Sprite id="spr-font-8" left="179" top="24"  width="9" height="8"/>
+        <Sprite id="spr-font-8" left="179" top="24"  width="8" height="8"/>
         <Sprite id="spr-font-9" left="197" top="24"  width="8" height="8"/>
         <Sprite id="spr-font-A" left="215" top="24"  width="8" height="8"/>
-        <Sprite id="spr-font-B" left="234" top="24"  width="9" height="8"/>
-        <Sprite id="spr-font-C" left="31" top="39"  width="9" height="8"/>
+        <Sprite id="spr-font-B" left="234" top="24"  width="8" height="8"/>
+        <Sprite id="spr-font-C" left="32" top="39"  width="8" height="8"/>
         <Sprite id="spr-font-D" left="53" top="39"  width="8" height="8"/>
-        <Sprite id="spr-font-E" left="71" top="39"  width="9" height="8"/>
+        <Sprite id="spr-font-E" left="71" top="39"  width="8" height="8"/>
         <Sprite id="spr-font-F" left="90" top="39"  width="8" height="8"/>
         <Sprite id="spr-font-G" left="108" top="39"  width="8" height="8"/>
         <Sprite id="spr-font-H" left="127" top="39"  width="8" height="8"/>
         <Sprite id="spr-font-I" left="146" top="39"  width="4" height="8"/>
         <Sprite id="spr-font-J" left="162" top="39"  width="8" height="8"/>
-        <Sprite id="spr-font-K" left="179" top="38"  width="8" height="9"/>
-        <Sprite id="spr-font-L" left="197" top="38"  width="8" height="9"/>
+        <Sprite id="spr-font-K" left="179" top="39"  width="8" height="8"/>
+        <Sprite id="spr-font-L" left="197" top="39"  width="8" height="8"/>
         <Sprite id="spr-font-M" left="215" top="39"  width="8" height="8"/>
-        <Sprite id="spr-font-N" left="234" top="38"  width="9" height="9"/>
-        <Sprite id="spr-font-O" left="31" top="55"  width="9" height="8"/>
+        <Sprite id="spr-font-N" left="234" top="39"  width="8" height="8"/>
+        <Sprite id="spr-font-O" left="32" top="55"  width="8" height="8"/>
         <Sprite id="spr-font-P" left="53" top="55"  width="8" height="8"/>
-        <Sprite id="spr-font-Q" left="71" top="54"  width="9" height="9"/>
-        <Sprite id="spr-font-R" left="90" top="54"  width="8" height="9"/>
-        <Sprite id="spr-font-S" left="108" top="54"  width="9" height="9"/>
-        <Sprite id="spr-font-T" left="127" top="54"  width="8" height="9"/>
+        <Sprite id="spr-font-Q" left="71" top="55"  width="8" height="8"/>
+        <Sprite id="spr-font-R" left="90" top="55"  width="8" height="8"/>
+        <Sprite id="spr-font-S" left="108" top="55"  width="8" height="8"/>
+        <Sprite id="spr-font-T" left="127" top="55"  width="8" height="8"/>
         <Sprite id="spr-font-U" left="145" top="55"  width="8" height="8"/>
         <Sprite id="spr-font-V" left="162" top="55"  width="8" height="8"/>
         <Sprite id="spr-font-W" left="179" top="55"  width="8" height="8"/>
-        <Sprite id="spr-font-X" left="197" top="54"  width="9" height="9"/>
+        <Sprite id="spr-font-X" left="196" top="55"  width="8" height="8"/>
         <Sprite id="spr-font-Y" left="215" top="55"  width="8" height="8"/>
-        <Sprite id="spr-font-Z" left="234" top="55"  width="9" height="8"/>
+        <Sprite id="spr-font-Z" left="234" top="55"  width="8" height="8"/>
+        <Sprite id="spr-font-blank-space" left="161" top="8"  width="8" height="8"/>
+        <Sprite id="spr-font-exclamation-point" left="234" top="72"  width="7" height="10"/>
+        
         <Sprite id="spr-points-in-level-100" left="60" top="88"  width="12" height="9"/>
         <Sprite id="spr-points-in-level-200" left="74" top="88"  width="13" height="9"/>
         <Sprite id="spr-points-in-level-400" left="89" top="88"  width="13" height="10"/>
