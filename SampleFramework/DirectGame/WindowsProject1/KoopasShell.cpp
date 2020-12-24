@@ -3,6 +3,7 @@
 #include "CMario.h"
 #include "Game.h"
 #include "EffectPool.h"
+#include "Mathf.h"
 
 void KoopasShell::Awake()
 {
@@ -27,6 +28,8 @@ void KoopasShell::Start()
 	running = false;
 
 	transform.Scale.y = 1;
+	timer = 0;
+	withdrawStep = 0;
 }
 
 void KoopasShell::Movement()
@@ -36,6 +39,55 @@ void KoopasShell::Movement()
 	// DebugOut(L"Shell vel: %f\n", rigidbody->GetVelocity().y);
 
 	if (!running) rigidbody->GenerateDragForce();
+
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	switch (withdrawStep)
+	{
+	case 0:
+	{
+		timer += dt;
+		if (timer > KOOPAS_WITHDRAW_TIME)
+		{
+			timer = 0;
+			StartWithdrawing();
+		}
+	}
+	break;
+	case 1:
+	{
+		auto a = WITHDRAW_AMPLITUDE;
+		auto t = WITHDRAW_ROUNDTRIP_TIME;
+		auto omega = 2 * Mathf::Pi / (float)t;
+		auto phi = Mathf::Pi;
+		auto movement = Mathf::Cos(omega * timer + phi);
+
+		visualRelativePosition.x = a * movement;
+		timer += dt;
+
+		// animations.at(currentState)->SetSpeedMultiplier()
+		if (timer > 1300)
+		{
+			timer = 0;
+			withdrawStep = 2;
+			visualRelativePosition.x = 0;
+			OnWithdraw();
+
+			if (IsHeld())
+			{
+				auto holderTag = holder->GetTag();
+				if (TagUtils::MarioTag(holderTag))
+				{
+					static_cast<CMario*>(holder)->ReleaseInHandObject();
+					Release();
+					StopRunning();
+				}
+			}
+
+			linkedPool->Revoke(this);
+		}
+	}
+	break;
+	}
 }
 
 void KoopasShell::OnDead(bool oneHit)
@@ -157,6 +209,7 @@ void KoopasShell::Run()
 		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, 0));
 		SetState("Run");
 		running = true;
+		withdrawStep = 2;
 	}
 }
 
@@ -168,6 +221,8 @@ void KoopasShell::StopRunning()
 		rigidbody->SetVelocity(&Vector2(0, rigidbody->GetVelocity().y));
 		SetState("Idle");
 		running = false;
+		withdrawStep = 0;
+		timer = 0;
 	}
 }
 
@@ -179,4 +234,11 @@ bool KoopasShell::IsRunning()
 Vector2 KoopasShell::GetBoxSize()
 {
 	return KOOPAS_SHELL_BBOX;
+}
+
+void KoopasShell::StartWithdrawing()
+{
+	SetState("Withdraw");
+	withdrawStep = 1;
+	timer = 0;
 }

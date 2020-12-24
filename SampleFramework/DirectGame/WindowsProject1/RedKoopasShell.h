@@ -4,5 +4,6 @@ class RedKoopasShell : public KoopasShell
 {
 public:
 	void InitAnimations() override;
+	void OnWithdraw() override;
 };
 

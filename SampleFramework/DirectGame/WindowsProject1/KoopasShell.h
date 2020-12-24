@@ -10,6 +10,9 @@ const int KOOPAS_SHELL_DEAD_TIME = 1000; // miliseconds
 const float KOOPAS_SHELL_DEFLECTION_ON_SHOT = -0.95f;
 const float KOOPAS_SHELL_HITBACK_SPEED = 0.11f;
 const float KOOPAS_SHELL_DRAG_FORCE = 0.0001f;
+const int KOOPAS_WITHDRAW_TIME = 4500;
+const int WITHDRAW_AMPLITUDE = 3; // px
+const int WITHDRAW_ROUNDTRIP_TIME = 60;
 
 class KoopasShell : public AbstractEnemy, public Holdable
 {
@@ -18,6 +21,7 @@ public:
 	virtual void Start() override;
 	virtual void Movement() override;
 	virtual void InitAnimations() = 0;
+	virtual void OnWithdraw() = 0;
 	virtual void OnDead(bool oneHit) override;
 	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 	virtual void OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider);
@@ -38,7 +42,9 @@ protected:
 	Vector2 GetBoxSize() override;
 
 private:
+	void StartWithdrawing();
 	int facing;
 	bool running;
+	int timer, withdrawStep;
 };
 
