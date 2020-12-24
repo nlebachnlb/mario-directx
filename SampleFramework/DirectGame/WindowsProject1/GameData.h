@@ -20,6 +20,8 @@ struct GameData
 	GameData();
 	~GameData();
 
+	void ResetData();
+
 	void ModifyCoin(int coin, bool relative = false);
 	void ModifyLife(int life, bool relative = false);
 	void ModifyScore(long score, bool relative = false);

@@ -59,6 +59,12 @@ void Canvas::OnSceneUnloadedEvent()
 	}
 }
 
+void Canvas::NotifyOnKeyDown(int keyCode)
+{
+	for (auto canvas : canvases)
+		canvas.second->OnKeyDown(keyCode);
+}
+
 void Canvas::Clean()
 {
 
@@ -104,6 +110,13 @@ void Canvas::Render()
 
 void Canvas::OnSceneUnload()
 {
+}
+
+void Canvas::OnKeyDown(int keyCode)
+{
+	for (auto e : elements)
+		if (e->IsActive())
+			e->OnKeyDown(keyCode);
 }
 
 void Canvas::Initialize()

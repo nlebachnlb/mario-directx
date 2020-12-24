@@ -22,6 +22,7 @@
 #define TEXTURE_REWARD "tex-reward"
 #define TEXTURE_OVERWORLD_MAP "tex-overworld"
 #define TEXTURE_MENU "tex-menu"
+#define TEXTURE_DIALOG "tex-dialog"
 
 #define FIREBALL_TRANS_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define DEFAULT_TRANS_COLOR D3DCOLOR_XRGB(254, 254, 254)

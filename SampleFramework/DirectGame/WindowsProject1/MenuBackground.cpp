@@ -7,6 +7,7 @@ void MenuBackground::Awake()
 	auto spr = Game::GetInstance().GetService<SpriteManager>();
 	arrow = spr->Get("spr-menu-arrow-0");
 	currentOption = 0;
+	DebugOut(L"MENU BACKGROUND\n");
 }
 
 void MenuBackground::AddElement(DrawInfo info)
@@ -37,6 +38,7 @@ void MenuBackground::LateUpdate()
 
 void MenuBackground::Render(Vector2 translation)
 {
+	// DebugOut(L"MENU RENDER\n");
 	for (int i = 0; i < elements.size(); ++i)
 		sprites.at(i)->Draw(
 			elements.at(i).position.x, elements.at(i).position.y,

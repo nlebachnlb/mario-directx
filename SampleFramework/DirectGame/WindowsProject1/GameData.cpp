@@ -15,6 +15,15 @@ GameData::~GameData()
 	delete cards;
 }
 
+void GameData::ResetData()
+{
+	life = 4;
+	coin = 0;
+	score = 0;
+	tempData.currentNodeID = tempData.lastNodeID = 0;
+	tempData.status = GameplayStatus::None;
+}
+
 void GameData::ModifyCoin(int coin, bool relative)
 {
 	this->coin = relative ? this->coin + coin : coin;

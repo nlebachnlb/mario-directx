@@ -83,8 +83,8 @@ void WorldMapScene::Load()
 	objMario->SetCurrentNode(data->GetWorldMapTempData().currentNodeID);
 	objMario->SetActive(true);
 
-	/*auto mainCanvas = dynamic_cast<MainCanvas*>(Canvas::GetCanvas("main"));
-	if (mainCanvas != nullptr) mainCanvas->StartGame();*/
+	auto mainCanvas = dynamic_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+	if (mainCanvas != nullptr) mainCanvas->WorldIntro();
 }
 
 MarioLocator* WorldMapScene::GetMarioLocator()

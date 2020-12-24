@@ -64,5 +64,6 @@
     <Textures textureId="tex-dialog">
         <Sprite id="spr-dialog-gameover-0" left="0" top="0"  width="128" height="64"/>
         <Sprite id="spr-dialog-mario-0" left="133" top="0"  width="128" height="55"/>
+        <Sprite id="spr-dialog-arrow-0" left="2" top="70"  width="6" height="7"/>
     </Textures>
 </Textures>

@@ -33,6 +33,10 @@ void UIElement::Render()
 	animations.at(currentState)->SetRotation(rectTransform.Rotation);
 }
 
+void UIElement::OnKeyDown(int keyCode)
+{
+}
+
 void UIElement::SetPosition(Vector2 position)
 {
 	this->rectTransform.Position = position;

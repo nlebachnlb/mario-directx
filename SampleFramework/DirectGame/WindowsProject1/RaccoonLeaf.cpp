@@ -2,6 +2,7 @@
 #include "Mathf.h"
 #include "Game.h"
 #include "AnimationDatabase.h"
+#include "PhysicConstants.h"
 
 void RaccoonLeaf::Awake()
 {
@@ -19,7 +20,7 @@ void RaccoonLeaf::Start()
 
 	sprouting = false;
 	falling = false;
-	rigidbody->SetDynamic(true);
+	rigidbody->SetDynamic(false);
 	colliders->at(0)->SetTrigger(true);
 	rigidbody->SetGravity(LEAF_GRAVITY);
 }
@@ -42,6 +43,14 @@ void RaccoonLeaf::Update()
 
 	if (falling && rigidbody->GetVelocity().y > LEAF_FALLING_VEL)
 		rigidbody->SetVelocity(&Vector2(0, LEAF_FALLING_VEL));
+
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+
+	auto vel = rigidbody->GetVelocity();
+	vel.y += rigidbody->GetGravity() * dt;
+	vel.y = Mathf::Min(vel.y, DEFAULT_FALL_LIMIT_VEL);
+	rigidbody->SetVelocity(&vel);
 }
 
 void RaccoonLeaf::PreRender()

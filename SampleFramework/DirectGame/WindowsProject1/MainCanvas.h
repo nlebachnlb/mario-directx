@@ -4,6 +4,8 @@
 #include "Text.h"
 #include "GameData.h"
 #include "PlayerController.h"
+#include "WorldDialog.h"
+#include "GameOverDialog.h"
 
 const int TRANSITION_TIME = 500;
 const int PSWITCH_TIME = 8000;
@@ -14,12 +16,14 @@ const std::string CARD_REWARD = "YOU GOT A CARD ";
 enum class GameState
 {
 	Unload,
+	WorldStart,
 	Menu,
 	Ready,
 	Waiting,
 	Die,
 	Run,
-	Finish
+	Finish,
+	GameOver
 };
 
 class MainCanvas : public Canvas
@@ -42,10 +46,21 @@ public:
 	void StartTransition();
 	void StartMenu();
 	void CloseMenu();
+	void WorldIntro(bool restartWorld = false);
 
 	bool IsSwitchTime();
 	void SwitchCoinBrick(bool freeze = false);
 	void StartSwitchTimer();
+
+	bool IsDialogOpening();
+	void OpenWorldDialog();
+	void CloseWorldDialog();
+
+	void OpenGameOverDialog();
+	void CloseGameOverDialog();
+
+	void OnGameOver();
+	void RestartWorld();
 
 	void SetTargetScene(std::string id);
 private:
@@ -54,6 +69,8 @@ private:
 	void GameFinish();
 	void GameLose();
 	void GameMenu();
+	void GameWorldStart();
+	void GameOver();
 
 	HudPanel* hud;
 	Texture2D mask;
@@ -69,9 +86,17 @@ private:
 
 	PlayerController* player;
 
+	#pragma region HUD
 	Text* courseClear, *reward;
 	int finishStep, finishTimer;
 	int card;
 	Sprite cardVisuals[3];
+	#pragma endregion
+
+	#pragma region Dialogs
+	WorldDialog* worldDialog;
+	GameOverDialog* gameOverDialog;
+	bool dialogOpening;
+	#pragma endregion
 };
 

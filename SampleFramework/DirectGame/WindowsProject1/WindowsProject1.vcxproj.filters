@@ -157,9 +157,6 @@
     <Filter Include="GameSource\UserInterface">
       <UniqueIdentifier>{529c4ae8-1ec0-49e9-b163-8205ebc81fca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\UserInterface\CanvasLayouts">
-      <UniqueIdentifier>{06972f3a-11cb-45f9-bbc0-d1df79cee9c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameSource\UserInterface\HUD">
       <UniqueIdentifier>{e7dccec2-cac1-41e4-953d-c924b099ae1b}</UniqueIdentifier>
     </Filter>
@@ -222,6 +219,9 @@
     </Filter>
     <Filter Include="GameSource\UserInterface\MainMenu">
       <UniqueIdentifier>{cb2f08e7-1853-409b-b560-768b2ee4b9bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\UserInterface\Layouts">
+      <UniqueIdentifier>{06972f3a-11cb-45f9-bbc0-d1df79cee9c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -529,7 +529,7 @@
       <Filter>Framework\Game\Utils</Filter>
     </ClInclude>
     <ClInclude Include="MainCanvas.h">
-      <Filter>GameSource\UserInterface\CanvasLayouts</Filter>
+      <Filter>GameSource\UserInterface\Layouts</Filter>
     </ClInclude>
     <ClInclude Include="HudPanel.h">
       <Filter>GameSource\UserInterface\HUD</Filter>
@@ -608,6 +608,12 @@
     </ClInclude>
     <ClInclude Include="MenuKoopa.h">
       <Filter>GameSource\UserInterface\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldDialog.h">
+      <Filter>GameSource\UserInterface\Layouts</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverDialog.h">
+      <Filter>GameSource\UserInterface\Layouts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -946,7 +952,7 @@
       <Filter>Framework\Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="MainCanvas.cpp">
-      <Filter>GameSource\UserInterface\CanvasLayouts</Filter>
+      <Filter>GameSource\UserInterface\Layouts</Filter>
     </ClCompile>
     <ClCompile Include="HudPanel.cpp">
       <Filter>GameSource\UserInterface\HUD</Filter>
@@ -1013,6 +1019,12 @@
     </ClCompile>
     <ClCompile Include="MenuKoopa.cpp">
       <Filter>GameSource\UserInterface\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldDialog.cpp">
+      <Filter>GameSource\UserInterface\Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverDialog.cpp">
+      <Filter>GameSource\UserInterface\Layouts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
