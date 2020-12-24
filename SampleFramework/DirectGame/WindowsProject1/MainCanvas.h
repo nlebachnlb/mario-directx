@@ -10,7 +10,7 @@
 const int TRANSITION_TIME = 500;
 const int PSWITCH_TIME = 8000;
 
-const std::string COURSE_CLEAR = "COURSE CLEAR ";
+const std::string COURSE_CLEAR = "COURSE CLEAR !";
 const std::string CARD_REWARD = "YOU GOT A CARD ";
 
 enum class GameState

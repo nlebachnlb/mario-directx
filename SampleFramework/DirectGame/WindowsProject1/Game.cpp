@@ -209,6 +209,7 @@ void Game::GameInit(HWND hWnd)
 		fontSet.push_back(FontSprite{ c, prefix + c });
 	for (char c = 'A'; c <= 'Z'; ++c)
 		fontSet.push_back(FontSprite{ c, prefix + c });
+	fontSet.push_back(FontSprite{ '!', "spr-font-exclamation-point" });
 	globalFont->Import(fontSet);
 
 	MainCanvas* mainCanvas = new MainCanvas();
