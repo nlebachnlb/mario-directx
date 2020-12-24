@@ -77,9 +77,11 @@ void KoopasShell::Movement()
 				auto holderTag = holder->GetTag();
 				if (TagUtils::MarioTag(holderTag))
 				{
-					static_cast<CMario*>(holder)->ReleaseInHandObject();
+					auto mario = static_cast<CMario*>(holder);
+					mario->ReleaseInHandObject();
 					Release();
 					StopRunning();
+					mario->OnDamaged(this);
 				}
 			}
 

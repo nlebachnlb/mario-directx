@@ -36,8 +36,14 @@ protected:
 	void Remove(GameObject go);
 	static bool Comparator(const GameObject& a, const GameObject& b) 
 	{ 
+		auto apos = a->GetTransform().Position;
+		auto bpos = b->GetTransform().Position;
 		return (a->GetRenderOrder() < b->GetRenderOrder() || 
-			(a->GetRenderOrder() == b->GetRenderOrder() && a->GetTransform().Position.x < b->GetTransform().Position.x)); 
+			(a->GetRenderOrder() == b->GetRenderOrder() && 
+			(apos.x < bpos.x || 
+				(apos.x == bpos.x &&
+					apos.y < bpos.y)))
+		); 
 	}
 	
 	std::vector<GameObject>* objects;

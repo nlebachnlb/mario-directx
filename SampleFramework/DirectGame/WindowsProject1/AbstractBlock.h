@@ -2,8 +2,8 @@
 #include "GameObject.h"
 
 const Vector2 BLOCK_BBOX(48, 48);
-const int BOUNCE_TIME = 50;
-const int BOUNCE_DELTA = 24; // pixels
+const int BOUNCE_TIME = 70;
+const int BOUNCE_DELTA = 20; // pixels
 const float BOUNCE_VEL = (float)BOUNCE_DELTA / (float)BOUNCE_TIME;
 
 class AbstractBlock : public CGameObject
