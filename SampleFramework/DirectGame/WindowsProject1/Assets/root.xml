@@ -35,7 +35,8 @@
   <Root name="Scenes">
     <Scene id="main-menu" source="Assets/Scenes/MainMenu.xml"/> 
     <Scene id="overworld-1" source="Assets/Scenes/Overworld1.xml"/> 
-    <Scene id="world-1-1" source="Assets/Scenes/World1-1.xml"/> 
+    <Scene id="world-1-1" source="Assets/Scenes/World1-1.xml"/>
+    <Scene id="world-1-4" source="Assets/Scenes/World1-4.xml"/> 
   </Root>
   <Root name="Config">
     <Config id="global-config" source="Assets/config.xml"/> 
