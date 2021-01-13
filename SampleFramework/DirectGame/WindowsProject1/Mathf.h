@@ -5,6 +5,7 @@ class Mathf
 public:
 	static const float Pi;
 	static float Lerp(float a, float b, float t);
+	static Vector2 Lerp(Vector2 a, Vector2 b, float t);
 	static float Max(float a, float b);
 	static float Min(float a, float b);
 	static int Sign(float x);
