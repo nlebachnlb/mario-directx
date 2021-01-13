@@ -299,7 +299,7 @@
     <property name="adjacent_list" value="9,7"/>
     <property name="adjacent_weight" value="l,r"/>
     <property name="node_id" type="int" value="8"/>
-    <property name="scene" value=""/>
+    <property name="scene" value="world-1-4"/>
    </properties>
    <point/>
   </object>
