@@ -78,7 +78,7 @@ void Scene::Load()
 
 			for (auto bound = element->FirstChildElement(); bound != nullptr; bound = bound->NextSiblingElement())
 			{
-				int id;
+				int id, autoscroll;
 				BoundarySet bSet;
 				bound->QueryIntAttribute("id", &id);
 				bound->QueryFloatAttribute("pos_x", &bSet.position.x);
@@ -87,7 +87,10 @@ void Scene::Load()
 				bound->QueryFloatAttribute("top", &bSet.boundary.top);
 				bound->QueryFloatAttribute("right", &bSet.boundary.right);
 				bound->QueryFloatAttribute("bottom", &bSet.boundary.bottom);
+
 				camera->AddBoundarySet(id, bSet);
+
+				if (bound->QueryIntAttribute("auto", &autoscroll) != TIXML_SUCCESS) autoscroll = 0;
 			}
 
 			BoundarySet startBoundary = camera->GetBoundarySet(start);

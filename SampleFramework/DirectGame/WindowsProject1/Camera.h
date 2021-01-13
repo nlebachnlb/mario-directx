@@ -12,6 +12,14 @@ struct BoundarySet
 	{
 		return BoundarySet{ Vector2(-1, -1), RectF{ -1, -1, -1, -1 } };
 	}
+
+	std::vector<Vector2> path;
+};
+
+enum class ScrollMode
+{
+	Targeting,
+	Automatic
 };
 
 class Camera
@@ -50,6 +58,9 @@ public:
 	void LockCamera();
 	void UnlockCamera();
 
+	void SetScrollMode(ScrollMode mode);
+	ScrollMode GetScrollMode();
+
 protected:
 	Vector2 position, viewportSize, targetPivot;
 	GameMap* map;
@@ -57,9 +68,13 @@ protected:
 	int bottomOffset;
 	int boundaryLocked;
 	float followSpeed;
+	ScrollMode scrollMode;
 
 private:
 	void Initialize();
+	void TargetingMode();
+	void AutoscrollingMode();
+
 	GameObject target;
 	RectF boundary;
 	// Render temp variables
