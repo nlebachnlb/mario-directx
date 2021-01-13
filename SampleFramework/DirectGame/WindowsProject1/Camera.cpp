@@ -166,6 +166,11 @@ void Camera::AddBoundarySet(int id, BoundarySet bSet)
     boundaries.insert(make_pair(id, bSet));
 }
 
+void Camera::SetCurrentBoundarySet(int id)
+{
+    currentBoundarySet = id;
+}
+
 BoundarySet Camera::GetBoundarySet(int id)
 {
     if (boundaries.find(id) != boundaries.end())
@@ -206,6 +211,15 @@ void Camera::UnlockCamera()
 void Camera::SetScrollMode(ScrollMode mode)
 {
     scrollMode = mode;
+
+    if (mode == ScrollMode::Automatic)
+    {
+        if (boundaries.find(currentBoundarySet) == boundaries.end()) return;
+        auto curBSet = boundaries.at(currentBoundarySet);
+        timer = 0;
+        currentPathNode = 0;
+        startPosition = position = curBSet.path.at(0);
+    }
 }
 
 ScrollMode Camera::GetScrollMode()
@@ -267,5 +281,26 @@ void Camera::TargetingMode()
 
 void Camera::AutoscrollingMode()
 {
+    if (boundaries.find(currentBoundarySet) == boundaries.end()) return;
+    auto curBSet = boundaries.at(currentBoundarySet);
+    if (currentPathNode >= curBSet.path.size()) return;
 
+    auto dt = Game::DeltaTime() * Game::GetTimeScale() * 0.001f;
+    timer += dt;
+
+    auto dest = curBSet.path.at(currentPathNode);
+
+    if (Mathf::Magnitude(dest - position) > 0.1f)
+    {
+        position = Mathf::Lerp(startPosition, dest, timer * curBSet.pathSpeed);
+    }
+    else
+    {
+        currentPathNode++;
+        timer = 0;
+        startPosition = position = dest;
+
+        if (currentPathNode < curBSet.path.size())
+            dest = curBSet.path.at(currentPathNode);
+    }
 }

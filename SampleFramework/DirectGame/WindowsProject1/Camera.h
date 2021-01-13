@@ -3,23 +3,24 @@
 #include "GameMap.h"
 #include "GameObject.h"
 
+enum class ScrollMode
+{
+	Targeting,
+	Automatic
+};
+
 struct BoundarySet
 {
 	Vector2 position;
 	RectF boundary;
+	ScrollMode mode;
+	std::vector<Vector2> path;
+	float pathSpeed;
 
 	static BoundarySet Empty()
 	{
 		return BoundarySet{ Vector2(-1, -1), RectF{ -1, -1, -1, -1 } };
 	}
-
-	std::vector<Vector2> path;
-};
-
-enum class ScrollMode
-{
-	Targeting,
-	Automatic
 };
 
 class Camera
@@ -50,6 +51,7 @@ public:
 
 	void AddBoundarySet(int id, Vector2 position, RectF boundary);
 	void AddBoundarySet(int id, BoundarySet bSet);
+	void SetCurrentBoundarySet(int id);
 	BoundarySet GetBoundarySet(int id);
 
 	void FreeBoundary();
@@ -69,6 +71,7 @@ protected:
 	int boundaryLocked;
 	float followSpeed;
 	ScrollMode scrollMode;
+	int currentBoundarySet;
 
 private:
 	void Initialize();
@@ -87,5 +90,9 @@ private:
 	bool initialized;
 	RectF lastBoundary;
 	Vector2 renderOffset;
+
+	float timer; 
+	int currentPathNode;
+	Vector2 startPosition;
 };
 

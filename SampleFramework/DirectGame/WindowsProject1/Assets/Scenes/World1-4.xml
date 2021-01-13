@@ -4,7 +4,7 @@
   <Scene name="Player" pos_x="48" pos_y="300"/>
   <Scene name="Camera" start="0" main="1">
     <Boundary id="0" pos_x="0" pos_y="160" left="0" top="160" right="6144" bottom="784" auto="1">
-      <Path speed="0.2">
+      <Path speed="0.01"> 
         <Point x="0" y="160"/>
         <Point x="5320" y="160"/>
       </Path>

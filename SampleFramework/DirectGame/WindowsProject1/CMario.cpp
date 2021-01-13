@@ -350,6 +350,8 @@ void CMario::Warp()
 	warpDirection = o->GetDirection();
 	auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
 	mainCamera->SetBoundary(bset.boundary);
+	mainCamera->SetCurrentBoundarySet(o->GetCameraBoundId());
+	mainCamera->SetScrollMode(bset.mode);
 	mainCamera->SetPosition(bset.position);
 	if (o->CameraLock()) mainCamera->LockCamera();
 	else mainCamera->UnlockCamera();
