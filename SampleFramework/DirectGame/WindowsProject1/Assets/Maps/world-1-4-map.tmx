@@ -565,6 +565,11 @@
    <point/>
   </object>
   <object id="261" name="koopa" type="red-para" x="5640" y="456">
+   <properties>
+    <property name="ambience-x" type="int" value="0"/>
+    <property name="ambience-y" type="int" value="288"/>
+    <property name="roundtrip" type="int" value="3000"/>
+   </properties>
    <point/>
   </object>
   <object id="262" name="boomerang-brother" x="6312" y="696">
