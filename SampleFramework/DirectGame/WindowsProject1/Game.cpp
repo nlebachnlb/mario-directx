@@ -82,7 +82,7 @@ void Game::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 	d3dpp.BackBufferWidth = configs.screenWidth = scrWidth;
 	d3dpp.BackBufferHeight = configs.screenHeight = scrHeight;
 	d3dpp.Flags = 0;
-	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
 	d3dpp.MultiSampleQuality = NULL;
 	d3dpp.BackBufferCount = 1;
