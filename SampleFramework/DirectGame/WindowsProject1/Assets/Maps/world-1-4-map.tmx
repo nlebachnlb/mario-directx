@@ -568,7 +568,7 @@
    <properties>
     <property name="amplitude-x" type="int" value="0"/>
     <property name="amplitude-y" type="int" value="288"/>
-    <property name="roundtrip" type="int" value="3000"/>
+    <property name="roundtrip" type="int" value="5000"/>
    </properties>
    <point/>
   </object>
