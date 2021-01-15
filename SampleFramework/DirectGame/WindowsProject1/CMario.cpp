@@ -628,6 +628,18 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 	if (otherTag == ObjectTags::HostileProjectiles && !IsInvincible() && warp == 0)
 		OnDamaged(nullptr);
+
+	if (otherTag == ObjectTags::Platform)
+	{
+		standOnPlatform = other->GetGameObject();
+		physicState.jump = JumpingStates::Stand;
+
+		auto platformBox = standOnPlatform->GetColliders()->at(0)->GetBoundingBox();
+		auto marioBox = colliders->at(0)->GetBoxSize();
+		transform.Position.y = platformBox.top - marioBox.y * 0.5f + 1;
+
+		static_cast<AbstractPlatform*>(standOnPlatform)->OnTouch();
+	}
 }
 
 void CMario::OnSolidOverlappedExit()
@@ -891,7 +903,14 @@ void CMario::StandState()
 				auto marioBox = colliders->at(0)->GetBoxSize();
 				transform.Position.y = platformBox.top - marioBox.y * 0.5f + 1;
 				rigidbody->SetGravity(0);
+
+				/*auto marioVel = rigidbody->GetVelocity();
+				auto platformVel = standOnPlatform->GetRigidbody()->GetVelocity();
+				marioVel.y = marioVel.y > 0 ? Mathf::Min(marioVel.y, platformVel.y) : platformVel.y;
+				rigidbody->SetVelocity(&marioVel);*/
 			}
+
+			if (!standOnPlatform->IsEnabled()) standOnPlatform = nullptr;
 		}
 	}
 	else
