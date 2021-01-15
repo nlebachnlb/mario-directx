@@ -182,6 +182,9 @@ void Scene::Update()
 	if (loaded == false) return;
 
 	for (auto o : updated)
+		if (o->IsEnabled()) o->BeginUpdate();
+
+	for (auto o : updated)
 		if (o->IsEnabled()) o->PhysicsUpdate(objects);
 
 	for (auto o : updated)
@@ -189,6 +192,9 @@ void Scene::Update()
 
 	for (auto o : updated)
 		if (o->IsEnabled()) o->LateUpdate();
+
+	for (auto o : updated)
+		if (o->IsEnabled()) o->EndUpdate();
 
 	if (mainCamera != nullptr) mainCamera->Update();
 }

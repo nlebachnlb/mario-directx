@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractBlock.h" />
     <ClInclude Include="AbstractItem.h" />
+    <ClInclude Include="AbstractPlatform.h" />
     <ClInclude Include="AbstractSpawner.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationDatabase.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="GoombaSpawner.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphNode.h" />
+    <ClInclude Include="GravityPlatform.h" />
     <ClInclude Include="GreenKoopa.h" />
     <ClInclude Include="GreenKoopaParatroopa.h" />
     <ClInclude Include="GreenKoopasShell.h" />
@@ -282,6 +284,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractBlock.cpp" />
     <ClCompile Include="AbstractItem.cpp" />
+    <ClCompile Include="AbstractPlatform.cpp" />
     <ClCompile Include="AbstractSpawner.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationDatabase.cpp" />
@@ -307,6 +310,7 @@
     <ClCompile Include="GoombaSpawner.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphNode.cpp" />
+    <ClCompile Include="GravityPlatform.cpp" />
     <ClCompile Include="GreenKoopa.cpp" />
     <ClCompile Include="GreenKoopaParatroopa.cpp" />
     <ClCompile Include="GreenKoopasShell.cpp" />

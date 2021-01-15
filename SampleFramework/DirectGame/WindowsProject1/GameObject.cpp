@@ -59,6 +59,11 @@ void CGameObject::OnEnabled()
 {
 }
 
+void CGameObject::BeginUpdate()
+{
+	prevTransform = transform;
+}
+
 void CGameObject::PhysicsUpdate(std::vector<GameObject>* objects)
 {
 	for (auto collider : *colliders)
@@ -71,6 +76,13 @@ void CGameObject::Update()
 
 void CGameObject::LateUpdate()
 {
+}
+
+void CGameObject::EndUpdate()
+{
+	deltaTransform.Position = transform.Position - prevTransform.Position;
+	deltaTransform.Scale = transform.Scale - prevTransform.Scale;
+	deltaTransform.Rotation = transform.Rotation - prevTransform.Rotation;
 }
 
 void CGameObject::OnAnimationEnd()
@@ -282,6 +294,11 @@ void CGameObject::SetEffector(Effector2D effector)
 Effector2D CGameObject::GetEffector()
 {
 	return this->effector;
+}
+
+Transform CGameObject::GetDeltaTransform()
+{
+	return deltaTransform;
 }
 
 void Destroy(GameObject gameObject)

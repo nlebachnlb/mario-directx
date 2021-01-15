@@ -413,7 +413,8 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 		auto collider = collision->collider;
 		if (collider->GetGameObject()->GetTag() == ObjectTags::Solid ||
 			collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform || 
-			collider->GetGameObject()->GetTag() == ObjectTags::Block)
+			collider->GetGameObject()->GetTag() == ObjectTags::Block || 
+			collider->GetGameObject()->GetTag() == ObjectTags::Platform)
 		{
 			// DebugOut(L"Hit Solid: %f\n", collision->collisionDirection.y);
 			if (collision->collisionDirection.y < 0 &&
@@ -425,6 +426,11 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 					onGround = true;
 					data->ResetCombo();
 				}
+
+				if (collider->GetGameObject()->GetTag() != ObjectTags::Block)
+					standOnPlatform = collision->collider->GetGameObject();
+				else
+					standOnPlatform = nullptr;
 
 				physicState.jump = JumpingStates::Stand;
 			}
@@ -865,6 +871,21 @@ void CMario::StandState()
 {
 	// Fall down from a higher place
 		// distance = v*t + 0.5at^2
+
+	if (onGround)
+	{
+		if (standOnPlatform != nullptr)
+		{
+			// Velocity union
+			/*auto marioVel = rigidbody->GetVelocity();
+			auto platformVel = standOnPlatform->GetRigidbody()->GetVelocity();
+			rigidbody->SetVelocity(&(marioVel + platformVel));*/
+			transform.Position += standOnPlatform->GetDeltaTransform().Position;
+		}
+	}
+	else
+		standOnPlatform = nullptr;
+
 	auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
 	if (distance > MARIO_MIN_VDISTANCE)
 	{

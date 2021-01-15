@@ -3,12 +3,12 @@
   <Scene name="Map" source="Assets/Maps/world-1-4-map.tmx"/>
   <Scene name="Player" pos_x="48" pos_y="300"/>
   <Scene name="Camera" start="0" main="1">
-    <Boundary id="0" pos_x="0" pos_y="160" left="0" top="160" right="6144" bottom="784" auto="1">
-      <Path speed="0.01"> 
-        <Point x="0" y="160"/>
-        <Point x="5320" y="160"/>
+    <Boundary id="0" pos_x="0" pos_y="192" left="0" top="192" right="6144" bottom="784" auto="1">
+      <Path speed="0.013"> 
+        <Point x="0" y="224"/>
+        <Point x="5320" y="224"/>
       </Path>
     </Boundary>
-    <Boundary id="1" pos_x="6192" pos_y="160" left="6192" top="160" right="7728" bottom="784"/>
+    <Boundary id="1" pos_x="6192" pos_y="192" left="6192" top="192" right="67728" bottom="784"/>
   </Scene> 
 </Scene>

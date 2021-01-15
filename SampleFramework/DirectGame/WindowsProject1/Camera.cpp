@@ -217,7 +217,7 @@ void Camera::SetScrollMode(ScrollMode mode)
         if (boundaries.find(currentBoundarySet) == boundaries.end()) return;
         auto curBSet = boundaries.at(currentBoundarySet);
         timer = 0;
-        currentPathNode = 0;
+        currentPathNode = 1;
         startPosition = position = curBSet.path.at(0);
     }
 }
@@ -290,7 +290,7 @@ void Camera::AutoscrollingMode()
 
     auto dest = curBSet.path.at(currentPathNode);
 
-    if (Mathf::Magnitude(dest - position) > 0.1f)
+    if (Mathf::Magnitude(dest - position) > 4)
     {
         position = Mathf::Lerp(startPosition, dest, timer * curBSet.pathSpeed);
     }

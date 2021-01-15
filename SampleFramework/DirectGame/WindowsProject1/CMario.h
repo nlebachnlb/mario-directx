@@ -180,4 +180,5 @@ private:
 	Vector2 previousVelocity, posBeforeJump;
 	Holdable* heldInHandsObject;
 	WarpMark* mark;
+	GameObject standOnPlatform;
 };

@@ -35,6 +35,7 @@ public:
 	virtual void Start();
 	// OnEnabled: Call when SetActive(true) is called
 	virtual void OnEnabled();
+	void BeginUpdate();
 	// PhysicsUpdate (auto): update physic collisions, call automatically, DO NOT override
 	virtual void PhysicsUpdate(std::vector<CGameObject*>* objects);
 	// Update: Main update, OVERRIDE for purposes
@@ -42,6 +43,7 @@ public:
 	// Late Update: Call after Update, use for post processing data [OVERRIDE]
 	virtual void LateUpdate();
 	// OnAnimationEnd: Call at the end of a non-looped animation [OVERRIDE]
+	void EndUpdate();
 	virtual void OnAnimationEnd();
 	// PreRender: Call before Render (same block of Render), initialize render information [OVERRIDE for purposes]
 	virtual void PreRender();
@@ -95,8 +97,10 @@ public:
 	void SetEffector(Effector2D effector);
 	Effector2D GetEffector();
 
+	Transform GetDeltaTransform();
+
 protected:
-	Transform transform;
+	Transform transform, prevTransform, deltaTransform;
 	Sprite sprite;
 	Vector2 visualRelativePosition;
 

@@ -20,6 +20,7 @@ enum class ObjectTags
 
 	HostileProjectiles,
 	Solid,
+	Platform,
 	GhostPlatform,
 	Block,
 	Enemy,

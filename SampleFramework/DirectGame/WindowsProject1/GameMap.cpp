@@ -25,6 +25,7 @@
 #include "Gate.h"
 #include "Graph.h"
 #include "WorldMapScene.h"
+#include "GravityPlatform.h"
 
 GameMap::GameMap()
 {
@@ -279,6 +280,30 @@ void GameMap::Load(std::string filePath, bool manual)
                     auto reward = Instantiate<LevelReward>();
                     reward->SetPosition(position);
                     this->gameObjects.push_back(reward);
+                }
+            }
+        }
+
+        if (groupName.compare("MovingPlatforms") == 0)
+        {
+            for (int i = 0; i < objects->size(); ++i)
+            {
+                auto name = objects->at(i)->name;
+                Vector2 position(objects->at(i)->x, objects->at(i)->y);
+                auto type = objects->at(i)->type;
+
+                if (name.compare("platform") == 0)
+                {
+                    if (type.compare("gravity") == 0)
+                    {
+                        auto oid = objects->at(i)->id;
+                        auto obj = Instantiate<GravityPlatform>();
+                        auto startVelX = stof(objects->at(i)->GetPropertyValue("start-velocity-x"));
+                        auto startVelY = stof(objects->at(i)->GetPropertyValue("start-velocity-y"));
+                        obj->SetPosition(position);
+                        obj->GetRigidbody()->SetVelocity(&Vector2(startVelX, startVelY));
+                        this->gameObjects.push_back(obj);
+                    }
                 }
             }
         }
