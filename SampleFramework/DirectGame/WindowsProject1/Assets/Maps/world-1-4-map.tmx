@@ -457,7 +457,7 @@
    <properties>
     <property name="camera-bound-id" type="int" value="1"/>
     <property name="dest-x" type="int" value="6624"/>
-    <property name="dest-y" type="int" value="1248"/>
+    <property name="dest-y" type="int" value="725"/>
     <property name="lock" type="int" value="0"/>
     <property name="out-direction" value="up"/>
    </properties>
@@ -467,91 +467,91 @@
  <objectgroup id="15" name="MovingPlatforms">
   <object id="246" name="platform" type="gravity" x="1176" y="504">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="247" name="platform" type="gravity" x="1752" y="600">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="248" name="platform" type="gravity" x="1848" y="456">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="249" name="platform" type="gravity" x="1944" y="744">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="250" name="platform" type="gravity" x="2376" y="552">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="251" name="platform" type="gravity" x="3336" y="696">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="252" name="platform" type="gravity" x="3672" y="504">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="253" name="platform" type="gravity" x="4200" y="600">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="254" name="platform" type="gravity" x="4296" y="552">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="255" name="platform" type="gravity" x="4680" y="456">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="256" name="platform" type="gravity" x="5400" y="552">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="257" name="platform" type="gravity" x="5304" y="696">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
   </object>
   <object id="258" name="platform" type="gravity" x="5448" y="792">
    <properties>
-    <property name="start-velocity-x" type="float" value="-0.08"/>
+    <property name="start-velocity-x" type="float" value="-0.065"/>
     <property name="start-velocity-y" type="float" value="0"/>
    </properties>
    <point/>
