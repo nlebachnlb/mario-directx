@@ -26,6 +26,7 @@
 #include "Graph.h"
 #include "WorldMapScene.h"
 #include "GravityPlatform.h"
+#include "RedKoopaParatroopa.h"
 
 GameMap::GameMap()
 {
@@ -249,6 +250,19 @@ void GameMap::Load(std::string filePath, bool manual)
                     if (type.compare("p-switch") == 0)
                         itemBrick->SetItem({ ItemTags::PSwitch, 1 });
                 }
+                else if (!name.empty())
+                {
+                    auto itemBrick = Instantiate<ItemBrick>();
+                    solid = itemBrick;
+                    auto type = stoi(objects->at(i)->type);
+
+                    if (name.compare("bcoin") == 0)
+                        itemBrick->SetItem({ ItemTags::Coin, type });
+                    else if (name.compare("bmushroom") == 0)
+                        itemBrick->SetItem({ ItemTags::Mushroom, type });
+                    else if (name.compare("bleaf") == 0)
+                        itemBrick->SetItem({ ItemTags::Leaf, type });
+                }
                 else 
                     solid = Instantiate<Brick>();
 
@@ -453,11 +467,6 @@ void GameMap::LoadEnemy()
                     if (type.compare("basic") == 0)
                     {
                         auto oid = objects->at(i)->id;
-                        /*auto goomba = Instantiate<Goomba>();
-                        goomba->SetPosition(position);
-                        goomba->SetPool(goombaSpawner->GetPool());
-                        goombaSpawner->AddPrototype(oid, new SpawnPrototype(position, goomba));
-                        this->gameObjects.push_back(goomba);*/
                         goombaSpawner->Spawn("enm-tan-goomba", position);
                     }
                     else if (type.compare("red-para") == 0)
@@ -479,6 +488,19 @@ void GameMap::LoadEnemy()
                         koopa = koopaSpawner->Spawn("enm-green-koopa", position);
                     else if (type.compare("green-para") == 0)
                         koopa = koopaSpawner->Spawn("enm-green-para-koopa", position);
+                    else if (type.compare("red-para") == 0)
+                    {
+                        koopa = koopaSpawner->Spawn("enm-red-para-koopa", position);
+                        RedKoopaParatroopa* para = static_cast<RedKoopaParatroopa*>(koopa);
+                        int x = stoi(objects->at(i)->GetPropertyValue("amplitude-x"));
+                        int y = stoi(objects->at(i)->GetPropertyValue("amplitude-y"));
+                        int t = stoi(objects->at(i)->GetPropertyValue("roundtrip"));
+                        auto amplitude = Vector2(0.5f * x, 0.5f * y);
+                        para->SetStartPosition(position + amplitude);
+                        para->SetPosition(position + amplitude * 2);
+                        para->SetAmplitude(amplitude);
+                        para->SetRoundtripTime(t);
+                    }
 
                     if (koopa != nullptr)
                     {

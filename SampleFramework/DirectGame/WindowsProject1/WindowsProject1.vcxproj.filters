@@ -615,6 +615,15 @@
     <ClInclude Include="GameOverDialog.h">
       <Filter>GameSource\UserInterface\Layouts</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractPlatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityPlatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopaParatroopa.h">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -1025,6 +1034,15 @@
     </ClCompile>
     <ClCompile Include="GameOverDialog.cpp">
       <Filter>GameSource\UserInterface\Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopaParatroopa.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

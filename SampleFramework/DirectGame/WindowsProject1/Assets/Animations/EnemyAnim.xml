@@ -189,10 +189,14 @@
 
     <!--Red Koopa Paratroopa-->
     <!-- Animation FLY-->
-    <Animation aniId="ani-red-koopa-paratroopa-fly" frameTime="100">
+    <Animation aniId="ani-red-koopa-paratroopa-fly" frameTime="300">
       <Sprite id="spr-red-koopa-paratroopa-fly-0" left="105" top="93"  width="16" height="27"/>
       <Sprite id="spr-red-koopa-paratroopa-fly-1" left="126" top="94"  width="16" height="26"/>
       <Sprite id="spr-red-koopa-paratroopa-fly-2" left="147" top="93"  width="16" height="27"/>
+    </Animation>
+
+    <Animation aniId="ani-red-koopa-paratroopa-idle" frameTime="100">
+      <Sprite id="spr-red-koopa-paratroopa-fly-0" left="105" top="129"  width="16" height="27"/>
     </Animation>
 
     <!--		Brother		-->
