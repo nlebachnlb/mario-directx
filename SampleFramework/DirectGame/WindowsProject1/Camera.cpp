@@ -16,6 +16,7 @@ Camera::Camera()
     initialized = false;
     lastBoundary = RectF::Empty();
     renderOffset = VectorZero();
+    scrollMode = ScrollMode::Targeting;
 }
 
 Camera::Camera(Vector2 startPosition, Vector2 viewportSize)
@@ -33,33 +34,11 @@ Camera::~Camera()
 void Camera::Update()
 {
     if (map == nullptr) map = Game::GetInstance().GetService<GameMap>();
-    if (target == nullptr) return;
-
-    auto dt = Game::FixedDeltaTime() * Game::GetTimeScale() * 0.001f;
-
-    auto pos = this->position;
-    auto targetPos = target->GetTransform().Position;   
-    auto targetOnViewport = WorldToViewport(targetPos);
-    
-    auto finalPos = Vector2(targetPos.x - viewportSize.x * targetPivot.x, targetPos.y - viewportSize.y * targetPivot.y + bottomOffset);
-    pos = finalPos;
-
-    if (pos.x < boundary.left) pos.x = boundary.left;
-    if (pos.x > boundary.right - viewportSize.x) pos.x = boundary.right - viewportSize.x;
-    if (pos.y < boundary.top + bottomOffset) pos.y = boundary.top + bottomOffset;
-    if (pos.y > boundary.bottom - viewportSize.y + bottomOffset) pos.y = boundary.bottom - viewportSize.y + bottomOffset;
-
-    if (boundaryLocked > 0)
+    switch (scrollMode)
     {
-        auto val = Mathf::Min(lastBoundary.top + bottomOffset, lastBoundary.bottom - viewportSize.y + bottomOffset);
-        if (pos.y >= val)
-        {
-            // DebugOut(L"Cam: %f, %f\n", pos.y, val);
-            boundary = lastBoundary;
-        }
+    case ScrollMode::Targeting: TargetingMode(); break;
+    case ScrollMode::Automatic: AutoscrollingMode(); break;
     }
-
-    SetPosition(pos);
 }
 
 void Camera::Render(std::vector<GameObject>& objs)
@@ -187,6 +166,11 @@ void Camera::AddBoundarySet(int id, BoundarySet bSet)
     boundaries.insert(make_pair(id, bSet));
 }
 
+void Camera::SetCurrentBoundarySet(int id)
+{
+    currentBoundarySet = id;
+}
+
 BoundarySet Camera::GetBoundarySet(int id)
 {
     if (boundaries.find(id) != boundaries.end())
@@ -224,6 +208,25 @@ void Camera::UnlockCamera()
     boundaryLocked = 1;
 }
 
+void Camera::SetScrollMode(ScrollMode mode)
+{
+    scrollMode = mode;
+
+    if (mode == ScrollMode::Automatic)
+    {
+        if (boundaries.find(currentBoundarySet) == boundaries.end()) return;
+        auto curBSet = boundaries.at(currentBoundarySet);
+        timer = 0;
+        currentPathNode = 0;
+        startPosition = position = curBSet.path.at(0);
+    }
+}
+
+ScrollMode Camera::GetScrollMode()
+{
+    return scrollMode;
+}
+
 void Camera::Initialize()
 {
     if (initialized) return;
@@ -243,4 +246,61 @@ void Camera::Initialize()
     mapHeight = mapData->GetMapHeightInTiles();
 
     initialized = true;
+}
+
+void Camera::TargetingMode()
+{
+    if (target == nullptr) return;
+
+    auto dt = Game::FixedDeltaTime() * Game::GetTimeScale() * 0.001f;
+
+    auto pos = this->position;
+    auto targetPos = target->GetTransform().Position;
+    auto targetOnViewport = WorldToViewport(targetPos);
+
+    auto finalPos = Vector2(targetPos.x - viewportSize.x * targetPivot.x, targetPos.y - viewportSize.y * targetPivot.y + bottomOffset);
+    pos = finalPos;
+
+    if (pos.x < boundary.left) pos.x = boundary.left;
+    if (pos.x > boundary.right - viewportSize.x) pos.x = boundary.right - viewportSize.x;
+    if (pos.y < boundary.top + bottomOffset) pos.y = boundary.top + bottomOffset;
+    if (pos.y > boundary.bottom - viewportSize.y + bottomOffset) pos.y = boundary.bottom - viewportSize.y + bottomOffset;
+
+    if (boundaryLocked > 0)
+    {
+        auto val = Mathf::Min(lastBoundary.top + bottomOffset, lastBoundary.bottom - viewportSize.y + bottomOffset);
+        if (pos.y >= val)
+        {
+            // DebugOut(L"Cam: %f, %f\n", pos.y, val);
+            boundary = lastBoundary;
+        }
+    }
+
+    SetPosition(pos);
+}
+
+void Camera::AutoscrollingMode()
+{
+    if (boundaries.find(currentBoundarySet) == boundaries.end()) return;
+    auto curBSet = boundaries.at(currentBoundarySet);
+    if (currentPathNode >= curBSet.path.size()) return;
+
+    auto dt = Game::DeltaTime() * Game::GetTimeScale() * 0.001f;
+    timer += dt;
+
+    auto dest = curBSet.path.at(currentPathNode);
+
+    if (Mathf::Magnitude(dest - position) > 0.1f)
+    {
+        position = Mathf::Lerp(startPosition, dest, timer * curBSet.pathSpeed);
+    }
+    else
+    {
+        currentPathNode++;
+        timer = 0;
+        startPosition = position = dest;
+
+        if (currentPathNode < curBSet.path.size())
+            dest = curBSet.path.at(currentPathNode);
+    }
 }

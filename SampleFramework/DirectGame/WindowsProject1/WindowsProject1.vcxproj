@@ -423,6 +423,7 @@
   <ItemGroup>
     <None Include="Assets\Maps\overworld-1-map.tmx" />
     <None Include="Assets\Maps\world-1-1-map.tmx" />
+    <None Include="Assets\Maps\world-1-4-map.tmx" />
     <None Include="Assets\root.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +438,7 @@
     <Xml Include="Assets\Scenes\MainMenu.xml" />
     <Xml Include="Assets\Scenes\Overworld1.xml" />
     <Xml Include="Assets\Scenes\World1-1.xml" />
+    <Xml Include="Assets\Scenes\World1-4.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\EffectDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\EnemyDB.xml" />
     <Xml Include="Assets\Sprites\SpriteDatabases\IntroDB.xml" />

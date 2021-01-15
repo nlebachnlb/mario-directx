@@ -1037,6 +1037,9 @@
     <None Include="Assets\Maps\overworld-1-map.tmx">
       <Filter>GameSource\Assets\Maps</Filter>
     </None>
+    <None Include="Assets\Maps\world-1-4-map.tmx">
+      <Filter>GameSource\Assets\Maps</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Scenes\World1-1.xml">
@@ -1091,6 +1094,9 @@
       <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
     <Xml Include="Assets\Scenes\MainMenu.xml">
+      <Filter>GameSource\Assets\Scenes</Filter>
+    </Xml>
+    <Xml Include="Assets\Scenes\World1-4.xml">
       <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
   </ItemGroup>

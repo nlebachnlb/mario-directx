@@ -9,6 +9,11 @@ float Mathf::Lerp(float a, float b, float t)
     return a + (b - a) * t;
 }
 
+Vector2 Mathf::Lerp(Vector2 a, Vector2 b, float t)
+{
+    return Vector2(Mathf::Lerp(a.x, b.x, t), Mathf::Lerp(a.y, b.y, t));
+}
+
 float Mathf::Max(float a, float b)
 {
     return a > b ? a : b;

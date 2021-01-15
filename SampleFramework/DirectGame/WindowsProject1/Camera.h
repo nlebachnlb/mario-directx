@@ -3,10 +3,19 @@
 #include "GameMap.h"
 #include "GameObject.h"
 
+enum class ScrollMode
+{
+	Targeting,
+	Automatic
+};
+
 struct BoundarySet
 {
 	Vector2 position;
 	RectF boundary;
+	ScrollMode mode;
+	std::vector<Vector2> path;
+	float pathSpeed;
 
 	static BoundarySet Empty()
 	{
@@ -42,6 +51,7 @@ public:
 
 	void AddBoundarySet(int id, Vector2 position, RectF boundary);
 	void AddBoundarySet(int id, BoundarySet bSet);
+	void SetCurrentBoundarySet(int id);
 	BoundarySet GetBoundarySet(int id);
 
 	void FreeBoundary();
@@ -50,6 +60,9 @@ public:
 	void LockCamera();
 	void UnlockCamera();
 
+	void SetScrollMode(ScrollMode mode);
+	ScrollMode GetScrollMode();
+
 protected:
 	Vector2 position, viewportSize, targetPivot;
 	GameMap* map;
@@ -57,9 +70,14 @@ protected:
 	int bottomOffset;
 	int boundaryLocked;
 	float followSpeed;
+	ScrollMode scrollMode;
+	int currentBoundarySet;
 
 private:
 	void Initialize();
+	void TargetingMode();
+	void AutoscrollingMode();
+
 	GameObject target;
 	RectF boundary;
 	// Render temp variables
@@ -72,5 +90,9 @@ private:
 	bool initialized;
 	RectF lastBoundary;
 	Vector2 renderOffset;
+
+	float timer; 
+	int currentPathNode;
+	Vector2 startPosition;
 };
 

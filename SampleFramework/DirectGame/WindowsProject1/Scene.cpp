@@ -78,8 +78,10 @@ void Scene::Load()
 
 			for (auto bound = element->FirstChildElement(); bound != nullptr; bound = bound->NextSiblingElement())
 			{
-				int id;
+				int id, autoscroll;
 				BoundarySet bSet;
+				bSet.pathSpeed = 0;
+				bSet.mode = ScrollMode::Targeting;
 				bound->QueryIntAttribute("id", &id);
 				bound->QueryFloatAttribute("pos_x", &bSet.position.x);
 				bound->QueryFloatAttribute("pos_y", &bSet.position.y);
@@ -87,6 +89,25 @@ void Scene::Load()
 				bound->QueryFloatAttribute("top", &bSet.boundary.top);
 				bound->QueryFloatAttribute("right", &bSet.boundary.right);
 				bound->QueryFloatAttribute("bottom", &bSet.boundary.bottom);
+
+				if (bound->QueryIntAttribute("auto", &autoscroll) != TIXML_SUCCESS) autoscroll = 0;
+				
+				if (autoscroll == 1)
+				{
+					bSet.mode = ScrollMode::Automatic;
+					bSet.path.clear();
+					auto path = bound->FirstChildElement("Path");
+					path->QueryFloatAttribute("speed", &bSet.pathSpeed);
+					for (auto point = path->FirstChildElement("Point"); point != nullptr; point = point->NextSiblingElement("Point"))
+					{
+						int x, y;
+						point->QueryIntAttribute("x", &x);
+						point->QueryIntAttribute("y", &y);
+						DebugOut(L"ScrollPath: %d, %d\n", x, y);
+						bSet.path.push_back(Vector2(x, y));
+					}
+				}
+
 				camera->AddBoundarySet(id, bSet);
 			}
 
@@ -94,6 +115,8 @@ void Scene::Load()
 			camera->SetPosition(startBoundary.position);
 			if (objMario != nullptr) camera->SetTarget(objMario);
 			camera->SetBoundary(startBoundary.boundary);
+			camera->SetCurrentBoundarySet(start);
+			camera->SetScrollMode(startBoundary.mode);
 			camera->LockBoundary();
 			SetMainCamera(camera);
 		}

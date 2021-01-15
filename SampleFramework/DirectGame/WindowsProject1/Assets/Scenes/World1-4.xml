@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scene bgcolor_r="190" bgcolor_g="237" bgcolor_b="243">
   <Scene name="Map" source="Assets/Maps/world-1-4-map.tmx"/>
-  <Scene name="Player" pos_x="48" pos_y="1010"/>
+  <Scene name="Player" pos_x="48" pos_y="300"/>
   <Scene name="Camera" start="0" main="1">
-    <Boundary id="0" pos_x="0" pos_y="650" left="0" top="672" right="6144" bottom="1296"/>
-    <Boundary id="1" pos_x="6192" pos_y="672" left="6192" top="672" right="7728" bottom="1296"/>
+    <Boundary id="0" pos_x="0" pos_y="160" left="0" top="160" right="6144" bottom="784" auto="1">
+      <Path speed="0.01"> 
+        <Point x="0" y="160"/>
+        <Point x="5320" y="160"/>
+      </Path>
+    </Boundary>
+    <Boundary id="1" pos_x="6192" pos_y="160" left="6192" top="160" right="7728" bottom="784"/>
   </Scene> 
 </Scene>
