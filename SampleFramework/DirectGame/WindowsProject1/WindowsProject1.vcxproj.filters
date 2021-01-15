@@ -624,6 +624,9 @@
     <ClInclude Include="RedKoopaParatroopa.h">
       <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
     </ClInclude>
+    <ClInclude Include="Green1UPMushroom.h">
+      <Filter>GameSource\GameObjects\Items\Powerups</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -1043,6 +1046,9 @@
     </ClCompile>
     <ClCompile Include="RedKoopaParatroopa.cpp">
       <Filter>GameSource\GameObjects\Enemies\Koopas\RedKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="Green1UPMushroom.cpp">
+      <Filter>GameSource\GameObjects\Items\Powerups</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

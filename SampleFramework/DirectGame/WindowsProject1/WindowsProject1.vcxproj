@@ -179,6 +179,7 @@
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="GravityPlatform.h" />
+    <ClInclude Include="Green1UPMushroom.h" />
     <ClInclude Include="GreenKoopa.h" />
     <ClInclude Include="GreenKoopaParatroopa.h" />
     <ClInclude Include="GreenKoopasShell.h" />
@@ -312,6 +313,7 @@
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphNode.cpp" />
     <ClCompile Include="GravityPlatform.cpp" />
+    <ClCompile Include="Green1UPMushroom.cpp" />
     <ClCompile Include="GreenKoopa.cpp" />
     <ClCompile Include="GreenKoopaParatroopa.cpp" />
     <ClCompile Include="GreenKoopasShell.cpp" />

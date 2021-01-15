@@ -9,7 +9,7 @@ void RedMushroom::Awake()
 
 	SetTag(ObjectTags::RedMushroom);
 	renderOrder = -1;
-	rigidbody->SetMaterial(MUSHROON_PHYSIC_MATERIAL);
+	rigidbody->SetMaterial(MUSHROOM_PHYSIC_MATERIAL);
 
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Default", animations->Get("ani-super-mushroom"));

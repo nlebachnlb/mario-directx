@@ -5,6 +5,7 @@
 #include "RedMushroom.h"
 #include "RaccoonLeaf.h"
 #include "PSwitch.h"
+#include "Green1UPMushroom.h"
 
 void QuestionBlock::OnEnabled()
 {
@@ -53,6 +54,15 @@ void QuestionBlock::LateUpdate()
 			case ItemTags::Mushroom:
 			{
 				auto mushroom = Instantiate<RedMushroom>();
+				mushroom->SetPosition(transform.Position - Vector2(0, 49));
+				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+				scene->AddObject(mushroom);
+				mushroom->SproutOut();
+			}
+			break;
+			case ItemTags::Green1UP:
+			{
+				auto mushroom = Instantiate<Green1UPMushroom>();
 				mushroom->SetPosition(transform.Position - Vector2(0, 49));
 				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 				scene->AddObject(mushroom);

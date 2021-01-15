@@ -230,6 +230,8 @@ void GameMap::Load(std::string filePath, bool manual)
                     solid->SetItem({ ItemTags::Mushroom, type });
                 else if (name.compare("bleaf") == 0)
                     solid->SetItem({ ItemTags::Leaf, type });
+                else if (name.compare("b1up-mushroom") == 0)
+                    solid->SetItem({ ItemTags::Green1UP, type });
             }
         }
 
@@ -262,6 +264,8 @@ void GameMap::Load(std::string filePath, bool manual)
                         itemBrick->SetItem({ ItemTags::Mushroom, type });
                     else if (name.compare("bleaf") == 0)
                         itemBrick->SetItem({ ItemTags::Leaf, type });
+                    else if (name.compare("b1up-mushroom") == 0)
+                        itemBrick->SetItem({ ItemTags::Green1UP, type });
                 }
                 else 
                     solid = Instantiate<Brick>();

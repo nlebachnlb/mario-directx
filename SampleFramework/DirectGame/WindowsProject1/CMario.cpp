@@ -515,11 +515,14 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			auto gmap = Game::GetInstance().GetService<GameMap>();
 			auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
 			ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", other->GetGameObject()->GetTransform().Position));
-			fx->SetLevel(Score::S1000);
+			fx->SetLevel(otherTag == ObjectTags::GreenMushroom ? Score::S1UP : Score::S1000);
 		}
 
 		switch (otherTag)
 		{
+		case ObjectTags::GreenMushroom:
+			Game::GetInstance().GetData()->ModifyLife(1, true);
+			break;
 		case ObjectTags::RedMushroom:
 			if (tag != ObjectTags::PowerupMario) controller->SwitchToState("BigMario");
 			break;
