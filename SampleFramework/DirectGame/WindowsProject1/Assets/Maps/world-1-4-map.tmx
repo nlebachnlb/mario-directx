@@ -566,8 +566,8 @@
   </object>
   <object id="261" name="koopa" type="red-para" x="5640" y="456">
    <properties>
-    <property name="ambience-x" type="int" value="0"/>
-    <property name="ambience-y" type="int" value="288"/>
+    <property name="amplitude-x" type="int" value="0"/>
+    <property name="amplitude-y" type="int" value="288"/>
     <property name="roundtrip" type="int" value="3000"/>
    </properties>
    <point/>
