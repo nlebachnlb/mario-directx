@@ -23,12 +23,14 @@ Vector2 GravityPlatform::GetBoxSize()
 
 void GravityPlatform::Update()
 {
-	ApplyGravity();
+	// ApplyGravity();
+	if (!touched) rigidbody->SetVelocity(&startVelocity);
 }
 
 void GravityPlatform::OnTouch()
 {
 	if (touched) return;
+	startVelocity.x = 0;
 	rigidbody->SetVelocity(&VectorZero());
 	rigidbody->SetGravity(DEFAULT_GRAVITY / 4.0f);
 	touched = true;

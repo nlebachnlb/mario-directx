@@ -12,10 +12,15 @@ void AbstractPlatform::Awake()
 	box->SetBoxSize(GetBoxSize());
 	box->AttachToEntity(this);
 	this->colliders->push_back(box);
-	this->rigidbody->SetDynamic(false);
+	this->rigidbody->SetDynamic(true);
 	rigidbody->SetGravity(0);
 
 	InitAnimations();
+}
+
+void AbstractPlatform::OnEnabled()
+{
+	if (player == nullptr) player = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player, true);
 }
 
 void AbstractPlatform::Start()
@@ -34,6 +39,29 @@ void AbstractPlatform::OnOffScreen()
 
 void AbstractPlatform::OnTouch()
 {
+}
+
+void AbstractPlatform::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions)
+{
+	for (auto collision : collisions)
+	{
+		if (collision->collisionDirection.x != 0)
+		{
+			auto collider = collision->collider;
+			auto other = collider->GetGameObject();
+			if (TagUtils::MarioTag(other->GetTag()))
+			{
+				auto vel = other->GetRigidbody()->GetVelocity();
+				vel.x = startVelocity.x;
+				other->GetRigidbody()->SetVelocity(&vel);
+			}
+		}
+	}
+}
+
+void AbstractPlatform::SetStartVelocity(Vector2 value)
+{
+	startVelocity = value;
 }
 
 void AbstractPlatform::ApplyGravity()

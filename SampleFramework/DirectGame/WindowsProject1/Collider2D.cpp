@@ -199,7 +199,8 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			(selfTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(otherTag)) || 
 			(otherTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(selfTag)) || 
 			(TagUtils::PowerupTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
-			(TagUtils::PowerupTag(otherTag) && TagUtils::MarioTag(selfTag))
+			(TagUtils::PowerupTag(otherTag) && TagUtils::MarioTag(selfTag)) || 
+			(selfTag == ObjectTags::Platform && !TagUtils::MarioTag(otherTag))
 			)
 			continue;
 
@@ -487,7 +488,7 @@ void Collider2D::CollisionProcess(std::vector<CollisionEvent*>& collisions, Rigi
 {
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 
-	if (ny != 0)
+	if (ny != 0 && gameObject->GetTag() != ObjectTags::Platform)
 	{
 		velocity.y = -1 * Mathf::Sign(velocity.y) * rigidbody->GetMaterial().bounciness.y;
 		dvy = -1 * Mathf::Sign(dvy) * rigidbody->GetMaterial().bounciness.y * dt;

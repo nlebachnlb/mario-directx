@@ -319,6 +319,7 @@ void GameMap::Load(std::string filePath, bool manual)
                         auto startVelX = stof(objects->at(i)->GetPropertyValue("start-velocity-x"));
                         auto startVelY = stof(objects->at(i)->GetPropertyValue("start-velocity-y"));
                         obj->SetPosition(position);
+                        obj->SetStartVelocity(Vector2(startVelX, startVelY));
                         obj->GetRigidbody()->SetVelocity(&Vector2(startVelX, startVelY));
                         this->gameObjects.push_back(obj);
                     }
