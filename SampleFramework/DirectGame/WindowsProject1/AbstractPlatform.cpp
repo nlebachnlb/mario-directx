@@ -6,6 +6,7 @@
 void AbstractPlatform::Awake()
 {
 	SetTag(ObjectTags::Platform);
+	renderOrder = 3;
 
 	Collider2D* box = new Collider2D();
 	box->SetBoxSize(GetBoxSize());
@@ -28,6 +29,10 @@ void AbstractPlatform::Update()
 }
 
 void AbstractPlatform::OnOffScreen()
+{
+}
+
+void AbstractPlatform::OnTouch()
 {
 }
 

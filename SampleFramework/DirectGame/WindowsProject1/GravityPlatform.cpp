@@ -1,6 +1,13 @@
 #include "GravityPlatform.h"
 #include "Game.h"
 #include "AnimationDatabase.h"
+#include "PhysicConstants.h"
+
+void GravityPlatform::Start()
+{
+	AbstractPlatform::Start();
+	touched = false;
+}
 
 void GravityPlatform::InitAnimations()
 {
@@ -17,4 +24,12 @@ Vector2 GravityPlatform::GetBoxSize()
 void GravityPlatform::Update()
 {
 	ApplyGravity();
+}
+
+void GravityPlatform::OnTouch()
+{
+	if (touched) return;
+	rigidbody->SetVelocity(&VectorZero());
+	rigidbody->SetGravity(DEFAULT_GRAVITY / 4.0f);
+	touched = true;
 }

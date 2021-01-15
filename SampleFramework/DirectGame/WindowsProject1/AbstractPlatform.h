@@ -10,6 +10,7 @@ public:
 	virtual void Start() override;
 	virtual void Update() override;
 	virtual void OnOffScreen() override;
+	virtual void OnTouch();
 
 	virtual void InitAnimations() = 0;
 	virtual Vector2 GetBoxSize() = 0;

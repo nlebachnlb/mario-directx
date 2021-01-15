@@ -10,6 +10,7 @@
 #include "EffectPool.h"
 #include "ScoreFX.h"
 #include "MainCanvas.h"
+#include "AbstractPlatform.h"
 
 void CMario::Awake()
 {
@@ -261,6 +262,8 @@ void CMario::Jump(float force, bool deflect)
 	onGround = false;
 	canHighJump = true;
 	this->deflect = deflect;
+
+	standOnPlatform = nullptr;
 }
 
 bool CMario::IsReadyToRun()
@@ -425,12 +428,14 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 					auto data = Game::GetInstance().GetData();
 					onGround = true;
 					data->ResetCombo();
+					if (collider->GetGameObject()->GetTag() == ObjectTags::Platform)
+						static_cast<AbstractPlatform*>(collider->GetGameObject())->OnTouch();
 				}
 
 				if (collider->GetGameObject()->GetTag() != ObjectTags::Block)
 					standOnPlatform = collision->collider->GetGameObject();
-				else
-					standOnPlatform = nullptr;
+				/*else
+					standOnPlatform = nullptr;*/
 
 				physicState.jump = JumpingStates::Stand;
 			}
@@ -865,6 +870,8 @@ void CMario::FallState()
 	{
 		physicState.jump = JumpingStates::Stand;
 	}
+
+	if (standOnPlatform != nullptr) standOnPlatform = nullptr;
 }
 
 void CMario::StandState()
@@ -877,20 +884,28 @@ void CMario::StandState()
 		if (standOnPlatform != nullptr)
 		{
 			// Velocity union
-			/*auto marioVel = rigidbody->GetVelocity();
-			auto platformVel = standOnPlatform->GetRigidbody()->GetVelocity();
-			rigidbody->SetVelocity(&(marioVel + platformVel));*/
-			transform.Position += standOnPlatform->GetDeltaTransform().Position;
+			transform.Position.x += standOnPlatform->GetDeltaTransform().Position.x;
+			if (standOnPlatform->GetTag() == ObjectTags::Platform)
+			{
+				auto platformBox = standOnPlatform->GetColliders()->at(0)->GetBoundingBox();
+				auto marioBox = colliders->at(0)->GetBoxSize();
+				transform.Position.y = platformBox.top - marioBox.y * 0.5f + 1;
+				rigidbody->SetGravity(0);
+			}
 		}
 	}
 	else
+	{
 		standOnPlatform = nullptr;
+		rigidbody->SetGravity(MARIO_GRAVITY);
+	}
 
 	auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
-	if (distance > MARIO_MIN_VDISTANCE)
+	if (transform.Position.y - prevTransform.Position.y > 0 && rigidbody->GetVelocity().y > 0)
 	{
 		onGround = false;
 		physicState.jump = JumpingStates::Fall;
+		rigidbody->SetGravity(MARIO_GRAVITY);
 		mainCamera->LockBoundary();
 	}
 }
