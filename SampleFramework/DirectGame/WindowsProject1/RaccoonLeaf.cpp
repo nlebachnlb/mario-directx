@@ -56,7 +56,7 @@ void RaccoonLeaf::Update()
 void RaccoonLeaf::PreRender()
 {
 	if (!falling) return;
-	lifeTime += Game::DeltaTime();
+	lifeTime += Game::DeltaTime() * Game::GetTimeScale();
 
 	auto a = LEAF_AMPLITUDE;
 	auto t = LEAF_ROUNDTRIP_TIME;

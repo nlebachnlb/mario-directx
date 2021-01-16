@@ -268,7 +268,7 @@ void Scene::UpdateActiveObjects()
 				}
 				else
 				{
-					if (!o->IsAlwaysUpdated() && !mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 3))
+					if (!o->IsAlwaysUpdated() && !mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 4))
 					{
 						o->SetOffScreen(true);
 						continue;

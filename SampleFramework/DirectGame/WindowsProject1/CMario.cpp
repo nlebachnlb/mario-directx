@@ -10,6 +10,7 @@
 #include "EffectPool.h"
 #include "ScoreFX.h"
 #include "MainCanvas.h"
+#include "AbstractPlatform.h"
 
 void CMario::Awake()
 {
@@ -261,6 +262,8 @@ void CMario::Jump(float force, bool deflect)
 	onGround = false;
 	canHighJump = true;
 	this->deflect = deflect;
+
+	standOnPlatform = nullptr;
 }
 
 bool CMario::IsReadyToRun()
@@ -427,8 +430,11 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 					data->ResetCombo();
 				}
 
-				if (collider->GetGameObject()->GetTag() != ObjectTags::Block)
+				if (collider->GetGameObject()->GetTag() == ObjectTags::Platform)
+				{
 					standOnPlatform = collision->collider->GetGameObject();
+					static_cast<AbstractPlatform*>(collider->GetGameObject())->OnTouch();
+				}
 				else
 					standOnPlatform = nullptr;
 
@@ -510,11 +516,14 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 			auto gmap = Game::GetInstance().GetService<GameMap>();
 			auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
 			ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", other->GetGameObject()->GetTransform().Position));
-			fx->SetLevel(Score::S1000);
+			fx->SetLevel(otherTag == ObjectTags::GreenMushroom ? Score::S1UP : Score::S1000);
 		}
 
 		switch (otherTag)
 		{
+		case ObjectTags::GreenMushroom:
+			Game::GetInstance().GetData()->ModifyLife(1, true);
+			break;
 		case ObjectTags::RedMushroom:
 			if (tag != ObjectTags::PowerupMario) controller->SwitchToState("BigMario");
 			break;
@@ -623,6 +632,23 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 
 	if (otherTag == ObjectTags::HostileProjectiles && !IsInvincible() && warp == 0)
 		OnDamaged(nullptr);
+
+	if (otherTag == ObjectTags::Platform)
+	{
+		auto oBox = other->GetBoundingBox();
+		auto mBox = colliders->at(0)->GetBoundingBox();
+		if (transform.Position.y < oBox.top)
+		{
+			standOnPlatform = other->GetGameObject();
+			physicState.jump = JumpingStates::Stand;
+
+			auto platformBox = standOnPlatform->GetColliders()->at(0)->GetBoundingBox();
+			auto marioBox = colliders->at(0)->GetBoxSize();
+			transform.Position.y = platformBox.top - marioBox.y * 0.5f + 1;
+
+			static_cast<AbstractPlatform*>(standOnPlatform)->OnTouch();
+		}
+	}
 }
 
 void CMario::OnSolidOverlappedExit()
@@ -824,6 +850,8 @@ bool CMario::IsStateTransition(MovingStates srcState, MovingStates dstState)
 
 void CMario::JumpState()
 {
+	standOnPlatform = nullptr;
+
 	auto velocity = rigidbody->GetVelocity();
 	auto jumpForce = MARIO_JUMP_FORCE;
 	canHighJump = input->GetKeyDown(marioKeySet.Jump);
@@ -877,20 +905,36 @@ void CMario::StandState()
 		if (standOnPlatform != nullptr)
 		{
 			// Velocity union
-			/*auto marioVel = rigidbody->GetVelocity();
-			auto platformVel = standOnPlatform->GetRigidbody()->GetVelocity();
-			rigidbody->SetVelocity(&(marioVel + platformVel));*/
-			transform.Position += standOnPlatform->GetDeltaTransform().Position;
+			transform.Position.x += standOnPlatform->GetDeltaTransform().Position.x;
+			if (standOnPlatform->GetTag() == ObjectTags::Platform)
+			{
+				rigidbody->SetGravity(0);
+
+				auto marioVel = rigidbody->GetVelocity();
+				auto platformVel = standOnPlatform->GetRigidbody()->GetVelocity();
+				marioVel.y = platformVel.y;
+				rigidbody->SetVelocity(&marioVel);
+
+				/*auto platformBox = standOnPlatform->GetColliders()->at(0)->GetBoundingBox();
+				auto marioBox = colliders->at(0)->GetBoxSize();
+				transform.Position.y = platformBox.top - marioBox.y * 0.5f + 1;*/
+			}
+
+			if (!standOnPlatform->IsEnabled()) standOnPlatform = nullptr;
 		}
 	}
 	else
+	{
 		standOnPlatform = nullptr;
+		rigidbody->SetGravity(MARIO_GRAVITY);
+	}
 
-	auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
-	if (distance > MARIO_MIN_VDISTANCE)
+	//auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
+	if (standOnPlatform == nullptr && transform.Position.y - prevTransform.Position.y > 0 && rigidbody->GetVelocity().y > 0)
 	{
 		onGround = false;
 		physicState.jump = JumpingStates::Fall;
+		rigidbody->SetGravity(MARIO_GRAVITY);
 		mainCamera->LockBoundary();
 	}
 }

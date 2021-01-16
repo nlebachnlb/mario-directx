@@ -230,6 +230,8 @@ void GameMap::Load(std::string filePath, bool manual)
                     solid->SetItem({ ItemTags::Mushroom, type });
                 else if (name.compare("bleaf") == 0)
                     solid->SetItem({ ItemTags::Leaf, type });
+                else if (name.compare("b1up-mushroom") == 0)
+                    solid->SetItem({ ItemTags::Green1UP, type });
             }
         }
 
@@ -262,6 +264,8 @@ void GameMap::Load(std::string filePath, bool manual)
                         itemBrick->SetItem({ ItemTags::Mushroom, type });
                     else if (name.compare("bleaf") == 0)
                         itemBrick->SetItem({ ItemTags::Leaf, type });
+                    else if (name.compare("b1up-mushroom") == 0)
+                        itemBrick->SetItem({ ItemTags::Green1UP, type });
                 }
                 else 
                     solid = Instantiate<Brick>();
@@ -315,6 +319,7 @@ void GameMap::Load(std::string filePath, bool manual)
                         auto startVelX = stof(objects->at(i)->GetPropertyValue("start-velocity-x"));
                         auto startVelY = stof(objects->at(i)->GetPropertyValue("start-velocity-y"));
                         obj->SetPosition(position);
+                        obj->SetStartVelocity(Vector2(startVelX, startVelY));
                         obj->GetRigidbody()->SetVelocity(&Vector2(startVelX, startVelY));
                         this->gameObjects.push_back(obj);
                     }

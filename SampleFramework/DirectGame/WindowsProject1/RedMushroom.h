@@ -3,7 +3,7 @@
 
 const float MUSHROOM_SPEED = 0.15f;
 const float MUSHROOM_GRAVITY = 0.0024f;
-const PhysicMaterial MUSHROON_PHYSIC_MATERIAL(Vector2(MUSHROOM_SPEED, 0), 0);
+const PhysicMaterial MUSHROOM_PHYSIC_MATERIAL(Vector2(MUSHROOM_SPEED, 0), 0);
 
 class RedMushroom : public AbstractItem
 {

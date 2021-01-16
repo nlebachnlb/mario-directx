@@ -3,6 +3,7 @@ enum class ItemTags
 {
 	Coin,
 	Mushroom,
+	Green1UP,
 	Fireplant,
 	Leaf,
 	PSwitch

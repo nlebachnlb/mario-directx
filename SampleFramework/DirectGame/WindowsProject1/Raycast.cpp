@@ -58,3 +58,26 @@ void Raycast::HShoot(Vector2 startPoint, HRayDirection direction, ObjectTags tag
 		if (xCondition && yCondition) result.push_back(o->GetColliders()->at(0));
 	}
 }
+
+bool Raycast::VerticalHit(Vector2 startPoint, VRayDirection direction, ObjectTags tag, float rayDistance)
+{
+	for (auto o : *objects)
+	{
+		if (o->IsDestroyed()) continue;
+		if (!o->IsEnabled()) continue;
+		if (o->GetTag() != tag) continue;
+		if (o->GetColliders()->size() == 0) continue;
+
+		auto box = o->GetColliders()->at(0)->GetBoundingBox();
+		if (!Mathf::InRange(startPoint.x, box.left, box.right)) continue;
+
+		if (direction == VRayDirection::Down &&
+			box.top < startPoint.y + rayDistance && box.bottom > startPoint.y)
+			return true;
+		else if (direction == VRayDirection::Up &&
+			box.bottom > startPoint.y - rayDistance && box.top < startPoint.y)
+			return true;
+	}
+
+	return false;
+}
