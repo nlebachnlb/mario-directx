@@ -131,6 +131,18 @@ void Scene::Init()
 	auto gmap = Game::GetInstance().GetService<GameMap>();
 	auto spawner = gmap->GetSpawnerManager();
 
+	// Init grid
+	if (needSpatialPartition)
+	{
+		GridConfig gridConfig;
+		auto gameConfig = Game::GetInstance().GetGlobalConfigs();
+		auto gameMap = Game::GetInstance().GetService<GameMap>();
+		gridConfig.cellSize = gameConfig.screenWidth / 2;
+		gridConfig.width = gameMap->GetMapWidth();
+		gridConfig.height = gameMap->GetMapHeight();
+		grid = new Grid(gridConfig);
+	}
+
 	if (spawner != nullptr)
 	{
 		auto fxPool = spawner->GetService<EffectPool>();
@@ -174,6 +186,12 @@ void Scene::Unload()
 		mainCamera = nullptr;
 	}
 
+	if (grid != nullptr)
+	{
+		delete grid;
+		grid = nullptr;
+	}
+
 	Game::GetInstance().GetService<GameMap>()->Unload();
 }
 
@@ -196,6 +214,12 @@ void Scene::Update()
 	for (auto o : updated)
 		if (o->IsEnabled()) o->EndUpdate();
 
+	if (needSpatialPartition)
+	{
+		for (auto o : inCells)
+			grid->UpdateObject(o);
+	}
+
 	if (mainCamera != nullptr) mainCamera->Update();
 }
 
@@ -217,6 +241,12 @@ void Scene::CleanDestroyedObjects()
 	{
 		for (auto o : destroyed)
 			Remove(o);
+
+		if (needSpatialPartition)
+		{
+			for (auto o : destroyed)
+				grid->Remove(o);
+		}
 
 		for (auto o : destroyed)
 		{
@@ -241,6 +271,9 @@ void Scene::ProcessInstantiateRequests()
 			// Binary search the approriate position
 			auto pos = std::lower_bound(objects->begin(), objects->end(), o, Scene::Comparator);
 			objects->insert(pos, o);
+
+			if (needSpatialPartition) o->SetInGrid(true), grid->Insert(o);
+			else o->SetInGrid(false);
 		}
 		instantiated.clear();
 	}
@@ -251,7 +284,21 @@ void Scene::UpdateActiveObjects()
 	updated.clear();
 	if (objects != nullptr)
 	{
-		for (auto o : *objects)
+		std::vector<Cell*> activeCells;
+		inCells.clear();
+
+		if (needSpatialPartition)
+		{
+			grid->GetActiveCells(mainCamera->GetBoundingBox(), activeCells);
+
+			for (auto cell : activeCells)
+				for (auto obj : *cell->GetObjects())
+					inCells.push_back(obj);
+		}
+		else
+			inCells = *objects;
+
+		for (auto o : inCells)
 		{
 			if (o == nullptr) continue;
 			if (o->IsDestroyed()) continue;

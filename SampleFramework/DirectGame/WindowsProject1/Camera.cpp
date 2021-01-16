@@ -227,6 +227,11 @@ ScrollMode Camera::GetScrollMode()
     return scrollMode;
 }
 
+RectF Camera::GetBoundingBox()
+{
+    return RectF({ position.x, position.y, position.x + viewportSize.x, position.y + viewportSize.y });
+}
+
 void Camera::Initialize()
 {
     if (initialized) return;

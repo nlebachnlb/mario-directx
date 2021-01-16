@@ -10,6 +10,7 @@ void MainMenuScene::Load()
 	DebugOut(L"Main Menu\n");
 	this->id = "MainMenuScene";
 	this->filePath = Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, SC_MENU);
+	needSpatialPartition = false;
 
 	TiXmlDocument document(filePath.c_str());
 	if (document.LoadFile() == false)

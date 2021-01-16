@@ -4,6 +4,8 @@
 
 struct Index { int x, y; };
 
+class CGameObject;
+typedef CGameObject* GameObject;
 class Cell
 {
 public:
@@ -12,6 +14,7 @@ public:
 
 	void Insert(GameObject object);
 	void Remove(GameObject object);
+	std::unordered_set<GameObject>* GetObjects();
 
 	Index GetIndex();
 

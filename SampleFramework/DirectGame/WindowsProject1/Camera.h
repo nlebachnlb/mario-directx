@@ -63,6 +63,8 @@ public:
 	void SetScrollMode(ScrollMode mode);
 	ScrollMode GetScrollMode();
 
+	RectF GetBoundingBox();
+
 protected:
 	Vector2 position, viewportSize, targetPivot;
 	GameMap* map;

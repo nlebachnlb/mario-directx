@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "KeyEventHandler.h"
 #include "Camera.h"
+#include "Grid.h"
 
 class Scene
 {
@@ -47,10 +48,12 @@ protected:
 	}
 	
 	std::vector<GameObject>* objects;
-	std::vector<GameObject> destroyed, updated, instantiated;
+	std::vector<GameObject> destroyed, updated, instantiated, inCells;
 	std::string id;
 	std::string filePath;
 	Camera* mainCamera;
+	Grid* grid;
+	bool needSpatialPartition;
 
 	bool loaded;
 };

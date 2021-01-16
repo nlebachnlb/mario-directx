@@ -34,6 +34,11 @@ float Mathf::Clamp(float target, float inf, float sup)
     return Max(inf, Min(target, sup));
 }
 
+int Mathf::ClampInt(int target, int inf, int sup)
+{
+    return max(inf, min(target, sup));
+}
+
 bool Mathf::InRange(float target, float inf, float sup)
 {
     return inf <= target && target <= sup;

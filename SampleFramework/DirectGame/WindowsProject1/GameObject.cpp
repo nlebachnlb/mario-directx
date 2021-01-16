@@ -306,6 +306,26 @@ Transform CGameObject::GetPreviousTransform()
 	return prevTransform;
 }
 
+void CGameObject::SetCell(Cell* cell)
+{
+	this->cell = cell;
+}
+
+Cell* CGameObject::GetCell()
+{
+	return cell;
+}
+
+void CGameObject::SetInGrid(bool value)
+{
+	inGrid = value;
+}
+
+bool CGameObject::GetInGrid()
+{
+	return inGrid;
+}
+
 void Destroy(GameObject gameObject)
 {
 	auto activeScene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();

@@ -24,6 +24,11 @@ void Cell::Remove(GameObject object)
 		objects->erase(object);
 }
 
+std::unordered_set<GameObject>* Cell::GetObjects()
+{
+	return objects;
+}
+
 Index Cell::GetIndex()
 {
 	return index;

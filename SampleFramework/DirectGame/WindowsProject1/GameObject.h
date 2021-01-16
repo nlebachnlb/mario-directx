@@ -13,6 +13,7 @@
 #include "Collider2D.h"
 #include "ObjectTags.h"
 #include "Effector2D.h"
+#include "Cell.h"
 
 class Collider2D;
 struct CollisionEvent;
@@ -21,6 +22,7 @@ typedef CollisionEvent* PCollisionEvent;
 class Animation;
 typedef Animation* PAnimation;
 
+class Cell;
 class CGameObject
 {
 public:
@@ -100,6 +102,12 @@ public:
 	Transform GetDeltaTransform();
 	Transform GetPreviousTransform();
 
+	void SetCell(Cell* cell);
+	Cell* GetCell();
+
+	void SetInGrid(bool value);
+	bool GetInGrid();
+
 protected:
 	Transform transform, prevTransform, deltaTransform;
 	Sprite sprite;
@@ -119,6 +127,8 @@ protected:
 
 private:
 	std::vector<Collider2D*> beingUpdatedColliders;
+	bool inGrid;
+	Cell* cell;
 };
 
 typedef CGameObject* GameObject;

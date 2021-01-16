@@ -21,6 +21,7 @@ void ObjectPool::Revoke(GameObject obj)
     obj->SetActive(false);
     if (std::find(pool.begin(), pool.end(), obj) != pool.end()) return;
     pool.push_back(obj);
+
 }
 
 bool ObjectPool::IsEmpty()

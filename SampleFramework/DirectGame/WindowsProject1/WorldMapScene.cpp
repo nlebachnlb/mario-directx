@@ -7,7 +7,8 @@ void WorldMapScene::Load()
 	DebugOut(L"World map\n");
 	this->id = "WorldMapScene";
 	this->filePath = Game::GetInstance().GetSourcePathOf(CATEGORY_SCENE, SC_OVERWORLD_MAP_1);
-	
+	needSpatialPartition = false;
+
 	TiXmlDocument document(filePath.c_str());
 	if (document.LoadFile() == false)
 	{
