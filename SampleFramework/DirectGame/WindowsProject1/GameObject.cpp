@@ -301,6 +301,11 @@ Transform CGameObject::GetDeltaTransform()
 	return deltaTransform;
 }
 
+Transform CGameObject::GetPreviousTransform()
+{
+	return prevTransform;
+}
+
 void Destroy(GameObject gameObject)
 {
 	auto activeScene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();

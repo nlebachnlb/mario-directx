@@ -100,6 +100,16 @@ Vector2 Mathf::ToDirectionalVector(float radian)
     return Normalize(Vector2(Cos(radian), Sin(radian)));
 }
 
+float Mathf::Ceil(float number)
+{
+    return ceilf(number);
+}
+
+float Mathf::Floor(float number)
+{
+    return floorf(number);
+}
+
 bool Random::initialized = false;
 
 // Random an integer in [inf, sup] (bounds included)

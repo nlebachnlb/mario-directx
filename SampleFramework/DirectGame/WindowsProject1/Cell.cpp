@@ -1,0 +1,30 @@
+#include "Cell.h"
+
+Cell::Cell(int x, int y)
+{
+	index.x = x;
+	index.y = y;
+	objects = new std::unordered_set<GameObject>();
+}
+
+Cell::~Cell()
+{
+	delete objects;
+}
+
+void Cell::Insert(GameObject object)
+{
+	if (objects->find(object) == objects->end())
+		objects->insert(object);
+}
+
+void Cell::Remove(GameObject object)
+{
+	if (objects->find(object) != objects->end())
+		objects->erase(object);
+}
+
+Index Cell::GetIndex()
+{
+	return index;
+}

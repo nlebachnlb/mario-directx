@@ -252,7 +252,7 @@ void Camera::TargetingMode()
 {
     if (target == nullptr) return;
 
-    auto dt = Game::FixedDeltaTime() * Game::GetTimeScale() * 0.001f;
+    //auto dt = Game::FixedDeltaTime() * Game::GetTimeScale() * 0.001f;
 
     auto pos = this->position;
     auto targetPos = target->GetTransform().Position;

@@ -159,6 +159,7 @@
     <ClInclude Include="BrickDebrisFX.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="Cell.h" />
     <ClInclude Include="CMario.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinObtainedFX.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="GreenKoopaParatroopa.h" />
     <ClInclude Include="GreenKoopasShell.h" />
     <ClInclude Include="GreenVenusFireTrap.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="GrowUpFX.h" />
     <ClInclude Include="HitFX.h" />
     <ClInclude Include="HitStarFX.h" />
@@ -295,6 +297,7 @@
     <ClCompile Include="BrickDebrisFX.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CMario.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinObtainedFX.cpp" />
@@ -318,6 +321,7 @@
     <ClCompile Include="GreenKoopaParatroopa.cpp" />
     <ClCompile Include="GreenKoopasShell.cpp" />
     <ClCompile Include="GreenVenusFireTrap.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GrowUpFX.cpp" />
     <ClCompile Include="HitFX.cpp" />
     <ClCompile Include="HitStarFX.cpp" />

@@ -98,6 +98,7 @@ public:
 	Effector2D GetEffector();
 
 	Transform GetDeltaTransform();
+	Transform GetPreviousTransform();
 
 protected:
 	Transform transform, prevTransform, deltaTransform;

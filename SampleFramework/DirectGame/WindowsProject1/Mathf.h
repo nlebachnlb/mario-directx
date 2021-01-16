@@ -23,6 +23,8 @@ public:
 	static Vector2 Normalize(Vector2 vec);
 	static float ToAngle(Vector2 vec);
 	static Vector2 ToDirectionalVector(float radian);
+	static float Ceil(float number);
+	static float Floor(float number);
 };
 
 class Random

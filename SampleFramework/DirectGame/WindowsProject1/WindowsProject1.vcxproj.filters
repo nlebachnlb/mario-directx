@@ -223,6 +223,9 @@
     <Filter Include="GameSource\UserInterface\Layouts">
       <UniqueIdentifier>{06972f3a-11cb-45f9-bbc0-d1df79cee9c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\SpatialPartition">
+      <UniqueIdentifier>{6be6bf16-29af-415a-8db4-efeed810d253}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -626,6 +629,12 @@
     </ClInclude>
     <ClInclude Include="Green1UPMushroom.h">
       <Filter>GameSource\GameObjects\Items\Powerups</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Framework\Game\SpatialPartition</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\Game\SpatialPartition</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1049,6 +1058,12 @@
     </ClCompile>
     <ClCompile Include="Green1UPMushroom.cpp">
       <Filter>GameSource\GameObjects\Items\Powerups</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Framework\Game\SpatialPartition</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\Game\SpatialPartition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
