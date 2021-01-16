@@ -69,6 +69,8 @@ bool Raycast::VerticalHit(Vector2 startPoint, VRayDirection direction, ObjectTag
 		if (o->GetColliders()->size() == 0) continue;
 
 		auto box = o->GetColliders()->at(0)->GetBoundingBox();
+		if (!Mathf::InRange(startPoint.x, box.left, box.right)) continue;
+
 		if (direction == VRayDirection::Down &&
 			box.top < startPoint.y + rayDistance && box.bottom > startPoint.y)
 			return true;

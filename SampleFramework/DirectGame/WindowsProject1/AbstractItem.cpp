@@ -1,7 +1,7 @@
 #include "AbstractItem.h"
 #include "Game.h"
 
-const Vector2 ITEM_BBOX(48, 47);
+const Vector2 ITEM_BBOX(45, 47);
 const float SPROUT_SPEED = 0.1f;
 
 void AbstractItem::Awake()

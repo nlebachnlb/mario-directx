@@ -89,19 +89,50 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 			collision->collider->GetGameObject()->GetTag() == ObjectTags::Block)
 		{
 			auto otherBox = collision->collider->GetBoundingBox();
+			auto bbox = colliders->at(0)->GetBoundingBox();
 
 			if (transform.Position.x > otherBox.right)
 			{
-				rigidbody->SetVelocity(&Vector2(-Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
-				SetPosition(Vector2(otherBox.right - 1, transform.Position.y));
-				// DebugOut(L"BACK: %f\n", rigidbody->GetVelocity().x);
+				auto raycast = Game::GetInstance().Raycast2D();
+				Vector2 shootPoint(
+					bbox.right + 1,
+					bbox.bottom + 1
+				);
+
+				auto cast = raycast->VerticalHit(shootPoint, VRayDirection::Down, collision->collider->GetGameObject()->GetTag(), 4);
+				if (!cast)
+				{
+					rigidbody->SetVelocity(&Vector2(-Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
+					// SetPosition(Vector2(otherBox.right - 1, transform.Position.y));
+					DebugOut(L"BACK: %f\n", rigidbody->GetVelocity().x);
+				}
 			}
 			else if (transform.Position.x < otherBox.left)
 			{
-				rigidbody->SetVelocity(&Vector2(+Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
-				SetPosition(Vector2(otherBox.left + 1, transform.Position.y));
-				// DebugOut(L"BACK-left: %f\n", rigidbody->GetVelocity().x);
+				auto raycast = Game::GetInstance().Raycast2D();
+				Vector2 shootPoint(
+					bbox.left - 1,
+					bbox.bottom + 1
+				);
+
+				auto cast = raycast->VerticalHit(shootPoint, VRayDirection::Down, collision->collider->GetGameObject()->GetTag(), 4);
+				if (!cast)
+				{
+					rigidbody->SetVelocity(&Vector2(+Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
+					// SetPosition(Vector2(otherBox.left + 1, transform.Position.y));
+					 DebugOut(L"BACK-left: %f\n", rigidbody->GetVelocity().x);
+				}
 			}
+			/*auto raycast = Game::GetInstance().Raycast2D();
+			auto bbox = colliders->at(0)->GetBoundingBox();
+			Vector2 shootPoint(
+				rigidbody->GetVelocity().x < 0 ? bbox.left - 1 : bbox.right + 1,
+				bbox.bottom + 1
+			);
+
+			auto cast = raycast->VerticalHit(shootPoint, VRayDirection::Down, collision->collider->GetGameObject()->GetTag(), 4);
+			if (!cast)
+				rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, rigidbody->GetVelocity().y));*/
 		}
 	}
 }
