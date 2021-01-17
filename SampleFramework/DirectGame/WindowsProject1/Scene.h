@@ -33,6 +33,8 @@ public:
 	void SetMainCamera(Camera* camera);
 	Camera* GetMainCamera();
 
+	Grid* GetGrid();
+
 protected:
 	void Remove(GameObject go);
 	static bool Comparator(const GameObject& a, const GameObject& b) 
@@ -49,6 +51,7 @@ protected:
 	
 	std::vector<GameObject>* objects;
 	std::vector<GameObject> destroyed, updated, instantiated, inCells;
+	std::vector<Cell*> activeCells;
 	std::string id;
 	std::string filePath;
 	Camera* mainCamera;

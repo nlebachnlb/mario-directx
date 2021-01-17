@@ -72,6 +72,7 @@ FXObject* EffectPool::CreateFX(std::string fxName, Vector2 position, bool expand
 		fx->SetPosition(position);
 		fx->SetStartPosition(position);
 		fx->Start();
+		scene->GetGrid()->UpdateObject(fx);
 		DebugOut(L"Old spawn\n");
 		return fx;
 	}

@@ -8,6 +8,7 @@ struct GridConfig
 	int width, height;
 };
 
+class Cell;
 class Grid
 {
 public:

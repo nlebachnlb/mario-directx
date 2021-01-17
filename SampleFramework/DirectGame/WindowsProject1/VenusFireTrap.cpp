@@ -59,6 +59,7 @@ void VenusFireTrap::LateUpdate()
 			shootTimer = 0;
 			targetLocking = false;
 			auto bullet = bulletPool.Instantiate();
+			
 			if (bullet != nullptr)
 			{
 				auto startPos = transform.Position - Vector2(0, GetBoxSize().y * 0.25f);
@@ -91,6 +92,9 @@ void VenusFireTrap::LateUpdate()
 				bullet->GetRigidbody()->SetVelocity(&velocity);
 				/*auto d = VENUS_BULLET_SPEED * Mathf::ToDirectionalVector(Mathf::ToAngle(velocity));
 				DebugOut(L"Shoot: %f, %f, %f, %f, %f\n", velocity.x, velocity.y, Mathf::Rad2Deg(Mathf::ToAngle(velocity)), d.x, d.y);*/
+			
+				if (bullet->GetInGrid())
+					bullet->GetCell()->GetContainingGrid()->UpdateObject(bullet);
 			}
 		}
 	}

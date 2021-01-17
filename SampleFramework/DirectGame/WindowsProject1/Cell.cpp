@@ -33,3 +33,8 @@ Index Cell::GetIndex()
 {
 	return index;
 }
+
+Grid* Cell::GetContainingGrid()
+{
+	return grid;
+}

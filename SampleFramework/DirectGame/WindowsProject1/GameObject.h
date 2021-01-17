@@ -125,9 +125,10 @@ protected:
 	Rigidbody2D* rigidbody;
 	std::vector<Collider2D*>* colliders;
 
+	bool inGrid, global;
+
 private:
 	std::vector<Collider2D*> beingUpdatedColliders;
-	bool inGrid;
 	Cell* cell;
 };
 

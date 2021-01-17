@@ -350,6 +350,8 @@ void CMario::Warp()
 
 	auto o = mark;
 	transform.Position = o->GetDestination();
+	GetCell()->GetContainingGrid()->UpdateObject(this);
+
 	warpDirection = o->GetDirection();
 	auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
 	mainCamera->SetBoundary(bset.boundary);

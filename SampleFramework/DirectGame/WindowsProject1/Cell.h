@@ -6,6 +6,8 @@ struct Index { int x, y; };
 
 class CGameObject;
 typedef CGameObject* GameObject;
+
+class Grid;
 class Cell
 {
 public:
@@ -17,9 +19,12 @@ public:
 	std::unordered_set<GameObject>* GetObjects();
 
 	Index GetIndex();
+	Grid* GetContainingGrid();
 
 private:
 	std::unordered_set<GameObject>* objects;
 	Index index;
+	Grid* grid;
+	friend class Grid;
 };
 

@@ -17,6 +17,7 @@ KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType sh
 	ObjectPool* shells;
 	if (shellType == KoopasShellType::Red) shells = redShells;
 	else shells = greenShells;
+	auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 
 	if (shells->IsEmpty())
 	{
@@ -29,7 +30,6 @@ KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType sh
 			shell = Instantiate<RedKoopasShell>();
 			break;
 		}
-		auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 		scene->AddObject(shell);
 	}
 	else
@@ -38,6 +38,7 @@ KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType sh
 	if (reset) shell->Start();
 	shell->SetPosition(position);
 	shell->SetPool(shells);
+	scene->GetGrid()->Insert(shell);
 
 	return shell;
 }
@@ -68,6 +69,7 @@ AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool rese
 		enm->Start();
 		enm->OnEnabled();
 		enm->SetPool(pool);
+		scene->GetGrid()->Insert(enm);
 		return enm;
 	}
 	else
@@ -78,6 +80,7 @@ AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool rese
 		enm->Start();
 		enm->OnEnabled();
 		DebugOut(L"Koopa-Old spawn\n");
+		scene->GetGrid()->UpdateObject(enm);
 		return enm;
 	}
 }

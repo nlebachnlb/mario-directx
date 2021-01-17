@@ -13,6 +13,7 @@ Grid::Grid(GridConfig config)
 		for (int y = 0; y < heightInCells; ++y)
 		{
 			auto cell = new Cell(x, y);
+			cell->grid = this;
 			column.push_back(cell);
 		}
 		cells.push_back(column);
@@ -35,21 +36,14 @@ void Grid::UpdateObject(GameObject object)
 {
 	//auto oldPosition = object->GetPreviousTransform().Position;
 	auto newPosition = object->GetTransform().Position;
-	//Index oldIndex = Index({ 
-	//	(int)(oldPosition.x / config.cellSize),
-	//	(int)(oldPosition.y / config.cellSize)
-	//});
+
 	Index newIndex = Index({
 		(int)(newPosition.x / config.cellSize),
 		(int)(newPosition.y / config.cellSize)
 	});
 
-	//if (oldIndex.x == newIndex.x && oldIndex.y == newIndex.y) return;
-
-	//Cell* oldCell = GetCell(oldIndex);
 	Cell* newCell = GetCell(newIndex);
 
-	//oldCell->Remove(object);
 	object->GetCell()->Remove(object);
 	newCell->Insert(object);
 	object->SetCell(newCell);
@@ -99,10 +93,12 @@ void Grid::GetActiveCells(RectF rect, std::vector<Cell*>& result)
 	Index end = ToIndex(Vector2(rect.right, rect.bottom));
 	result.clear();
 
-	for (int x = start.x; x <= end.x; ++x)
+	for (int x = start.x; x <= end.x + 1; ++x)
 	{
-		for (int y = start.y; y <= end.y; ++y)
+		if (x < 0 || x >= widthInCells) continue;
+		for (int y = start.y; y <= end.y + 1; ++y)
 		{
+			if (y < 0 || y >= heightInCells) continue;
 			Cell* cell = GetCell(Index({ x, y }));
 			result.push_back(cell);
 		}

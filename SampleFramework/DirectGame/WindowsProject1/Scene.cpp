@@ -199,6 +199,12 @@ void Scene::Update()
 {
 	if (loaded == false) return;
 
+	if (needSpatialPartition)
+	{
+		for (auto o : inCells)
+			grid->UpdateObject(o);
+	}
+
 	for (auto o : updated)
 		if (o->IsEnabled()) o->BeginUpdate();
 
@@ -213,12 +219,6 @@ void Scene::Update()
 
 	for (auto o : updated)
 		if (o->IsEnabled()) o->EndUpdate();
-
-	if (needSpatialPartition)
-	{
-		for (auto o : inCells)
-			grid->UpdateObject(o);
-	}
 
 	if (mainCamera != nullptr) mainCamera->Update();
 }
@@ -266,11 +266,12 @@ void Scene::ProcessInstantiateRequests()
 	{
 		for (auto o : instantiated)
 		{
-			if (objects->empty()) { objects->push_back(o); continue; }
+			// if (objects->empty()) { objects->push_back(o); continue; }
 
 			// Binary search the approriate position
-			auto pos = std::lower_bound(objects->begin(), objects->end(), o, Scene::Comparator);
-			objects->insert(pos, o);
+			// auto pos = std::lower_bound(objects->begin(), objects->end(), o, Scene::Comparator);
+			// objects->insert(pos, o);
+			objects->push_back(o);
 
 			if (needSpatialPartition) o->SetInGrid(true), grid->Insert(o);
 			else o->SetInGrid(false);
@@ -284,7 +285,6 @@ void Scene::UpdateActiveObjects()
 	updated.clear();
 	if (objects != nullptr)
 	{
-		std::vector<Cell*> activeCells;
 		inCells.clear();
 
 		if (needSpatialPartition)
@@ -315,7 +315,7 @@ void Scene::UpdateActiveObjects()
 				}
 				else
 				{
-					if (!o->IsAlwaysUpdated() && !mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 4))
+					if (!o->IsAlwaysUpdated() && !mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 3))
 					{
 						o->SetOffScreen(true);
 						continue;
@@ -370,6 +370,11 @@ void Scene::SetMainCamera(Camera* camera)
 Camera* Scene::GetMainCamera()
 {
 	return this->mainCamera;
+}
+
+Grid* Scene::GetGrid()
+{
+	return grid;
 }
 
 void Scene::Remove(GameObject go)
