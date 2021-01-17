@@ -50,7 +50,7 @@ protected:
 	}
 	
 	std::vector<GameObject>* objects;
-	std::vector<GameObject> destroyed, updated, instantiated, inCells;
+	std::vector<GameObject> destroyed, updated, instantiated, inCells, globalObjects;
 	std::vector<Cell*> activeCells;
 	std::string id;
 	std::string filePath;

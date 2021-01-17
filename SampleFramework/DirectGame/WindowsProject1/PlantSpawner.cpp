@@ -28,7 +28,7 @@ AbstractEnemy* PlantSpawner::Spawn(std::string name, Vector2 position, bool rese
 		enm->Start();
 		enm->OnEnabled();
 		enm->SetPool(pool);
-		scene->GetGrid()->Insert(enm);
+		// scene->GetGrid()->Insert(enm);
 		return enm;
 	}
 	else

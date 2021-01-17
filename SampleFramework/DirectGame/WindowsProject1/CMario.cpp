@@ -14,6 +14,7 @@
 
 void CMario::Awake()
 {
+	global = true;
 	SetTag(ObjectTags::BigMario);
 	DebugOut(L"Mario Awake\n");
 	renderOrder = 1;
@@ -350,7 +351,6 @@ void CMario::Warp()
 
 	auto o = mark;
 	transform.Position = o->GetDestination();
-	GetCell()->GetContainingGrid()->UpdateObject(this);
 
 	warpDirection = o->GetDirection();
 	auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());

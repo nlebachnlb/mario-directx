@@ -326,6 +326,11 @@ bool CGameObject::GetInGrid()
 	return inGrid;
 }
 
+bool CGameObject::IsGlobal()
+{
+	return global;
+}
+
 void Destroy(GameObject gameObject)
 {
 	auto activeScene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();

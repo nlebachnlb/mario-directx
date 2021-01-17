@@ -8,6 +8,7 @@
 
 void RaccoonAttackBox::Awake()
 {
+	global = true;
 	SetTag(ObjectTags::MarioAttack);
 
 	Collider2D* box = new Collider2D();

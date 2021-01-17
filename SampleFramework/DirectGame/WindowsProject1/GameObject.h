@@ -108,6 +108,8 @@ public:
 	void SetInGrid(bool value);
 	bool GetInGrid();
 
+	bool IsGlobal();
+
 protected:
 	Transform transform, prevTransform, deltaTransform;
 	Sprite sprite;

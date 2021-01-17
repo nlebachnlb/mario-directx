@@ -11,6 +11,8 @@
 
 void PlayerController::Awake()
 {
+	global = true;
+
 	SetTag(ObjectTags::Player);
 	rigidbody->SetDynamic(false);
 	auto activeScene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();

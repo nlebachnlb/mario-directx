@@ -199,11 +199,11 @@ void Scene::Update()
 {
 	if (loaded == false) return;
 
-	if (needSpatialPartition)
+	/*if (needSpatialPartition)
 	{
 		for (auto o : inCells)
 			grid->UpdateObject(o);
-	}
+	}*/
 
 	for (auto o : updated)
 		if (o->IsEnabled()) o->BeginUpdate();
@@ -273,7 +273,13 @@ void Scene::ProcessInstantiateRequests()
 			// objects->insert(pos, o);
 			objects->push_back(o);
 
-			if (needSpatialPartition) o->SetInGrid(true), grid->Insert(o);
+			if (needSpatialPartition)
+			{
+				if (o->IsGlobal())
+					o->SetInGrid(false), globalObjects.push_back(o);
+				else 
+					o->SetInGrid(true), grid->Insert(o);
+			}
 			else o->SetInGrid(false);
 		}
 		instantiated.clear();
@@ -293,15 +299,24 @@ void Scene::UpdateActiveObjects()
 
 			for (auto cell : activeCells)
 				for (auto obj : *cell->GetObjects())
+				{
 					inCells.push_back(obj);
+				}
 		}
 		else
 			inCells = *objects;
+
+		for (auto o : globalObjects) 
+			if (o->IsEnabled()) 
+				inCells.push_back(o);
 
 		for (auto o : inCells)
 		{
 			if (o == nullptr) continue;
 			if (o->IsDestroyed()) continue;
+
+			if (o->GetInGrid()) grid->UpdateObject(o);
+
 			if (o->IsEnabled() == false) continue;
 			if (!TagUtils::MarioTag(o->GetTag()))
 			{

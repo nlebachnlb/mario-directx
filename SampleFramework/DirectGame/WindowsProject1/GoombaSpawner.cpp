@@ -28,7 +28,7 @@ AbstractEnemy* GoombaSpawner::Spawn(std::string name, Vector2 position, bool res
 		enm->Start();
 		enm->OnEnabled();
 		enm->SetPool(pool);
-		scene->GetGrid()->Insert(enm);
+		// scene->GetGrid()->Insert(enm);
 		return enm;
 	}
 	else

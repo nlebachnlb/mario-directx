@@ -93,10 +93,10 @@ void Grid::GetActiveCells(RectF rect, std::vector<Cell*>& result)
 	Index end = ToIndex(Vector2(rect.right, rect.bottom));
 	result.clear();
 
-	for (int x = start.x; x <= end.x + 1; ++x)
+	for (int x = start.x - 1; x <= end.x + 1; ++x)
 	{
 		if (x < 0 || x >= widthInCells) continue;
-		for (int y = start.y; y <= end.y + 1; ++y)
+		for (int y = start.y - 1; y <= end.y + 1; ++y)
 		{
 			if (y < 0 || y >= heightInCells) continue;
 			Cell* cell = GetCell(Index({ x, y }));
