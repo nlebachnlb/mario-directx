@@ -319,10 +319,20 @@ void Scene::UpdateActiveObjects()
 				}
 				else
 				{
-					if (!o->IsAlwaysUpdated() && !mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 3))
+					auto colliders = o->GetColliders();
+					if (!o->IsAlwaysUpdated())
 					{
-						o->SetOffScreen(true);
-						continue;
+						if (colliders->size() > 0 && 
+							!mainCamera->RectInsideCameraView(colliders->at(0)->GetBoundingBox(), 48 * 2))
+						{
+							o->SetOffScreen(true);
+							continue;
+						}
+						else if (!mainCamera->PointInsideCameraView(o->GetTransform().Position, 48 * 3))
+						{
+							o->SetOffScreen(true);
+							continue;
+						}
 					}
 				}
 			}
