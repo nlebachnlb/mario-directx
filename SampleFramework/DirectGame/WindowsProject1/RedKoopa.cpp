@@ -23,7 +23,7 @@ void RedKoopa::Start()
 void RedKoopa::Movement()
 {
 	facing = Mathf::Sign(rigidbody->GetVelocity().x);
-	SetScale(Vector2(-facing, transform.Scale.y));
+	SetScale(Vector2(-facing, transform->Scale.y));
 	// DebugOut(L"VEL: %f\n", rigidbody->GetVelocity().x);
 }
 
@@ -36,14 +36,14 @@ void RedKoopa::InitAnimations()
 
 void RedKoopa::OnDead(bool oneHit)
 {
-	Game::GetInstance().GainComboChain(transform.Position);
+	Game::GetInstance().GainComboChain(transform->Position);
 
 	if (oneHit)
 	{
 		rigidbody->SetGravity(KOOPA_GRAVITY);
 		time = KOOPA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
-		transform.Scale.y = -1;
+		transform->Scale.y = -1;
 		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, KOOPA_DEFLECTION_ON_SHOT));
 		SetState("Die");
 		dead = true;
@@ -53,7 +53,7 @@ void RedKoopa::OnDead(bool oneHit)
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
 		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 		auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
-		auto shell = koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f, KoopasShellType::Red);
+		auto shell = koopaSpawner->InstantiateShell(transform->Position + delta * 0.5f, KoopasShellType::Red);
 	
 		if (hit)
 		{
@@ -91,7 +91,7 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 			auto otherBox = collision->collider->GetBoundingBox();
 			auto bbox = colliders->at(0)->GetBoundingBox();
 
-			if (transform.Position.x > otherBox.right)
+			if (transform->Position.x > otherBox.right)
 			{
 				auto raycast = Game::GetInstance().Raycast2D();
 				Vector2 shootPoint(
@@ -107,7 +107,7 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 					DebugOut(L"BACK: %f\n", rigidbody->GetVelocity().x);
 				}
 			}
-			else if (transform.Position.x < otherBox.left)
+			else if (transform->Position.x < otherBox.left)
 			{
 				auto raycast = Game::GetInstance().Raycast2D();
 				Vector2 shootPoint(

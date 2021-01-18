@@ -39,7 +39,7 @@ void LevelReward::PreRender()
 
 void LevelReward::Render(Vector2 translation)
 {
-	items[reward]->Draw(transform.Position.x + translation.x, transform.Position.y + translation.y);
+	items[reward]->Draw(transform->Position.x + translation.x, transform->Position.y + translation.y);
 }
 
 void LevelReward::OnOverlapped(Collider2D* self, Collider2D* other)
@@ -52,7 +52,7 @@ void LevelReward::OnOverlapped(Collider2D* self, Collider2D* other)
 
 		auto gmap = Game::GetInstance().GetService<GameMap>();
 		auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
-		RewardFX* fx = static_cast<RewardFX*>(fxPool->CreateFX("fx-reward", transform.Position));
+		RewardFX* fx = static_cast<RewardFX*>(fxPool->CreateFX("fx-reward", transform->Position));
 		fx->SetReward(reward);
 
 		auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));

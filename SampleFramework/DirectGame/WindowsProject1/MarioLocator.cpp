@@ -43,7 +43,7 @@ void MarioLocator::Update()
 	{
 		if (onGoing == 0)
 		{
-			transform.Scale = VectorZero();
+			transform->Scale = VectorZero();
 			timer = 0;
 			recover = 3;
 		}
@@ -56,22 +56,22 @@ void MarioLocator::Update()
 		{
 			timer = 0;
 			recover = 0;
-			transform.Scale = Vector2(1, 1);
+			transform->Scale = Vector2(1, 1);
 		}
 	}
 	break;
 	}
 
-	auto delta = destination - transform.Position;
+	auto delta = destination - transform->Position;
 	if (Mathf::Magnitude(delta) > MOVE_SPEED * dt && onGoing)
 	{ 
 		auto normalized = Mathf::Normalize(delta);
-		transform.Position = transform.Position + normalized * MOVE_SPEED * dt;
+		transform->Position = transform->Position + normalized * MOVE_SPEED * dt;
 	}
 	else if (onGoing == 1)
 	{
 		onGoing = 0;
-		transform.Position = destination;
+		transform->Position = destination;
 	}
 }
 
@@ -147,7 +147,7 @@ void MarioLocator::SetCurrentNode(int id)
 	DebugOut(L"NODE: %d\n", currentNode);
 	auto node = map->GetNode(id);
 	if (node == nullptr) return;
-	transform.Position = node->GetPosition();
+	transform->Position = node->GetPosition();
 
 	auto tempData = Game::GetInstance().GetData()->GetWorldMapTempData();
 	if (tempData.status != GameplayStatus::None)

@@ -17,5 +17,5 @@ void GreenKoopasShell::OnWithdraw()
 	auto gameMap = Game::GetInstance().GetService<GameMap>();
 	auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 	auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
-	auto obj = koopaSpawner->Spawn("enm-green-koopa", transform.Position - delta * 0.5f);
+	auto obj = koopaSpawner->Spawn("enm-green-koopa", transform->Position - delta * 0.5f);
 }

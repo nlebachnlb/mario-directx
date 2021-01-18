@@ -91,11 +91,11 @@ void Plant::OnDead(bool oneHit)
 		auto spawner = gmap->GetSpawnerManager();
 		auto fxPool = spawner->GetService<EffectPool>();
 
-		fxPool->CreateFX("fx-smoke-spot", transform.Position);
+		fxPool->CreateFX("fx-smoke-spot", transform->Position);
 		dead = true;
 		time = -1;
 
-		Game::GetInstance().GainComboChain(transform.Position);
+		Game::GetInstance().GainComboChain(transform->Position);
 	}
 }
 
@@ -138,7 +138,7 @@ void Plant::TrackPlayerPosition()
 	UpdateDirection();
 	if (player == nullptr) return;
 	
-	auto distance = Mathf::Abs(player->GetTransform().Position.x - transform.Position.x);
+	auto distance = Mathf::Abs(player->GetTransform().Position.x - transform->Position.x);
 	if (distance < hideDistance && state == PlantState::Reveal)
 	{
 		state = PlantState::Hidden;

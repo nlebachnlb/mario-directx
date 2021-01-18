@@ -30,11 +30,11 @@ void BrickDebrisFX::Update()
 		mainCamera = scene->GetMainCamera();
 	}
 
-	if (!mainCamera->PointInsideCameraView(transform.Position, 48))
+	if (!mainCamera->PointInsideCameraView(transform->Position, 48))
 		pool->Revoke(this);
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
-	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+	transform->Position = transform->Position + rigidbody->GetVelocity() * dt;
 
 	auto vel = rigidbody->GetVelocity();
 	vel.y += rigidbody->GetGravity() * dt;

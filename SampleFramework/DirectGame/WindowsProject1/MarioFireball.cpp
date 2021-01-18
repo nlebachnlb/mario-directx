@@ -97,5 +97,5 @@ void MarioFireball::Explode()
 	auto spawner = gmap->GetSpawnerManager();
 	auto fxPool = spawner->GetService<EffectPool>();
 
-	fxPool->CreateFX("fx-smoke-spot", transform.Position);
+	fxPool->CreateFX("fx-smoke-spot", transform->Position);
 }

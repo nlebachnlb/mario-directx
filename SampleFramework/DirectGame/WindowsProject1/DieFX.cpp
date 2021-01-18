@@ -33,13 +33,13 @@ void DieFX::Update()
 			fxState = 1;
 			rigidbody->SetVelocity(&Vector2(0, -BOUNCE_FORCE));
 			rigidbody->SetGravity(DEFAULT_GRAVITY / 1.65f);
-			pos = transform.Position;
+			pos = transform->Position;
 		}
 	}
 	break;
 	case 1:
 	{
-		transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+		transform->Position = transform->Position + rigidbody->GetVelocity() * dt;
 
 		auto vel = rigidbody->GetVelocity();
 		vel.y += rigidbody->GetGravity() * dt;

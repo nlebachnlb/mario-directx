@@ -6,14 +6,14 @@ void KoopaParatroopa::OnDead(bool oneHit)
 {
 	if (dead) return;
 
-	Game::GetInstance().GainComboChain(transform.Position);
+	Game::GetInstance().GainComboChain(transform->Position);
 
 	if (oneHit)
 	{
 		rigidbody->SetGravity(KOOPA_PARATROOPA_GRAVITY);
 		time = KOOPA_PARATROOPA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
-		transform.Scale.y = -1;
+		transform->Scale.y = -1;
 		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, KOOPA_PARATROOPA_DEFLECTION_ON_SHOT));
 		SetState("Die");
 		dead = true;
@@ -25,7 +25,7 @@ void KoopaParatroopa::OnDead(bool oneHit)
 		std::string color;
 		if (troopa == Troopa::Green) color = "green"; else color = "red";
 		auto name = "enm-" + color + "-koopa";
-		auto koopa = koopaSpawner->Spawn(name, transform.Position);
+		auto koopa = koopaSpawner->Spawn(name, transform->Position);
 		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, 0));
 		if (troopa == Troopa::Green) rigidbody->PassDataTo(koopa->GetRigidbody());
 

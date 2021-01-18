@@ -22,7 +22,7 @@ void Gate::InitAnimations()
 void Gate::Render(Vector2 translation)
 {
 	if (!Mathf::InRange(number, 0, 7)) return;
-	gates[number]->Draw(transform.Position.x + translation.x, transform.Position.y + translation.y);
+	gates[number]->Draw(transform->Position.x + translation.x, transform->Position.y + translation.y);
 }
 
 void Gate::SetNumber(int value)

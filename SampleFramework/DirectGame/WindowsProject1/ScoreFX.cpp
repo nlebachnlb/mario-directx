@@ -28,13 +28,13 @@ void ScoreFX::PreRender()
 	{
 		pool->Revoke(this);
 	}
-	transform.Position.y -= speed * Game::DeltaTime();
+	transform->Position.y -= speed * Game::DeltaTime();
 }
 
 void ScoreFX::Render(Vector2 translation)
 {
 	if (level >= 9) return;
-	scoreLevel[level]->Draw(transform.Position.x + translation.x, transform.Position.y + translation.y);
+	scoreLevel[level]->Draw(transform->Position.x + translation.x, transform->Position.y + translation.y);
 }
 
 void ScoreFX::SetLevel(Score level)

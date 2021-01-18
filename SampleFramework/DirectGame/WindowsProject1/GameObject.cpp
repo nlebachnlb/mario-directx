@@ -5,9 +5,10 @@ using namespace std;
 
 CGameObject::CGameObject()
 {
+	transform = new Transform();
 	// DebugOut(L"Base constructor");
-	transform.Scale = NormalizedVector();
-	transform.Rotation = 0.0f;
+	transform->Scale = NormalizedVector();
+	transform->Rotation = 0.0f;
 	// Step 1: Call event: Awake
 	this->Awake();
 
@@ -20,11 +21,12 @@ CGameObject::CGameObject()
 
 CGameObject::CGameObject(Vector2 position, Vector2 scale, float rotation)
 {
+	transform = new Transform();
 	this->sprite = sprite;
 	this->currentState = "";
-	this->transform.Position = position;
-	this->transform.Scale = scale;
-	this->transform.Rotation = rotation;
+	this->transform->Position = position;
+	this->transform->Scale = scale;
+	this->transform->Rotation = rotation;
 	this->enabled = false;
 	this->tag = ObjectTags::None;
 
@@ -40,6 +42,9 @@ CGameObject::CGameObject(Vector2 position, Vector2 scale, float rotation)
 
 CGameObject::~CGameObject()
 {
+	if (transform != nullptr) delete transform;
+	if (prevTransform != nullptr) delete prevTransform;
+	if (deltaTransform != nullptr) delete deltaTransform;
 	if (rigidbody != nullptr) delete rigidbody;
 	for (Collider2D* col : *colliders)
 		delete col;
@@ -61,7 +66,10 @@ void CGameObject::OnEnabled()
 
 void CGameObject::BeginUpdate()
 {
-	prevTransform = transform;
+	if (prevTransform == nullptr) prevTransform = new Transform();
+	prevTransform->Position = transform->Position;
+	prevTransform->Scale = transform->Scale;
+	prevTransform->Rotation = transform->Rotation;
 }
 
 void CGameObject::PhysicsUpdate(std::vector<GameObject>* objects)
@@ -80,9 +88,10 @@ void CGameObject::LateUpdate()
 
 void CGameObject::EndUpdate()
 {
-	deltaTransform.Position = transform.Position - prevTransform.Position;
-	deltaTransform.Scale = transform.Scale - prevTransform.Scale;
-	deltaTransform.Rotation = transform.Rotation - prevTransform.Rotation;
+	if (deltaTransform == nullptr) deltaTransform = new Transform();
+	deltaTransform->Position = transform->Position - prevTransform->Position;
+	deltaTransform->Scale = transform->Scale - prevTransform->Scale;
+	deltaTransform->Rotation = transform->Rotation - prevTransform->Rotation;
 }
 
 void CGameObject::OnAnimationEnd()
@@ -99,10 +108,10 @@ void CGameObject::Render(Vector2 translation)
 	if (animations.empty() || stateExistence == false) return;
 
 	if (animations.find(lastState) != animations.end())
-		animations.at(lastState)->SetRelativePosition(transform.Position + visualRelativePosition);
-	animations.at(currentState)->SetRelativePosition(transform.Position + visualRelativePosition);
-	animations.at(currentState)->SetScale(transform.Scale);
-	animations.at(currentState)->SetRotation(transform.Rotation);
+		animations.at(lastState)->SetRelativePosition(transform->Position + visualRelativePosition);
+	animations.at(currentState)->SetRelativePosition(transform->Position + visualRelativePosition);
+	animations.at(currentState)->SetScale(transform->Scale);
+	animations.at(currentState)->SetRotation(transform->Rotation);
 
 	animations.at(currentState)->Render(translation);
 }
@@ -145,11 +154,12 @@ void CGameObject::Initialize()
 	offscreen = false;
 	alwaysUpdate = false;
 	
+	transform = new Transform();
 	rigidbody = new Rigidbody2D();
 	colliders = new vector<Collider2D*>();
 	effector = Effector2D::Full;
 	visualRelativePosition = VectorZero();
-	transform.Scale = Vector2(1, 1);
+	transform->Scale = Vector2(1, 1);
 
 	// Step 1: Call event: Awake
 	this->Awake();
@@ -161,24 +171,24 @@ void CGameObject::Initialize()
 	this->enabled = true;
 }
 
-Transform CGameObject::GetTransform()
+Transform& CGameObject::GetTransform()
 {
-	return this->transform;
+	return *transform;
 }
 
 void CGameObject::SetPosition(Vector2 position)
 {
-	this->transform.Position = position;
+	this->transform->Position = position;
 }
 
 void CGameObject::SetScale(Vector2 scale)
 {
-	this->transform.Scale = scale;
+	this->transform->Scale = scale;
 }
 
 void CGameObject::SetRotation(float rotation, RotationUnits unit)
 {
-	transform.Rotation = rotation * (unit == Degree ? PI / 180.0f : 1.0f);
+	transform->Rotation = rotation * (unit == Degree ? PI / 180.0f : 1.0f);
 }
 
 int CGameObject::GetRenderOrder()
@@ -298,14 +308,14 @@ Effector2D CGameObject::GetEffector()
 	return this->effector;
 }
 
-Transform CGameObject::GetDeltaTransform()
+Transform& CGameObject::GetDeltaTransform()
 {
-	return deltaTransform;
+	return *deltaTransform;
 }
 
-Transform CGameObject::GetPreviousTransform()
+Transform& CGameObject::GetPreviousTransform()
 {
-	return prevTransform;
+	return *prevTransform;
 }
 
 void CGameObject::SetCell(Cell* cell)

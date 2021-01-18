@@ -159,7 +159,7 @@ void CMario::Update()
 	maxRun = Mathf::Abs(Mathf::Abs(velocity.x)) > MARIO_RUN_SPEED * 0.95f && feverState > 0;
 	if (pushSide == 0) rigidbody->SetVelocity(&velocity);
 	else if (pushSide != 0)
-		transform.Position.x += pushSide * 0.15f * dt;
+		transform->Position.x += pushSide * 0.15f * dt;
 #pragma endregion
 
 	FeverProcess();
@@ -167,7 +167,7 @@ void CMario::Update()
 	// Keep Mario inside Camera bounds
 	if (mainCamera == nullptr)
 		mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
-	transform.Position.x = Mathf::Clamp(transform.Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x + (autoControl ? 48 : -MARIO_BBOX.x));
+	transform->Position.x = Mathf::Clamp(transform->Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x + (autoControl ? 48 : -MARIO_BBOX.x));
 
 #pragma region Vertical Movement
 	switch (physicState.jump)
@@ -192,7 +192,7 @@ void CMario::Update()
 	HoldProcess();
 
 	if (mainCamera != nullptr && 
-		transform.Position.y > mainCamera->GetCurrentBoundary().bottom + 48)
+		transform->Position.y > mainCamera->GetCurrentBoundary().bottom + 48)
 		controller->SwitchToState("Die");
 }
 
@@ -258,7 +258,7 @@ void CMario::Jump(float force, bool deflect)
 	if (autoControl) return;
 	rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, -force));
 	physicState.jump = JumpingStates::Jump;
-	posBeforeJump = transform.Position;
+	posBeforeJump = transform->Position;
 
 	onGround = false;
 	canHighJump = true;
@@ -350,7 +350,7 @@ void CMario::Warp()
 	if (mark == nullptr) return;
 
 	auto o = mark;
-	transform.Position = o->GetDestination();
+	transform->Position = o->GetDestination();
 
 	warpDirection = o->GetDirection();
 	auto bset = mainCamera->GetBoundarySet(o->GetCameraBoundId());
@@ -552,8 +552,8 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 		// DebugOut(L"Enter overlap\n");
 		auto selfBox = colliders->at(0)->GetBoundingBox();
 		auto otherBox = other->GetBoundingBox();
-		Vector2 headPoint(transform.Position.x, selfBox.top + 6);
-		Vector2 footPoint(transform.Position.x, selfBox.bottom - 6);
+		Vector2 headPoint(transform->Position.x, selfBox.top + 6);
+		Vector2 footPoint(transform->Position.x, selfBox.bottom - 6);
 
 		if (pushSide == 0)
 		{
@@ -639,14 +639,14 @@ void CMario::OnOverlapped(Collider2D* self, Collider2D* other)
 	{
 		auto oBox = other->GetBoundingBox();
 		auto mBox = colliders->at(0)->GetBoundingBox();
-		if (transform.Position.y < oBox.top)
+		if (transform->Position.y < oBox.top)
 		{
 			standOnPlatform = other->GetGameObject();
 			physicState.jump = JumpingStates::Stand;
 
 			auto platformBox = standOnPlatform->GetColliders()->at(0)->GetBoundingBox();
 			auto marioBox = colliders->at(0)->GetBoxSize();
-			transform.Position.y = platformBox.top - marioBox.y * 0.5f + 1;
+			transform->Position.y = platformBox.top - marioBox.y * 0.5f + 1;
 
 			static_cast<AbstractPlatform*>(standOnPlatform)->OnTouch();
 		}
@@ -781,7 +781,7 @@ void CMario::WarpProcess()
 			auto dt = Game::DeltaTime() * Game::GetTimeScale();
 			rigidbody->SetVelocity(&Vector2(0, 0));
 			auto direction = WarpUtils::ToVector(warpDirection);
-			transform.Position += direction * MARIO_WARP_SPEED * dt;
+			transform->Position += direction * MARIO_WARP_SPEED * dt;
 		}
 		// DebugOut(L"Warp: %f, %f, %f, %f, %f\n", direction.x, direction.y, rigidbody->GetVelocity().x, rigidbody->GetVelocity().y, rigidbody->GetGravity());
 	}
@@ -828,8 +828,8 @@ void CMario::HoldProcess()
 		{
 			auto delta = 0.4f * (heldInHandsObject->GetColliderBox() + MARIO_BBOX);
 			heldInHandsObject->SetHoldablePosition(
-				Vector2(transform.Position.x + Mathf::Abs(delta.x) * facing, 
-					transform.Position.y + (tag == ObjectTags::SmallMario ? 0 : 14) 
+				Vector2(transform->Position.x + Mathf::Abs(delta.x) * facing, 
+					transform->Position.y + (tag == ObjectTags::SmallMario ? 0 : 14) 
 				)
 			);
 			heldInHandsObject->SetHoldableFacing(facing);
@@ -861,7 +861,7 @@ void CMario::JumpState()
 	if (canHighJump)
 	{
 		auto maxHeight = ((feverState == 2 && run) || deflect) ? MARIO_MAX_SUPER_JUMPHEIGHT : MARIO_MAX_JUMPHEIGHT;
-		if (Mathf::Abs(posBeforeJump.y - transform.Position.y) <= maxHeight)
+		if (Mathf::Abs(posBeforeJump.y - transform->Position.y) <= maxHeight)
 		{
 			velocity.y = -MARIO_JUMP_FORCE;
 			rigidbody->SetVelocity(&velocity);
@@ -907,7 +907,7 @@ void CMario::StandState()
 		if (standOnPlatform != nullptr)
 		{
 			// Velocity union
-			transform.Position.x += standOnPlatform->GetDeltaTransform().Position.x;
+			transform->Position.x += standOnPlatform->GetDeltaTransform().Position.x;
 			if (standOnPlatform->GetTag() == ObjectTags::Platform)
 			{
 				rigidbody->SetGravity(0);
@@ -932,7 +932,7 @@ void CMario::StandState()
 	}
 
 	//auto distance = rigidbody->GetVelocity().y * Game::DeltaTime() + 0.5f * rigidbody->GetGravity() * Game::DeltaTime() * Game::DeltaTime();
-	if (standOnPlatform == nullptr && transform.Position.y - prevTransform.Position.y > 0 && rigidbody->GetVelocity().y > 0)
+	if (standOnPlatform == nullptr && transform->Position.y - prevTransform->Position.y > 0 && rigidbody->GetVelocity().y > 0)
 	{
 		onGround = false;
 		physicState.jump = JumpingStates::Fall;

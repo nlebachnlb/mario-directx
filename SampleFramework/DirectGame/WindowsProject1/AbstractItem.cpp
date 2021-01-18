@@ -32,7 +32,7 @@ void AbstractItem::Update()
 void AbstractItem::LateUpdate()
 {
 	// Destroy item when Mario can not reach it
-	if (!mainCamera->PointInsideCameraView(transform.Position, 48 * 8))
+	if (!mainCamera->PointInsideCameraView(transform->Position, 48 * 8))
 		Destroy(this);
 }
 

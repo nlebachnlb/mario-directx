@@ -86,12 +86,12 @@ void RedParagoomba::PreRender()
 
 void RedParagoomba::OnDead(bool oneHit)
 {
-	Game::GetInstance().GainComboChain(transform.Position);
+	Game::GetInstance().GainComboChain(transform->Position);
 	if (oneHit)
 	{
 		time = GOOMBA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
-		transform.Scale.y = -1;
+		transform->Scale.y = -1;
 		rigidbody->SetVelocity(&Vector2(-0 * rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 		dead = true;
@@ -101,7 +101,7 @@ void RedParagoomba::OnDead(bool oneHit)
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
 		auto goombaSpawner = gameMap->GetSpawnerManager()->GetService<GoombaSpawner>();
 
-		auto goomba = goombaSpawner->Spawn("enm-red-goomba", transform.Position);
+		auto goomba = goombaSpawner->Spawn("enm-red-goomba", transform->Position);
 		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, 0));
 		rigidbody->PassDataTo(goomba->GetRigidbody());
 		time = -1;

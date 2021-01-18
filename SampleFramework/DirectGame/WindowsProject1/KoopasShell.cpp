@@ -27,7 +27,7 @@ void KoopasShell::Start()
 	StopRunning();
 	running = false;
 
-	transform.Scale.y = 1;
+	transform->Scale.y = 1;
 	timer = 0;
 	withdrawStep = 0;
 }
@@ -99,17 +99,17 @@ void KoopasShell::OnDead(bool oneHit)
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		time = KOOPAS_SHELL_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
-		transform.Scale.y = -1;
+		transform->Scale.y = -1;
 		StopRunning();
 		rigidbody->SetVelocity(&Vector2(-facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 		dead = true;
-		Game::GetInstance().GainComboChain(transform.Position);
+		Game::GetInstance().GainComboChain(transform->Position);
 	}
 	else
 	{
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
-		transform.Scale.y = -1;
+		transform->Scale.y = -1;
 		StopRunning();
 		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
 		SetState("Idle");
@@ -152,7 +152,7 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 		{
 			if (enemy->IsDead() == false)
 			{
-				Vector2 pos = transform.Position;
+				Vector2 pos = transform->Position;
 				fxPool->CreateFX("fx-hit-star", pos);
 				enemy->OnDead(true);
 			}

@@ -68,7 +68,7 @@ public:
 
 	virtual void Initialize();
 
-	Transform GetTransform();
+	Transform& GetTransform();
 	void SetPosition(Vector2 position);
 	void SetScale(Vector2 scale);
 	void SetRotation(float rotation, RotationUnits unit = Degree);
@@ -99,8 +99,8 @@ public:
 	void SetEffector(Effector2D effector);
 	Effector2D GetEffector();
 
-	Transform GetDeltaTransform();
-	Transform GetPreviousTransform();
+	Transform& GetDeltaTransform();
+	Transform& GetPreviousTransform();
 
 	void SetCell(Cell* cell);
 	Cell* GetCell();
@@ -111,7 +111,7 @@ public:
 	bool IsGlobal();
 
 protected:
-	Transform transform, prevTransform, deltaTransform;
+	Transform *transform, *prevTransform, *deltaTransform;
 	Sprite sprite;
 	Vector2 visualRelativePosition;
 

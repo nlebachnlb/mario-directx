@@ -62,7 +62,7 @@ void VenusFireTrap::LateUpdate()
 			
 			if (bullet != nullptr)
 			{
-				auto startPos = transform.Position - Vector2(0, GetBoxSize().y * 0.25f);
+				auto startPos = transform->Position - Vector2(0, GetBoxSize().y * 0.25f);
 				bullet->SetPosition(startPos);
 
 				Vector2 directionalVector = Mathf::Normalize(player->GetTransform().Position - startPos);
@@ -136,5 +136,5 @@ void VenusFireTrap::UpdateDirection()
 {
 	AbstractEnemy::UpdateDirection();
 	verticalDirection = player != nullptr ? 
-		Mathf::Sign(player->GetTransform().Position.y - (transform.Position.y - 0.25f * GetBoxSize().y)) : 1;
+		Mathf::Sign(player->GetTransform().Position.y - (transform->Position.y - 0.25f * GetBoxSize().y)) : 1;
 }

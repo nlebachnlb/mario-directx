@@ -20,7 +20,7 @@ void GreenKoopa::OnDead(bool oneHit)
 		rigidbody->SetGravity(KOOPA_GRAVITY);
 		time = KOOPA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
-		transform.Scale.y = -1;
+		transform->Scale.y = -1;
 		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, KOOPA_DEFLECTION_ON_SHOT));
 		SetState("Die");
 		dead = true;
@@ -30,7 +30,7 @@ void GreenKoopa::OnDead(bool oneHit)
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
 		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 		auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
-		auto shell = koopaSpawner->InstantiateShell(transform.Position + delta * 0.5f, KoopasShellType::Green);
+		auto shell = koopaSpawner->InstantiateShell(transform->Position + delta * 0.5f, KoopasShellType::Green);
 		
 		if (hit)
 		{

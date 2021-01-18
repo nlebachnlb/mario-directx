@@ -26,22 +26,22 @@ void CoinObtainedFX::Start()
 	SetState("Default");
 	rigidbody->SetVelocity(&Vector2(0, -COIN_BOUNCE));
 	rigidbody->SetGravity(COIN_GRAVITY);
-	transform.Scale.x = 0.8f;
+	transform->Scale.x = 0.8f;
 }
 
 void CoinObtainedFX::Update()
 {
-	if (transform.Position.y > startPosition.y - 48 && rigidbody->GetVelocity().y > 0)
+	if (transform->Position.y > startPosition.y - 48 && rigidbody->GetVelocity().y > 0)
 	{
 		auto gmap = Game::GetInstance().GetService<GameMap>();
 		auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
-		ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", transform.Position));
+		ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", transform->Position));
 		fx->SetLevel(Score::S100);
 		pool->Revoke(this);
 	}
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
-	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+	transform->Position = transform->Position + rigidbody->GetVelocity() * dt;
 
 	auto vel = rigidbody->GetVelocity();
 	vel.y += rigidbody->GetGravity() * dt;

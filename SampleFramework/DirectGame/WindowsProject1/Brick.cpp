@@ -63,7 +63,7 @@ void Brick::Explode()
 
 	for (int i = 0; i < 4; ++i)
 	{
-		auto debris = fxPool->CreateFX("fx-brick-debris", transform.Position);
+		auto debris = fxPool->CreateFX("fx-brick-debris", transform->Position);
 		debris->GetRigidbody()->SetVelocity(new Vector2(velx[i] * 1.25f, vely[i] * 1.25f));
 	}
 

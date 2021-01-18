@@ -54,7 +54,7 @@ void QuestionBlock::LateUpdate()
 			case ItemTags::Mushroom:
 			{
 				auto mushroom = Instantiate<RedMushroom>();
-				mushroom->SetPosition(transform.Position - Vector2(0, 49));
+				mushroom->SetPosition(transform->Position - Vector2(0, 49));
 				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 				scene->AddObject(mushroom);
 				mushroom->SproutOut();
@@ -63,7 +63,7 @@ void QuestionBlock::LateUpdate()
 			case ItemTags::Green1UP:
 			{
 				auto mushroom = Instantiate<Green1UPMushroom>();
-				mushroom->SetPosition(transform.Position - Vector2(0, 49));
+				mushroom->SetPosition(transform->Position - Vector2(0, 49));
 				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 				scene->AddObject(mushroom);
 				mushroom->SproutOut();
@@ -88,7 +88,7 @@ void QuestionBlock::Bounce(GameObject obj)
 		{
 			auto gmap = Game::GetInstance().GetService<GameMap>();
 			auto spawner = gmap->GetSpawnerManager();
-			spawner->GetService<EffectPool>()->CreateFX("fx-coin-obtained", transform.Position);
+			spawner->GetService<EffectPool>()->CreateFX("fx-coin-obtained", transform->Position);
 			Game::GetInstance().GetData()->ModifyCoin(1, true);
 		}
 		break;
@@ -101,7 +101,7 @@ void QuestionBlock::Bounce(GameObject obj)
 			else
 			{
 				auto leaf = Instantiate<RaccoonLeaf>();
-				leaf->SetPosition(transform.Position - Vector2(0, 48));
+				leaf->SetPosition(transform->Position - Vector2(0, 48));
 				auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 				scene->AddObject(leaf);
 				leaf->SproutOut();
@@ -111,7 +111,7 @@ void QuestionBlock::Bounce(GameObject obj)
 		case ItemTags::PSwitch:
 		{
 			auto pSwitch = Instantiate<PSwitch>();
-			pSwitch->SetPosition(transform.Position - Vector2(0, 48));
+			pSwitch->SetPosition(transform->Position - Vector2(0, 48));
 			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 			scene->AddObject(pSwitch);
 
@@ -119,7 +119,7 @@ void QuestionBlock::Bounce(GameObject obj)
 			auto spawner = gmap->GetSpawnerManager();
 			auto fxPool = spawner->GetService<EffectPool>();
 
-			fxPool->CreateFX("fx-smoke-spot", transform.Position - Vector2(0, 48));
+			fxPool->CreateFX("fx-smoke-spot", transform->Position - Vector2(0, 48));
 		}
 		break;
 		}

@@ -17,7 +17,7 @@ void RewardFX::Start()
 
 void RewardFX::LateUpdate()
 {
-	transform.Position.y -= REWARD_SPEED * Game::DeltaTime() * Game::GetTimeScale();
+	transform->Position.y -= REWARD_SPEED * Game::DeltaTime() * Game::GetTimeScale();
 }
 
 void RewardFX::OnOffScreen()

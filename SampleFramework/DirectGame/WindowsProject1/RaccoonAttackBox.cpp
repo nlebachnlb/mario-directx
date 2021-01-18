@@ -49,7 +49,7 @@ void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherC
 		auto spawner = gmap->GetSpawnerManager();
 		auto fxPool = spawner->GetService<EffectPool>();
 
-		fxPool->CreateFX("fx-hit-star", transform.Position);
+		fxPool->CreateFX("fx-hit-star", transform->Position);
 
 		switch (otherTag)
 		{
@@ -58,7 +58,7 @@ void RaccoonAttackBox::OnOverlapped(Collider2D* selfCollider, Collider2D* otherC
 			SetActive(false);
 			selfCollider->Disable();
 			auto shell = static_cast<KoopasShell*>(otherCollider->GetGameObject());
-			shell->SetFacing(Mathf::Sign(shell->GetTransform().Position.x - transform.Position.x));
+			shell->SetFacing(Mathf::Sign(shell->GetTransform().Position.x - transform->Position.x));
 			shell->OnDead(false);
 		}
 		break;

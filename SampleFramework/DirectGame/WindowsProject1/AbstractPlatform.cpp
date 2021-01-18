@@ -67,7 +67,7 @@ void AbstractPlatform::SetStartVelocity(Vector2 value)
 void AbstractPlatform::ApplyGravity()
 {
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
-	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+	transform->Position = transform->Position + rigidbody->GetVelocity() * dt;
 
 	auto vel = rigidbody->GetVelocity();
 	vel.y += rigidbody->GetGravity() * dt;

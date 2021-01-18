@@ -104,7 +104,7 @@ void PlayerController::InitStates()
 	for (auto x : stateGameObjects)
 	{
 		auto object = x.second;
-		object->SetPosition(this->transform.Position);
+		object->SetPosition(this->transform->Position);
 	}
 }
 
@@ -130,7 +130,7 @@ void PlayerController::SwitchToState(std::string state)
 		SwitchState(nullptr);
 
 		Game::SetTimeScale(0);
-		auto fx = fxPool->CreateFX("fx-mario-die", transform.Position);
+		auto fx = fxPool->CreateFX("fx-mario-die", transform->Position);
 		auto castFx = static_cast<MarioFX*>(fx);
 		castFx->SetController(this);
 		canvas->LoseGame();
@@ -168,7 +168,7 @@ void PlayerController::SwitchToState(std::string state)
 	auto delta = MARIO_BBOX - MARIO_SMALL_BBOX;
 	auto fx = spawner->GetService<EffectPool>()->CreateFX(
 		fxName, 
-		transform.Position - (grow ? 0.5f * delta : VectorZero())
+		transform->Position - (grow ? 0.5f * delta : VectorZero())
 	);
 	
 	Game::SetTimeScale(0);

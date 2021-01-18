@@ -30,7 +30,7 @@ void VenusFireball::Update()
 {
 	// DebugOut(L"Venus-fire-pos: %f, %f\n", transform.Position.x, transform.Position.y);
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
-	transform.Position = transform.Position + rigidbody->GetVelocity() * dt;
+	transform->Position = transform->Position + rigidbody->GetVelocity() * dt;
 }
 
 void VenusFireball::OnOffScreen()

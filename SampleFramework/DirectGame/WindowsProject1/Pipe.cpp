@@ -24,7 +24,7 @@ void Pipe::PreRender()
 void Pipe::Render(Vector2 translation)
 {
 	int size = PIPE_DEFAULT_TILE_SIZE;
-	auto pos = transform.Position;
+	auto pos = transform->Position;
 	switch (direction)
 	{
 	case PipeDirection::Up:

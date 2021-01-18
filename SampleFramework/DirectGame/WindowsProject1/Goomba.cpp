@@ -29,12 +29,12 @@ void Goomba::InitAnimations()
 
 void Goomba::OnDead(bool oneHit)
 {
-	Game::GetInstance().GainComboChain(transform.Position);
+	Game::GetInstance().GainComboChain(transform->Position);
 	if (oneHit)
 	{
 		time = GOOMBA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
-		transform.Scale.y = -1;
+		transform->Scale.y = -1;
 		rigidbody->SetVelocity(&Vector2(-0 * rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT));
 		SetState("Idle");
 		dead = true;
