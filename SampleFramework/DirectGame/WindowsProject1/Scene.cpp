@@ -307,7 +307,7 @@ void Scene::UpdateActiveObjects()
 			if (o == nullptr) continue;
 			if (o->IsDestroyed()) continue;
 
-			if (o->GetInGrid()) grid->UpdateObject(o);
+			if (o->GetInGrid() && !o->IsStatic()) grid->UpdateObject(o);
 
 			if (o->IsEnabled() == false) continue;
 			if (!TagUtils::MarioTag(o->GetTag()))

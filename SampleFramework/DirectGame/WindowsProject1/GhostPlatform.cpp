@@ -3,6 +3,7 @@
 void GhostPlatform::Awake()
 {
 	global = true;
+	isStatic = true;
 	SetTag(ObjectTags::GhostPlatform);
 	SetEffector(Effector2D::Top);
 

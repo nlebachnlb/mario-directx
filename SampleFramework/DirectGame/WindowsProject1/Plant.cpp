@@ -6,6 +6,7 @@
 void Plant::Awake()
 {
 	AbstractEnemy::Awake();
+	isStatic = true;
 	rigidbody->SetDynamic(false);
 }
 

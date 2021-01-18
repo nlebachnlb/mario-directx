@@ -4,6 +4,7 @@
 
 void Coin::Awake()
 {
+	isStatic = true;
 	AbstractItem::Awake();
 	SetTag(ObjectTags::Coin);
 

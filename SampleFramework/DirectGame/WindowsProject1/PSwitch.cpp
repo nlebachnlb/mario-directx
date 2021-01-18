@@ -7,6 +7,7 @@
 
 void PSwitch::Awake()
 {
+	isStatic = true;
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 
 	AddAnimation("Default", animations->Get("ani-switch-block"));

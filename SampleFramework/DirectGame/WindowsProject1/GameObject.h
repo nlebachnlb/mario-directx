@@ -109,6 +109,7 @@ public:
 	bool GetInGrid();
 
 	bool IsGlobal();
+	bool IsStatic();
 
 protected:
 	Transform *transform, *prevTransform, *deltaTransform;
@@ -127,7 +128,7 @@ protected:
 	Rigidbody2D* rigidbody;
 	std::vector<Collider2D*>* colliders;
 
-	bool inGrid, global;
+	bool inGrid, global, isStatic;
 
 private:
 	std::vector<Collider2D*> beingUpdatedColliders;

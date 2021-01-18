@@ -2,6 +2,7 @@
 
 void WarpEntrance::Awake()
 {
+	isStatic = true;
 	SetTag(ObjectTags::WarpEntrance);
 
 	Collider2D* box = new Collider2D();

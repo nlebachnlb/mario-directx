@@ -2,6 +2,7 @@
 
 void AbstractBlock::Awake()
 {
+	isStatic = true;
 	SetTag(ObjectTags::Block);
 
 	Collider2D* box = new Collider2D();

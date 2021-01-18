@@ -3,6 +3,7 @@
 void Pipe::Awake()
 {
 	global = true;
+	isStatic = true;
 	SetTag(ObjectTags::Solid);
 
 	Collider2D* box = new Collider2D();

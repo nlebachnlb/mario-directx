@@ -343,6 +343,11 @@ bool CGameObject::IsGlobal()
 	return global;
 }
 
+bool CGameObject::IsStatic()
+{
+	return isStatic;
+}
+
 void Destroy(GameObject gameObject)
 {
 	auto activeScene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
