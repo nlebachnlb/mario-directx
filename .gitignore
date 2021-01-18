@@ -242,3 +242,6 @@ ModelManifest.xml
 .fake/
 
 .DS_Store
+
+# NodeJS Grid Tool
+node_modules/
