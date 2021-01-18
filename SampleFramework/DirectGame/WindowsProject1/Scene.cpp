@@ -199,12 +199,6 @@ void Scene::Update()
 {
 	if (loaded == false) return;
 
-	/*if (needSpatialPartition)
-	{
-		for (auto o : inCells)
-			grid->UpdateObject(o);
-	}*/
-
 	for (auto o : updated)
 		if (o->IsEnabled()) o->BeginUpdate();
 
