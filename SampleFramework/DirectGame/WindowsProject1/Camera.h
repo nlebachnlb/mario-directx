@@ -33,7 +33,7 @@ public:
 	virtual void Update();
 	virtual void Render(std::vector<GameObject>& objs);
 
-	bool RectInsideCameraView(RectF rect);
+	bool RectInsideCameraView(RectF rect, int boundThickness = 0);
 	bool PointInsideCameraView(Vector2 point, int boundWidth);
 
 	Vector2 GetPosition();

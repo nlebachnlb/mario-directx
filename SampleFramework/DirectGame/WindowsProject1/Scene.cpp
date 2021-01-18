@@ -311,7 +311,7 @@ void Scene::UpdateActiveObjects()
 			{
 				if (TagUtils::StaticTag(o->GetTag()))
 				{
-					if (!mainCamera->RectInsideCameraView(o->GetColliders()->at(0)->GetBoundingBox()))
+					if (!mainCamera->RectInsideCameraView(o->GetColliders()->at(0)->GetBoundingBox(), 48 * 3))
 					{
 						o->SetOffScreen(true);
 						continue;

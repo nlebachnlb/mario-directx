@@ -95,13 +95,13 @@ void Camera::Render(std::vector<GameObject>& objs)
         if (o->IsEnabled()) o->Render(-(GetPosition() - renderOffset));
 }
 
-bool Camera::RectInsideCameraView(RectF rect)
+bool Camera::RectInsideCameraView(RectF rect, int boundThickness)
 {
 	auto rectWidth = rect.right - rect.left;
 	auto rectHeight = rect.bottom - rect.top;
 
-	return rect.left >= position.x - rectWidth && rect.right <= position.x + viewportSize.x + rectWidth &&
-			rect.top >= position.y - rectHeight && rect.bottom <= position.y + viewportSize.y + rectHeight;
+	return rect.left >= position.x - rectWidth - boundThickness && rect.right <= position.x + viewportSize.x + rectWidth + boundThickness &&
+			rect.top >= position.y - rectHeight - boundThickness && rect.bottom <= position.y + viewportSize.y + rectHeight + boundThickness;
 }
 
 bool Camera::PointInsideCameraView(Vector2 point, int boundThickness)
