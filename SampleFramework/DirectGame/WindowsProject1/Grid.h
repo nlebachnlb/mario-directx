@@ -19,11 +19,13 @@ public:
 
 	void UpdateObject(GameObject object);
 	Cell* GetCell(Index index);
+	Cell* GetCell(int x, int y);
 	Index ToIndex(Vector2 position);
 
 	void Insert(GameObject object);
 	void Remove(GameObject object);
 	void Insert(GameObject object, Index cellIndex);
+	void Insert(GameObject object, int x, int y);
 
 	void GetActiveCells(RectF rect, std::vector<Cell*>& result);
 

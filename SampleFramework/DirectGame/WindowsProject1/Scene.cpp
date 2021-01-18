@@ -209,7 +209,7 @@ void Scene::Update()
 		if (o->IsEnabled()) o->BeginUpdate();
 
 	for (auto o : updated)
-		if (o->IsEnabled()) o->PhysicsUpdate(objects);
+		if (o->IsEnabled()) o->PhysicsUpdate(&updated);
 
 	for (auto o : updated)
 		if (o->IsEnabled()) o->Update();
@@ -266,11 +266,6 @@ void Scene::ProcessInstantiateRequests()
 	{
 		for (auto o : instantiated)
 		{
-			// if (objects->empty()) { objects->push_back(o); continue; }
-
-			// Binary search the approriate position
-			// auto pos = std::lower_bound(objects->begin(), objects->end(), o, Scene::Comparator);
-			// objects->insert(pos, o);
 			objects->push_back(o);
 
 			if (needSpatialPartition)

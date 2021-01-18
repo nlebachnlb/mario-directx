@@ -64,11 +64,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     auto c = Game::GetInstance().GetGlobalConfigs(); c.hudOffset = hudOffset;
     Game::GetInstance().SetGlobalConfigs(c);
     Game::GetInstance().InitDirectX(hWnd, resWidth, resHeight, fps);
-    SetWindowPos(hWnd, 0, 0, 0, resWidth * 0.8f, resHeight * 0.8f, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+    // SetWindowPos(hWnd, 0, 0, 0, resWidth * 0.8f, resHeight * 0.8f, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
     Game::GetInstance().GameInit(hWnd);
     Game::GetInstance().GameRun(hWnd);
-    Game::GetInstance().GameEnd();
+    Game::GetInstance().GameEnd(); 
 
     return 0;
 }
