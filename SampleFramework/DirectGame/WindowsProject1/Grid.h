@@ -4,7 +4,7 @@
 
 struct GridConfig
 {
-	int cellSize;
+	int cellWidth, cellHeight;
 	int width, height;
 };
 

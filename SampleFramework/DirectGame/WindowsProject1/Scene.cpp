@@ -137,17 +137,18 @@ void Scene::Init()
 		GridConfig gridConfig;
 		auto gameConfig = Game::GetInstance().GetGlobalConfigs();
 		auto gameMap = Game::GetInstance().GetService<GameMap>();
-		gridConfig.cellSize = gameConfig.screenWidth / 2;
+		gridConfig.cellWidth = gameConfig.screenWidth >> 1;
+		gridConfig.cellHeight = gameConfig.screenHeight >> 1;
 		gridConfig.width = gameMap->GetMapWidth();
 		gridConfig.height = gameMap->GetMapHeight();
 		grid = new Grid(gridConfig);
 	}
 
-	if (spawner != nullptr)
+	/*if (spawner != nullptr)
 	{
 		auto fxPool = spawner->GetService<EffectPool>();
 		if (fxPool != nullptr) fxPool->Initialization();
-	}
+	}*/
 
 	if (gmap != nullptr) gmap->LoadEnemy();
 
@@ -281,6 +282,7 @@ void Scene::UpdateActiveObjects()
 	if (objects != nullptr)
 	{
 		inCells.clear();
+		activeCells.clear();
 
 		if (needSpatialPartition)
 		{
@@ -289,7 +291,8 @@ void Scene::UpdateActiveObjects()
 			for (auto cell : activeCells)
 				for (auto obj : *cell->GetObjects())
 				{
-					inCells.push_back(obj);
+					if (obj->IsEnabled())
+						inCells.push_back(obj);
 				}
 		}
 		else

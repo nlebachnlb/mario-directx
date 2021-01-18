@@ -268,12 +268,14 @@ void CGameObject::SetDestroyed()
 {
 	destroyed = true;
 	enabled = false;
+	if (inGrid && cell != nullptr) cell->Remove(this);
 }
 
 void CGameObject::SetActive(bool active)
 {
 	enabled = active;
-	OnEnabled();
+	if (active) OnEnabled();
+	else if (!global && inGrid && cell != nullptr) cell->Remove(this);
 }
 
 void CGameObject::SetTag(ObjectTags tag)

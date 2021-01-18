@@ -5,6 +5,7 @@
 
 void SmallMario::Awake()
 {
+	global = true;
 	SetTag(ObjectTags::SmallMario);
 	DebugOut(L"Mario Awake\n");
 

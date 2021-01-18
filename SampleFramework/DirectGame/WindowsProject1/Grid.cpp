@@ -4,8 +4,8 @@
 Grid::Grid(GridConfig config)
 {
 	this->config = config;
-	widthInCells = Mathf::Ceil((float)config.width / (float)config.cellSize);
-	heightInCells = Mathf::Ceil((float)config.height / (float)config.cellSize);
+	widthInCells = Mathf::Ceil((float)config.width / (float)config.cellWidth);
+	heightInCells = Mathf::Ceil((float)config.height / (float)config.cellHeight);
 
 	for (int x = 0; x < widthInCells; ++x)
 	{
@@ -41,8 +41,8 @@ void Grid::UpdateObject(GameObject object)
 	//auto oldPosition = object->GetPreviousTransform().Position;
 	auto newPosition = object->GetTransform().Position;
 
-	int x = (int)(newPosition.x / config.cellSize);
-	int y = (int)(newPosition.y / config.cellSize);
+	int x = (int)(newPosition.x / config.cellWidth);
+	int y = (int)(newPosition.y / config.cellHeight);
 
 	Cell* newCell = GetCell(x, y);
 
@@ -68,22 +68,22 @@ Cell* Grid::GetCell(int x, int y)
 Index Grid::ToIndex(Vector2 position)
 {
 	return Index({
-		(int)(position.x / config.cellSize),
-		(int)(position.y / config.cellSize)
+		(int)(position.x / config.cellWidth),
+		(int)(position.y / config.cellHeight)
 	});
 }
 
 void Grid::Insert(GameObject object)
 {
-	int x = (int)(object->GetTransform().Position.x / config.cellSize);
-	int y = (int)(object->GetTransform().Position.y / config.cellSize);
+	int x = (int)(object->GetTransform().Position.x / config.cellWidth);
+	int y = (int)(object->GetTransform().Position.y / config.cellHeight);
 	Insert(object, x, y);
 }
 
 void Grid::Remove(GameObject object)
 {
-	int x = (int)(object->GetTransform().Position.x / config.cellSize);
-	int y = (int)(object->GetTransform().Position.y / config.cellSize);
+	int x = (int)(object->GetTransform().Position.x / config.cellWidth);
+	int y = (int)(object->GetTransform().Position.y / config.cellHeight);
 	Cell* cell = GetCell(x, y);
 	cell->Remove(object);
 }
@@ -104,16 +104,16 @@ void Grid::Insert(GameObject object, int x, int y)
 
 void Grid::GetActiveCells(RectF rect, std::vector<Cell*>& result)
 {
-	int startx = (int)(rect.left / (float)config.cellSize);
-	int starty = (int)(rect.top / (float)config.cellSize);
-	int endx = (int)(rect.right / (float)config.cellSize);
-	int endy = (int)(rect.bottom / (float)config.cellSize);
+	int startx = (int)(Mathf::Floor(rect.left / (float)config.cellWidth));
+	int starty = (int)(Mathf::Floor(rect.top / (float)config.cellHeight));
+	int endx = (int)(Mathf::Ceil(rect.right / (float)config.cellWidth));
+	int endy = (int)(Mathf::Ceil(rect.bottom / (float)config.cellHeight));
 	result.clear();
 
-	for (int x = startx - 1; x <= endx + 1; ++x)
+	for (int x = startx; x <= endx; ++x)
 	{
 		if (x < 0 || x >= widthInCells) continue;
-		for (int y = starty - 1; y <= endy + 1; ++y)
+		for (int y = starty; y <= endy; ++y)
 		{
 			if (y < 0 || y >= heightInCells) continue;
 			Cell* cell = GetCell(x, y);
