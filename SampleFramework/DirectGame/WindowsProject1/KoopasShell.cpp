@@ -39,6 +39,8 @@ void KoopasShell::Movement()
 	// DebugOut(L"Shell vel: %f\n", rigidbody->GetVelocity().y);
 
 	if (!running) rigidbody->GenerateDragForce();
+	else if (rigidbody->GetVelocity().x == 0)
+		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y));
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 	switch (withdrawStep)
@@ -208,7 +210,7 @@ void KoopasShell::Run()
 	if (!running)
 	{
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
-		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, 0));
+		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y));
 		SetState("Run");
 		running = true;
 		withdrawStep = 2;

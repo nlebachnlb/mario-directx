@@ -144,12 +144,6 @@ void Scene::Init()
 		grid = new Grid(gridConfig);
 	}
 
-	/*if (spawner != nullptr)
-	{
-		auto fxPool = spawner->GetService<EffectPool>();
-		if (fxPool != nullptr) fxPool->Initialization();
-	}*/
-
 	if (gmap != nullptr) gmap->LoadEnemy();
 
 	ProcessInstantiateRequests();
@@ -215,7 +209,8 @@ void Scene::Update()
 	for (auto o : updated)
 		if (o->IsEnabled()) o->EndUpdate();
 
-	if (mainCamera != nullptr) mainCamera->Update();
+	if (mainCamera != nullptr) 
+		mainCamera->Update();
 }
 
 void Scene::Render()
@@ -225,7 +220,8 @@ void Scene::Render()
 	for (auto o : updated)
 		o->PreRender();
 
-	if (mainCamera != nullptr) mainCamera->Render(updated);
+	if (mainCamera != nullptr) 
+		mainCamera->Render(updated);
 }
 
 void Scene::CleanDestroyedObjects()
@@ -278,14 +274,16 @@ void Scene::ProcessInstantiateRequests()
 
 void Scene::UpdateActiveObjects()
 {
-	updated.clear();
 	if (objects != nullptr)
 	{
-		inCells.clear();
 		activeCells.clear();
+		inCells.clear();
+		updated.clear();
 
 		if (needSpatialPartition)
 		{
+			grid->GetActiveCells(mainCamera->GetBoundingBox(), activeCells);
+
 			grid->GetActiveCells(mainCamera->GetBoundingBox(), activeCells);
 
 			for (auto cell : activeCells)
@@ -326,7 +324,7 @@ void Scene::UpdateActiveObjects()
 					if (!o->IsAlwaysUpdated())
 					{
 						if (colliders->size() > 0 && 
-							!mainCamera->RectInsideCameraView(colliders->at(0)->GetBoundingBox(), 48 * 2))
+							!mainCamera->RectInsideCameraView(colliders->at(0)->GetBoundingBox(), 48))
 						{
 							o->SetOffScreen(true);
 							continue;

@@ -113,6 +113,12 @@ void Grid::GetActiveCells(RectF rect, std::vector<Cell*>& result)
 	int starty = (int)(Mathf::Floor(rect.top / (float)config.cellHeight));
 	int endx = (int)(Mathf::Ceil(rect.right / (float)config.cellWidth));
 	int endy = (int)(Mathf::Ceil(rect.bottom / (float)config.cellHeight));
+
+	startx = Mathf::ClampInt(startx - 1, 0, widthInCells - 1);
+	starty = Mathf::ClampInt(starty - 1, 0, heightInCells - 1);
+	endx = Mathf::ClampInt(endx, 0, widthInCells - 1);
+	endy = Mathf::ClampInt(endy, 0, heightInCells - 1);
+
 	result.clear();
 
 	for (int x = startx; x <= endx; ++x)
