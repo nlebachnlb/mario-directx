@@ -282,14 +282,17 @@ void Scene::UpdateActiveObjects()
 
 		if (needSpatialPartition)
 		{
-			grid->GetActiveCells(mainCamera->GetBoundingBox(), activeCells);
+			// grid->GetActiveCells(mainCamera->GetBoundingBox(), activeCells);
+			auto bbox = mainCamera->GetBoundingBox();
+			grid->Update(bbox);
+			inCells = *grid->GetActiveList();
 
-			for (auto cell : activeCells)
+			/*for (auto cell : activeCells)
 				for (auto obj : *cell->GetObjects())
 				{
 					if (obj->IsEnabled())
 						inCells.push_back(obj);
-				}
+				}*/
 		}
 		else
 			inCells = *objects;

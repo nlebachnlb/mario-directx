@@ -3,6 +3,10 @@
 
 Grid::Grid(GridConfig config)
 {
+	activeObjects = new std::unordered_set<GameObject>();
+	activeCells = new std::vector<Cell*>();
+	activeList = new std::vector<GameObject>();
+
 	this->config = config;
 	widthInCells = Mathf::Ceil((float)config.width / (float)config.cellWidth);
 	heightInCells = Mathf::Ceil((float)config.height / (float)config.cellHeight);
@@ -22,6 +26,13 @@ Grid::Grid(GridConfig config)
 
 Grid::~Grid()
 {
+	activeCells->clear();
+	activeObjects->clear();
+	activeList->clear();
+	delete activeList;
+	delete activeCells;
+	delete activeObjects;
+
 	for (int x = 0; x < widthInCells; ++x)
 	{
 		for (int y = 0; y < heightInCells; ++y)
@@ -107,7 +118,28 @@ void Grid::Insert(GameObject object, int x, int y)
 	cell->Insert(object);
 }
 
-void Grid::GetActiveCells(RectF rect, std::vector<Cell*>& result)
+void Grid::Update(RectF& rect)
+{
+	GetActiveCells(rect);
+	activeObjects->clear();
+	activeList->clear();
+	for (auto cell = activeCells->begin(); cell != activeCells->end(); ++cell)
+		for (auto o : *((*cell)->objects))
+		{
+			if (activeObjects->find(o) == activeObjects->end())
+			{
+				activeObjects->insert(o);
+				activeList->push_back(o);
+			}
+		}
+}
+
+std::vector<GameObject>* Grid::GetActiveList()
+{
+	return activeList;
+}
+
+void Grid::GetActiveCells(RectF& rect)
 {
 	int startx = (int)(Mathf::Floor(rect.left / (float)config.cellWidth));
 	int starty = (int)(Mathf::Floor(rect.top / (float)config.cellHeight));
@@ -119,7 +151,7 @@ void Grid::GetActiveCells(RectF rect, std::vector<Cell*>& result)
 	endx = Mathf::ClampInt(endx, 0, widthInCells - 1);
 	endy = Mathf::ClampInt(endy, 0, heightInCells - 1);
 
-	result.clear();
+	activeCells->clear();
 
 	for (int x = startx; x <= endx; ++x)
 	{
@@ -127,8 +159,7 @@ void Grid::GetActiveCells(RectF rect, std::vector<Cell*>& result)
 		for (int y = starty; y <= endy; ++y)
 		{
 			if (y < 0 || y >= heightInCells) continue;
-			Cell* cell = GetCell(x, y);
-			result.push_back(cell);
+			activeCells->push_back(GetCell(x, y));
 		}
 	}
 }

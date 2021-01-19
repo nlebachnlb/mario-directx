@@ -27,10 +27,17 @@ public:
 	void Insert(GameObject object, Index cellIndex);
 	void Insert(GameObject object, int x, int y);
 
-	void GetActiveCells(RectF rect, std::vector<Cell*>& result);
+	void Update(RectF& rect);
+	std::vector<GameObject>* GetActiveList();
+
+protected:
+	void GetActiveCells(RectF& rect);
 
 private:
 	std::vector<std::vector<Cell*>> cells;
+	std::vector<Cell*>* activeCells;
+	std::unordered_set<GameObject>* activeObjects;
+	std::vector<GameObject>* activeList;
 	GridConfig config;
 	int widthInCells, heightInCells;
 };
