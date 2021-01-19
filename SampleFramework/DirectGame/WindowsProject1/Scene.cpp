@@ -284,8 +284,6 @@ void Scene::UpdateActiveObjects()
 		{
 			grid->GetActiveCells(mainCamera->GetBoundingBox(), activeCells);
 
-			grid->GetActiveCells(mainCamera->GetBoundingBox(), activeCells);
-
 			for (auto cell : activeCells)
 				for (auto obj : *cell->GetObjects())
 				{
