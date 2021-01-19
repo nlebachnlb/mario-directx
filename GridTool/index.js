@@ -39,7 +39,11 @@ function generateGridData(objects, config)
     let height = config.heightInTiles
 
     let result = []
-    objects.forEach(obj => {
+    let list = []
+    if (objects.id !== undefined) list = [objects]
+    else list = objects
+
+    list.forEach(obj => {
         let index = {
             x: Math.trunc(obj.x / cellwidth),
             y: Math.trunc(obj.y / cellheight)
@@ -87,6 +91,7 @@ app.post("/", uploadFile.single('file'), function (req, res) {
         var jsonobj = JSON.parse(parser.toJson(data))
         var map = jsonobj.map
 
+        console.log(map)
         gridConfig.cellwidth = req.body.cellwidth
         gridConfig.cellheight = req.body.cellheight
         gridConfig.widthInTiles = Math.ceil(map.width * map.tilewidth / gridConfig.cellwidth)
@@ -96,7 +101,7 @@ app.post("/", uploadFile.single('file'), function (req, res) {
 
         gridData = []
         map.objectgroup.forEach(group => {
-            // console.log(group)
+            console.log(group)
             gridData.push({
                 id: group.id,
                 name: group.name,
