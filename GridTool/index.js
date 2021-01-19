@@ -25,22 +25,24 @@ app.get("/", function (req, res) {
 })
 
 let gridConfig = {
-    cellsize: 0,
+    cellwidth: 0,
+    cellheight: 0,
     widthInTiles: 0,
     heightInTiles: 0
 }
 
 function generateGridData(objects, config)
 {
-    let cellsize = config.cellsize
+    let cellwidth = config.cellwidth
+    let cellheight = config.cellheight
     let width = config.widthInTiles
     let height = config.heightInTiles
 
     let result = []
     objects.forEach(obj => {
         let index = {
-            x: Math.trunc(obj.x / cellsize),
-            y: Math.trunc(obj.y / cellsize)
+            x: Math.trunc(obj.x / cellwidth),
+            y: Math.trunc(obj.y / cellheight)
         }
 
         if (index.x < 0 || index.x >= width || index.y < 0 || index.y >= height) index = undefined
@@ -58,7 +60,7 @@ function dataToXml(data)
 {
     var xml = '<?xml version="1.0" encoding="utf-8"?>\n'
     xml += '<grid>\n'
-    xml += `  <config cellsize="${data.gridconfig.cellsize}" width="${data.gridconfig.widthInTiles}" height="${data.gridconfig.heightInTiles}"/>\n`
+    xml += `  <config cellwidth="${data.gridconfig.cellwidth}" cellheight="${data.gridconfig.cellheight}" width="${data.gridconfig.widthInTiles}" height="${data.gridconfig.heightInTiles}"/>\n`
     xml += '  <data>\n'
 
     data.data.forEach(d => {
@@ -85,9 +87,10 @@ app.post("/", uploadFile.single('file'), function (req, res) {
         var jsonobj = JSON.parse(parser.toJson(data))
         var map = jsonobj.map
 
-        gridConfig.cellsize = req.body.cellsize
-        gridConfig.widthInTiles = Math.ceil(map.width * map.tilewidth / gridConfig.cellsize)
-        gridConfig.heightInTiles = Math.ceil(map.height * map.tileheight / gridConfig.cellsize)
+        gridConfig.cellwidth = req.body.cellwidth
+        gridConfig.cellheight = req.body.cellheight
+        gridConfig.widthInTiles = Math.ceil(map.width * map.tilewidth / gridConfig.cellwidth)
+        gridConfig.heightInTiles = Math.ceil(map.height * map.tileheight / gridConfig.cellheight)
 
         // console.log(gridConfig)
 
@@ -120,5 +123,5 @@ app.post("/", uploadFile.single('file'), function (req, res) {
 })
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log("Listening on port 8000")
+    console.log("Listening on port 3000")
 })
