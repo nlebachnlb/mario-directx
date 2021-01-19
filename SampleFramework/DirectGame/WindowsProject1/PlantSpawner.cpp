@@ -38,7 +38,7 @@ AbstractEnemy* PlantSpawner::Spawn(std::string name, Vector2 position, bool rese
 		enm->SetPosition(position);
 		enm->Start();
 		enm->OnEnabled();
-		scene->GetGrid()->UpdateObject(enm);
+		if (scene->GetGrid() != nullptr) scene->GetGrid()->UpdateObject(enm);
 		DebugOut(L"Plant-Old spawn\n");
 		return enm;
 	}

@@ -9,6 +9,7 @@ void GreenKoopasShell::InitAnimations()
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Run", animations->Get("ani-green-koopa-troopa-shell-run"));
 	AddAnimation("Idle", animations->Get("ani-green-koopa-troopa-shell-idle"));
+	AddAnimation("Die", animations->Get("ani-green-koopa-troopa-shell-idle"));
 	AddAnimation("Withdraw", animations->Get("ani-green-koopa-troopa-crouch"));
 }
 

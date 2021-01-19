@@ -37,7 +37,7 @@ KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType sh
 	{
 		shell = static_cast<KoopasShell*>(shells->Instantiate());
 		shell->SetPosition(position);
-		scene->GetGrid()->UpdateObject(shell);
+		if (scene->GetGrid() != nullptr) scene->GetGrid()->UpdateObject(shell);
 	}
 	
 	if (reset) shell->Start();
@@ -83,7 +83,7 @@ AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool rese
 		enm->Start();
 		enm->OnEnabled();
 		DebugOut(L"Koopa-Old spawn\n");
-		scene->GetGrid()->UpdateObject(enm);
+		if (scene->GetGrid() != nullptr) scene->GetGrid()->UpdateObject(enm);
 		return enm;
 	}
 }

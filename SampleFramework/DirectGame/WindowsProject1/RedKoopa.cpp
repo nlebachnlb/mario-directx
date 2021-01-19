@@ -91,7 +91,7 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 			auto otherBox = collision->collider->GetBoundingBox();
 			auto bbox = colliders->at(0)->GetBoundingBox();
 
-			if (transform->Position.x > otherBox.right)
+			if (bbox.right > otherBox.right)
 			{
 				auto raycast = Game::GetInstance().Raycast2D();
 				Vector2 shootPoint(
@@ -104,10 +104,10 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 				{
 					rigidbody->SetVelocity(&Vector2(-Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
 					// SetPosition(Vector2(otherBox.right - 1, transform.Position.y));
-					DebugOut(L"BACK: %f\n", rigidbody->GetVelocity().x);
+					// DebugOut(L"BACK: %f\n", rigidbody->GetVelocity().x);
 				}
 			}
-			else if (transform->Position.x < otherBox.left)
+			else if (bbox.left < otherBox.left)
 			{
 				auto raycast = Game::GetInstance().Raycast2D();
 				Vector2 shootPoint(
@@ -120,7 +120,7 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 				{
 					rigidbody->SetVelocity(&Vector2(+Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
 					// SetPosition(Vector2(otherBox.left + 1, transform.Position.y));
-					 DebugOut(L"BACK-left: %f\n", rigidbody->GetVelocity().x);
+					 // DebugOut(L"BACK-left: %f\n", rigidbody->GetVelocity().x);
 				}
 			}
 			/*auto raycast = Game::GetInstance().Raycast2D();

@@ -39,7 +39,7 @@ AbstractEnemy* GoombaSpawner::Spawn(std::string name, Vector2 position, bool res
 		enm->Start();
 		enm->OnEnabled();
 		DebugOut(L"Goomba-Old spawn\n");
-		scene->GetGrid()->UpdateObject(enm);
+		if (scene->GetGrid() != nullptr) scene->GetGrid()->UpdateObject(enm);
 		return enm;
 	}
 }

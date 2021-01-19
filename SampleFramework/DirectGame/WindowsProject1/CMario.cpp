@@ -265,6 +265,7 @@ void CMario::Jump(float force, bool deflect)
 	this->deflect = deflect;
 
 	standOnPlatform = nullptr;
+	rigidbody->SetGravity(MARIO_GRAVITY);
 }
 
 bool CMario::IsReadyToRun()
@@ -924,6 +925,8 @@ void CMario::StandState()
 
 			if (!standOnPlatform->IsEnabled()) standOnPlatform = nullptr;
 		}
+		else 
+			rigidbody->SetGravity(MARIO_GRAVITY);
 	}
 	else
 	{

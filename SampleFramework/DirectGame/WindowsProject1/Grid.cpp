@@ -46,7 +46,12 @@ void Grid::UpdateObject(GameObject object)
 
 	Cell* newCell = GetCell(x, y);
 
-	object->GetCell()->Remove(object);
+	if (object->GetCell() != nullptr)
+	{
+		if (object->GetCell() == newCell) return;
+		object->GetCell()->Remove(object);
+	}
+
 	newCell->Insert(object);
 	object->SetCell(newCell);
 }

@@ -9,6 +9,7 @@ void RedKoopasShell::InitAnimations()
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Run", animations->Get("ani-red-koopa-troopa-shell-run"));
 	AddAnimation("Idle", animations->Get("ani-red-koopa-troopa-shell-idle"));
+	AddAnimation("Die", animations->Get("ani-red-koopa-troopa-shell-idle"));
 	AddAnimation("Withdraw", animations->Get("ani-red-koopa-troopa-crouch"));
 }
 
