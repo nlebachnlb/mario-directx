@@ -433,9 +433,9 @@
     <Image Include="WindowsProject1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Maps\overworld-1-map.tmx" />
-    <None Include="Assets\Maps\world-1-1-map.tmx" />
-    <None Include="Assets\Maps\world-1-4-map.tmx" />
+    <None Include="Assets\Maps\Overworld\overworld-1-map.tmx" />
+    <None Include="Assets\Maps\World1-1\world-1-1-map.tmx" />
+    <None Include="Assets\Maps\World1-4\world-1-4-map.tmx" />
     <None Include="Assets\root.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -447,8 +447,8 @@
     <Xml Include="Assets\Animations\OverworldMapAnim.xml" />
     <Xml Include="Assets\Animations\UiAnim.xml" />
     <Xml Include="Assets\config.xml" />
-    <Xml Include="Assets\Maps.meta\world-1-1-grid.xml" />
-    <Xml Include="Assets\Maps.meta\world-1-4-grid.xml" />
+    <Xml Include="Assets\Maps\World1-1\world-1-1-grid.xml" />
+    <Xml Include="Assets\Maps\World1-4\world-1-4-grid.xml" />
     <Xml Include="Assets\Scenes\MainMenu.xml" />
     <Xml Include="Assets\Scenes\Overworld1.xml" />
     <Xml Include="Assets\Scenes\World1-1.xml" />

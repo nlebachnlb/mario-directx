@@ -226,8 +226,14 @@
     <Filter Include="Framework\Game\SpatialPartition">
       <UniqueIdentifier>{6be6bf16-29af-415a-8db4-efeed810d253}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\Assets\Maps.meta">
-      <UniqueIdentifier>{c6799f33-4444-4239-8ad6-034d0c019159}</UniqueIdentifier>
+    <Filter Include="GameSource\Assets\Maps\World1-1">
+      <UniqueIdentifier>{8882a1a0-09ea-4484-a2e7-dbd2d94d590e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Maps\World1-4">
+      <UniqueIdentifier>{2489ff69-58db-41ed-9b8e-77faa600820a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Assets\Maps\Overworld">
+      <UniqueIdentifier>{2d142954-bf47-4105-a7b8-b206a380edb0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1073,14 +1079,14 @@
     <None Include="Assets\root.xml">
       <Filter>GameSource\Assets</Filter>
     </None>
-    <None Include="Assets\Maps\world-1-1-map.tmx">
-      <Filter>GameSource\Assets\Maps</Filter>
+    <None Include="Assets\Maps\Overworld\overworld-1-map.tmx">
+      <Filter>GameSource\Assets\Maps\Overworld</Filter>
     </None>
-    <None Include="Assets\Maps\overworld-1-map.tmx">
-      <Filter>GameSource\Assets\Maps</Filter>
+    <None Include="Assets\Maps\World1-1\world-1-1-map.tmx">
+      <Filter>GameSource\Assets\Maps\World1-1</Filter>
     </None>
-    <None Include="Assets\Maps\world-1-4-map.tmx">
-      <Filter>GameSource\Assets\Maps</Filter>
+    <None Include="Assets\Maps\World1-4\world-1-4-map.tmx">
+      <Filter>GameSource\Assets\Maps\World1-4</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1141,11 +1147,11 @@
     <Xml Include="Assets\Scenes\World1-4.xml">
       <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
-    <Xml Include="Assets\Maps.meta\world-1-1-grid.xml">
-      <Filter>GameSource\Assets\Maps.meta</Filter>
+    <Xml Include="Assets\Maps\World1-1\world-1-1-grid.xml">
+      <Filter>GameSource\Assets\Maps\World1-1</Filter>
     </Xml>
-    <Xml Include="Assets\Maps.meta\world-1-4-grid.xml">
-      <Filter>GameSource\Assets\Maps.meta</Filter>
+    <Xml Include="Assets\Maps\World1-4\world-1-4-grid.xml">
+      <Filter>GameSource\Assets\Maps\World1-4</Filter>
     </Xml>
   </ItemGroup>
 </Project>

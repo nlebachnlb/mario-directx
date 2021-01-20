@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scene bgcolor_r="190" bgcolor_g="237" bgcolor_b="243">
-  <Scene name="Map" source="Assets/Maps/world-1-1-map.tmx" meta="Assets/Maps.meta/world-1-1-grid.xml"/>
+  <Scene name="Map" source="Assets/Maps/World1-1/world-1-1-map.tmx" meta="Assets/Maps/World1-1/world-1-1-grid.xml"/>
   <Scene name="Player" pos_x="64" pos_y="1168"/>
   <Scene name="Camera" start="0" main="1">
     <Boundary id="0" pos_x="0" pos_y="650" left="0" top="672" right="8448" bottom="1296"/>
