@@ -70,7 +70,7 @@ void SceneAnimator::Update()
 	case 2:
 	{
 		elapsedTime += dt;
-		if (elapsedTime > MOVEMENT_DURATION + 700)
+		if (elapsedTime > MOVEMENT_DURATION + 1000)
 		{
 			elapsedTime = 0;
 			cutOrder = 3;

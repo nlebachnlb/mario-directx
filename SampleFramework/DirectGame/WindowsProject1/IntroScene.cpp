@@ -61,12 +61,12 @@ void IntroScene::Load()
 	AddObject(animator);
 
 	auto topSolid = Instantiate<SolidBox>();
-	topSolid->GetColliders()->at(0)->SetBoxSize(Vector2(824, 32));
+	topSolid->GetColliders()->at(0)->SetBoxSize(Vector2(824 + 96, 32));
 	topSolid->SetPosition(Vector2(412, 16));
 	AddObject(topSolid);
 
 	auto bottomSolid = Instantiate<SolidBox>();
-	bottomSolid->GetColliders()->at(0)->SetBoxSize(Vector2(824, 32));
+	bottomSolid->GetColliders()->at(0)->SetBoxSize(Vector2(824 + 128, 32));
 	bottomSolid->SetPosition(Vector2(412, 642 + 16));
 	AddObject(bottomSolid);
 

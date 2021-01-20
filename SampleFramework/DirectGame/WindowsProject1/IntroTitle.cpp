@@ -57,7 +57,7 @@ void IntroTitle::Update()
 		}
 		else
 		{
-			transform->Position.y = DESTINATION.y + 5 * Mathf::Sin((2 * Mathf::Pi / 40.0f) * timer);
+			transform->Position.y = DESTINATION.y + 5 * Mathf::Sin((2 * Mathf::Pi / 30.0f) * timer);
 		}
 	}
 	break;

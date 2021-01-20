@@ -15,6 +15,7 @@
 void CMario::Awake()
 {
 	global = true;
+	alwaysUpdate = true;
 	SetTag(ObjectTags::BigMario);
 	DebugOut(L"Mario Awake\n");
 	renderOrder = 1;
@@ -36,6 +37,7 @@ void CMario::Awake()
 	virtualKeyBinds.insert({ marioKeySet.Right, false });
 	virtualKeyBinds.insert({ marioKeySet.Jump, false });
 	virtualKeyBinds.insert({ marioKeySet.Attack, false });
+	virtualKeyBinds.insert({ marioKeySet.Crouch, false });
 }
 
 void CMario::Start()
@@ -176,7 +178,8 @@ void CMario::Update()
 	// Keep Mario inside Camera bounds
 	if (mainCamera == nullptr)
 		mainCamera = Game::GetInstance().GetService<SceneManager>()->GetActiveScene()->GetMainCamera();
-	transform->Position.x = Mathf::Clamp(transform->Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x + (autoControl ? 48 : -MARIO_BBOX.x));
+	if (!controller->IsActing()) 
+		transform->Position.x = Mathf::Clamp(transform->Position.x, mainCamera->GetPosition().x + MARIO_BBOX.x, mainCamera->GetPosition().x + mainCamera->GetViewportSize().x + (autoControl ? 48 : -MARIO_BBOX.x));
 
 #pragma region Vertical Movement
 	switch (physicState.jump)
@@ -268,6 +271,7 @@ void CMario::Jump(float force, bool deflect)
 	rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, -force));
 	physicState.jump = JumpingStates::Jump;
 	posBeforeJump = transform->Position;
+	// DebugOut(L"Jump: %f\n", posBeforeJump.y);
 
 	onGround = false;
 	canHighJump = true;
@@ -827,7 +831,7 @@ void CMario::CrouchDetection(InputHandler* input)
 	physicState.jump == JumpingStates::Stand && 
 		(input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right));
 
-	if (input->GetKeyDown(marioKeySet.Crouch) && exitConditions == false)
+	if ((input->GetKeyDown(marioKeySet.Crouch) || virtualKeyBinds.at(marioKeySet.Crouch)) && exitConditions == false)
 	{
 		colliders->at(0)->SetBoxSize(MARIO_SMALL_BBOX);
 		Vector2 delta = Vector2(0, MARIO_BBOX.y - MARIO_SMALL_BBOX.y);

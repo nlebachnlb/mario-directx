@@ -9,9 +9,13 @@ public:
 	void Start() override;
 	void Update() override;
 
+protected:
+	void LuigiActionScript();
+	void MarioActionScript();
+
 private:
 	PlayerController* mario, * luigi;
-	int timer;
+	int mtimer, ltimer;
 	int mAct, lAct;
 };
 

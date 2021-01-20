@@ -200,7 +200,8 @@ void Collider2D::CalcPotentialCollisions(vector<GameObject>* coObjects, vector<C
 			(otherTag == ObjectTags::MarioAttack && TagUtils::EnemyTag(selfTag)) || 
 			(TagUtils::PowerupTag(selfTag) && TagUtils::MarioTag(otherTag)) || 
 			(TagUtils::PowerupTag(otherTag) && TagUtils::MarioTag(selfTag)) || 
-			(selfTag == ObjectTags::Platform && !TagUtils::MarioTag(otherTag))
+			(selfTag == ObjectTags::Platform && !TagUtils::MarioTag(otherTag) ||
+			(TagUtils::MarioTag(selfTag) && TagUtils::MarioTag(otherTag)))
 			)
 			continue;
 
