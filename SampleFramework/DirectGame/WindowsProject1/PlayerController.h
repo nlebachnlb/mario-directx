@@ -20,16 +20,24 @@ public:
 
 	CMario* GetMario();
 
+	void SetActing(bool value);
+	bool IsActing();
+
+	void ActingControl();
+
 private:
 	void LinkStates();
 
 	std::unordered_map<std::string, IState*> playerStates;
 	std::unordered_map<std::string, CMario*> stateGameObjects;
 	CMario* currentStateObject;
+	InputHandler* input;
 
 	int invincibleTime;
 	bool invincible;
 	bool waiting;
+	bool acting = false;
+	int actingPhase;
 
 	std::string curState, targetState;
 };

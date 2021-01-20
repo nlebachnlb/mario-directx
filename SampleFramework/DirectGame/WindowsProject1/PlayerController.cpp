@@ -12,6 +12,7 @@
 void PlayerController::Awake()
 {
 	global = true;
+	actingPhase = 0;
 
 	SetTag(ObjectTags::Player);
 	rigidbody->SetDynamic(false);
@@ -43,7 +44,7 @@ void PlayerController::Awake()
 void PlayerController::Start()
 {
 	LinkStates();
-	SwitchToState(Game::GetInstance().GetData()->GetPowerup());
+	SwitchToState(acting ? "BigMario" : Game::GetInstance().GetData()->GetPowerup());
 	waiting = false;
 }
 
@@ -81,6 +82,8 @@ void PlayerController::Update()
 				obj->SetPosition(currentStateObject->GetTransform().Position - delta * 0.5f);
 		}
 	}
+
+	if (acting) ActingControl();
 }
 
 void PlayerController::OnKeyDown(int keyCode)
@@ -224,6 +227,21 @@ void PlayerController::ContinueSwitchingState()
 CMario* PlayerController::GetMario()
 {
 	return this->currentStateObject;
+}
+
+void PlayerController::SetActing(bool value)
+{
+	acting = true;
+}
+
+bool PlayerController::IsActing()
+{
+	return acting;
+}
+
+void PlayerController::ActingControl()
+{
+	auto mario = GetMario();
 }
 
 void PlayerController::LinkStates()

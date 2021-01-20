@@ -129,12 +129,29 @@ void InputHandler::ProcessKeyboard()
 	}
 }
 
+void InputHandler::HoldVirtualKey(int keyCode)
+{
+	virtualKeyBinds[keyCode] = true;
+}
+
+void InputHandler::ReleaseVirtualKey(int keyCode)
+{
+	virtualKeyBinds[keyCode] = false;
+}
+
 bool InputHandler::GetKeyDown(int keyCode)
 {
-	return (keyStates[keyCode] & 0x80) > 0;
+	auto virtualKey = virtualKeyBinds.find(keyCode) != virtualKeyBinds.end() ? virtualKeyBinds.at(keyCode) : false;
+	return (keyStates[keyCode] & 0x80) > 0 || virtualKey;
 }
 
 bool InputHandler::GetKeyUp(int keyCode)
 {
 	return (keyStates[keyCode] & 0x80) == 0;
+}
+
+void InputHandler::AddVirtualKeyBind(int keyCode)
+{
+	if (virtualKeyBinds.find(keyCode) == virtualKeyBinds.end())
+		virtualKeyBinds.insert({ keyCode, false });
 }

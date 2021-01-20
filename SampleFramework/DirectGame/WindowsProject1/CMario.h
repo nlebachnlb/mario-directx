@@ -129,6 +129,8 @@ public:
 	bool CanControl();
 	void FinishLevel();
 
+	MarioKeySet marioKeySet;
+
 protected:
 	virtual void InitAnimations();
 	virtual void MovementAnimation();
@@ -136,7 +138,6 @@ protected:
 	virtual void WarpAnimation();
 	void ResetPrivateData();
 	bool canCrouch;
-	MarioKeySet marioKeySet;
 	MarioStateSet prevPhysicState, physicState;
 	bool onGround;
 	float pMeter;

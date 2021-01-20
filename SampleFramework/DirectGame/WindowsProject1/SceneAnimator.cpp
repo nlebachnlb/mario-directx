@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "IntroTitle.h"
 #include "MenuVersionFX.h"
+#include "PlayerController.h"
 
 void SceneAnimator::Awake()
 {
@@ -38,6 +39,17 @@ void SceneAnimator::Update()
 		{
 			elapsedTime = 0;
 			cutOrder = 1;
+			
+			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+			Vector2 startPosition(32, 642 - 48);
+
+			luigi = new PlayerController();
+			luigi->SetActing(true);
+			luigi->Initialize();
+			luigi->RegisterToScene(scene);
+			luigi->SetPosition(startPosition);
+			luigi->InitStates();
+			scene->AddObject(luigi);
 		}
 	}
 	break;

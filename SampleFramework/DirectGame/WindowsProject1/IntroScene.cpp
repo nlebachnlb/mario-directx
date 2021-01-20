@@ -2,6 +2,7 @@
 #include "SceneAnimator.h"
 #include "MainCanvas.h"
 #include "Game.h"
+#include "SolidBox.h"
 
 void IntroScene::Load()
 {
@@ -58,6 +59,16 @@ void IntroScene::Load()
 
 	auto animator = Instantiate<SceneAnimator>();
 	AddObject(animator);
+
+	auto topSolid = Instantiate<SolidBox>();
+	topSolid->GetColliders()->at(0)->SetBoxSize(Vector2(824, 32));
+	topSolid->SetPosition(Vector2(412, 16));
+	AddObject(topSolid);
+
+	auto bottomSolid = Instantiate<SolidBox>();
+	bottomSolid->GetColliders()->at(0)->SetBoxSize(Vector2(824, 32));
+	bottomSolid->SetPosition(Vector2(412, 642 + 16));
+	AddObject(bottomSolid);
 
 	loaded = true;
 

@@ -75,7 +75,13 @@ void CMario::Start()
 
 void CMario::Update()
 {
-	if (input == nullptr) input = Game::GetInstance().GetService<InputHandler>();
+	if (input == nullptr)
+	{
+		input = Game::GetInstance().GetService<InputHandler>();
+		input->AddVirtualKeyBind(marioKeySet.Left);
+		input->AddVirtualKeyBind(marioKeySet.Right);
+		input->AddVirtualKeyBind(marioKeySet.Jump);
+	}
 
 	WarpProcess();
 	if (warp != 0) return;
