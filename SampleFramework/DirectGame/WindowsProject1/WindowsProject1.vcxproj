@@ -192,6 +192,7 @@
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="HudPanel.h" />
     <ClInclude Include="HudUtils.h" />
+    <ClInclude Include="IntroMarioController.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IntroTitle.h" />
     <ClInclude Include="IPooled.h" />
@@ -330,6 +331,7 @@
     <ClCompile Include="HitStarFX.cpp" />
     <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="HudPanel.cpp" />
+    <ClCompile Include="IntroMarioController.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IntroTitle.cpp" />
     <ClCompile Include="IPooled.cpp" />

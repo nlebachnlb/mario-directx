@@ -129,6 +129,10 @@ public:
 	bool CanControl();
 	void FinishLevel();
 
+	void HoldVirtualKey(int keyCode);
+	void ReleaseVirtualKey(int keyCode);
+	void PressVirtualKeyDown(int keyCode);
+
 	MarioKeySet marioKeySet;
 
 protected:
@@ -158,6 +162,8 @@ protected:
 	InputHandler* input;
 	PlayerController* controller;
 	Camera* mainCamera;
+
+	std::unordered_map<int, bool> virtualKeyBinds;
 
 private:
 	void WarpProcess();

@@ -30,6 +30,12 @@ void CMario::Awake()
 	canCrouch = true;
 	input = nullptr;
 	mainCamera = nullptr;
+
+	// Init virtual key binds
+	virtualKeyBinds.insert({ marioKeySet.Left, false });
+	virtualKeyBinds.insert({ marioKeySet.Right, false });
+	virtualKeyBinds.insert({ marioKeySet.Jump, false });
+	virtualKeyBinds.insert({ marioKeySet.Attack, false });
 }
 
 void CMario::Start()
@@ -76,12 +82,7 @@ void CMario::Start()
 void CMario::Update()
 {
 	if (input == nullptr)
-	{
 		input = Game::GetInstance().GetService<InputHandler>();
-		input->AddVirtualKeyBind(marioKeySet.Left);
-		input->AddVirtualKeyBind(marioKeySet.Right);
-		input->AddVirtualKeyBind(marioKeySet.Jump);
-	}
 
 	WarpProcess();
 	if (warp != 0) return;
@@ -95,10 +96,12 @@ void CMario::Update()
 #pragma region Horizontal Movement
 	auto curVelocity = velocity.x;
 	if (autoControl || 
-		(CanControl() && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))))
+		(CanControl() && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))) || 
+		(CanControl() && (virtualKeyBinds.at(marioKeySet.Left) || virtualKeyBinds.at(marioKeySet.Right)))
+		)
 	{
 		// Accelerate velocity based on moving states
-		if (input->GetKeyDown(marioKeySet.Attack) && !autoControl)
+		if ((input->GetKeyDown(marioKeySet.Attack) || virtualKeyBinds.at(marioKeySet.Attack)) && !autoControl)
 		{
 			physicState.movement = MovingStates::Run;
 			rigidbody->SetAcceleration(skid ? MARIO_SKID_ACCELERATION : MARIO_RUN_ACCELERATION);
@@ -123,9 +126,9 @@ void CMario::Update()
 		}
 		else
 		{
-			if (input->GetKeyDown(marioKeySet.Left) && CanControl())
+			if (input->GetKeyDown(marioKeySet.Left) || virtualKeyBinds.at(marioKeySet.Left) && CanControl())
 				targetVelocityX = -1 * constSpeed, nx = -1;
-			else if (input->GetKeyDown(marioKeySet.Right) && CanControl())
+			else if (input->GetKeyDown(marioKeySet.Right) || virtualKeyBinds.at(marioKeySet.Right) && CanControl())
 				targetVelocityX = +1 * constSpeed, nx = +1;
 		}
 		
@@ -398,6 +401,23 @@ bool CMario::CanControl()
 void CMario::FinishLevel()
 {
 	autoControl = true;
+}
+
+void CMario::HoldVirtualKey(int keyCode)
+{
+	if (virtualKeyBinds.find(keyCode) != virtualKeyBinds.end())
+		virtualKeyBinds.at(keyCode) = true;
+}
+
+void CMario::ReleaseVirtualKey(int keyCode)
+{
+	if (virtualKeyBinds.find(keyCode) != virtualKeyBinds.end())
+		virtualKeyBinds.at(keyCode) = false;
+}
+
+void CMario::PressVirtualKeyDown(int keyCode)
+{
+	OnKeyDown(keyCode);
 }
 
 #pragma region Keyboard
@@ -863,7 +883,7 @@ void CMario::JumpState()
 
 	auto velocity = rigidbody->GetVelocity();
 	auto jumpForce = MARIO_JUMP_FORCE;
-	canHighJump = input->GetKeyDown(marioKeySet.Jump);
+	canHighJump = input->GetKeyDown(marioKeySet.Jump) || virtualKeyBinds.at(marioKeySet.Jump);
 
 	if (canHighJump)
 	{

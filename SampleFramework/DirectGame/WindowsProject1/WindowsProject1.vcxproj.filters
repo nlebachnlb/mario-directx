@@ -657,6 +657,9 @@
     <ClInclude Include="IntroTitle.h">
       <Filter>GameSource\GameObjects\IntroScene</Filter>
     </ClInclude>
+    <ClInclude Include="IntroMarioController.h">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -1093,6 +1096,9 @@
       <Filter>GameSource\GameObjects\IntroScene</Filter>
     </ClCompile>
     <ClCompile Include="IntroTitle.cpp">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroMarioController.cpp">
       <Filter>GameSource\GameObjects\IntroScene</Filter>
     </ClCompile>
   </ItemGroup>

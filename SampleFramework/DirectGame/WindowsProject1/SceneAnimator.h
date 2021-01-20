@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "CMario.h"
 
 const float CURTAIN_START = 642;
 
@@ -23,7 +22,5 @@ private:
 	Texture2D mask;
 
 	float maskAlpha;
-
-	PlayerController* mario, * luigi;
 };
 
