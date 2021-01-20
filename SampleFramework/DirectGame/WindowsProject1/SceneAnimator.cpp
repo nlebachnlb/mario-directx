@@ -17,7 +17,7 @@ void SceneAnimator::Awake()
 void SceneAnimator::Start()
 {
 	elapsedTime = 0;
-	curtainPos = VectorZero();
+	curtainPos = Vector2(0, CURTAIN_START - 584);
 }
 
 void SceneAnimator::Update()
@@ -37,11 +37,11 @@ void SceneAnimator::Update()
 	break;
 	case 1:
 	{
-		float speed = 584.0f / 2000.0f;
+		float speed = CURTAIN_START / 1500.0f;
 		curtainPos.y -= speed * dt;
-		if (curtainPos.y < -584)
+		if (curtainPos.y < -CURTAIN_START)
 		{
-			curtainPos.y = -584;
+			curtainPos.y = -CURTAIN_START;
 			cutOrder = 2;
 			elapsedTime = 0;
 
@@ -76,5 +76,6 @@ void SceneAnimator::Render(Vector2 translation)
 	sprites[2]->Draw(816, 642, 0, 0);
 
 	// Curtain
+	sprites[3]->Draw(curtainPos.x, curtainPos.y - (CURTAIN_START - 584), 0, 0);
 	sprites[3]->Draw(curtainPos.x, curtainPos.y, 0, 0);
 }

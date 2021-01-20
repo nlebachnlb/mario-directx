@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+const float CURTAIN_START = 642;
+
 class SceneAnimator : public CGameObject
 {
 public:
