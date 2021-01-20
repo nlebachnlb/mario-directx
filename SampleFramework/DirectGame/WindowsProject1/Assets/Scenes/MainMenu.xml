@@ -5,7 +5,7 @@
     <Sprite id="spr-tree-right" x="635" y="642" px="0" py="288"/>
     
     <Sprite id="spr-big-cloud-0" x="48" y="142" px="0" py="0"/>
-    <Sprite id="spr-big-cloud-0" x="660" y="96" px="0" py="0"/>
+    <Sprite id="spr-big-cloud-0" x="660" y="96" px="0" py="0"/> 
     <Sprite id="spr-small-cloud-0" x="24" y="262" px="0" py="0"/>
     
     <Sprite id="spr-intro-ground-0" x="0" y="642" px="0" py="0"/>

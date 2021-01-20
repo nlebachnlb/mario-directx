@@ -192,6 +192,8 @@
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="HudPanel.h" />
     <ClInclude Include="HudUtils.h" />
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="IntroTitle.h" />
     <ClInclude Include="IPooled.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="ItemBrick.h" />
@@ -241,6 +243,7 @@
     <ClInclude Include="RedVenusFireTrap.h" />
     <ClInclude Include="RewardFX.h" />
     <ClInclude Include="Rigidbody2D.h" />
+    <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="ScoreFX.h" />
     <ClInclude Include="ShrinkDownFX.h" />
     <ClInclude Include="SmallMario.h" />
@@ -327,6 +330,8 @@
     <ClCompile Include="HitStarFX.cpp" />
     <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="HudPanel.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="IntroTitle.cpp" />
     <ClCompile Include="IPooled.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="ItemBrick.cpp" />
@@ -375,6 +380,7 @@
     <ClCompile Include="RedVenusFireTrap.cpp" />
     <ClCompile Include="RewardFX.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
+    <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="ScoreFX.cpp" />
     <ClCompile Include="ShrinkDownFX.cpp" />
     <ClCompile Include="SmallMario.cpp" />
@@ -449,6 +455,7 @@
     <Xml Include="Assets\config.xml" />
     <Xml Include="Assets\Maps\World1-1\world-1-1-grid.xml" />
     <Xml Include="Assets\Maps\World1-4\world-1-4-grid.xml" />
+    <Xml Include="Assets\Scenes\Intro.xml" />
     <Xml Include="Assets\Scenes\MainMenu.xml" />
     <Xml Include="Assets\Scenes\Overworld1.xml" />
     <Xml Include="Assets\Scenes\World1-1.xml" />

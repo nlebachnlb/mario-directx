@@ -33,6 +33,7 @@
     <Animation id="ani-menu" source="Assets/Animations/IntroAnim.xml"/>
   </Root>
   <Root name="Scenes">
+    <Scene id="intro" source="Assets/Scenes/Intro.xml"/> 
     <Scene id="main-menu" source="Assets/Scenes/MainMenu.xml"/> 
     <Scene id="overworld-1" source="Assets/Scenes/Overworld1.xml"/> 
     <Scene id="world-1-1" source="Assets/Scenes/World1-1.xml"/>

@@ -9,6 +9,7 @@
 #include "EffectPool.h"
 #include "ScoreFX.h"
 #include "MainMenuScene.h"
+#include "IntroScene.h"
 // #include "GameObject.h"
 
 
@@ -227,7 +228,7 @@ void Game::GameInit(HWND hWnd)
 	d3ddev->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
 #pragma endregion
 
-	sceneManager->LoadScene(new MainMenuScene());
+	sceneManager->LoadScene(new IntroScene());
 
 	SetTimeScale(1.0f);
 }

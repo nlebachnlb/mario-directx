@@ -235,6 +235,9 @@
     <Filter Include="GameSource\Assets\Maps\Overworld">
       <UniqueIdentifier>{2d142954-bf47-4105-a7b8-b206a380edb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\IntroScene">
+      <UniqueIdentifier>{a5666f8c-faad-405d-b1aa-7fe5b93cce4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -644,6 +647,15 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Framework\Game\SpatialPartition</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>GameSource\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneAnimator.h">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroTitle.h">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1074,6 +1086,15 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Framework\Game\SpatialPartition</Filter>
     </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>GameSource\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneAnimator.cpp">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroTitle.cpp">
+      <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\root.xml">
@@ -1152,6 +1173,9 @@
     </Xml>
     <Xml Include="Assets\Maps\World1-4\world-1-4-grid.xml">
       <Filter>GameSource\Assets\Maps\World1-4</Filter>
+    </Xml>
+    <Xml Include="Assets\Scenes\Intro.xml">
+      <Filter>GameSource\Assets\Scenes</Filter>
     </Xml>
   </ItemGroup>
 </Project>
