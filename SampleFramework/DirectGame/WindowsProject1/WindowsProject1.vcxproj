@@ -448,6 +448,7 @@
     <Xml Include="Assets\Animations\UiAnim.xml" />
     <Xml Include="Assets\config.xml" />
     <Xml Include="Assets\Maps.meta\world-1-1-grid.xml" />
+    <Xml Include="Assets\Maps.meta\world-1-4-grid.xml" />
     <Xml Include="Assets\Scenes\MainMenu.xml" />
     <Xml Include="Assets\Scenes\Overworld1.xml" />
     <Xml Include="Assets\Scenes\World1-1.xml" />

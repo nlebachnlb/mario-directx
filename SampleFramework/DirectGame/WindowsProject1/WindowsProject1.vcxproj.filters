@@ -1144,5 +1144,8 @@
     <Xml Include="Assets\Maps.meta\world-1-1-grid.xml">
       <Filter>GameSource\Assets\Maps.meta</Filter>
     </Xml>
+    <Xml Include="Assets\Maps.meta\world-1-4-grid.xml">
+      <Filter>GameSource\Assets\Maps.meta</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

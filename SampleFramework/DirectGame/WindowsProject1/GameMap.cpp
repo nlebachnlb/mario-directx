@@ -407,6 +407,13 @@ void GameMap::LoadEnvironment()
                         obj->GetRigidbody()->SetVelocity(&Vector2(startVelX, startVelY));
                         this->gameObjects.push_back(obj);
                         this->objectIDs.push_back(oid);
+
+                        int cellx = objects->at(i)->cellx;
+                        int celly = objects->at(i)->celly;
+                        if (scene->GetGrid() != nullptr && cellx != -1 && celly != -1)
+                        {
+                            scene->GetGrid()->Insert(obj, cellx, celly);
+                        }
                     }
                 }
             }
