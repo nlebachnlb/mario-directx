@@ -32,7 +32,7 @@ void IntroTitle::Update()
 		//DebugOut(L"Position: %f, %f\n", pos.x, pos.y);
 		auto distance = Mathf::Magnitude(DESTINATION - pos);
 
-		if (distance < 3)
+		if (distance < 32)
 		{
 			SetPosition(DESTINATION);
 			animStep = 1;

@@ -3,7 +3,6 @@
 #include "IntroTitle.h"
 #include "MenuVersionFX.h"
 #include "PlayerController.h"
-#include "IntroMarioController.h"
 
 void SceneAnimator::Awake()
 {
@@ -42,7 +41,7 @@ void SceneAnimator::Update()
 			cutOrder = 1;
 			
 			auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
-			auto botPlayer = Instantiate<IntroMarioController>();
+			botPlayer = Instantiate<IntroMarioController>();
 			scene->AddObject(botPlayer);
 		}
 	}
@@ -70,9 +69,10 @@ void SceneAnimator::Update()
 	case 2:
 	{
 		elapsedTime += dt;
-		if (elapsedTime > MOVEMENT_DURATION + 1000)
+		if (elapsedTime > MOVEMENT_DURATION + 2200)
 		{
 			elapsedTime = 0;
+			botPlayer->phase = 1;
 			cutOrder = 3;
 		}
 	}

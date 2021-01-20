@@ -47,7 +47,7 @@ void GameMap::LoadMapData(std::string filePath, std::string metaPath)
     if (!metaPath.empty()) mapData->IntegrateGridData(metaPath);
 }
 
-void GameMap::Load()
+void GameMap::Load(bool fxOnly)
 {
     if (spawnerManager == nullptr) spawnerManager = new SpawnerManager();
     spawnerManager->ClearServices();
@@ -55,6 +55,7 @@ void GameMap::Load()
     auto fxPool = new EffectPool();
     spawnerManager->AddService(fxPool);
     DebugOut(L"Add FX Pool\n");
+    if (fxOnly) return;
 
     auto tilesets = mapData->GetTilesets();
     auto texManager = Game::GetInstance().GetService<TextureManager>();

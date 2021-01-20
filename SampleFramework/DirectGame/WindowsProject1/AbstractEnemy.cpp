@@ -33,7 +33,10 @@ void AbstractEnemy::LateUpdate()
 		{
 			time = 0;
 			dead = false;
-			linkedPool->Revoke(this);
+			if (linkedPool == nullptr)
+				Destroy(this);
+			else 
+				linkedPool->Revoke(this);
 		}
 	}
 }

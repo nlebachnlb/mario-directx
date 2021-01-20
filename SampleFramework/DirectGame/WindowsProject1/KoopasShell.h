@@ -38,6 +38,8 @@ public:
 
 	bool IsRunning();
 
+	bool noWithdraw;
+
 protected:
 	Vector2 GetBoxSize() override;
 

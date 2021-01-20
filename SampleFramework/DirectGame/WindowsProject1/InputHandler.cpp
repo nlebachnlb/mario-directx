@@ -141,8 +141,7 @@ void InputHandler::ReleaseVirtualKey(int keyCode)
 
 bool InputHandler::GetKeyDown(int keyCode)
 {
-	auto virtualKey = virtualKeyBinds.find(keyCode) != virtualKeyBinds.end() ? virtualKeyBinds.at(keyCode) : false;
-	return (keyStates[keyCode] & 0x80) > 0 || virtualKey;
+	return (keyStates[keyCode] & 0x80) > 0;
 }
 
 bool InputHandler::GetKeyUp(int keyCode)

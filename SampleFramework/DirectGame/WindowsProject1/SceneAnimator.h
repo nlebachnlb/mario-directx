@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "IntroMarioController.h"
 
 const float CURTAIN_START = 642;
 
@@ -22,5 +23,7 @@ private:
 	Texture2D mask;
 
 	float maskAlpha;
+
+	IntroMarioController* botPlayer;
 };
 

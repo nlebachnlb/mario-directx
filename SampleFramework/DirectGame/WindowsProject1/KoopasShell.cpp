@@ -11,6 +11,7 @@ void KoopasShell::Awake()
 	SetTag(ObjectTags::KoopasShell);
 	renderOrder = 5;
 	rigidbody->SetDrag(Vector2(KOOPAS_SHELL_DRAG_FORCE, 0));
+	noWithdraw = false;
 }
 
 void KoopasShell::Start()
@@ -41,6 +42,8 @@ void KoopasShell::Movement()
 	if (!running) rigidbody->GenerateDragForce();
 	else if (rigidbody->GetVelocity().x == 0)
 		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y));
+
+	if (noWithdraw) return;
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 	switch (withdrawStep)
@@ -146,16 +149,19 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 	{
 		auto enemy = static_cast<AbstractEnemy*>(otherCollider->GetGameObject());
 		DebugOut(L"Enemy OVERLAP\n");
-		auto gmap = Game::GetInstance().GetService<GameMap>();
-		auto spawner = gmap->GetSpawnerManager();
-		auto fxPool = spawner->GetService<EffectPool>();
 
 		if (running || IsHeld())
 		{
 			if (enemy->IsDead() == false)
 			{
 				Vector2 pos = transform->Position;
-				fxPool->CreateFX("fx-hit-star", pos);
+				if (!noWithdraw)
+				{
+					auto gmap = Game::GetInstance().GetService<GameMap>();
+					auto spawner = gmap != nullptr ? gmap->GetSpawnerManager() : nullptr;
+					auto fxPool = spawner != nullptr ? spawner->GetService<EffectPool>() : nullptr;
+					fxPool->CreateFX("fx-hit-star", pos);
+				}
 				enemy->OnDead(true);
 			}
 

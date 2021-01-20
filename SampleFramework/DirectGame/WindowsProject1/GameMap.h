@@ -20,7 +20,7 @@ public:
 	GameMap();
 	GameMap(std::string filePath);
 	void LoadMapData(std::string filePath = "", std::string metaPath = "");
-	void Load();
+	void Load(bool fxOnly = false);
 	void Unload();
 
 	void LoadEnvironment();

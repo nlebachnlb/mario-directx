@@ -30,13 +30,54 @@ void IntroMarioController::Start()
 {
 	lAct = 0;
 	mAct = 0;
-	mtimer = ltimer = 0;
+	mtimer = ltimer = gtimer = 0;
+	phase = 0;
 }
 
 void IntroMarioController::Update()
 {
 	LuigiActionScript();
 	MarioActionScript();
+
+	auto dt = Game::DeltaTime() * Game::GetTimeScale();
+	switch (phase)
+	{
+	case 1:
+	{
+		auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+
+		redShell = Instantiate<RedKoopasShell>(); 
+		redShell->SetAlwaysUpdate(true);
+		redShell->SetPosition(Vector2(586, -32));
+		redShell->noWithdraw = true;
+		scene->AddObject(redShell);
+
+		greenShell = Instantiate<GreenKoopasShell>();
+		greenShell->SetAlwaysUpdate(true);
+		greenShell->SetPosition(Vector2(300, -300));
+		greenShell->noWithdraw = true;
+		scene->AddObject(greenShell);
+
+		/*leaf = Instantiate<RaccoonLeaf>();
+		leaf->SetAlwaysUpdate(true);
+		leaf->SetPosition(Vector2(412, 128));
+		scene->AddObject(leaf);*/
+
+		phase = 2;
+	}
+	break;
+	case 2:
+	{
+		gtimer += dt;
+		if (gtimer > 2000)
+		{
+			gtimer = 0;
+			phase = 3;
+			mAct = 4;
+		}
+	}
+	break;
+	}
 }
 
 void IntroMarioController::LuigiActionScript()
@@ -110,7 +151,7 @@ void IntroMarioController::MarioActionScript()
 	case 1:
 	{
 		marioState->HoldVirtualKey(marioState->marioKeySet.Left);
-		if (marioState->GetTransform().Position.x <= 412 + 32)
+		if (marioState->GetTransform().Position.x <= 412 + 42)
 		{
 			marioState->ReleaseVirtualKey(marioState->marioKeySet.Left);
 			marioState->HoldVirtualKey(marioState->marioKeySet.Crouch);
@@ -127,6 +168,74 @@ void IntroMarioController::MarioActionScript()
 			mtimer = 0;
 			mAct = 3;
 			marioState->ReleaseVirtualKey(marioState->marioKeySet.Crouch);
+		}
+	}
+	break;
+	case 4:
+	{
+		marioState->PressVirtualKeyDown(marioState->marioKeySet.Jump);
+		marioState->HoldVirtualKey(marioState->marioKeySet.Jump);
+		mAct = 15;
+		mtimer = 0;
+	}
+	break;
+	case 15:
+	{
+		mtimer += dt;
+		if (mtimer > 1500)
+		{
+			mtimer = 0;
+			mAct = 5;
+		}
+	}
+	break;
+	case 5:
+	{
+		marioState->ReleaseVirtualKey(marioState->marioKeySet.Jump);
+		marioState->HoldVirtualKey(marioState->marioKeySet.Attack);
+		marioState->HoldVirtualKey(marioState->marioKeySet.Left);
+
+		if (marioState->GetTransform().Position.x <= 190)
+		{
+			marioState->ReleaseVirtualKey(marioState->marioKeySet.Left);
+			marioState->HoldVirtualKey(marioState->marioKeySet.Right);
+			mAct = 6;
+		}
+	}
+	break;
+	case 6:
+	{
+		if (marioState->GetTransform().Position.x >= 300)
+		{
+			marioState->ReleaseVirtualKey(marioState->marioKeySet.Right);
+			if (marioState->GetRigidbody()->GetVelocity().x < 0.2f)
+			{
+				marioState->ReleaseVirtualKey(marioState->marioKeySet.Attack);
+				mAct = 7;
+				mtimer = 0;
+			}
+		}
+	}
+	break;
+	case 7:
+	{
+		mtimer += dt;
+		if (mtimer > 2000)
+		{
+			mtimer = 0;
+			marioState->HoldVirtualKey(marioState->marioKeySet.Attack);
+			marioState->HoldVirtualKey(marioState->marioKeySet.Right);
+			mAct = 8;
+		}
+	}
+	break;
+	case 8:
+	{
+		if (marioState->GetTransform().Position.x > 824 + 32)
+		{
+			marioState->ReleaseVirtualKey(marioState->marioKeySet.Attack);
+			marioState->ReleaseVirtualKey(marioState->marioKeySet.Right);
+			mAct = 9;
 		}
 	}
 	break;

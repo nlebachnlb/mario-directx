@@ -98,8 +98,8 @@ void CMario::Update()
 #pragma region Horizontal Movement
 	auto curVelocity = velocity.x;
 	if (autoControl || 
-		(CanControl() && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))) || 
-		(CanControl() && (virtualKeyBinds.at(marioKeySet.Left) || virtualKeyBinds.at(marioKeySet.Right)))
+		(CanControl() && !controller->IsActing() && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))) || 
+		(CanControl() &&  controller->IsActing() && (virtualKeyBinds.at(marioKeySet.Left) || virtualKeyBinds.at(marioKeySet.Right)))
 		)
 	{
 		// Accelerate velocity based on moving states
@@ -855,7 +855,7 @@ void CMario::HoldProcess()
 
 	if (hold)
 	{
-		if (input->GetKeyDown(marioKeySet.Attack))
+		if (input->GetKeyDown(marioKeySet.Attack) || virtualKeyBinds.at(marioKeySet.Attack))
 		{
 			auto delta = 0.4f * (heldInHandsObject->GetColliderBox() + MARIO_BBOX);
 			heldInHandsObject->SetHoldablePosition(
