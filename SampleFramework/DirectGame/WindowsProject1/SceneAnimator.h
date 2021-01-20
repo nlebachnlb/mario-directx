@@ -13,11 +13,14 @@ public:
 
 private:
 	std::unordered_map<std::string, GameObject> objects;
-	Sprite sprites[4];
+	Sprite sprites[7];
 	int cutOrder;
 
 	int elapsedTime;
 
 	Vector2 curtainPos;
+	Texture2D mask;
+
+	float maskAlpha;
 };
 
