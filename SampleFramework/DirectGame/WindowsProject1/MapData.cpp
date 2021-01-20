@@ -66,6 +66,41 @@ MapData* MapData::FromTMX(std::string path)
     throw "An error occurred while loading file";
 }
 
+void MapData::IntegrateGridData(std::string path)
+{
+    OutputDebugStringW(ToLPCWSTR("Integrate: " + path + "\n"));
+    TiXmlDocument document(path.c_str());
+    if (document.LoadFile())
+    {
+        TiXmlElement* root = document.RootElement();
+
+        // Grid config
+        auto config = root->FirstChildElement("config");
+        config->QueryIntAttribute("cellwidth", &gridConfig.cellWidth);
+        config->QueryIntAttribute("cellheight", &gridConfig.cellHeight);
+        config->QueryIntAttribute("width", &gridConfig.width);
+        config->QueryIntAttribute("height", &gridConfig.height);
+
+        auto data = root->FirstChildElement("data");
+        // Grid data
+        for (auto group = data->FirstChildElement("group"); group != nullptr; group = group->NextSiblingElement("group"))
+        {
+            int id;
+            if (group->QueryIntAttribute("id", &id) == TIXML_SUCCESS)
+            {
+                DebugOut(L"-----Group: %d-----\n", id);
+                if (objectGroups->find(id) != objectGroups->end())
+                {
+                    auto g = objectGroups->at(id);
+                    g->IntegrateGridData(group);
+                    /*for (auto o : *g->GetObjects())
+                        totalObjects.insert(std::make_pair(o->id, o));*/
+                }
+            }
+        }
+    }
+}
+
 int MapData::GetTilesetIdFromTileId(int tileId)
 {
     int result = -1;
@@ -120,3 +155,9 @@ std::map<int, ObjectGroup*>* MapData::GetObjectGroups()
 {
     return this->objectGroups;
 }
+
+//Object* MapData::GetObjectFromID(int id)
+//{
+//    if (totalObjects.find(id) == totalObjects.end()) return nullptr;
+//    return totalObjects.at(id);
+//}

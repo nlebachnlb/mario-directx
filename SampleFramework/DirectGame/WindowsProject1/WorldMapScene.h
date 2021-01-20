@@ -5,6 +5,7 @@ class WorldMapScene : public Scene
 {
 public:
 	void Load() override;
+	void Init() override;
 
 	MarioLocator* GetMarioLocator();
 

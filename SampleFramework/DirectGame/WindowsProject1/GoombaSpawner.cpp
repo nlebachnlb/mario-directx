@@ -4,7 +4,7 @@
 #include "RedParagoomba.h"
 #include "Game.h"
 
-AbstractEnemy* GoombaSpawner::Spawn(std::string name, Vector2 position, bool reset)
+AbstractEnemy* GoombaSpawner::Spawn(std::string name, Vector2 position, bool reset, int cellx, int celly)
 {
 	auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 	if (scene == nullptr) return nullptr;
@@ -28,7 +28,7 @@ AbstractEnemy* GoombaSpawner::Spawn(std::string name, Vector2 position, bool res
 		enm->Start();
 		enm->OnEnabled();
 		enm->SetPool(pool);
-		// scene->GetGrid()->Insert(enm);
+		if (cellx != -1 && celly != -1) scene->GetGrid()->Insert(enm, cellx, celly);
 		return enm;
 	}
 	else

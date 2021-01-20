@@ -226,6 +226,9 @@
     <Filter Include="Framework\Game\SpatialPartition">
       <UniqueIdentifier>{6be6bf16-29af-415a-8db4-efeed810d253}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\Assets\Maps.meta">
+      <UniqueIdentifier>{c6799f33-4444-4239-8ad6-034d0c019159}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -1137,6 +1140,9 @@
     </Xml>
     <Xml Include="Assets\Scenes\World1-4.xml">
       <Filter>GameSource\Assets\Scenes</Filter>
+    </Xml>
+    <Xml Include="Assets\Maps.meta\world-1-1-grid.xml">
+      <Filter>GameSource\Assets\Maps.meta</Filter>
     </Xml>
   </ItemGroup>
 </Project>

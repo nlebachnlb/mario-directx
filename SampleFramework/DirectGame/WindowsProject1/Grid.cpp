@@ -8,8 +8,10 @@ Grid::Grid(GridConfig config)
 	activeList = new std::vector<GameObject>();
 
 	this->config = config;
-	widthInCells = Mathf::Ceil((float)config.width / (float)config.cellWidth);
-	heightInCells = Mathf::Ceil((float)config.height / (float)config.cellHeight);
+	/*widthInCells = Mathf::Ceil((float)config.width / (float)config.cellWidth);
+	heightInCells = Mathf::Ceil((float)config.height / (float)config.cellHeight);*/
+	widthInCells = config.width;
+	heightInCells = config.height;
 
 	for (int x = 0; x < widthInCells; ++x)
 	{
@@ -93,11 +95,13 @@ void Grid::Insert(GameObject object)
 {
 	int x = (int)(object->GetTransform().Position.x / config.cellWidth);
 	int y = (int)(object->GetTransform().Position.y / config.cellHeight);
+	//DebugOut(L"Insert at cell: %d, %d\n", x, y);
 	Insert(object, x, y);
 }
 
 void Grid::Remove(GameObject object)
 {
+	object->SetInGrid(false);
 	int x = (int)(object->GetTransform().Position.x / config.cellWidth);
 	int y = (int)(object->GetTransform().Position.y / config.cellHeight);
 	Cell* cell = GetCell(x, y);
@@ -113,9 +117,11 @@ void Grid::Insert(GameObject object, Index cellIndex)
 
 void Grid::Insert(GameObject object, int x, int y)
 {
+	object->SetInGrid(true);
 	Cell* cell = GetCell(x, y);
 	object->SetCell(cell);
 	cell->Insert(object);
+	DebugOut(L"Insert: %d, %d\n", x, y);
 }
 
 void Grid::Update(RectF& rect)

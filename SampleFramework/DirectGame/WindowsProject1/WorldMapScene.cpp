@@ -33,7 +33,8 @@ void WorldMapScene::Load()
 			auto source = element->Attribute("source");
 
 			auto gameMap = Game::GetInstance().GetService<GameMap>();
-			gameMap->Load(source, true);
+			gameMap->LoadMapData(source);
+			gameMap->Load();
 
 			auto mapObjects = gameMap->GetGameObjects();
 			for (auto obj : mapObjects)
@@ -80,12 +81,16 @@ void WorldMapScene::Load()
 	mainCamera->SetRenderOffset(Vector2(28, 0));
 	DebugOut(L"WORLD: %f, %f\n", mainCamera->GetPosition().x, mainCamera->GetPosition().y);
 
+	auto mainCanvas = dynamic_cast<MainCanvas*>(Canvas::GetCanvas("main"));
+	if (mainCanvas != nullptr) mainCanvas->WorldIntro();
+}
+
+void WorldMapScene::Init()
+{
+	Scene::Init();
 	auto data = Game::GetInstance().GetData();
 	objMario->SetCurrentNode(data->GetWorldMapTempData().currentNodeID);
 	objMario->SetActive(true);
-
-	auto mainCanvas = dynamic_cast<MainCanvas*>(Canvas::GetCanvas("main"));
-	if (mainCanvas != nullptr) mainCanvas->WorldIntro();
 }
 
 MarioLocator* WorldMapScene::GetMarioLocator()

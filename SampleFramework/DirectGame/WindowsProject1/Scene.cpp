@@ -49,13 +49,51 @@ void Scene::Load()
 		if (name.compare("Map") == 0)
 		{
 			auto source = element->Attribute("source");
+			auto meta = element->Attribute("meta");
 
 			auto gameMap = Game::GetInstance().GetService<GameMap>();
-			gameMap->Load(source, true);
 
-			auto mapObjects = gameMap->GetGameObjects();
-			for (auto obj : mapObjects)
-				AddObject(obj);
+			if (meta != nullptr)
+			{
+				gameMap->LoadMapData(source, meta);
+				gameMap->Load();
+
+				// Init grid
+				if (needSpatialPartition)
+				{
+					auto gameMap = Game::GetInstance().GetService<GameMap>();
+					auto config = gameMap->GetMapData()->gridConfig;
+					// DebugOut(L"Grid config: %d, %d, %d, %d\n", config.cellWidth, config.cellHeight, config.width, config.height);
+					grid = new Grid(config);
+				}
+			}
+			else
+			{
+				gameMap->LoadMapData(source);
+				gameMap->Load();
+			}
+
+			/*auto mapObjects = gameMap->GetGameObjects();
+			auto objectIDs = gameMap->GetIDs();
+			int size = objectIDs.size();
+			for (int i = 0; i < size; ++i)
+				AddObject(mapObjects.at(i));
+
+			if (needSpatialPartition)
+			{
+				for (int i = 0; i < size; ++i)
+				{
+					auto dataObject = gameMap->GetMapData()->GetObjectFromID(objectIDs.at(i));
+
+					if (dataObject != nullptr)
+					{
+						int cellx = dataObject->cellx;
+						int celly = dataObject->celly;
+						grid->Insert(mapObjects.at(i), cellx, celly);
+					}
+				}
+			}
+			*/
 		}
 		else if (name.compare("Player") == 0)
 		{
@@ -121,34 +159,25 @@ void Scene::Load()
 			SetMainCamera(camera);
 		}
 	}
-	std::sort(objects->begin(), objects->end(), Scene::Comparator);
-
-	loaded = true;
+	// std::sort(objects->begin(), objects->end(), Scene::Comparator);
 }
 
 void Scene::Init()
 {
 	auto gmap = Game::GetInstance().GetService<GameMap>();
-	auto spawner = gmap->GetSpawnerManager();
+	//auto spawner = gmap->GetSpawnerManager();
 
-	// Init grid
-	if (needSpatialPartition)
+	if (gmap != nullptr)
 	{
-		GridConfig gridConfig;
-		auto gameConfig = Game::GetInstance().GetGlobalConfigs();
-		auto gameMap = Game::GetInstance().GetService<GameMap>();
-		gridConfig.cellWidth = gameConfig.screenWidth >> 1;
-		gridConfig.cellHeight = gameConfig.screenHeight >> 1;
-		gridConfig.width = gameMap->GetMapWidth();
-		gridConfig.height = gameMap->GetMapHeight();
-		grid = new Grid(gridConfig);
+		gmap->LoadEnvironment();
+		gmap->LoadEnemy();
 	}
 
-	if (gmap != nullptr) gmap->LoadEnemy();
-
-	ProcessInstantiateRequests();
+	loaded = true;
+	ProcessInstantiateRequests(true);
 	for (auto o : *objects)
 		o->OnEnabled();
+
 #pragma region Debug Logs
 	/*
 	DebugOut(L"\n");
@@ -249,7 +278,7 @@ void Scene::CleanDestroyedObjects()
 	}
 }
 
-void Scene::ProcessInstantiateRequests()
+void Scene::ProcessInstantiateRequests(bool init)
 {
 	if (loaded == false) return;
 
@@ -263,8 +292,11 @@ void Scene::ProcessInstantiateRequests()
 			{
 				if (o->IsGlobal())
 					o->SetInGrid(false), globalObjects.push_back(o);
-				else 
-					o->SetInGrid(true), grid->Insert(o);
+				else
+				{
+					o->SetInGrid(true);
+					if (!init) grid->Insert(o);
+				}
 			}
 			else o->SetInGrid(false);
 		}
