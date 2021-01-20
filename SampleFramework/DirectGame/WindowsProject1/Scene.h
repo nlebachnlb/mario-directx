@@ -19,7 +19,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 	void CleanDestroyedObjects();
-	void ProcessInstantiateRequests();
+	void ProcessInstantiateRequests(bool init = false);
 	void UpdateActiveObjects();
 
 	void SetFilePath(std::string path);

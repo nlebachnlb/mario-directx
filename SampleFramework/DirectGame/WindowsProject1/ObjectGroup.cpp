@@ -4,6 +4,7 @@
 ObjectGroup::ObjectGroup()
 {
     objects = new std::vector<Object*>();
+    objectDictionary = new std::unordered_map<int, Object*>();
 }
 
 ObjectGroup::~ObjectGroup()
@@ -11,6 +12,7 @@ ObjectGroup::~ObjectGroup()
     for (auto object : *objects)
         delete object;
     delete objects;
+    delete objectDictionary;
 }
 
 ObjectGroup* ObjectGroup::FromXMLData(TiXmlElement* data)
@@ -51,10 +53,30 @@ ObjectGroup* ObjectGroup::FromXMLData(TiXmlElement* data)
             }
         }
 
+        object->cellx = object->celly = -1;
         objectGroup->objects->push_back(object);
+        objectGroup->objectDictionary->insert(std::make_pair(object->id, object));
     }
 
     return objectGroup;
+}
+
+void ObjectGroup::IntegrateGridData(TiXmlElement* data)
+{
+    for (auto object = data->FirstChildElement("object"); object != nullptr; object = object->NextSiblingElement("object"))
+    {
+        int id;
+        if (object->QueryIntAttribute("id", &id) == TIXML_SUCCESS)
+        {
+            if (objectDictionary->find(id) != objectDictionary->end())
+            {
+                auto o = objectDictionary->at(id);
+                object->QueryIntAttribute("cellx", &o->cellx);
+                object->QueryIntAttribute("celly", &o->celly);
+                DebugOut(L"object cell: %d, %d\n", o->cellx, o->celly);
+            }
+        }
+    }
 }
 
 std::string ObjectGroup::GetName()

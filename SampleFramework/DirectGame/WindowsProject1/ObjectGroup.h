@@ -12,6 +12,8 @@ struct Object
 	std::unordered_map<std::string, std::string> properties;
 
 	std::string GetPropertyValue(std::string propertyName);
+
+	int cellx, celly;
 };
 
 class ObjectGroup
@@ -21,6 +23,7 @@ public:
 	~ObjectGroup();
 	
 	static ObjectGroup* FromXMLData(TiXmlElement* data);
+	void IntegrateGridData(TiXmlElement* data);
 
 	std::string GetName();
 	int GetID();
@@ -30,5 +33,6 @@ private:
 	int id;
 	std::string name;
 	std::vector<Object*>* objects;
+	std::unordered_map<int, Object*>* objectDictionary;
 };
 

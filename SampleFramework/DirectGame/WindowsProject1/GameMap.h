@@ -19,13 +19,17 @@ class GameMap : public Service
 public:
 	GameMap();
 	GameMap(std::string filePath);
-	void Load(std::string filePath = "", bool manual = true);
+	void LoadMapData(std::string filePath = "", std::string metaPath = "");
+	void Load();
 	void Unload();
+
+	void LoadEnvironment();
 	void LoadEnemy();
 
 	void Initialization() override;
 	MapData* GetMapData();
 	std::vector<GameObject> GetGameObjects();
+	std::vector<int> GetIDs();
 
 	Tile GetTileset(int id);
 	Tile GetPipeTileset();
@@ -45,6 +49,7 @@ private:
 	std::unordered_map<int, Tile> tilesets;
 	std::vector<Texture2D> textures;
 	std::vector<GameObject> gameObjects;
+	std::vector<int> objectIDs;
 	SpawnerManager* spawnerManager;
 };
 #endif

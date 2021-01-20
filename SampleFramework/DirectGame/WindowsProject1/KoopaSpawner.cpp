@@ -46,7 +46,7 @@ KoopasShell* KoopaSpawner::InstantiateShell(Vector2 position, KoopasShellType sh
 	return shell;
 }
 
-AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool reset)
+AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool reset, int cellx, int celly)
 {
 	auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
 	if (scene == nullptr) return nullptr;
@@ -72,7 +72,7 @@ AbstractEnemy* KoopaSpawner::Spawn(std::string name, Vector2 position, bool rese
 		enm->Start();
 		enm->OnEnabled();
 		enm->SetPool(pool);
-		// scene->GetGrid()->Insert(enm);
+		if (cellx != -1 && celly != -1) scene->GetGrid()->Insert(enm, cellx, celly);
 		return enm;
 	}
 	else

@@ -7,6 +7,7 @@
 
 void MarioFireball::Awake()
 {
+	global = true;
 	DebugOut(L"Fireball Awake\n");
 	SetTag(ObjectTags::FriendlyProjectiles);
 

@@ -4,6 +4,7 @@
 
 void VenusFireball::Awake()
 {
+	global = true;
 	SetTag(ObjectTags::HostileProjectiles);
 
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();

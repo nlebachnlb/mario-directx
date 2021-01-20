@@ -171,6 +171,11 @@ void CGameObject::Initialize()
 	this->enabled = true;
 }
 
+int CGameObject::GetID()
+{
+	return id;
+}
+
 Transform& CGameObject::GetTransform()
 {
 	return *transform;

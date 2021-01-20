@@ -28,7 +28,7 @@ public:
 	virtual ~AbstractSpawner();
 
 	virtual void Initialization() override;
-	virtual AbstractEnemy* Spawn(std::string name, Vector2 position, bool reset = true) = 0;
+	virtual AbstractEnemy* Spawn(std::string name, Vector2 position, bool reset = true, int cellx = -1, int celly = -1) = 0;
 	SpawnPrototype* GetPrototypeAt(int id);
 	void AddPrototype(int, SpawnPrototype* prototype);
 	ObjectPool* GetPool(std::string name);

@@ -41,7 +41,7 @@ void AbstractEnemy::LateUpdate()
 void AbstractEnemy::OnEnabled()
 {
 	if (player == nullptr) player = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player, true);
-	direction = player == nullptr ? (Random::Range(0, 100) < 50 ? 1 : -1) : Mathf::Sign(player->GetTransform().Position.x - transform->Position.x);
+	direction = player == nullptr ? -1 : Mathf::Sign(player->GetTransform().Position.x - transform->Position.x);
 	// DebugOut(L"Enemy: %d\n", direction);
 }
 

@@ -68,6 +68,8 @@ public:
 
 	virtual void Initialize();
 
+	int GetID();
+
 	Transform& GetTransform();
 	void SetPosition(Vector2 position);
 	void SetScale(Vector2 scale);

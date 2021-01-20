@@ -39,10 +39,16 @@ GameMap::GameMap(std::string filePath)
 	this->filePath = filePath;
 }
 
-void GameMap::Load(std::string filePath, bool manual)
+void GameMap::LoadMapData(std::string filePath, std::string metaPath)
 {
     mapData = MapData::FromTMX(filePath);
 
+    // Integrate grid data
+    if (!metaPath.empty()) mapData->IntegrateGridData(metaPath);
+}
+
+void GameMap::Load()
+{
     if (spawnerManager == nullptr) spawnerManager = new SpawnerManager();
     spawnerManager->ClearServices();
 
@@ -74,7 +80,36 @@ void GameMap::Load(std::string filePath, bool manual)
         texManager->GetTexture(TEXTURE_PIPE)
     );
     this->tilesets.insert(make_pair(PIPE_TILESET_ID, tile));
+    return;
+}
 
+void GameMap::Unload()
+{
+    for (auto x : tilesets)
+    {
+        delete x.second;
+        x.second = nullptr;
+    }
+    tilesets.clear();
+
+    for (auto texture : textures)
+    {
+        texture->Release();
+        texture = nullptr;
+    }
+    textures.clear();
+
+    if (mapData != nullptr) delete mapData;
+    mapData = nullptr;
+    if (spawnerManager != nullptr) spawnerManager->ClearServices();
+
+    gameObjects.clear();
+}
+
+void GameMap::LoadEnvironment()
+{
+    if (mapData == nullptr) return;
+    auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
     auto objectGroups = mapData->GetObjectGroups();
     // Load game objects
     gameObjects.clear();
@@ -96,7 +131,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 solid->SetPosition(position + (size / 2.0f));
                 solid->GetColliders()->at(0)->SetBoxSize(size);
                 this->gameObjects.push_back(solid);
-
+                this->objectIDs.push_back(objects->at(i)->id);
                 auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
                 // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
             }
@@ -142,6 +177,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 pipe->SetTileset(GetPipeTileset());
 
                 this->gameObjects.push_back(pipe);
+                this->objectIDs.push_back(objects->at(i)->id);
             }
         }
 
@@ -156,6 +192,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 solid->SetPosition(position + (size / 2.0f));
                 solid->GetColliders()->at(0)->SetBoxSize(size);
                 this->gameObjects.push_back(solid);
+                this->objectIDs.push_back(objects->at(i)->id);
 
                 auto boxSize = solid->GetColliders()->at(0)->GetBoxSize();
                 // DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
@@ -178,14 +215,22 @@ void GameMap::Load(std::string filePath, bool manual)
                     warp->GetColliders()->at(0)->SetBoxSize(size);
 
                     WarpDirection wDir =
-                        type.compare("down") == 0   ? WarpDirection::Down   :
-                        (type.compare("up") == 0    ? WarpDirection::Up     :
-                        (type.compare("left") == 0  ? WarpDirection::Left   :
-                        (type.compare("right") == 0 ? WarpDirection::Right  :
-                                                      WarpDirection::None)));
+                        type.compare("down") == 0 ? WarpDirection::Down :
+                        (type.compare("up") == 0 ? WarpDirection::Up :
+                            (type.compare("left") == 0 ? WarpDirection::Left :
+                                (type.compare("right") == 0 ? WarpDirection::Right :
+                                    WarpDirection::None)));
 
                     warp->SetWarpDirection(wDir);
                     this->gameObjects.push_back(warp);
+                    this->objectIDs.push_back(objects->at(i)->id);
+
+                    int cellx = objects->at(i)->cellx;
+                    int celly = objects->at(i)->celly;
+                    if (scene->GetGrid() != nullptr && cellx != -1 && celly != -1)
+                    {
+                        scene->GetGrid()->Insert(warp, cellx, celly);
+                    }
                 }
                 else if (name.compare("warp-mark") == 0)
                 {
@@ -208,6 +253,14 @@ void GameMap::Load(std::string filePath, bool manual)
 
                     warp->SetWarpInfo(boundId, Vector2(dstX, dstY), oDir, lock == 1 ? true : false);
                     this->gameObjects.push_back(warp);
+                    this->objectIDs.push_back(objects->at(i)->id);
+
+                    int cellx = objects->at(i)->cellx;
+                    int celly = objects->at(i)->celly;
+                    if (scene->GetGrid() != nullptr && cellx != -1 && celly != -1)
+                    {
+                        scene->GetGrid()->Insert(warp, cellx, celly);
+                    }
                 }
             }
         }
@@ -223,6 +276,14 @@ void GameMap::Load(std::string filePath, bool manual)
                 QuestionBlock* solid = Instantiate<QuestionBlock>();
                 solid->SetPosition(position);
                 this->gameObjects.push_back(solid);
+                this->objectIDs.push_back(objects->at(i)->id);
+
+                int cellx = objects->at(i)->cellx;
+                int celly = objects->at(i)->celly;
+                if (scene->GetGrid() != nullptr && cellx != -1 && celly != -1)
+                {
+                    scene->GetGrid()->Insert(solid, cellx, celly);
+                }
 
                 if (name.compare("bcoin") == 0)
                     solid->SetItem({ ItemTags::Coin, type });
@@ -267,11 +328,19 @@ void GameMap::Load(std::string filePath, bool manual)
                     else if (name.compare("b1up-mushroom") == 0)
                         itemBrick->SetItem({ ItemTags::Green1UP, type });
                 }
-                else 
+                else
                     solid = Instantiate<Brick>();
 
                 solid->SetPosition(position);
                 this->gameObjects.push_back(solid);
+                this->objectIDs.push_back(objects->at(i)->id);
+
+                int cellx = objects->at(i)->cellx;
+                int celly = objects->at(i)->celly;
+                if (scene->GetGrid() != nullptr && cellx != -1 && celly != -1)
+                {
+                    scene->GetGrid()->Insert(solid, cellx, celly);
+                }
             }
         }
 
@@ -283,6 +352,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 Vector2 position(objects->at(i)->x, objects->at(i)->y);
                 auto type = objects->at(i)->type;
 
+                GameObject object = nullptr;
                 if (name.compare("coin") == 0)
                 {
                     if (type.compare("basic") == 0)
@@ -291,6 +361,8 @@ void GameMap::Load(std::string filePath, bool manual)
                         auto coin = Instantiate<Coin>();
                         coin->SetPosition(position);
                         this->gameObjects.push_back(coin);
+                        this->objectIDs.push_back(oid);
+                        object = coin;
                     }
                 }
                 else if (name.compare("reward") == 0)
@@ -298,6 +370,18 @@ void GameMap::Load(std::string filePath, bool manual)
                     auto reward = Instantiate<LevelReward>();
                     reward->SetPosition(position);
                     this->gameObjects.push_back(reward);
+                    this->objectIDs.push_back(objects->at(i)->id);
+                    object = reward;
+                }
+
+                if (object != nullptr)
+                {
+                    int cellx = objects->at(i)->cellx;
+                    int celly = objects->at(i)->celly;
+                    if (scene->GetGrid() != nullptr && cellx != -1 && celly != -1)
+                    {
+                        scene->GetGrid()->Insert(object, cellx, celly);
+                    }
                 }
             }
         }
@@ -322,6 +406,14 @@ void GameMap::Load(std::string filePath, bool manual)
                         obj->SetStartVelocity(Vector2(startVelX, startVelY));
                         obj->GetRigidbody()->SetVelocity(&Vector2(startVelX, startVelY));
                         this->gameObjects.push_back(obj);
+                        this->objectIDs.push_back(oid);
+
+                        int cellx = objects->at(i)->cellx;
+                        int celly = objects->at(i)->celly;
+                        if (scene->GetGrid() != nullptr && cellx != -1 && celly != -1)
+                        {
+                            scene->GetGrid()->Insert(obj, cellx, celly);
+                        }
                     }
                 }
             }
@@ -344,6 +436,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 {
                     obj->SetPosition(position);
                     this->gameObjects.push_back(obj);
+                    this->objectIDs.push_back(objects->at(i)->id);
                 }
             }
         }
@@ -371,7 +464,7 @@ void GameMap::Load(std::string filePath, bool manual)
                 {
                     auto id = stoi(adj[i]);
                     Edge edge;
-                    edge.nodeID = id; 
+                    edge.nodeID = id;
                     Weight w = Weight::None;
                     if (weight[i].compare("l") == 0) w = Weight::Left;
                     else if (weight[i].compare("r") == 0) w = Weight::Right;
@@ -390,6 +483,7 @@ void GameMap::Load(std::string filePath, bool manual)
                     gate->SetNumber(number);
                     gate->SetPosition(position);
                     this->gameObjects.push_back(gate);
+                    this->objectIDs.push_back(objects->at(i)->id);
                 }
                 else if (type.at(0).compare("bonus") == 0)
                 {
@@ -399,6 +493,7 @@ void GameMap::Load(std::string filePath, bool manual)
                         gate->SetNumber(7);
                         gate->SetPosition(position);
                         this->gameObjects.push_back(gate);
+                        this->objectIDs.push_back(objects->at(i)->id);
                     }
                 }
             }
@@ -416,30 +511,7 @@ void GameMap::Load(std::string filePath, bool manual)
 #pragma endregion
     }
 
-    return;
-}
-
-void GameMap::Unload()
-{
-    for (auto x : tilesets)
-    {
-        delete x.second;
-        x.second = nullptr;
-    }
-    tilesets.clear();
-
-    for (auto texture : textures)
-    {
-        texture->Release();
-        texture = nullptr;
-    }
-    textures.clear();
-
-    if (mapData != nullptr) delete mapData;
-    mapData = nullptr;
-    if (spawnerManager != nullptr) spawnerManager->ClearServices();
-
-    gameObjects.clear();
+    for (auto o : gameObjects) scene->AddObject(o);
 }
 
 void GameMap::LoadEnemy()
@@ -460,6 +532,9 @@ void GameMap::LoadEnemy()
                 Vector2 position(objects->at(i)->x, objects->at(i)->y);
                 auto type = objects->at(i)->type;
 
+                int cellx = objects->at(i)->cellx;
+                int celly = objects->at(i)->celly;
+
                 if (name.compare("goomba") == 0)
                 {
                     auto goombaSpawner = spawnerManager->GetService<GoombaSpawner>();
@@ -472,10 +547,10 @@ void GameMap::LoadEnemy()
                     if (type.compare("basic") == 0)
                     {
                         auto oid = objects->at(i)->id;
-                        goombaSpawner->Spawn("enm-tan-goomba", position);
+                        goombaSpawner->Spawn("enm-tan-goomba", position, true, cellx, celly);
                     }
                     else if (type.compare("red-para") == 0)
-                        goombaSpawner->Spawn("enm-red-para-goomba", position);
+                        goombaSpawner->Spawn("enm-red-para-goomba", position, true, cellx, celly);
                 }
                 else if (name.compare("koopa") == 0)
                 {
@@ -488,14 +563,14 @@ void GameMap::LoadEnemy()
 
                     AbstractEnemy* koopa = nullptr;
                     if (type.compare("red") == 0)
-                        koopa = koopaSpawner->Spawn("enm-red-koopa", position);
+                        koopa = koopaSpawner->Spawn("enm-red-koopa", position, true, cellx, celly);
                     else if (type.compare("green") == 0)
-                        koopa = koopaSpawner->Spawn("enm-green-koopa", position);
+                        koopa = koopaSpawner->Spawn("enm-green-koopa", position, true, cellx, celly);
                     else if (type.compare("green-para") == 0)
-                        koopa = koopaSpawner->Spawn("enm-green-para-koopa", position);
+                        koopa = koopaSpawner->Spawn("enm-green-para-koopa", position, true, cellx, celly);
                     else if (type.compare("red-para") == 0)
                     {
-                        koopa = koopaSpawner->Spawn("enm-red-para-koopa", position);
+                        koopa = koopaSpawner->Spawn("enm-red-para-koopa", position, true, cellx, celly);
                         RedKoopaParatroopa* para = static_cast<RedKoopaParatroopa*>(koopa);
                         int x = stoi(objects->at(i)->GetPropertyValue("amplitude-x"));
                         int y = stoi(objects->at(i)->GetPropertyValue("amplitude-y"));
@@ -507,14 +582,14 @@ void GameMap::LoadEnemy()
                         para->SetRoundtripTime(t);
                     }
 
-                    if (koopa != nullptr)
-                    {
-                        auto oid = objects->at(i)->id;
-                        /*koopa->SetPosition(position);
-                        koopa->SetPool(koopaSpawner->GetPool());
-                        koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
-                        this->gameObjects.push_back(koopa);*/
-                    }
+                    //if (koopa != nullptr)
+                    //{
+                    //    auto oid = objects->at(i)->id;
+                    //    /*koopa->SetPosition(position);
+                    //    koopa->SetPool(koopaSpawner->GetPool());
+                    //    koopaSpawner->AddPrototype(oid, new SpawnPrototype(position, koopa));
+                    //    this->gameObjects.push_back(koopa);*/
+                    //}
                 }
                 else if (name.compare("piranha-plant") == 0)
                 {
@@ -526,7 +601,7 @@ void GameMap::LoadEnemy()
                     }
 
                     if (type.compare("green") == 0)
-                        plantSpawner->Spawn("enm-green-piranha-plant", position);
+                        plantSpawner->Spawn("enm-green-piranha-plant", position, true, cellx, celly);
                 }
                 else if (name.compare("venus-fire-trap") == 0)
                 {
@@ -540,7 +615,7 @@ void GameMap::LoadEnemy()
                     VenusFireTrap* venus = nullptr;
                     if (type.compare("red") == 0 || type.compare("green") == 0)
                     {
-                        venus = static_cast<VenusFireTrap*>(plantSpawner->Spawn("enm-" + type + "-venus-fire-trap", position));
+                        venus = static_cast<VenusFireTrap*>(plantSpawner->Spawn("enm-" + type + "-venus-fire-trap", position, true, cellx, celly));
                     }
                 }
             }
@@ -561,6 +636,11 @@ MapData* GameMap::GetMapData()
 std::vector<GameObject> GameMap::GetGameObjects()
 {
     return this->gameObjects;
+}
+
+std::vector<int> GameMap::GetIDs()
+{
+    return objectIDs;
 }
 
 Tile GameMap::GetTileset(int id)
