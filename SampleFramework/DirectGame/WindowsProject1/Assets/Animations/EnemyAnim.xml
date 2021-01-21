@@ -226,7 +226,7 @@
     </Animation>
 
     <!--Boomerang-->
-    <Animation aniId="ani-boomerang-spin" frameTime="100">
+    <Animation aniId="ani-boomerang-spin" frameTime="70">
       <Sprite id="spr-boomerang-spin-0" left="124" top="166"  width="15" height="16"/>
       <Sprite id="spr-boomerang-spin-1" left="144" top="166"  width="16" height="15"/>
       <Sprite id="spr-boomerang-spin-2" left="145" top="186"  width="16" height="15"/>

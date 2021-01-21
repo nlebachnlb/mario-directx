@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "SolidBox.h"
 #include "GhostPlatform.h"
+#include "BoomerangBrother.h"
 #include "Goomba.h"
 #include "GoombaSpawner.h"
 #include "RedKoopasShell.h"
@@ -618,6 +619,18 @@ void GameMap::LoadEnemy()
                     {
                         venus = static_cast<VenusFireTrap*>(plantSpawner->Spawn("enm-" + type + "-venus-fire-trap", position, true, cellx, celly));
                     }
+                }
+                else if (name.compare("boomerang-brother") == 0)
+                {
+                    auto koopaSpawner = spawnerManager->GetService<KoopaSpawner>();
+                    if (koopaSpawner == nullptr)
+                    {
+                        koopaSpawner = new KoopaSpawner();
+                        spawnerManager->AddService(koopaSpawner);
+                    }
+
+                    auto boomerangBro = static_cast<BoomerangBrother*>(koopaSpawner->Spawn("enm-boomerang-brother", position, true, cellx, celly));
+                    boomerangBro->startPosition = position;
                 }
             }
         }

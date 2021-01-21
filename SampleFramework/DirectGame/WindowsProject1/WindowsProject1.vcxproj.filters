@@ -238,6 +238,9 @@
     <Filter Include="GameSource\GameObjects\IntroScene">
       <UniqueIdentifier>{a5666f8c-faad-405d-b1aa-7fe5b93cce4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\GameObjects\Enemies\Brothers">
+      <UniqueIdentifier>{af2ef41e-3dc8-4710-a5c0-1076b0115ede}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -659,6 +662,9 @@
     </ClInclude>
     <ClInclude Include="IntroMarioController.h">
       <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangBrother.h">
+      <Filter>GameSource\GameObjects\Enemies\Brothers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1100,6 +1106,9 @@
     </ClCompile>
     <ClCompile Include="IntroMarioController.cpp">
       <Filter>GameSource\GameObjects\IntroScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangBrother.cpp">
+      <Filter>GameSource\GameObjects\Enemies\Brothers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

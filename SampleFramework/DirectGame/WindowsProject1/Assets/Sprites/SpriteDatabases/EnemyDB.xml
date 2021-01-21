@@ -55,8 +55,8 @@
     <Sprite id="spr-hammer-brother-attack-1" left="179" top="202"  width="16" height="24"/>
     <Sprite id="spr-boomerang-spin-0" left="124" top="166"  width="15" height="16"/>
     <Sprite id="spr-boomerang-spin-1" left="144" top="166"  width="16" height="15"/>
-    <Sprite id="spr-boomerang-spin-2" left="145" top="186"  width="16" height="15"/>
-    <Sprite id="spr-boomerang-spin-3" left="124" top="188"  width="15" height="16"/>
+    <Sprite id="spr-boomerang-spin-3" left="145" top="186"  width="16" height="15"/>
+    <Sprite id="spr-boomerang-spin-2" left="124" top="188"  width="15" height="16"/>
     <Sprite id="spr-hammer-0" left="203" top="121"  width="14" height="16"/>
     <Sprite id="spr-hammer-1" left="229" top="121"  width="16" height="14"/>
     <Sprite id="spr-hammer-2" left="229" top="149"  width="14" height="16"/>
