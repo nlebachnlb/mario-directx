@@ -51,6 +51,7 @@ public:
 	bool IsSwitchTime();
 	void SwitchCoinBrick(bool freeze = false);
 	void StartSwitchTimer();
+	bool IsIngame();
 
 	bool IsDialogOpening();
 	void OpenWorldDialog();
@@ -87,7 +88,7 @@ private:
 	PlayerController* player;
 
 	#pragma region HUD
-	Text* courseClear, *reward;
+	Text* courseClear, *reward, *pause;
 	int finishStep, finishTimer;
 	int card;
 	Sprite cardVisuals[3];

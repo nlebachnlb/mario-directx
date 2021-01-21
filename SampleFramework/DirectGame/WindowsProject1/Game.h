@@ -22,7 +22,7 @@ class Game : public ServiceLocator
 {
 public:
 	static void SetTimeScale(float time) { Game::timeScale = time; }
-	static float GetTimeScale() { return timeScale; }
+	static float GetTimeScale() { return timeScale * pause; }
 	static Game& GetInstance();
 	static DWORD DeltaTime();
 	static DWORD FixedDeltaTime();
@@ -48,6 +48,9 @@ public:
 	void Render();
 	void Clean();
 
+	void Pause();
+	bool IsPaused();
+
 	void SetClearColor(D3DXCOLOR color);
 
 	LPDIRECT3DDEVICE9 GetD3DDevice() { return d3ddev; }
@@ -70,6 +73,7 @@ private:
 	static Game* instance;
 	static DWORD deltaTime;
 	static float timeScale;
+	static int pause;
 
 	D3DXCOLOR clearColor;
 

@@ -28,13 +28,16 @@ void MainCanvas::Awake()
 
 	courseClear = new Text();
 	reward = new Text();
+	pause = new Text();
 
 	auto font = Game::GetInstance().GetGlobalFont();
 	courseClear->SetFont(font);
 	reward->SetFont(font);
+	pause->SetFont(font);
 
 	courseClear->SetSpacing(0);
 	reward->SetSpacing(0);
+	pause->SetSpacing(0);
 
 	/*AddUIElement(courseClear);
 	AddUIElement(reward);*/
@@ -59,9 +62,11 @@ void MainCanvas::Start()
 
 	courseClear->SetPosition(Vector2(240, 120));
 	reward->SetPosition(Vector2(200, 192));
+	pause->SetPosition(Vector2(412 - 48, 384));
 
 	courseClear->SetContent("");
 	reward->SetContent("");
+	pause->SetContent("");
 
 	auto config = Game::GetInstance().GetGlobalConfigs();
 	worldDialog->SetPosition(Vector2(config.screenWidth * 0.5f - 192, config.screenHeight * 0.5f - 96 - 96));
@@ -76,6 +81,12 @@ void MainCanvas::Start()
 void MainCanvas::Update()
 {
 	// DebugOut(L"GAME STATE %d\n", gameState == GameState::Unload ? 1 : 0);
+	if (Game::GetInstance().IsPaused() && IsIngame())
+	{
+		if (pause->GetContent().empty()) pause->SetContent("PAUSED");
+	}
+	else if (!pause->GetContent().empty()) pause->SetContent("");
+
 	switch (gameState)
 	{
 	case GameState::Run:
@@ -160,6 +171,7 @@ void MainCanvas::Render()
 			auto conf = Game::GetInstance().GetGlobalConfigs();
 			Game::GetInstance().DrawTexture(0, 0, 0, 0, mask, 0, 0, conf.screenWidth, conf.screenHeight, (int)alpha);
 		}
+		pause->Render();
 	}
 	break;
 	case GameState::Ready:
@@ -319,6 +331,11 @@ void MainCanvas::StartSwitchTimer()
 {
 	pSwitchTimer = PSWITCH_TIME;
 	timeFreeze = true;
+}
+
+bool MainCanvas::IsIngame()
+{
+	return this->gameState == GameState::Run;
 }
 
 bool MainCanvas::IsDialogOpening()

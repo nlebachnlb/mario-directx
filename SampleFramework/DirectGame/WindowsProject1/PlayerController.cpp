@@ -88,6 +88,9 @@ void PlayerController::Update()
 
 void PlayerController::OnKeyDown(int keyCode)
 {
+	if (keyCode == DIK_RETURN)
+		Game::GetInstance().Pause();
+
 	if (keyCode == DIK_1)
 		SwitchToState("SmallMario");
 	else if (keyCode == DIK_2)

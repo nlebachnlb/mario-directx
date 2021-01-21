@@ -15,6 +15,7 @@
 
 Game* Game::instance = nullptr;
 DWORD Game::deltaTime = 0;
+int Game::pause = 1;
 float Game::timeScale = 1.0f;
 
 Game& Game::GetInstance()
@@ -25,7 +26,7 @@ Game& Game::GetInstance()
 
 DWORD Game::DeltaTime()
 {
-	return deltaTime;
+	return deltaTime * pause;
 }
 
 DWORD Game::FixedDeltaTime()
@@ -355,6 +356,16 @@ void Game::Clean()
 
 	if (activeScene != nullptr)
 		activeScene->CleanDestroyedObjects();
+}
+
+void Game::Pause()
+{
+	pause = 1 - pause;
+}
+
+bool Game::IsPaused()
+{
+	return pause == 0;
 }
 
 void Game::SetClearColor(D3DXCOLOR color)

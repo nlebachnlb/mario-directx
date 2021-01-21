@@ -228,7 +228,7 @@ void CMario::PreRender()
 		visualAlpha = 255;
 
 	if (!currentState.empty()) 
-		animations.at(currentState)->SetAlpha(visualAlpha);
+		animations.at(currentState)->SetAlpha(Game::GetInstance().IsPaused() ? 0 : visualAlpha);
 
 	if (warp)
 		WarpAnimation();
