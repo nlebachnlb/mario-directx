@@ -74,6 +74,7 @@ public:
 	void SetPosition(Vector2 position);
 	void SetScale(Vector2 scale);
 	void SetRotation(float rotation, RotationUnits unit = Degree);
+	void SetRenderOrder(int value);
 	int  GetRenderOrder();
 	bool IsOffScreen();
 	void SetOffScreen(bool value);

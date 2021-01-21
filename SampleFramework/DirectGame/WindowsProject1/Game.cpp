@@ -454,10 +454,15 @@ void Game::ModifyData(int world, int score, int life, int coin)
 void Game::GainComboChain(Vector2 position)
 {
 	auto gmap = GetService<GameMap>();
-	auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();
-	ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", position));
-	globalData->GainCombo();
-	fx->SetLevel((Score)globalData->GetCombo());
+	auto spawner = gmap->GetSpawnerManager();
+	auto fxPool = spawner != nullptr ? spawner->GetService<EffectPool>() : nullptr;
+	
+	if (fxPool != nullptr)
+	{
+		ScoreFX* fx = static_cast<ScoreFX*>(fxPool->CreateFX("fx-score", position));
+		globalData->GainCombo();
+		fx->SetLevel((Score)globalData->GetCombo());
+	}
 }
 
 Game::~Game()

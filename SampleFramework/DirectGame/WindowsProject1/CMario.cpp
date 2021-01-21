@@ -15,7 +15,7 @@
 void CMario::Awake()
 {
 	global = true;
-	alwaysUpdate = true;
+	// alwaysUpdate = true;
 	SetTag(ObjectTags::BigMario);
 	DebugOut(L"Mario Awake\n");
 	renderOrder = 1;
@@ -31,18 +31,18 @@ void CMario::Awake()
 	canCrouch = true;
 	input = nullptr;
 	mainCamera = nullptr;
-
-	// Init virtual key binds
-	virtualKeyBinds.insert({ marioKeySet.Left, false });
-	virtualKeyBinds.insert({ marioKeySet.Right, false });
-	virtualKeyBinds.insert({ marioKeySet.Jump, false });
-	virtualKeyBinds.insert({ marioKeySet.Attack, false });
-	virtualKeyBinds.insert({ marioKeySet.Crouch, false });
 }
 
 void CMario::Start()
 {
 	SetState("Idle");
+
+	// Init virtual key binds
+	virtualKeyBinds[marioKeySet.Left] = false;
+	virtualKeyBinds[marioKeySet.Right] = false;
+	virtualKeyBinds[marioKeySet.Jump] = false;
+	virtualKeyBinds[marioKeySet.Attack] = false;
+	virtualKeyBinds[marioKeySet.Crouch] = false;
 
 	this->rigidbody->SetGravity(MARIO_GRAVITY);
 	this->rigidbody->SetDynamic(true);
@@ -99,11 +99,11 @@ void CMario::Update()
 	auto curVelocity = velocity.x;
 	if (autoControl || 
 		(CanControl() && !controller->IsActing() && (input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right))) || 
-		(CanControl() &&  controller->IsActing() && (virtualKeyBinds.at(marioKeySet.Left) || virtualKeyBinds.at(marioKeySet.Right)))
+		(CanControl() &&  controller->IsActing() && (virtualKeyBinds[marioKeySet.Left] || virtualKeyBinds[marioKeySet.Right]))
 		)
 	{
 		// Accelerate velocity based on moving states
-		if ((input->GetKeyDown(marioKeySet.Attack) || virtualKeyBinds.at(marioKeySet.Attack)) && !autoControl)
+		if ((input->GetKeyDown(marioKeySet.Attack) || virtualKeyBinds[marioKeySet.Attack]) && !autoControl)
 		{
 			physicState.movement = MovingStates::Run;
 			rigidbody->SetAcceleration(skid ? MARIO_SKID_ACCELERATION : MARIO_RUN_ACCELERATION);
@@ -128,9 +128,9 @@ void CMario::Update()
 		}
 		else
 		{
-			if (input->GetKeyDown(marioKeySet.Left) || virtualKeyBinds.at(marioKeySet.Left) && CanControl())
+			if (input->GetKeyDown(marioKeySet.Left) || virtualKeyBinds[marioKeySet.Left] && CanControl())
 				targetVelocityX = -1 * constSpeed, nx = -1;
-			else if (input->GetKeyDown(marioKeySet.Right) || virtualKeyBinds.at(marioKeySet.Right) && CanControl())
+			else if (input->GetKeyDown(marioKeySet.Right) || virtualKeyBinds[marioKeySet.Right] && CanControl())
 				targetVelocityX = +1 * constSpeed, nx = +1;
 		}
 		
@@ -410,13 +410,13 @@ void CMario::FinishLevel()
 void CMario::HoldVirtualKey(int keyCode)
 {
 	if (virtualKeyBinds.find(keyCode) != virtualKeyBinds.end())
-		virtualKeyBinds.at(keyCode) = true;
+		virtualKeyBinds[keyCode] = true;
 }
 
 void CMario::ReleaseVirtualKey(int keyCode)
 {
 	if (virtualKeyBinds.find(keyCode) != virtualKeyBinds.end())
-		virtualKeyBinds.at(keyCode) = false;
+		virtualKeyBinds[keyCode] = false;
 }
 
 void CMario::PressVirtualKeyDown(int keyCode)
@@ -831,7 +831,7 @@ void CMario::CrouchDetection(InputHandler* input)
 	physicState.jump == JumpingStates::Stand && 
 		(input->GetKeyDown(marioKeySet.Left) || input->GetKeyDown(marioKeySet.Right));
 
-	if ((input->GetKeyDown(marioKeySet.Crouch) || virtualKeyBinds.at(marioKeySet.Crouch)) && exitConditions == false)
+	if ((input->GetKeyDown(marioKeySet.Crouch) || virtualKeyBinds[marioKeySet.Crouch]) && exitConditions == false)
 	{
 		colliders->at(0)->SetBoxSize(MARIO_SMALL_BBOX);
 		Vector2 delta = Vector2(0, MARIO_BBOX.y - MARIO_SMALL_BBOX.y);
@@ -855,7 +855,7 @@ void CMario::HoldProcess()
 
 	if (hold)
 	{
-		if (input->GetKeyDown(marioKeySet.Attack) || virtualKeyBinds.at(marioKeySet.Attack))
+		if (input->GetKeyDown(marioKeySet.Attack) || virtualKeyBinds[marioKeySet.Attack])
 		{
 			auto delta = 0.4f * (heldInHandsObject->GetColliderBox() + MARIO_BBOX);
 			heldInHandsObject->SetHoldablePosition(
@@ -887,7 +887,7 @@ void CMario::JumpState()
 
 	auto velocity = rigidbody->GetVelocity();
 	auto jumpForce = MARIO_JUMP_FORCE;
-	canHighJump = input->GetKeyDown(marioKeySet.Jump) || virtualKeyBinds.at(marioKeySet.Jump);
+	canHighJump = input->GetKeyDown(marioKeySet.Jump) || virtualKeyBinds[marioKeySet.Jump];
 
 	if (canHighJump)
 	{

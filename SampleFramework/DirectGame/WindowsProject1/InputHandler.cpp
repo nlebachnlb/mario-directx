@@ -3,6 +3,7 @@
 
 void InputHandler::Initialization()
 {
+	enabled = true;
 	HRESULT
 		hr = DirectInput8Create
 		(
@@ -81,6 +82,7 @@ void InputHandler::SetKeyEventHandler(KeyEventHandler keyHandler)
 
 void InputHandler::ProcessKeyboard()
 {
+	if (!enabled) return;
 	HRESULT hr;
 
 	// Collect all key states first

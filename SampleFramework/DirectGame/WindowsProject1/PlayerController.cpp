@@ -137,12 +137,12 @@ void PlayerController::SwitchToState(std::string state)
 		auto castFx = static_cast<MarioFX*>(fx);
 		castFx->SetController(this);
 		canvas->LoseGame();
-		Game::GetInstance().GetData()->SetPowerup("SmallMario");
+		if (!acting) Game::GetInstance().GetData()->SetPowerup("SmallMario");
 		return;
 	}
 
 	targetState = state;
-	Game::GetInstance().GetData()->SetPowerup(state);
+	if (!acting) Game::GetInstance().GetData()->SetPowerup(state);
 
 	auto gmap = Game::GetInstance().GetService<GameMap>();
 	if (gmap == nullptr)

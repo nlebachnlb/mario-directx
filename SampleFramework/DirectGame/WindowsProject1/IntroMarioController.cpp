@@ -1,4 +1,5 @@
 #include "IntroMarioController.h"
+#include "MainMenuScene.h"
 #include "Game.h"
 
 void IntroMarioController::Awake()
@@ -32,6 +33,9 @@ void IntroMarioController::Start()
 	mAct = 0;
 	mtimer = ltimer = gtimer = 0;
 	phase = 0;
+
+	auto input = Game::GetInstance().GetService<InputHandler>();
+	input->enabled = false;
 }
 
 void IntroMarioController::Update()
@@ -125,6 +129,7 @@ void IntroMarioController::LuigiActionScript()
 		{
 			luigiState->ReleaseVirtualKey(luigiState->marioKeySet.Right);
 			luigiState->ReleaseVirtualKey(luigiState->marioKeySet.Jump);
+			luigiState->SetActive(false);
 			lAct = 4;
 		}
 	}
@@ -231,11 +236,56 @@ void IntroMarioController::MarioActionScript()
 	break;
 	case 8:
 	{
-		if (marioState->GetTransform().Position.x > 824 + 32)
+		if (marioState->GetTransform().Position.x > 600 + 32)
 		{
 			marioState->ReleaseVirtualKey(marioState->marioKeySet.Attack);
 			marioState->ReleaseVirtualKey(marioState->marioKeySet.Right);
+			marioState->HoldVirtualKey(marioState->marioKeySet.Left);
 			mAct = 9;
+		}
+	}
+	break;
+	case 9:
+	{
+		if (marioState->GetTransform().Position.x < 432 + 32)
+		{
+			marioState->ReleaseVirtualKey(marioState->marioKeySet.Left);
+			mAct = 10;
+			mtimer = 0;
+		}
+	}
+	break;
+	case 10:
+	{
+		mtimer += dt;
+		if (mtimer > 1000)
+		{
+			mtimer = 0;
+			marioState->SetRenderOrder(-1);
+			marioState->HoldVirtualKey(marioState->marioKeySet.Right);
+			mAct = 11;
+		}
+	}
+	break;
+	case 11:
+	{
+		if (marioState->GetTransform().Position.x > 660)
+		{
+			marioState->ReleaseVirtualKey(marioState->marioKeySet.Right);
+			mAct = 12;
+			mtimer = 0;
+		}
+	}
+	break;
+	case 12:
+	{
+		mtimer += dt;
+		if (mtimer > 1000)
+		{
+			mtimer = 0;
+			auto input = Game::GetInstance().GetService<InputHandler>();
+			input->enabled = true;
+			Game::GetInstance().GetService<SceneManager>()->LoadScene(new MainMenuScene());
 		}
 	}
 	break;

@@ -24,6 +24,8 @@ public:
 
 	void AddVirtualKeyBind(int keyCode);
 	// bool GetVirtualKeyDown(int keyCode);
+
+	bool enabled = true;
 	
 private:
 	LPDIRECTINPUT8       di;								// The DirectInput object         

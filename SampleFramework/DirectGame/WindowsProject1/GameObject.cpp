@@ -196,6 +196,11 @@ void CGameObject::SetRotation(float rotation, RotationUnits unit)
 	transform->Rotation = rotation * (unit == Degree ? PI / 180.0f : 1.0f);
 }
 
+void CGameObject::SetRenderOrder(int value)
+{
+	renderOrder = value;
+}
+
 int CGameObject::GetRenderOrder()
 {
 	return this->renderOrder;

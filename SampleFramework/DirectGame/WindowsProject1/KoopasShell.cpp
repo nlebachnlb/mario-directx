@@ -154,9 +154,9 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 		{
 			if (enemy->IsDead() == false)
 			{
-				Vector2 pos = transform->Position;
 				if (!noWithdraw)
 				{
+					Vector2 pos = transform->Position;
 					auto gmap = Game::GetInstance().GetService<GameMap>();
 					auto spawner = gmap != nullptr ? gmap->GetSpawnerManager() : nullptr;
 					auto fxPool = spawner != nullptr ? spawner->GetService<EffectPool>() : nullptr;
@@ -165,7 +165,10 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 				enemy->OnDead(true);
 			}
 
-			if (running && tag == enemy->GetTag()) OnDead(true);
+			if (running && tag == enemy->GetTag()) 
+			{ 
+				OnDead(true); 
+			}
 			else if (IsHeld())
 			{
 				auto holderTag = holder->GetTag();
