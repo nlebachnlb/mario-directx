@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "KoopaSpawner.h"
 #include "EffectPool.h"
+#include "AbstractBlock.h"
 
 void RedKoopa::Start()
 {
@@ -29,6 +30,7 @@ void RedKoopa::Movement()
 
 void RedKoopa::InitAnimations()
 {
+	bumpOneHit = false;
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Walk", animations->Get("ani-red-koopa-troopa-move"));
 	AddAnimation("Die", animations->Get("ani-red-koopa-troopa-shell-idle"));
@@ -88,6 +90,13 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 			collision->collider->GetGameObject()->GetTag() == ObjectTags::GhostPlatform || 
 			collision->collider->GetGameObject()->GetTag() == ObjectTags::Block)
 		{
+			if (collision->collider->GetGameObject()->GetTag() == ObjectTags::Block)
+			{
+				auto block = static_cast<AbstractBlock*>(collision->collider->GetGameObject());
+				if (block->IsBumped())
+					hit = true, OnDead(false);
+			}
+
 			auto otherBox = collision->collider->GetBoundingBox();
 			auto bbox = colliders->at(0)->GetBoundingBox();
 

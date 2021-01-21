@@ -6,6 +6,7 @@
 
 void GreenKoopa::InitAnimations()
 {
+	bumpOneHit = false;
 	auto animations = Game::GetInstance().GetService<AnimationDatabase>();
 	AddAnimation("Walk", animations->Get("ani-green-koopa-troopa-move"));
 	AddAnimation("Die", animations->Get("ani-green-koopa-troopa-shell-idle"));

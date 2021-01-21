@@ -12,6 +12,7 @@ void KoopasShell::Awake()
 	renderOrder = 5;
 	rigidbody->SetDrag(Vector2(KOOPAS_SHELL_DRAG_FORCE, 0));
 	noWithdraw = false;
+	bumpOneHit = false;
 }
 
 void KoopasShell::Start()

@@ -38,6 +38,7 @@ void KoopaParatroopa::OnEnabled()
 {
 	AbstractEnemy::OnEnabled();
 	rigidbody->SetVelocity(&Vector2(direction * KOOPA_PARATROOPA_MOVING_SPEED, 0));
+	bumpOneHit = false;
 }
 
 Vector2 KoopaParatroopa::GetBoxSize()

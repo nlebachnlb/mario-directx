@@ -18,6 +18,7 @@ void QuestionBlock::Start()
 	SetTag(ObjectTags::Block);
 	SetState("Sealed");
 	bouncingState = 0;
+	beingBumped = false;
 }
 
 void QuestionBlock::LateUpdate()
@@ -46,6 +47,7 @@ void QuestionBlock::LateUpdate()
 		visualRelativePosition.y += BOUNCE_VEL * Game::DeltaTime();
 		if (GetTickCount() - lastTick > BOUNCE_TIME)
 		{
+			beingBumped = false;
 			visualRelativePosition.y = 0, bouncingState = 0;
 			if (containedItem.quantity <= 0) bouncingState = -1;
 
@@ -80,6 +82,7 @@ void QuestionBlock::Bounce(GameObject obj)
 {
 	if (bouncingState == 0)
 	{
+		beingBumped = true;
 		lastTick = GetTickCount(), bouncingState = 1;
 
 		switch (containedItem.type)

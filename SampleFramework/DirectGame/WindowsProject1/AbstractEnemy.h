@@ -10,6 +10,7 @@ public:
 	virtual void Update() override;
 	virtual void LateUpdate() override;
 	virtual void OnEnabled() override;
+	virtual void OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> collisions);
 
 	virtual void Movement() = 0;
 	virtual void InitAnimations() = 0;
@@ -26,5 +27,6 @@ protected:
 	float time;
 	bool dead;
 	int facing, direction;
+	bool bumpOneHit = true;
 };
 

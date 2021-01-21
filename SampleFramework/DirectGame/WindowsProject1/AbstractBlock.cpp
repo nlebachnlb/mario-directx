@@ -2,6 +2,7 @@
 
 void AbstractBlock::Awake()
 {
+	beingBumped = false;
 	isStatic = true;
 	SetTag(ObjectTags::Block);
 
@@ -17,4 +18,9 @@ void AbstractBlock::Awake()
 void AbstractBlock::SetFreeze(bool value)
 {
 	timeFreeze = value;
+}
+
+bool AbstractBlock::IsBumped()
+{
+	return beingBumped;
 }

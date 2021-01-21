@@ -12,9 +12,11 @@ public:
 	void Awake() override;
 	virtual void Bounce(GameObject obj) = 0;
 	void SetFreeze(bool value);
+	bool IsBumped();
 
 protected:
 	virtual void InitAnimation() = 0;
 	bool timeFreeze;
+	bool beingBumped;
 };
 
