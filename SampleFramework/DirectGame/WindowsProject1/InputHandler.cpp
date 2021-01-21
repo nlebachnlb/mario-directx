@@ -82,7 +82,6 @@ void InputHandler::SetKeyEventHandler(KeyEventHandler keyHandler)
 
 void InputHandler::ProcessKeyboard()
 {
-	if (!enabled) return;
 	HRESULT hr;
 
 	// Collect all key states first
@@ -120,14 +119,17 @@ void InputHandler::ProcessKeyboard()
 	}
 
 	// Scan through all buffered events, check if the key is pressed or released
-	for (DWORD i = 0; i < dwElements; i++)
+	if (enabled)
 	{
-		int KeyCode = keyEvents[i].dwOfs;
-		int KeyState = keyEvents[i].dwData;
-		if ((KeyState & 0x80) > 0)
-			keyEventHandler->OnKeyDown(KeyCode);
-		else
-			keyEventHandler->OnKeyUp(KeyCode);
+		for (DWORD i = 0; i < dwElements; i++)
+		{
+			int KeyCode = keyEvents[i].dwOfs;
+			int KeyState = keyEvents[i].dwData;
+			if ((KeyState & 0x80) > 0)
+				keyEventHandler->OnKeyDown(KeyCode);
+			else
+				keyEventHandler->OnKeyUp(KeyCode);
+		}
 	}
 }
 
@@ -143,11 +145,13 @@ void InputHandler::ReleaseVirtualKey(int keyCode)
 
 bool InputHandler::GetKeyDown(int keyCode)
 {
+	if (!enabled) return false;
 	return (keyStates[keyCode] & 0x80) > 0;
 }
 
 bool InputHandler::GetKeyUp(int keyCode)
 {
+	if (!enabled) return true;
 	return (keyStates[keyCode] & 0x80) == 0;
 }
 
