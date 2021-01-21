@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractEnemy.h"
 
-const int BOOMERANG_BRO_MOVEDELTA = 48 * 2;
+const int BOOMERANG_BRO_MOVEDELTA = 48 * 3;
 const float BOOMERANG_BRO_SPEED = 0.1f;
 const Vector2	BOOMERANG_BRO_BBOX(16 * 3 - 8, 16 * 3 - 8);
 const PhysicMaterial BOOMERANG_BRO_PHYSIC_MATERIAL(Vector2(BOOMERANG_BRO_SPEED, 0), 0);
@@ -14,6 +14,7 @@ class BoomerangBrother : public AbstractEnemy
 {
 public:
 	void Awake() override;
+	void OnEnabled() override;
 	void Start() override;
 	void Movement() override;
 	void OnDead(bool oneHit) override;
@@ -24,9 +25,12 @@ public:
 protected:
 	Vector2 GetBoxSize()	override;
 	void UpdateDirection();
+	void ThrowBoomerang();
 
 private:
-	int movingPhase;
-	int timer;
+	int movingPhase, throwingPhase;
+	int timer, timer1;
+	bool poolRegistered;
+	ObjectPool pool;
 };
 

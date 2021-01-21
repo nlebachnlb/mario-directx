@@ -2,6 +2,7 @@
 #include "AnimationDatabase.h"
 #include "Game.h"
 #include "Mathf.h"
+#include "Boomerang.h"
 
 void BoomerangBrother::Awake()
 {
@@ -11,13 +12,40 @@ void BoomerangBrother::Awake()
 	rigidbody->SetGravity(BOOMERANG_BRO_GRAVITY);
 
 	visualRelativePosition.y = -6;
+
+	auto boomerang = Instantiate<Boomerang>();
+	boomerang->owner = this;
+	boomerang->SetPool(&pool);
+	pool.Add(boomerang);
+
+	boomerang = Instantiate<Boomerang>();
+	boomerang->owner = this;
+	boomerang->SetPool(&pool);
+	pool.Add(boomerang);
+}
+
+void BoomerangBrother::OnEnabled()
+{
+	AbstractEnemy::OnEnabled();
+	UpdateDirection();
+	if (!poolRegistered)
+	{
+		auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+		if (scene != nullptr)
+		{
+			// DebugOut(L"Venus regis\n");
+			pool.RegisterPoolToScene(scene);
+			poolRegistered = true;
+		}
+	}
 }
 
 void BoomerangBrother::Start()
 {
 	SetState("Walk");
 	movingPhase = 0;
-	timer = 0;
+	throwingPhase = 0;
+	timer = timer1 = 0;
 }
 
 void BoomerangBrother::Movement()
@@ -73,6 +101,42 @@ void BoomerangBrother::Movement()
 
 	UpdateDirection();
 	transform->Scale.x = -direction;
+
+	switch (throwingPhase)
+	{
+	case 0:
+	{
+		timer1 += dt;
+		if (timer1 > 4000)
+		{
+			timer1 = 0;
+			ThrowBoomerang();
+			throwingPhase = 1;
+		}
+	}
+	break;
+	case 1:
+	{
+		timer1 += dt;
+		if (timer1 > 2000)
+		{
+			timer1 = 0;
+			ThrowBoomerang();
+			throwingPhase = 2;
+		}
+	}
+	break;
+	case 2:
+	{
+		timer1 += dt;
+		if (timer1 > 1000)
+		{
+			timer1 = 0;
+			throwingPhase = 0;
+		}
+	}
+	break;
+	}
 }
 
 void BoomerangBrother::OnDead(bool oneHit)
@@ -103,4 +167,17 @@ void BoomerangBrother::UpdateDirection()
 {
 	if (player == nullptr) player = Game::GetInstance().FindGameObjectWithTag(ObjectTags::Player, true);
 	direction = player == nullptr ? -1 : Mathf::Sign(player->GetTransform().Position.x - transform->Position.x);
+}
+
+void BoomerangBrother::ThrowBoomerang()
+{
+	auto obj = pool.Instantiate();
+
+	if (obj != nullptr)
+	{
+		auto boomerang = static_cast<Boomerang*>(obj);
+		boomerang->facing = direction;
+		boomerang->SetPosition(transform->Position - Vector2(0, 16));
+		boomerang->Start();
+	}
 }

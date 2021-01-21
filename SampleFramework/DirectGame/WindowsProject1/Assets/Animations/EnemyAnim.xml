@@ -203,30 +203,30 @@
 
     <!--Boomerang Brother-->
     <!-- Animation MOVE-->
-    <Animation aniId="ani-boomerang-brother-move" frameTime="100">
+    <Animation aniId="ani-boomerang-brother-move" frameTime="200">
       <Sprite id="spr-boomerang-brother-move-0" left="33" top="171"  width="16" height="24"/>
       <Sprite id="spr-boomerang-brother-move-1" left="57" top="171"  width="16" height="24"/>
     </Animation>
     <!-- Animation ATTACK-->
-    <Animation aniId="ani-boomerang-brother-attack" frameTime="100">
+    <Animation aniId="ani-boomerang-brother-attack" frameTime="200">
       <Sprite id="spr-boomerang-brother-attack-0" left="80" top="171"  width="16" height="24"/>
       <Sprite id="spr-boomerang-brother-attack-1" left="103" top="171"  width="16" height="24"/>
     </Animation>
 
     <!--Hammer Brother-->
     <!-- Animation MOVE-->
-    <Animation aniId="ani-hammer-brother-move" frameTime="100">
+    <Animation aniId="ani-hammer-brother-move" frameTime="200">
       <Sprite id="spr-hammer-brother-move-0" left="175" top="112"  width="16" height="24"/>
       <Sprite id="spr-hammer-brother-move-1" left="178" top="143"  width="16" height="24"/>
     </Animation>
     <!-- Animation ATTACK-->
-    <Animation aniId="ani-hammer-brother-attack" frameTime="100">
+    <Animation aniId="ani-hammer-brother-attack" frameTime="200">
       <Sprite id="spr-hammer-brother-attack-0" left="179" top="173"  width="16" height="24"/>
       <Sprite id="spr-hammer-brother-attack-1" left="179" top="202"  width="16" height="24"/>
     </Animation>
 
     <!--Boomerang-->
-    <Animation aniId="ani-boomerang-spin" frameTime="70">
+    <Animation aniId="ani-boomerang-spin" frameTime="100">
       <Sprite id="spr-boomerang-spin-0" left="124" top="166"  width="15" height="16"/>
       <Sprite id="spr-boomerang-spin-1" left="144" top="166"  width="16" height="15"/>
       <Sprite id="spr-boomerang-spin-2" left="145" top="186"  width="16" height="15"/>

@@ -666,6 +666,9 @@
     <ClInclude Include="BoomerangBrother.h">
       <Filter>GameSource\GameObjects\Enemies\Brothers</Filter>
     </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>GameSource\GameObjects\Projectiles\HostileProjectiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -1109,6 +1112,9 @@
     </ClCompile>
     <ClCompile Include="BoomerangBrother.cpp">
       <Filter>GameSource\GameObjects\Enemies\Brothers</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>GameSource\GameObjects\Projectiles\HostileProjectiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
