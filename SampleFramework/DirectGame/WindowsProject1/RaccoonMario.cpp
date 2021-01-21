@@ -27,8 +27,10 @@ void RaccoonMario::Start()
 void RaccoonMario::OnAnimationEnd()
 {
 	if (currentState.compare("Attack") == 0 || 
-		currentState.compare("Float") == 0)
+		currentState.compare("Float") == 0 || 
+		currentState.compare("Kick") == 0)
 	{
+		kick = false;
 		attacking = false;
 		if (animations.find(lastState) == animations.end())
 			lastState = "Idle";
@@ -120,7 +122,7 @@ void RaccoonMario::InitAnimations()
 	AddAnimation("HoldIdle", animations->Get("ani-raccoon-mario-hold-idle"));
 	AddAnimation("HoldMove", animations->Get("ani-raccoon-mario-hold"));
 	AddAnimation("HoldJump", animations->Get("ani-raccoon-mario-hold-jump"));
-	AddAnimation("Kick", animations->Get("ani-raccoon-mario-kick"));
+	AddAnimation("Kick", animations->Get("ani-raccoon-mario-kick"), false);
 
 	AddAnimation("WarpHor", animations->Get("ani-raccoon-mario-walk"));
 	AddAnimation("WarpVer", animations->Get("ani-raccoon-mario-idle-front"));

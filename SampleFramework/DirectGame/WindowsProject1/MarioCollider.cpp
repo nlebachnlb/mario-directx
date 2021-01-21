@@ -176,6 +176,7 @@ void MarioCollider::HorizontalCollisionProcess(std::vector<CollisionEvent*>& col
 				// Otherwise, he kicks it
 				else
 				{
+					mario->Kick();
 					shell->SetFacing(mario->GetFacing());
 					if (shell->IsRunning() == false)
 					{

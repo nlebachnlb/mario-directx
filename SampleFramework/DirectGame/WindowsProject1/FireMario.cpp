@@ -62,7 +62,7 @@ void FireMario::InitAnimations()
 	AddAnimation("HoldIdle", animations->Get("ani-fire-mario-hold-idle"));
 	AddAnimation("HoldMove", animations->Get("ani-fire-mario-hold"));
 	AddAnimation("HoldJump", animations->Get("ani-fire-mario-hold-jump"));
-	AddAnimation("Kick", animations->Get("ani-fire-mario-kick"));
+	AddAnimation("Kick", animations->Get("ani-fire-mario-kick"), false);
 
 	AddAnimation("WarpHor", animations->Get("ani-fire-mario-walk"));
 	AddAnimation("WarpVer", animations->Get("ani-fire-mario-idle-front"));
@@ -84,9 +84,11 @@ void FireMario::MovementAnimation()
 
 void FireMario::OnAnimationEnd()
 {
-	if (currentState.compare("Attack") == 0)
+	if (currentState.compare("Attack") == 0 || 
+		currentState.compare("Kick") == 0)
 	{
 		attacking = false;
+		kick = false;
 		if (animations.find(lastState) == animations.end())
 			lastState = "Idle";
 		SetState(lastState);

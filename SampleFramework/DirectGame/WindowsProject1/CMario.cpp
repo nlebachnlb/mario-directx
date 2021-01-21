@@ -424,6 +424,11 @@ void CMario::PressVirtualKeyDown(int keyCode)
 	OnKeyDown(keyCode);
 }
 
+void CMario::Kick()
+{
+	kick = true;
+}
+
 #pragma region Keyboard
 
 void CMario::OnKeyDown(int keyCode)
@@ -715,6 +720,17 @@ void CMario::OnDamaged(AbstractEnemy* enemy)
 	}
 }
 
+void CMario::OnAnimationEnd()
+{
+	if (currentState.compare("Kick") == 0)
+	{
+		kick = false;
+		if (animations.find(lastState) == animations.end())
+			lastState = "Idle";
+		SetState(lastState);
+	}
+}
+
 #pragma endregion
 
 #pragma region Animation
@@ -735,7 +751,7 @@ void CMario::InitAnimations()
 	AddAnimation("HoldIdle",	animations->Get("ani-big-mario-hold-idle"));
 	AddAnimation("HoldMove",	animations->Get("ani-big-mario-hold"));
 	AddAnimation("HoldJump",	animations->Get("ani-big-mario-hold-jump"));
-	AddAnimation("Kick",		animations->Get("ani-big-mario-kick"));
+	AddAnimation("Kick",		animations->Get("ani-big-mario-kick"), false);
 
 	AddAnimation("WarpHor", animations->Get("ani-big-mario-walk"));
 	AddAnimation("WarpVer", animations->Get("ani-big-mario-idle-front"));
@@ -744,6 +760,12 @@ void CMario::InitAnimations()
 void CMario::MovementAnimation()
 {
 	auto animation = GetState(currentState);
+
+	if (kick)
+	{
+		if (currentState.compare("Kick") != 0) SetState("Kick");
+		return;
+	}
 
 	if (physicState.movement == MovingStates::Idle)
 	{
@@ -867,6 +889,7 @@ void CMario::HoldProcess()
 		}
 		else
 		{
+			Kick();
 			ReleaseInHandObject();
 		}
 	}

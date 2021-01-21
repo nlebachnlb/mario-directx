@@ -95,6 +95,7 @@ public:
 	virtual void OnOverlapped(Collider2D*, Collider2D*) override;
 	virtual void OnSolidOverlappedExit() override;
 	virtual void OnDamaged(AbstractEnemy* enemy);
+	virtual void OnAnimationEnd() override;
 
 	// State Interface implementation
 	virtual void Entrance()		override;
@@ -133,6 +134,8 @@ public:
 	void ReleaseVirtualKey(int keyCode);
 	void PressVirtualKeyDown(int keyCode);
 
+	void Kick();
+
 	MarioKeySet marioKeySet;
 
 protected:
@@ -148,7 +151,7 @@ protected:
 	bool maxRun;
 	bool runningRestriction; // If this flag is turned on, run state will be restricted
 	bool canWarp;
-	bool hold;
+	bool hold, kick;
 	int warp;
 	WarpDirection warpDirection;
 
@@ -178,7 +181,6 @@ private:
 	void StandState();
 	void FeverProcess();
 
-	bool animationKick;
 	bool skid, run;
 	bool canHighJump, deflect, autoControl;
 

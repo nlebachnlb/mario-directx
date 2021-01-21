@@ -61,8 +61,8 @@
       <Sprite id="spr-small-mario-hold-0" left="435" top="8"  width="14" height="16" frameTime="100"/>
     </Animation>
 		<!-- Animation KICK-->
-		<Animation aniId="ani-small-mario-kick" frameTime="100" name="KICK">
-			<Sprite id="spr-small-mario-kick-0" left="470" top="8"  width="16" height="16" frameTime="100"/>
+		<Animation aniId="ani-small-mario-kick" frameTime="200" name="KICK">
+			<Sprite id="spr-small-mario-kick-0"/>
 		</Animation>
 		<!-- Animation DIVE-->
 		<Animation aniId="ani-small-mario-dive" frameTime="100" name="DIVE">
@@ -156,8 +156,8 @@
     </Animation>
     
 		<!-- Animation KICK-->
-		<Animation aniId="ani-big-mario-kick" frameTime="100" name="KICK">
-			<Sprite id="spr-big-mario-kick-0" left="488" top="48"  width="21" height="27" frameTime="100"/>
+		<Animation aniId="ani-big-mario-kick" frameTime="200" name="KICK">
+			<Sprite id="spr-big-mario-kick-0"/>
 		</Animation>
 		<!-- Animation DIVE-->
 		<Animation aniId="ani-big-mario-dive" frameTime="100" name="DIVE">
@@ -276,8 +276,8 @@
       <Sprite id="spr-raccoon-mario-hold-0" left="566" top="142"  width="21" height="28" frameTime="100"/>
     </Animation>
 		<!-- Animation KICK-->
-		<Animation aniId="ani-raccoon-mario-kick" frameTime="100" name="KICK">
-			<Sprite id="spr-raccoon-mario-kick-0" left="641" top="142"  width="22" height="28" frameTime="100"/>
+		<Animation aniId="ani-raccoon-mario-kick" frameTime="200" name="KICK">
+			<Sprite id="spr-raccoon-mario-kick-0"/>
 		</Animation>
 		<!-- Animation DIVE-->
 		<Animation aniId="ani-raccoon-mario-dive" frameTime="100" name="DIVE">
@@ -394,8 +394,8 @@
       <Sprite id="spr-fire-mario-hold-0" left="477" top="109"  width="14" height="27" frameTime="100"/>
     </Animation>
 		<!-- Animation KICK -->
-		<Animation aniId="ani-fire-mario-kick" frameTime="100" name="KICK">
-			<Sprite id="spr-fire-mario-kick-0" left="531" top="109"  width="21" height="27" frameTime="100"/>
+		<Animation aniId="ani-fire-mario-kick" frameTime="200" name="KICK">
+			<Sprite id="spr-fire-mario-kick-0"/>
 		</Animation>
 		<!-- Animation DIVE -->
 		<Animation aniId="ani-fire-mario-dive" frameTime="100" name="DIVE">
