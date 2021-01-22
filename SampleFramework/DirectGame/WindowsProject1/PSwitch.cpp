@@ -39,6 +39,9 @@ void PSwitch::OnOverlapped(Collider2D* self, Collider2D* other)
 		auto canvas = static_cast<MainCanvas*>(Canvas::GetCanvas("main"));
 		canvas->SwitchCoinBrick(true);
 		canvas->StartSwitchTimer();
+
+		auto scene = Game::GetInstance().GetService<SceneManager>()->GetActiveScene();
+		if (scene != nullptr) scene->GetMainCamera()->Shake(500);
 	}
 }
 

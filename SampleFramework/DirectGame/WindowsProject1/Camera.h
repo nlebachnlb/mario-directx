@@ -60,6 +60,8 @@ public:
 	void LockCamera();
 	void UnlockCamera();
 
+	void Shake(int timeout);
+
 	void SetScrollMode(ScrollMode mode);
 	ScrollMode GetScrollMode();
 
@@ -92,6 +94,7 @@ private:
 	bool initialized;
 	RectF lastBoundary;
 	Vector2 renderOffset;
+	int shaking, shakingTimer;
 
 	float timer; 
 	int currentPathNode;

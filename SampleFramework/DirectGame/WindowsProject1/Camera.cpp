@@ -39,6 +39,18 @@ void Camera::Update()
     case ScrollMode::Targeting: TargetingMode(); break;
     case ScrollMode::Automatic: AutoscrollingMode(); break;
     }
+
+    if (shakingTimer > 0)
+    {
+        shakingTimer -= Game::DeltaTime() * Game::GetTimeScale();
+        //shaking = 6 * Mathf::Cos((2 * Mathf::Pi / 30.0f) * shakingTimer);
+        shaking = Random::Range(-8, 8);
+    }
+    else
+    {
+        shaking = 0;
+        shakingTimer = 0;
+    }
 }
 
 void Camera::Render(std::vector<GameObject>& objs)
@@ -84,7 +96,7 @@ void Camera::Render(std::vector<GameObject>& objs)
                     tile->SetSourceRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
 
                     Vector2 finalPosition(xGrid * tileWidth, yGrid * tileHeight);
-                    finalPosition = finalPosition + translation + renderOffset;
+                    finalPosition = finalPosition + translation + renderOffset + Vector2(shaking, 0);
                     tile->Draw(finalPosition.x, finalPosition.y);
                 }
             }
@@ -92,7 +104,7 @@ void Camera::Render(std::vector<GameObject>& objs)
     }
 
     for (auto o : objs)
-        if (o->IsEnabled()) o->Render(-(GetPosition() - renderOffset));
+        if (o->IsEnabled()) o->Render(-(GetPosition() - renderOffset - Vector2(shaking, 0)));
 }
 
 bool Camera::RectInsideCameraView(RectF rect, int boundThickness)
@@ -206,6 +218,11 @@ void Camera::LockCamera()
 void Camera::UnlockCamera()
 {
     boundaryLocked = 1;
+}
+
+void Camera::Shake(int timeout)
+{
+    shakingTimer = timeout;
 }
 
 void Camera::SetScrollMode(ScrollMode mode)
