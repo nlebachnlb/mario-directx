@@ -158,6 +158,17 @@ void BoomerangBrother::InitAnimations()
 	AddAnimation("Attack", animations->Get("ani-boomerang-brother-attack"));
 }
 
+void BoomerangBrother::OnOverlapped(Collider2D* self, Collider2D* other)
+{
+	if (other->GetGameObject()->GetTag() == ObjectTags::MarioAttack)
+	{
+		//DebugOut(L"Goomba die\n");
+		this->OnDead(true);
+		other->GetGameObject()->SetActive(false);
+		other->GetGameObject()->GetColliders()->at(0)->Disable();
+	}
+}
+
 Vector2 BoomerangBrother::GetBoxSize()
 {
 	return BOOMERANG_BRO_BBOX;

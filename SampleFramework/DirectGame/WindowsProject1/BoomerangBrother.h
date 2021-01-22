@@ -19,6 +19,7 @@ public:
 	void Movement() override;
 	void OnDead(bool oneHit) override;
 	void InitAnimations() override;
+	void OnOverlapped(Collider2D* self, Collider2D* other) override;
 
 	Vector2 startPosition;
 
