@@ -56,7 +56,8 @@ void RedKoopa::OnDead(bool oneHit)
 		auto koopaSpawner = gameMap->GetSpawnerManager()->GetService<KoopaSpawner>();
 		auto delta = Vector2(0, KOOPA_BBOX.y - KOOPAS_SHELL_BBOX.y);
 		auto shell = koopaSpawner->InstantiateShell(transform->Position + delta * 0.5f, KoopasShellType::Red);
-	
+		//shell->GetRigidbody()->SetVelocity(&VectorZero());
+
 		if (hit)
 		{
 			shell->OnDead(false);

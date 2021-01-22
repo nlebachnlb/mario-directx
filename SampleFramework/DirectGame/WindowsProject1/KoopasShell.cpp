@@ -27,6 +27,7 @@ void KoopasShell::Start()
 	time = 0;
 	Release();
 	StopRunning();
+	rigidbody->SetVelocity(&VectorZero());
 	running = false;
 
 	transform->Scale.y = 1;
@@ -128,11 +129,13 @@ void KoopasShell::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEve
 	{
 		auto otherTag = collision->collider->GetGameObject()->GetTag();
 
-		if (otherTag == ObjectTags::Block && running)
+		if (otherTag == ObjectTags::Block)
 		{
-			if (collision->collisionDirection.y != 0) continue;
 			auto block = static_cast<AbstractBlock*>(collision->collider->GetGameObject());
-			block->Bounce(this);
+			if (running && !collision->collisionDirection.y != 0)
+				block->Bounce(this);
+			if (block->IsBumped() && collision->collisionDirection.y < 0)
+				OnDead(false);
 		}
 	}
 }
@@ -163,6 +166,9 @@ void KoopasShell::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollid
 					auto fxPool = spawner != nullptr ? spawner->GetService<EffectPool>() : nullptr;
 					fxPool->CreateFX("fx-hit-star", pos);
 				}
+				auto vel = enemy->GetRigidbody()->GetVelocity();
+				vel.x = facing * KOOPAS_SHELL_HITBACK_SPEED;
+				enemy->GetRigidbody()->SetVelocity(&vel);
 				enemy->OnDead(true);
 			}
 

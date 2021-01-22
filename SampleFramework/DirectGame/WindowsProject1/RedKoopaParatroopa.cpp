@@ -13,6 +13,7 @@ void RedKoopaParatroopa::Start()
 
 void RedKoopaParatroopa::Movement()
 {
+	if (dead) return;
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 	lifeTime += dt;
 	auto a = amplitude;
