@@ -31,7 +31,8 @@ void RaccoonLeaf::Update()
 	{
 		if (Mathf::Abs(transform->Position.y - startPosition.y) <= LEAF_REVEAL_DISTANCE)
 		{
-			rigidbody->SetVelocity(&Vector2(0, -LEAF_REVEAL_FORCE));
+			auto vel = Vector2(0, -LEAF_REVEAL_FORCE);
+			rigidbody->SetVelocity(&vel);
 		}
 		else
 		{
@@ -42,7 +43,10 @@ void RaccoonLeaf::Update()
 	if (rigidbody->GetVelocity().y > 0 && !falling) falling = true;
 
 	if (falling && rigidbody->GetVelocity().y > LEAF_FALLING_VEL)
-		rigidbody->SetVelocity(&Vector2(0, LEAF_FALLING_VEL));
+	{
+		auto vel = Vector2(0, LEAF_FALLING_VEL);
+		rigidbody->SetVelocity(&vel);
+	}
 
 	auto dt = Game::DeltaTime() * Game::GetTimeScale();
 	transform->Position = transform->Position + rigidbody->GetVelocity() * dt;

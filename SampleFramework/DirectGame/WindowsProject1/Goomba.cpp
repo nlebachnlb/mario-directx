@@ -35,7 +35,8 @@ void Goomba::OnDead(bool oneHit)
 		time = GOOMBA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform->Scale.y = -1;
-		rigidbody->SetVelocity(&Vector2(-1 * rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT));
+		auto vel = Vector2(-1 * rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT);
+		rigidbody->SetVelocity(&vel);
 		SetState("Idle");
 		dead = true;
 	}
@@ -53,7 +54,8 @@ void Goomba::OnDead(bool oneHit)
 void Goomba::OnEnabled()
 {
 	AbstractEnemy::OnEnabled();
-	rigidbody->SetVelocity(&Vector2(direction * GOOMBA_MOVING_SPEED, 0));
+	auto vel = Vector2(direction * GOOMBA_MOVING_SPEED, 0);
+	rigidbody->SetVelocity(&vel);
 }
 
 void Goomba::OnOverlapped(Collider2D* selfCollider, Collider2D* otherCollider)

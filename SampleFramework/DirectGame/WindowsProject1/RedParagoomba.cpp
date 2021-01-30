@@ -93,7 +93,8 @@ void RedParagoomba::OnDead(bool oneHit)
 		time = GOOMBA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform->Scale.y = -1;
-		rigidbody->SetVelocity(&Vector2(-1 * rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT));
+		auto vel = Vector2(-1 * rigidbody->GetVelocity().x, GOOMBA_DEFLECTION_ON_SHOT);
+		rigidbody->SetVelocity(&vel);
 		SetState("Idle");
 		dead = true;
 	}
@@ -103,7 +104,8 @@ void RedParagoomba::OnDead(bool oneHit)
 		auto goombaSpawner = gameMap->GetSpawnerManager()->GetService<GoombaSpawner>();
 
 		auto goomba = goombaSpawner->Spawn("enm-red-goomba", transform->Position);
-		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, 0));
+		auto vel = Vector2(rigidbody->GetVelocity().x, 0);
+		rigidbody->SetVelocity(&vel);
 		rigidbody->PassDataTo(goomba->GetRigidbody());
 		time = -1;
 		dead = true;

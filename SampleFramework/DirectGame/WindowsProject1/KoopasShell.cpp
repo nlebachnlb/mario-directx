@@ -27,7 +27,8 @@ void KoopasShell::Start()
 	time = 0;
 	Release();
 	StopRunning();
-	rigidbody->SetVelocity(&VectorZero());
+	auto vel = VectorZero();
+	rigidbody->SetVelocity(&vel);
 	running = false;
 
 	transform->Scale.y = 1;
@@ -38,12 +39,16 @@ void KoopasShell::Start()
 void KoopasShell::Movement()
 {
 	rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY * (IsHeld() ? 0 : 1));
-	rigidbody->SetVelocity(IsHeld() ? &VectorZero() : &rigidbody->GetVelocity());
+	auto vel = IsHeld() ? VectorZero() : rigidbody->GetVelocity();
+	rigidbody->SetVelocity(&vel);
 	// DebugOut(L"Shell vel: %f\n", rigidbody->GetVelocity().y);
 
 	if (!running) rigidbody->GenerateDragForce();
 	else if (rigidbody->GetVelocity().x == 0)
-		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y));
+	{
+		auto vel = Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y);
+		rigidbody->SetVelocity(&vel);
+	}
 
 	if (noWithdraw) return;
 
@@ -108,7 +113,8 @@ void KoopasShell::OnDead(bool oneHit)
 		colliders->at(0)->Disable();
 		transform->Scale.y = -1;
 		StopRunning();
-		rigidbody->SetVelocity(&Vector2(-facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
+		auto vel = Vector2(-facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT);
+		rigidbody->SetVelocity(&vel);
 		SetState("Idle");
 		dead = true;
 		Game::GetInstance().GainComboChain(transform->Position);
@@ -118,7 +124,8 @@ void KoopasShell::OnDead(bool oneHit)
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
 		transform->Scale.y = -1;
 		StopRunning();
-		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT));
+		auto vel = Vector2(facing * KOOPAS_SHELL_HITBACK_SPEED, KOOPAS_SHELL_DEFLECTION_ON_SHOT);
+		rigidbody->SetVelocity(&vel);
 		SetState("Idle");
 	}
 }
@@ -226,7 +233,8 @@ void KoopasShell::Run()
 	if (!running)
 	{
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
-		rigidbody->SetVelocity(&Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y));
+		auto vel = Vector2(facing * KOOPAS_SHELL_MOVING_SPEED, rigidbody->GetVelocity().y);
+		rigidbody->SetVelocity(&vel);
 		SetState("Run");
 		running = true;
 		withdrawStep = 2;
@@ -238,7 +246,8 @@ void KoopasShell::StopRunning()
 	if (running)
 	{
 		rigidbody->SetGravity(KOOPAS_SHELL_GRAVITY);
-		rigidbody->SetVelocity(&Vector2(0, rigidbody->GetVelocity().y));
+		auto vel = Vector2(0, rigidbody->GetVelocity().y);
+		rigidbody->SetVelocity(&vel);
 		SetState("Idle");
 		running = false;
 		withdrawStep = 0;

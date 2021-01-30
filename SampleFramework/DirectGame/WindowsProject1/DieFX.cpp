@@ -31,7 +31,8 @@ void DieFX::Update()
 		{
 			timer = 0;
 			fxState = 1;
-			rigidbody->SetVelocity(&Vector2(0, -BOUNCE_FORCE));
+			auto vel = Vector2(0, -BOUNCE_FORCE);
+			rigidbody->SetVelocity(&vel);
 			rigidbody->SetGravity(DEFAULT_GRAVITY / 1.65f);
 			pos = transform->Position;
 		}

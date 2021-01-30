@@ -46,7 +46,8 @@ void RedKoopa::OnDead(bool oneHit)
 		time = KOOPA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform->Scale.y = -1;
-		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, KOOPA_DEFLECTION_ON_SHOT));
+		auto vel = Vector2(-rigidbody->GetVelocity().x, KOOPA_DEFLECTION_ON_SHOT);
+		rigidbody->SetVelocity(&vel);
 		SetState("Die");
 		dead = true;
 	}
@@ -77,7 +78,8 @@ void RedKoopa::OnDead(bool oneHit)
 void RedKoopa::OnEnabled()
 {
 	AbstractEnemy::OnEnabled();
-	rigidbody->SetVelocity(&Vector2(direction * KOOPA_MOVING_SPEED, 0));
+	auto vel = Vector2(direction * KOOPA_MOVING_SPEED, 0);
+	rigidbody->SetVelocity(&vel);
 }
 
 void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionEvent*> collisions)
@@ -112,7 +114,8 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 				auto cast = raycast->VerticalHit(shootPoint, VRayDirection::Down, collision->collider->GetGameObject()->GetTag(), 4);
 				if (!cast)
 				{
-					rigidbody->SetVelocity(&Vector2(-Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
+					auto vel = Vector2(-Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y);
+					rigidbody->SetVelocity(&vel);
 					// SetPosition(Vector2(otherBox.right - 1, transform.Position.y));
 					// DebugOut(L"BACK: %f\n", rigidbody->GetVelocity().x);
 				}
@@ -128,7 +131,8 @@ void RedKoopa::OnCollisionEnter(Collider2D* selfCollider, std::vector<CollisionE
 				auto cast = raycast->VerticalHit(shootPoint, VRayDirection::Down, collision->collider->GetGameObject()->GetTag(), 4);
 				if (!cast)
 				{
-					rigidbody->SetVelocity(&Vector2(+Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y));
+					auto vel = Vector2(+Mathf::Abs(rigidbody->GetVelocity().x), rigidbody->GetVelocity().y);
+					rigidbody->SetVelocity(&vel);
 					// SetPosition(Vector2(otherBox.left + 1, transform.Position.y));
 					 // DebugOut(L"BACK-left: %f\n", rigidbody->GetVelocity().x);
 				}

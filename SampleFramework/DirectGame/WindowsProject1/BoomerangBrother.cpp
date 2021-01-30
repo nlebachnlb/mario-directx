@@ -55,7 +55,8 @@ void BoomerangBrother::Movement()
 	{
 	case 0:
 	{
-		rigidbody->SetVelocity(&Vector2(+BOOMERANG_BRO_SPEED, 0));
+		auto vel = Vector2(+BOOMERANG_BRO_SPEED, 0);
+		rigidbody->SetVelocity(&vel);
 		movingPhase = 1;
 	}
 	break;
@@ -63,7 +64,8 @@ void BoomerangBrother::Movement()
 	{
 		if (transform->Position.x > startPosition.x + BOOMERANG_BRO_MOVEDELTA)
 		{
-			rigidbody->SetVelocity(&Vector2(0, 0));
+			auto vel = Vector2(0, 0);
+			rigidbody->SetVelocity(&vel);
 			movingPhase = 2;
 		}
 
@@ -81,7 +83,8 @@ void BoomerangBrother::Movement()
 			if (movingPhase == 2)
 			{
 				movingPhase = 3;
-				rigidbody->SetVelocity(&Vector2(-BOOMERANG_BRO_SPEED, 0));
+				auto vel = Vector2(-BOOMERANG_BRO_SPEED, 0);
+				rigidbody->SetVelocity(&vel);
 			}
 			else if (movingPhase == 4) movingPhase = 0;
 		}
@@ -93,7 +96,8 @@ void BoomerangBrother::Movement()
 		{
 			timer = 0;
 			movingPhase = 4;
-			rigidbody->SetVelocity(&Vector2(0, 0));
+			auto vel = Vector2(0, 0);
+			rigidbody->SetVelocity(&vel);
 		}
 	}
 	break;
@@ -147,7 +151,8 @@ void BoomerangBrother::OnDead(bool oneHit)
 	time = BOOMERANG_BRO_DEAD_TIME * 2;
 	colliders->at(0)->Disable();
 	transform->Scale.y = -1;
-	rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, oneHit ? BOOMERANG_BRO_DEFLECTION_ON_SHOT : 0));
+	auto vel = Vector2(-rigidbody->GetVelocity().x, oneHit ? BOOMERANG_BRO_DEFLECTION_ON_SHOT : 0);
+	rigidbody->SetVelocity(&vel);
 	dead = true;
 }
 

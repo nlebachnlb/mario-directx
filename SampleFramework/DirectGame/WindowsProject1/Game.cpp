@@ -84,7 +84,7 @@ void Game::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 	d3dpp.BackBufferWidth = configs.screenWidth = scrWidth;
 	d3dpp.BackBufferHeight = configs.screenHeight = scrHeight;
 	d3dpp.Flags = 0;
-	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
 	d3dpp.MultiSampleQuality = NULL;
 	d3dpp.BackBufferCount = 1;
@@ -412,10 +412,14 @@ void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTU
 	D3DXMATRIX oldMatrix, newMatrix;
 	spriteHandler->GetTransform(&oldMatrix);
 
-	D3DXMatrixTransformation2D(&newMatrix, &Vector2((int)x, (int)y), 0, &scale, &Vector2((int)x, (int)y), rotation, &VectorZero());
+	auto center = Vector2((int)x, (int)y);
+	auto translation = VectorZero();
+	D3DXMatrixTransformation2D(&newMatrix, &center, 0, &scale, &center, rotation, &translation);
 
 	spriteHandler->SetTransform(&newMatrix);
-	spriteHandler->Draw(texture, &rect, &Vector3(xPivot, yPivot, 0), &Vector3((int)x, (int)y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	auto pivot = Vector3(xPivot, yPivot, 0);
+	auto position = Vector3((int)x, (int)y, 0);
+	spriteHandler->Draw(texture, &rect, &pivot, &position, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
@@ -427,7 +431,9 @@ void Game::DrawTexture(float x, float y, int xPivot, int yPivot, LPDIRECT3DTEXTU
 	rect.right	= right;
 	rect.bottom = bottom;
 
-	spriteHandler->Draw(texture, &rect, &Vector3(xPivot, yPivot, 0), &Vector3((int)x, (int)y, 0), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	auto pivot = Vector3(xPivot, yPivot, 0);
+	auto position = Vector3((int)x, (int)y, 0);
+	spriteHandler->Draw(texture, &rect, &pivot, &position, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 std::string Game::GetSourcePathOf(std::string category, std::string id)

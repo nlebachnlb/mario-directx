@@ -24,5 +24,6 @@ void Green1UPMushroom::Start()
 void Green1UPMushroom::OnSproutCompleted()
 {
 	rigidbody->SetGravity(GREEN_MUSHROOM_GRAVITY);
-	rigidbody->SetVelocity(&Vector2(GREEN_MUSHROOM_SPEED * (Random::Range(0, 2) >= 1 ? 1 : -1), 0));
+	auto vel = Vector2(GREEN_MUSHROOM_SPEED * (Random::Range(0, 2) >= 1 ? 1 : -1), 0);
+	rigidbody->SetVelocity(&vel);
 }

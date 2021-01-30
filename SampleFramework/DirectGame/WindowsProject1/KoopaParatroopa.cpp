@@ -14,7 +14,8 @@ void KoopaParatroopa::OnDead(bool oneHit)
 		time = KOOPA_PARATROOPA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform->Scale.y = -1;
-		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, KOOPA_PARATROOPA_DEFLECTION_ON_SHOT));
+		auto vel = Vector2(-rigidbody->GetVelocity().x, KOOPA_PARATROOPA_DEFLECTION_ON_SHOT);
+		rigidbody->SetVelocity(&vel);
 		SetState("Die");
 		dead = true;
 	}
@@ -26,7 +27,8 @@ void KoopaParatroopa::OnDead(bool oneHit)
 		if (troopa == Troopa::Green) color = "green"; else color = "red";
 		auto name = "enm-" + color + "-koopa";
 		auto koopa = koopaSpawner->Spawn(name, transform->Position);
-		rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, 0));
+		auto vel = Vector2(rigidbody->GetVelocity().x, 0);
+		rigidbody->SetVelocity(&vel);
 		if (troopa == Troopa::Green) rigidbody->PassDataTo(koopa->GetRigidbody());
 
 		time = -1;
@@ -37,7 +39,8 @@ void KoopaParatroopa::OnDead(bool oneHit)
 void KoopaParatroopa::OnEnabled()
 {
 	AbstractEnemy::OnEnabled();
-	rigidbody->SetVelocity(&Vector2(direction * KOOPA_PARATROOPA_MOVING_SPEED, 0));
+	auto vel = Vector2(direction * KOOPA_PARATROOPA_MOVING_SPEED, 0);
+	rigidbody->SetVelocity(&vel);
 	bumpOneHit = false;
 }
 

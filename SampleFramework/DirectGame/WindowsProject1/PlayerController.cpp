@@ -201,7 +201,8 @@ void PlayerController::ContinueSwitchingState()
 	if (currentStateObject != nullptr)
 	{
 		stateGameObjects.at(state)->SetFacing(currentStateObject->GetFacing());
-		stateGameObjects.at(state)->GetRigidbody()->SetVelocity(&currentStateObject->GetRigidbody()->GetVelocity());
+		auto vel = currentStateObject->GetRigidbody()->GetVelocity();
+		stateGameObjects.at(state)->GetRigidbody()->SetVelocity(&vel);
 		stateGameObjects.at(state)->GetRigidbody()->SetGravity(currentStateObject->GetRigidbody()->GetGravity());
 		stateGameObjects.at(state)->GetRigidbody()->SetAcceleration(currentStateObject->GetRigidbody()->GetAcceleration());
 

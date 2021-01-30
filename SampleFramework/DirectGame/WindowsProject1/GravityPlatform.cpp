@@ -31,7 +31,8 @@ void GravityPlatform::OnTouch()
 {
 	if (touched) return;
 	startVelocity.x = 0;
-	rigidbody->SetVelocity(&VectorZero());
+	auto vel = VectorZero();
+	rigidbody->SetVelocity(&vel);
 	rigidbody->SetGravity(DEFAULT_GRAVITY / 4.0f);
 	touched = true;
 }

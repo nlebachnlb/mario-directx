@@ -268,7 +268,8 @@ int CMario::SetFacing(int facing)
 void CMario::Jump(float force, bool deflect)
 {
 	if (autoControl) return;
-	rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, -force));
+	auto vel = Vector2(rigidbody->GetVelocity().x, -force);
+	rigidbody->SetVelocity(&vel);
 	physicState.jump = JumpingStates::Jump;
 	posBeforeJump = transform->Position;
 	// DebugOut(L"Jump: %f\n", posBeforeJump.y);
@@ -481,7 +482,8 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 
 			if (collision->collisionDirection.y > 0)
 			{
-				rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, MARIO_BUMP_FORCE));
+				auto v = Vector2(rigidbody->GetVelocity().x, MARIO_BUMP_FORCE);
+				rigidbody->SetVelocity(&v);
 				if (physicState.jump == JumpingStates::Jump || physicState.jump == JumpingStates::High)
 					physicState.jump = JumpingStates::Fall;
 
@@ -491,7 +493,8 @@ void CMario::OnCollisionEnter(Collider2D* selfCollider, vector<CollisionEvent*> 
 
 			if (collision->collisionDirection.x != 0)
 			{
-				rigidbody->SetVelocity(&Vector2(0, rigidbody->GetVelocity().y));
+				auto v = Vector2(0, rigidbody->GetVelocity().y);
+				rigidbody->SetVelocity(&v);
 			}
 		}
 	}
@@ -832,7 +835,8 @@ void CMario::WarpProcess()
 		if (warp != 2)
 		{
 			auto dt = Game::DeltaTime() * Game::GetTimeScale();
-			rigidbody->SetVelocity(&Vector2(0, 0));
+			auto vel = Vector2(0, 0);
+			rigidbody->SetVelocity(&vel);
 			auto direction = WarpUtils::ToVector(warpDirection);
 			transform->Position += direction * MARIO_WARP_SPEED * dt;
 		}

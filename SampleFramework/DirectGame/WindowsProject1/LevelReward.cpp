@@ -48,7 +48,8 @@ void LevelReward::OnOverlapped(Collider2D* self, Collider2D* other)
 	{
 		auto mario = static_cast<CMario*>(other->GetGameObject());
 		mario->FinishLevel();
-		mario->GetRigidbody()->SetVelocity(&VectorZero());
+		auto vel = VectorZero();
+		mario->GetRigidbody()->SetVelocity(&vel);
 
 		auto gmap = Game::GetInstance().GetService<GameMap>();
 		auto fxPool = gmap->GetSpawnerManager()->GetService<EffectPool>();

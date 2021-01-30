@@ -23,7 +23,8 @@ void RedKoopaParatroopa::Movement()
 	auto phiy = Mathf::Pi / 2.0f;
 	auto vx = -omega * a.x * Mathf::Sin(omega * lifeTime + phix);
 	auto vy = +omega * a.y * Mathf::Cos(omega * lifeTime + phiy);
-	rigidbody->SetVelocity(&Vector2(vx, vy));
+	auto vel = Vector2(vx, vy);
+	rigidbody->SetVelocity(&vel);
 	// transform.Position = startPosition + Vector2(x, y);
 }
 

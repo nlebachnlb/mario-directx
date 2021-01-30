@@ -22,7 +22,8 @@ void GreenKoopa::OnDead(bool oneHit)
 		time = KOOPA_DEAD_TIME * 2;
 		colliders->at(0)->Disable();
 		transform->Scale.y = -1;
-		rigidbody->SetVelocity(&Vector2(-rigidbody->GetVelocity().x, KOOPA_DEFLECTION_ON_SHOT));
+		auto vel = Vector2(-rigidbody->GetVelocity().x, KOOPA_DEFLECTION_ON_SHOT);
+		rigidbody->SetVelocity(&vel);
 		SetState("Die");
 		dead = true;
 	}

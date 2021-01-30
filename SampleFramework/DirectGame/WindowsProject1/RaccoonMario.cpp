@@ -192,7 +192,8 @@ void RaccoonMario::LateUpdate()
 			if (pushing && !(GetTickCount() - lastPushingTime > RACCOON_FLOAT_TIME))
 			{
 				rigidbody->SetGravity(0.0f);
-				rigidbody->SetVelocity(&Vector2(rigidbody->GetVelocity().x, RACCOON_FLY_VELOCITY));
+				auto vel = Vector2(rigidbody->GetVelocity().x, RACCOON_FLY_VELOCITY);
+				rigidbody->SetVelocity(&vel);
 			}
 			else
 			{

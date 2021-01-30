@@ -24,7 +24,8 @@ void CoinObtainedFX::Awake()
 void CoinObtainedFX::Start()
 {
 	SetState("Default");
-	rigidbody->SetVelocity(&Vector2(0, -COIN_BOUNCE));
+	auto vel = Vector2(0, -COIN_BOUNCE);
+	rigidbody->SetVelocity(&vel);
 	rigidbody->SetGravity(COIN_GRAVITY);
 	transform->Scale.x = 0.8f;
 }

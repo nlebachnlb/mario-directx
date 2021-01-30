@@ -406,7 +406,8 @@ void GameMap::LoadEnvironment()
                         auto startVelY = stof(objects->at(i)->GetPropertyValue("start-velocity-y"));
                         obj->SetPosition(position);
                         obj->SetStartVelocity(Vector2(startVelX, startVelY));
-                        obj->GetRigidbody()->SetVelocity(&Vector2(startVelX, startVelY));
+                        auto vel = Vector2(startVelX, startVelY);
+                        obj->GetRigidbody()->SetVelocity(&vel);
                         this->gameObjects.push_back(obj);
                         this->objectIDs.push_back(oid);
 

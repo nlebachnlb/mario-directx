@@ -25,7 +25,8 @@ void Boomerang::Start()
 {
 	SetState("Default");
 	phase = 0;
-	rigidbody->SetVelocity(&Vector2(BOOMERANG_THROWN_VEL.x * facing, BOOMERANG_THROWN_VEL.y));
+	auto vel = Vector2(BOOMERANG_THROWN_VEL.x * facing, BOOMERANG_THROWN_VEL.y);
+	rigidbody->SetVelocity(&vel);
 }
 
 void Boomerang::Update()
